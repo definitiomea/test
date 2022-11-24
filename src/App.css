@@ -1,0 +1,105 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* 네브바 */
+.navbar {
+  display: flex;
+  height: 60px;
+  background-color: black;
+  box-sizing: border-box;
+}
+.navbar h1 {
+  margin: 0 0 0 20px;
+  padding: 0;
+  color: whitesmoke;
+}
+.navbar .nav-link {
+  margin-left: auto;
+  padding: 20px;
+  display: flex;
+}
+.navbar a, .nav-link a {
+  padding: 10px;
+  color: whitesmoke;
+  text-decoration: none;
+  align-self: center;
+}
+.nav-link a:first-child {
+  padding: 0 10px;
+}
+
+/* 메인(home) */
+.main-1,
+.main-2,
+.main-3 {
+  width: 100%;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main-1 {
+  background-color: darkgray;
+}
+.main-2 {
+  background-color: lightgray;
+}
+.main-3 {
+  background-color: dimgray;
+}
+
+/* outlet 공통
+   : 상품리스트, 상품상세, 장바구니, 마이페이지, 회원가입 */
+.wrap {
+  height: calc(100vh - 160px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* shop - 상품리스트 */
+.product-container {
+  display: flex;
+}
+.product-card {
+  width: 100px;
+  height: 100px;
+  background-color: grey;
+  margin: 20px;
+  cursor: pointer;
+}
+
+/* 회원가입 */
+.sign-up {
+  width: 300px;
+}
+.sign-up label, .sign-up input {
+  display: block;
+  width: 100%;
+  height: 30px;
+}
+.sign-up input {
+  margin-bottom: 10px;
+}
+
+/* 푸터 */
+.footer {
+  height: 100px;
+  width: 100%;
+  background-color: black;
+  color: whitesmoke;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+}
+.footer h1 {
+  margin: auto;
+}
+.hidden {
+  display: none;
+}
