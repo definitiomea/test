@@ -7,6 +7,7 @@ import Shop from './pages/Shop';
 import Cart from './pages/Cart';
 import MyPage from './pages/MyPage';
 import ProductDetail from './pages/ProductDetail';
+import NotFound from './pages/NotFound';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path='signup' element={<SignUp />} />
           <Route path='cart' element={<Cart />} />
           <Route path='mypage' element={<MyPage />} />
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
     </div>

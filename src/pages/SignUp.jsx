@@ -1,11 +1,8 @@
 const SignUp = () => {
-
   // 회원가입 완료가 되었다는 페이지를 따로 보여줄지
   // 회원가입이 완료되면 main(home)이나 shop으로 이동
 
-  const signIn = () => {
-
-  }
+  const signIn = () => {};
 
   return (
     <div className="wrap">
