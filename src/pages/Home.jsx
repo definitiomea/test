@@ -15,7 +15,6 @@ const Home = () => {
       </div>
       <div className="main-3">
         <h2>푸터를 대체할 크레딧 ㅣ SNS</h2>
-        <p>branch test</p>
       </div>
     </div>
   );
