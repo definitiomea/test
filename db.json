@@ -7,7 +7,7 @@
             "price": "9,500",
             "color": ["#25262a", "#1253bb", "#b43546", "#f6f7fb"],
             "size": ["S", "M", "L"],
-            "img": [],
+            "img": ["short-slim-black-front.jpg", "short-slim-black-back.jpg", "short-slim-blue-front.jpg", "short-slim-blue-back.jpg", "short-slim-red-front.jpg", "short-slim-red-back.jpg", "short-slim-white-front.jpg", "short-slim-white-back.jpg"],
             "explane": []
         },
         {
@@ -17,7 +17,7 @@
             "price": "9,500",
             "color": ["#3e5284", "#c5c9cc", "#d7a58a", "#e4e7ec"],
             "size": ["S", "M", "L"],
-            "img": [],
+            "img": ["short-stnadard-blue-front.jpg", "short-stnadard-blue-back.jpg", "short-stnadard-gray-front.jpg", "short-stnadard-gray-back.jpg", "short-stnadard-orange-front.jpg", "short-stnadard-orange-back.jpg", "short-stnadard-white-front.jpg", "short-stnadard-white-back.jpg"],
             "explane": []
         },
         {
@@ -27,7 +27,7 @@
             "price": "9,500",
             "color": ["#beb9b3", "#2d2d35", "#324e73", "#9ca5ae"],
             "size": ["S", "M", "L"],
-            "img": [],
+            "img": ["short-relax-beige-front.jpg", "short-relax-beige-back.jpg", "short-relax-black-front.jpg", "short-relax-black-back.jpg", "short-relax-blue-front.jpg", "short-relax-blue-back.jpg", "short-relax-gray-front.jpg", "short-relax-gray-back.jpg"],
             "explane": []
         },
         {
@@ -37,7 +37,7 @@
             "price": "9,500",
             "color": ["#1d1e22", "#0e875a", "#d6595d", "#f4d278"],
             "size": ["S", "M", "L"],
-            "img": [],
+            "img": ["long-slim-black-front.jpg", "long-slim-black-back.jpg", "long-slim-green-front.jpg", "long-slim-green-back.jpg", "long-slim-red-front.jpg", "long-slim-red-back.jpg", "long-slim-yellow-front.jpg", "long-slim-yellow-back.jpg"],
             "explane": []
         },
         {
@@ -47,7 +47,7 @@
             "price": "9,500",
             "color": ["#1d1c22", "#e5e3e8", "#acadb2", "#f6f6f6"],
             "size": ["S", "M", "L"],
-            "img": [],
+            "img": ["long-standard-black-front.jpg", "long-standard-black-back.jpg", "long-standard-cream-front.jpg", "long-standard-cream-back.jpg", "long-standard-gray-front.jpg", "long-standard-gray-back.jpg", "long-standard-white-front.jpg", "long-standard-white-back.jpg"],
             "explane": []
         },
         {
@@ -57,7 +57,7 @@
             "price": "9,500",
             "color": ["#d7d2cc", "#1c1b20", "#435a79", "#807d74"],
             "size": ["S", "M", "L"],
-            "img": [],
+            "img": ["long-relax-beige-front.jpg", "long-relax-beige-back.jpg", "long-relax-black-front.jpg", "long-relax-black-back.jpg", "long-relax-blue-front.jpg", "long-relax-blue-back.jpg", "long-relax-khaki-front.jpg", "long-relax-khaki-back.jpg"],
             "explane": []
         }
     ]
