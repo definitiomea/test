@@ -1,0 +1,64 @@
+{
+    "productList": [
+        {
+            "category": "short",
+            "productID": 1,
+            "productName": "slim fit",
+            "price": "9,500",
+            "color": ["#25262a", "#1253bb", "#b43546", "#f6f7fb"],
+            "size": ["S", "M", "L"],
+            "img": [],
+            "explane": []
+        },
+        {
+            "category": "short",
+            "productID": 2,
+            "productName": "standard fit",
+            "price": "9,500",
+            "color": ["#3e5284", "#c5c9cc", "#d7a58a", "#e4e7ec"],
+            "size": ["S", "M", "L"],
+            "img": [],
+            "explane": []
+        },
+        {
+            "category": "short",
+            "productID": 3,
+            "productName": "relax fit",
+            "price": "9,500",
+            "color": ["#beb9b3", "#2d2d35", "#324e73", "#9ca5ae"],
+            "size": ["S", "M", "L"],
+            "img": [],
+            "explane": []
+        },
+        {
+            "category": "long",
+            "productID": 4,
+            "productName": "slim fit",
+            "price": "9,500",
+            "color": ["#1d1e22", "#0e875a", "#d6595d", "#f4d278"],
+            "size": ["S", "M", "L"],
+            "img": [],
+            "explane": []
+        },
+        {
+            "category": "long",
+            "productID": 5,
+            "productName": "standard fit",
+            "price": "9,500",
+            "color": ["#1d1c22", "#e5e3e8", "#acadb2", "#f6f6f6"],
+            "size": ["S", "M", "L"],
+            "img": [],
+            "explane": []
+        },
+        {
+            "category": "long",
+            "productID": 6,
+            "productName": "relax fit",
+            "price": "9,500",
+            "color": ["#d7d2cc", "#1c1b20", "#435a79", "#807d74"],
+            "size": ["S", "M", "L"],
+            "img": [],
+            "explane": []
+        }
+    ]
+}
