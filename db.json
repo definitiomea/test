@@ -1,6 +1,7 @@
 {
     "productList": [
         {
+            "id": 1,
             "category": "short",
             "productID": 1,
             "productName": "slim fit",
@@ -12,6 +13,7 @@
             "explane": []
         },
         {
+            "id": 2,
             "category": "short",
             "productID": 2,
             "productName": "standard fit",
@@ -23,6 +25,7 @@
             "explane": []
         },
         {
+            "id": 3,
             "category": "short",
             "productID": 3,
             "productName": "relax fit",
@@ -34,6 +37,7 @@
             "explane": []
         },
         {
+            "id": 4,
             "category": "long",
             "productID": 4,
             "productName": "slim fit",
@@ -45,6 +49,7 @@
             "explane": []
         },
         {
+            "id": 5,
             "category": "long",
             "productID": 5,
             "productName": "standard fit",
@@ -56,6 +61,7 @@
             "explane": []
         },
         {
+            "id": 6,
             "category": "long",
             "productID": 6,
             "productName": "relax fit",
