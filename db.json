@@ -1,0 +1,76 @@
+{
+    "productList": [
+        {
+            "id": 1,
+            "category": "short",
+            "productID": 1,
+            "productName": "슬림 핏",
+            "price": "9,500",
+            "color": ["#25262a", "#1253bb", "#b43546", "#f6f7fb"],
+            "size": ["S", "M", "L"],
+            "productImg": ["short-slim-black-front.jpg", "short-slim-black-back.jpg", "short-slim-blue-front.jpg", "short-slim-blue-back.jpg", "short-slim-red-front.jpg", "short-slim-red-back.jpg", "short-slim-white-front.jpg", "short-slim-white-back.jpg"],
+            "thumbnail": ["short-slim-black-front.jpg", "short-slim-blue-front.jpg", "short-slim-red-front.jpg", "short-slim-white-front.jpg"],
+            "explane": []
+        },
+        {
+            "id": 2,
+            "category": "short",
+            "productID": 2,
+            "productName": "스탠다드 핏",
+            "price": "9,500",
+            "color": ["#3e5284", "#c5c9cc", "#d7a58a", "#e4e7ec"],
+            "size": ["S", "M", "L"],
+            "productImg": ["short-stnadard-blue-front.jpg", "short-stnadard-blue-back.jpg", "short-stnadard-gray-front.jpg", "short-stnadard-gray-back.jpg", "short-stnadard-orange-front.jpg", "short-stnadard-orange-back.jpg", "short-stnadard-white-front.jpg", "short-stnadard-white-back.jpg"],
+            "thumbnail": ["short-stnadard-blue-front.jpg", "short-stnadard-gray-front.jpg", "short-stnadard-orange-front.jpg", "short-stnadard-white-front.jpg"],
+            "explane": []
+        },
+        {
+            "id": 3,
+            "category": "short",
+            "productID": 3,
+            "productName": "릴렉스 핏",
+            "price": "9,500",
+            "color": ["#beb9b3", "#2d2d35", "#324e73", "#9ca5ae"],
+            "size": ["S", "M", "L"],
+            "productImg": ["short-relax-beige-front.jpg", "short-relax-beige-back.jpg", "short-relax-black-front.jpg", "short-relax-black-back.jpg", "short-relax-blue-front.jpg", "short-relax-blue-back.jpg", "short-relax-gray-front.jpg", "short-relax-gray-back.jpg"],
+            "thumbnail": ["short-relax-beige-front.jpg", "short-relax-black-front.jpg", "short-relax-blue-front.jpg", "short-relax-gray-front.jpg"],
+            "explane": []
+        },
+        {
+            "id": 4,
+            "category": "long",
+            "productID": 4,
+            "productName": "슬림 핏",
+            "price": "9,500",
+            "color": ["#1d1e22", "#0e875a", "#d6595d", "#f4d278"],
+            "size": ["S", "M", "L"],
+            "productImg": ["long-slim-black-front.jpg", "long-slim-black-back.jpg", "long-slim-green-front.jpg", "long-slim-green-back.jpg", "long-slim-red-front.jpg", "long-slim-red-back.jpg", "long-slim-yellow-front.jpg", "long-slim-yellow-back.jpg"],
+            "thumbnail": ["long-slim-black-front.jpg", "long-slim-green-front.jpg", "long-slim-red-front.jpg", "long-slim-yellow-front.jpg"],
+            "explane": []
+        },
+        {
+            "id": 5,
+            "category": "long",
+            "productID": 5,
+            "productName": "스탠다드 핏",
+            "price": "9,500",
+            "color": ["#1d1c22", "#e5e3e8", "#acadb2", "#f6f6f6"],
+            "size": ["S", "M", "L"],
+            "productImg": ["long-standard-black-front.jpg", "long-standard-black-back.jpg", "long-standard-cream-front.jpg", "long-standard-cream-back.jpg", "long-standard-gray-front.jpg", "long-standard-gray-back.jpg", "long-standard-white-front.jpg", "long-standard-white-back.jpg"],
+            "thumbnail": ["long-standard-black-front.jpg", "long-standard-cream-front.jpg", "long-standard-gray-front.jpg", "long-standard-white-front.jpg"],
+            "explane": []
+        },
+        {
+            "id": 6,
+            "category": "long",
+            "productID": 6,
+            "productName": "릴렉스 핏",
+            "price": "9,500",
+            "color": ["#d7d2cc", "#1c1b20", "#435a79", "#807d74"],
+            "size": ["S", "M", "L"],
+            "productImg": ["long-relax-beige-front.jpg", "long-relax-beige-back.jpg", "long-relax-black-front.jpg", "long-relax-black-back.jpg", "long-relax-blue-front.jpg", "long-relax-blue-back.jpg", "long-relax-khaki-front.jpg", "long-relax-khaki-back.jpg"],
+            "thumbnail": ["long-relax-beige-front.jpg", "long-relax-black-front.jpg", "long-relax-blue-front.jpg", "long-relax-khaki-front.jpg"],
+            "explane": []
+        }
+    ]
+}

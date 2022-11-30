@@ -67,8 +67,8 @@ html {
   display: flex;
 }
 .product-card {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   background-color: grey;
   margin: 20px;
   cursor: pointer;
