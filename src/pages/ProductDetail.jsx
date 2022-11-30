@@ -19,7 +19,7 @@ const ProductDetail = () => {
   const { id } = useParams(); // id : productlist {id}
 
   const getProduct = async () => {
-    let url = `http://localhost:5000/productList/${id}`;
+    let url = `https://my-json-server.typicode.com/hans-4303/test/productList/${id}`;
     let response = await fetch(url);
     let data = await response.json();
     setProductList(data);

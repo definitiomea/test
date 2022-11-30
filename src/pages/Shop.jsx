@@ -12,7 +12,7 @@ const Shop = () => {
   const [thumbNailList, setThumbNailList] = useState(null);
 
   const getThumbNailList = async () => {
-    let url = `http://localhost:5000/productList/`;
+    let url = `https://my-json-server.typicode.com/hans-4303/test/productList`;
     let response = await fetch(url);
     let data = await response.json();
     setThumbNailList(data);
