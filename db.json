@@ -69,7 +69,7 @@
             "color": ["#d7d2cc", "#1c1b20", "#435a79", "#807d74"],
             "size": ["S", "M", "L"],
             "productImg": ["long-relax-beige-front.jpg", "long-relax-beige-back.jpg", "long-relax-black-front.jpg", "long-relax-black-back.jpg", "long-relax-blue-front.jpg", "long-relax-blue-back.jpg", "long-relax-khaki-front.jpg", "long-relax-khaki-back.jpg"],
-            "thumbnail": [],
+            "thumbnail": ["long-relax-beige-front.jpg", "long-relax-black-front.jpg", "long-relax-blue-front.jpg", "long-relax-khaki-front.jpg"],
             "explane": []
         }
     ]

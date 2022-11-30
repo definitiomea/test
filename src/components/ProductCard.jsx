@@ -20,7 +20,7 @@ const ProductCard = (props) => {
           width: "10px",
           height: "10px",
           color: color[i],
-          border: `1px ${color[i]} solid`,
+          border: `1px solid transparent`,
           borderRadius: "50%",
           backgroundColor: color[i],
           zIndex: 1
