@@ -38,6 +38,21 @@ const ProductDetail = () => {
         {productList ? <p>{productList.id}</p> : ""}
         {productList ? <p>{productList.productName}</p> : ""}
         {productList ? <p>{productList.price}</p> : ""}
+
+        {/* 원하는 객체가 있는지 삼항 연산자, 콘솔로 찍어봤을 때
+        거짓 경우(객체 로딩 중) -> 참 경우(객체 로딩 완료)로 넘어가면서
+        둘 다가 찍힌다.
+        
+        그래서, 로딩 되기 전의 거짓 경우와 로딩 되었을 때의 참 경우 둘 다가 필요하고,
+        객체가 있는지를 "?"를 통해 한번 더 체크해야 한다. */}
+
+        {productList ? console.log("OK") : console.log("not yet")}
+        {productList?.category == "short" ?
+        <img src={require(`../img/shirts-img/short/${productList.productImg[0]}`)} style={{maxWidth: "30%"}}></img> : 
+        ""}
+        {productList?.category == "long" ?
+        <img src={require(`../img/shirts-img/long/${productList.productImg[0]}`)} style={{maxWidth: "30%"}}></img> : 
+        ""}
       </div>
     </div>
   );
