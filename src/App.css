@@ -123,3 +123,7 @@ html {
   justify-content: center;
   align-items: center;
 }
+.product-button {
+  display: flex;
+  flex-direction: column;
+}

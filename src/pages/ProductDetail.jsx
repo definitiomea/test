@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { productAction } from "../redux/actions/productAction";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
+import Button from '@mui/material/Button';
 import Slider from "react-slick";
 
 const ProductDetail = () => {
@@ -41,6 +44,13 @@ const ProductDetail = () => {
 
   return (
     <div className="product-area">
+      <div className="product-button">
+        <Button variant="contained" color="success" onClick={() => {alert("ABC")}}>앞/뒤</Button>
+        <Button variant="contained" color="success">사진 업로드</Button>
+        <Button variant="contained" color="success">사진 삭제</Button>
+        <Button variant="contained" color="success">텍스트</Button>
+        <Button variant="contained" color="success">이미지 편집</Button>
+      </div>
         <div className="product-detail">
         {/* <h1>상품 디테일 페이지</h1> */}
         <Slider {...settings}>
@@ -60,6 +70,21 @@ const ProductDetail = () => {
             {productList ? <p>{productList.id}</p> : ""}
             {productList ? <p>{productList.productName}</p> : ""}
             {productList ? <p>{productList.price}</p> : ""}
+            <div style={{display: "flex"}}>
+              {productList ? productList.color.map((color) => 
+                <div style={{width: "15px", height: "15px", border: "1px solid transparent", borderRadius: "50%", backgroundColor: color}}></div>) :
+              ""}
+            </div>
+
+            <select style={{width: "100px"}}>
+              {productList?.size.map((size) => <option>{size}</option>)}
+            </select>
+
+            <div>
+              <Button><FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon></Button>
+              <Button>구매하기</Button>
+            </div>
+            
 
             {/* 원하는 객체가 있는지 삼항 연산자, 콘솔로 찍어봤을 때
             거짓 경우(객체 로딩 중) -> 참 경우(객체 로딩 완료)로 넘어가면서
