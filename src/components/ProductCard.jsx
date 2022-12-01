@@ -42,7 +42,7 @@ const ProductCard = (props) => {
     >
       <Slider {...settings}>
         <p onClick={() => {navigate("/shop/" + thumbNail.id)}}>
-          {thumbNail.category == "short" ? "short" : "long"}
+          {/* {thumbNail.category == "short" ? "short" : "long"} */}
           <br />
           {thumbNail.category == "short" ?
           <img src={require(`../img/shirts-img/short/${thumbNail.thumbnail[0]}`)} style={{maxWidth: "80%"}}></img> : 
@@ -53,7 +53,7 @@ const ProductCard = (props) => {
           {thumbNail.price}
         </p>
         <p onClick={() => {navigate("/shop/" + thumbNail.id)}}>
-          {thumbNail.category == "short" ? "short" : "long"}
+          {/* {thumbNail.category == "short" ? "short" : "long"} */}
           <br />
           {thumbNail.category == "short" ?
           <img src={require(`../img/shirts-img/short/${thumbNail.thumbnail[1]}`)} style={{maxWidth: "80%"}}></img> : 
@@ -64,7 +64,7 @@ const ProductCard = (props) => {
           {thumbNail.price}
         </p>
         <p onClick={() => {navigate("/shop/" + thumbNail.id)}}>
-          {thumbNail.category == "short" ? "short" : "long"}
+          {/* {thumbNail.category == "short" ? "short" : "long"} */}
           <br />
           {thumbNail.category == "short" ?
           <img src={require(`../img/shirts-img/short/${thumbNail.thumbnail[2]}`)} style={{maxWidth: "80%"}}></img> : 
@@ -75,7 +75,7 @@ const ProductCard = (props) => {
           {thumbNail.price}
         </p>
         <p onClick={() => {navigate("/shop/" + thumbNail.id)}}>
-          {thumbNail.category == "short" ? "short" : "long"}
+          {/* {thumbNail.category == "short" ? "short" : "long"} */}
           <br />
           {thumbNail.category == "short" ?
           <img src={require(`../img/shirts-img/short/${thumbNail.thumbnail[3]}`)} style={{maxWidth: "80%"}}></img> : 
