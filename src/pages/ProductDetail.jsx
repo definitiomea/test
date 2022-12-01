@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { productAction } from "../redux/actions/productAction";
+/* import { useDispatch, useSelector } from "react-redux"; */
+/* import { productAction } from "../redux/actions/productAction"; */
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import Button from '@mui/material/Button';
-import Slider from "react-slick";
+/* import Slider from "react-slick"; */
 
 const ProductDetail = () => {
   /* const dispatch = useDispatch();
@@ -20,6 +20,7 @@ const ProductDetail = () => {
   ]); */
 
   const [productList, setProductList] = useState(null);
+  const [img, setImg] = useState(null);
 
   const { id } = useParams(); // id : productlist {id}
 
@@ -30,54 +31,56 @@ const ProductDetail = () => {
     setProductList(data);
   }
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
-  }
-
   useEffect(() => {
     getProduct();
-  },[id]);
+  }, [id]);
+
+  useEffect(()=>{
+    if(productList != null) {
+      setImg(productList.productImg[0])
+    }
+  }, [productList])
+
+  const flipShirts = () => {
+    for(let i = 0; i < productList.productImg.length; i++) {
+      if(img == productList.productImg[i] && i % 2 == 0) {
+        setImg(productList.productImg[i + 1]);
+      }
+      else if(img == productList.productImg[i] && i % 2 == 1) {
+        setImg(productList.productImg[i - 1]);
+      }
+    }
+  }
 
   return (
     <div className="product-area">
       <div className="product-button">
-        <Button variant="contained" color="success" onClick={() => {alert("ABC")}}>앞/뒤</Button>
+        <Button variant="contained" color="success" onClick={() => {flipShirts()}}>앞/뒤</Button>
         <Button variant="contained" color="success">사진 업로드</Button>
         <Button variant="contained" color="success">사진 삭제</Button>
         <Button variant="contained" color="success">텍스트</Button>
         <Button variant="contained" color="success">이미지 편집</Button>
       </div>
         <div className="product-detail">
-        {/* <h1>상품 디테일 페이지</h1> */}
-        <Slider {...settings}>
-            {productList?.category == "short" ?
-            productList.productImg.map((img) => 
-              <div className="img-box"><img className="product-img" src={require(`../img/shirts-img/short/${img}`)}>
-            </img></div>) : 
-            ""}
-            {productList?.category == "long" ?
-            productList.productImg.map((img) => 
-              <div className="img-box"><img className="product-img" src={require(`../img/shirts-img/long/${img}`)}>
-            </img></div>) : 
-            ""}
-        </Slider>
+        {productList?.category == "short" && img != null ?
+          <div className="img-box"><img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img></div> : 
+        ""}
+        {productList?.category == "long" && img != null ?
+          <div className="img-box"><img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img></div> : 
+        ""}
         </div>
         <div>
             {productList ? <p>{productList.id}</p> : ""}
             {productList ? <p>{productList.productName}</p> : ""}
             {productList ? <p>{productList.price}</p> : ""}
             <div style={{display: "flex"}}>
-              {productList ? productList.color.map((color) => 
-                <div style={{width: "15px", height: "15px", border: "1px solid transparent", borderRadius: "50%", backgroundColor: color}}></div>) :
+              {productList ? productList.color.map((color, index) => 
+                <div style={{width: "15px", height: "15px", border: "1px solid transparent", borderRadius: "50%", backgroundColor: color}} onClick={() => {setImg(productList.productImg[index * 2])}} key={index}></div>) :
               ""}
             </div>
 
             <select style={{width: "100px"}}>
-              {productList?.size.map((size) => <option>{size}</option>)}
+              {productList?.size.map((size, index) => <option key={index}>{size}</option>)}
             </select>
 
             <div>
