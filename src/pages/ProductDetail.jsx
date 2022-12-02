@@ -58,8 +58,6 @@ const ProductDetail = () => {
   const readyCanvas = () => {
     setCvsAct(true);
     cvs.current.backgroundColor = "#FFFFFF";
-    cvs.current.width = "200px";
-    cvs.current.height = "200px";
   }
 
   return (
@@ -75,13 +73,13 @@ const ProductDetail = () => {
         {productList?.category == "short" && img != null ?
           <div className="img-box">
             <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img>
-            {cvsAct ? <canvas ref={cvs}></canvas> : ""}
+            {cvsAct ? <canvas ref={cvs} style={{position: "absolute", left: "0px", top: "0px", width: "100px", height: "100px", backgroundColor: "#FFFFFF"}}></canvas> : ""}
           </div> : 
         ""}
         {productList?.category == "long" && img != null ?
           <div className="img-box">
             <img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img>
-            {cvsAct ? <canvas ref={cvs}></canvas> : ""}
+            {cvsAct ? <canvas ref={cvs} style={{position: "absolute", left: "0px", top: "0px", width: "100px", height: "100px", backgroundColor: "#FFFFFF"}}></canvas> : ""}
           </div> : 
         ""}
         </div>

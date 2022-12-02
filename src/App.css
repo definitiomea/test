@@ -114,6 +114,7 @@ html {
   height: auto;
   margin: 20px;
   cursor: pointer;
+  position: relative;
 }
 .product-img {
   max-width: 80%;
