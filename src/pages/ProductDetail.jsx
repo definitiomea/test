@@ -52,13 +52,17 @@ const ProductDetail = () => {
     context.strokeRect(10, 10, 250, 130);
   }
 
+  const dropCanvas = () => {
+    setCvsAct(false);
+  }
+
   return (
     <div className="product-area">
 
       <div className="product-button">
         <Button variant="contained" color="success" onClick={() => {flipShirts()}}>앞/뒤</Button>
         <Button variant="contained" color="success" onClick={() => {readyCanvas()}}>사진 업로드</Button>
-        <Button variant="contained" color="success">사진 삭제</Button>
+        <Button variant="contained" color="success" onClick={() => {dropCanvas()}}>사진 삭제</Button>
         <Button variant="contained" color="success">텍스트</Button>
         <Button variant="contained" color="success">이미지 편집</Button>
       </div>
