@@ -58,6 +58,10 @@ const ProductDetail = () => {
 
   const readyCanvas = () => {
     setCvsAct(true);
+    /* 아마도 여기서 state가 갱신되니까 캔버스가 나타나고, 렌더링이 이 시점에서 일어나니까
+    아래의 캔버스 지정과 표시가 한 번 늦게 나타나는 것 같다.
+    
+    컴포넌트의 생명 주기 문제가 아닐까.. */
     let context = cvs.current.getContext("2d");
     context.strokeRect(10, 10, 250, 130);
   }
