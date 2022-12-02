@@ -54,6 +54,7 @@ const ProductDetail = () => {
       }
     }
   }
+  /*  */
 
   const readyCanvas = () => {
     setCvsAct(true);
