@@ -1,23 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-/* import { useDispatch, useSelector } from "react-redux"; */
-/* import { productAction } from "../redux/actions/productAction"; */
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import Button from '@mui/material/Button';
-/* import Slider from "react-slick"; */
 
 const ProductDetail = () => {
-  /* const dispatch = useDispatch();
-  const product = useSelector((state) => state.product); */
-
-  // 상품 상제 페이지 이동 확인을 위한 임시 데이터가 전역값이 아니라 가져옴
-  /* const [productlist, setProductlist] = useState([
-    { id: 1, name: "상품 1", price: 10000 },
-    { id: 2, name: "상품 2", price: 15000 },
-    { id: 3, name: "상품 3", price: 20000 },
-  ]); */
 
   const [productList, setProductList] = useState(null);
   const [img, setImg] = useState(null);
@@ -25,7 +13,7 @@ const ProductDetail = () => {
 
   const cvs = useRef(null);
 
-  const { id } = useParams(); // id : productlist {id}
+  const { id } = useParams(); // id : productList {id}
 
   const getProduct = async () => {
     let url = `https://my-json-server.typicode.com/hans-4303/test/productList/${id}`;
@@ -59,15 +47,14 @@ const ProductDetail = () => {
   const readyCanvas = () => {
     setCvsAct(true);
     /* 아마도 여기서 state가 갱신되니까 캔버스가 나타나고, 렌더링이 이 시점에서 일어나니까
-    아래의 캔버스 지정과 표시가 한 번 늦게 나타나는 것 같다.
-    
-    컴포넌트의 생명 주기 문제가 아닐까.. */
+    아래의 캔버스 지정과 표시가 한 번 늦게 나타나는 것 같다. */
     let context = cvs.current.getContext("2d");
     context.strokeRect(10, 10, 250, 130);
   }
 
   return (
     <div className="product-area">
+
       <div className="product-button">
         <Button variant="contained" color="success" onClick={() => {flipShirts()}}>앞/뒤</Button>
         <Button variant="contained" color="success" onClick={() => {readyCanvas()}}>사진 업로드</Button>
@@ -75,7 +62,8 @@ const ProductDetail = () => {
         <Button variant="contained" color="success">텍스트</Button>
         <Button variant="contained" color="success">이미지 편집</Button>
       </div>
-        <div className="product-detail">
+
+      <div className="product-detail">
         {productList?.category == "short" && img != null ?
           <div className="img-box">
             <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img>
@@ -88,25 +76,26 @@ const ProductDetail = () => {
             {cvsAct ? <canvas ref={cvs} style={{position: "absolute", left: "0px", top: "0px", width: "100px", height: "100px"}}></canvas> : ""}
           </div> : 
         ""}
-        </div>
-        <div>
-            {productList ? <p>{productList.id}</p> : ""}
-            {productList ? <p>{productList.productName}</p> : ""}
-            {productList ? <p>{productList.price}</p> : ""}
-            <div style={{display: "flex"}}>
-              {productList ? productList.color.map((color, index) => 
-                <div style={{width: "15px", height: "15px", border: "1px solid transparent", borderRadius: "50%", backgroundColor: color}} onClick={() => {setImg(productList.productImg[index * 2])}} key={index}></div>) :
-              ""}
-            </div>
+      </div>
+        
+      <div>
+          {productList ? <p>{productList.id}</p> : ""}
+          {productList ? <p>{productList.productName}</p> : ""}
+          {productList ? <p>{productList.price}</p> : ""}
+          <div style={{display: "flex"}}>
+            {productList ? productList.color.map((color, index) => 
+              <div style={{width: "15px", height: "15px", border: "1px solid transparent", borderRadius: "50%", backgroundColor: color}} onClick={() => {setImg(productList.productImg[index * 2])}} key={index}></div>) :
+            ""}
+          </div>
 
-            <select style={{width: "100px"}}>
-              {productList?.size.map((size, index) => <option key={index}>{size}</option>)}
-            </select>
+          <select style={{width: "100px"}}>
+            {productList?.size.map((size, index) => <option key={index}>{size}</option>)}
+          </select>
 
-            <div>
-              <Button><FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon></Button>
-              <Button>구매하기</Button>
-            </div>
+          <div>
+            <Button><FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon></Button>
+            <Button>구매하기</Button>
+          </div>
             
 
             {/* 원하는 객체가 있는지 삼항 연산자, 콘솔로 찍어봤을 때
