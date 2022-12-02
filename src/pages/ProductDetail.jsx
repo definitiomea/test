@@ -21,6 +21,9 @@ const ProductDetail = () => {
 
   const [productList, setProductList] = useState(null);
   const [img, setImg] = useState(null);
+  const [cvsAct, setCvsAct] = useState(false);
+
+  const cvs = useRef(null);
 
   const { id } = useParams(); // id : productlist {id}
 
@@ -52,21 +55,32 @@ const ProductDetail = () => {
     }
   }
 
+  const readyCanvas = () => {
+    setCvsAct(true);
+    cvs.current.backgroundColor = "#FFFFFF";
+  }
+
   return (
     <div className="product-area">
       <div className="product-button">
         <Button variant="contained" color="success" onClick={() => {flipShirts()}}>앞/뒤</Button>
-        <Button variant="contained" color="success">사진 업로드</Button>
+        <Button variant="contained" color="success" onClick={() => {readyCanvas()}}>사진 업로드</Button>
         <Button variant="contained" color="success">사진 삭제</Button>
         <Button variant="contained" color="success">텍스트</Button>
         <Button variant="contained" color="success">이미지 편집</Button>
       </div>
         <div className="product-detail">
         {productList?.category == "short" && img != null ?
-          <div className="img-box"><img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img></div> : 
+          <div className="img-box">
+            <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img>
+            {cvsAct ? <canvas ref={cvs} style={{position: "absolute", left: "0px", top: "0px", width: "100px", height: "100px", backgroundColor: "#FFFFFF"}}></canvas> : ""}
+          </div> : 
         ""}
         {productList?.category == "long" && img != null ?
-          <div className="img-box"><img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img></div> : 
+          <div className="img-box">
+            <img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img>
+            {cvsAct ? <canvas ref={cvs} style={{position: "absolute", left: "0px", top: "0px", width: "100px", height: "100px", backgroundColor: "#FFFFFF"}}></canvas> : ""}
+          </div> : 
         ""}
         </div>
         <div>
