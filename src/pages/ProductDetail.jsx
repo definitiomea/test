@@ -57,7 +57,8 @@ const ProductDetail = () => {
 
   const readyCanvas = () => {
     setCvsAct(true);
-    cvs.current.backgroundColor = "#FFFFFF";
+    let context = cvs.current.getContext("2d");
+    context.strokeRect(10, 10, 250, 130);
   }
 
   return (
@@ -73,13 +74,13 @@ const ProductDetail = () => {
         {productList?.category == "short" && img != null ?
           <div className="img-box">
             <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img>
-            {cvsAct ? <canvas ref={cvs} style={{position: "absolute", left: "0px", top: "0px", width: "100px", height: "100px", backgroundColor: "#FFFFFF"}}></canvas> : ""}
+            {cvsAct ? <canvas ref={cvs} style={{position: "absolute", left: "0px", top: "0px", width: "100px", height: "100px"}}></canvas> : ""}
           </div> : 
         ""}
         {productList?.category == "long" && img != null ?
           <div className="img-box">
             <img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img>
-            {cvsAct ? <canvas ref={cvs} style={{position: "absolute", left: "0px", top: "0px", width: "100px", height: "100px", backgroundColor: "#FFFFFF"}}></canvas> : ""}
+            {cvsAct ? <canvas ref={cvs} style={{position: "absolute", left: "0px", top: "0px", width: "100px", height: "100px"}}></canvas> : ""}
           </div> : 
         ""}
         </div>
