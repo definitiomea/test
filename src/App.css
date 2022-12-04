@@ -128,3 +128,7 @@ html {
   display: flex;
   flex-direction: column;
 }
+
+.product-info {
+  padding: 20px;
+}

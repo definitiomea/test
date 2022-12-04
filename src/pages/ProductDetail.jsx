@@ -82,7 +82,7 @@ const ProductDetail = () => {
         ""}
       </div>
         
-      <div>
+      <div className="product-info">
           {productList ? <p>{productList.id}</p> : ""}
           {productList ? <p>{productList.productName}</p> : ""}
           {productList ? <p>{productList.price}</p> : ""}
