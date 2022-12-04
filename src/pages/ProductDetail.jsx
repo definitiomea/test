@@ -32,6 +32,10 @@ const ProductDetail = () => {
     }
   }, [productList])
 
+  useEffect(() => {
+    setCvsAct(true);
+  }, [cvsAct]);
+
   const flipShirts = () => {
     for(let i = 0; i < productList.productImg.length; i++) {
       if(img == productList.productImg[i] && i % 2 == 0) {
@@ -44,8 +48,7 @@ const ProductDetail = () => {
   }
   /*  */
 
-  const readyCanvas = () => {
-    setCvsAct(true);
+  const uploadCanvas = () => {
     /* 아마도 여기서 state가 갱신되니까 캔버스가 나타나고, 렌더링이 이 시점에서 일어나니까
     아래의 캔버스 지정과 표시가 한 번 늦게 나타나는 것 같다. */
     let context = cvs.current.getContext("2d");
@@ -61,7 +64,7 @@ const ProductDetail = () => {
 
       <div className="product-button">
         <Button variant="contained" color="success" onClick={() => {flipShirts()}}>앞/뒤</Button>
-        <Button variant="contained" color="success" onClick={() => {readyCanvas()}}>사진 업로드</Button>
+        <Button variant="contained" color="success" onClick={() => {uploadCanvas()}}>사진 업로드</Button>
         <Button variant="contained" color="success" onClick={() => {dropCanvas()}}>사진 삭제</Button>
         <Button variant="contained" color="success">텍스트</Button>
         <Button variant="contained" color="success">이미지 편집</Button>
