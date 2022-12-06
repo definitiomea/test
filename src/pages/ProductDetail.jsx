@@ -83,9 +83,16 @@ const ProductDetail = () => {
     canvas.setActiveObject(rect);
   }
 
+  let test = "https://www.princeton.edu/sites/default/files/styles/scale_1440/public/images/2022/02/KOA_Nassau_2697x1517.jpg?itok=lA8UuoHt";
+  let backImg = new Image();
+  backImg.src = test;
+
   const initCanvas = () => {
     return new fabric.Canvas('canvas', {
+      width: 400,
+      height: 400,
       backgroundColor: "transparent",
+      backgroundImage: new fabric.Image(backImg)
     })
   }
 
@@ -103,12 +110,6 @@ const ProductDetail = () => {
     }
   }, [productList])
 
-  useEffect(() => {
-    if(canvas != null) {
-      add();
-    }
-  }, [canvas]);
-
   console.log(canvas);
 
   return (
@@ -122,7 +123,7 @@ const ProductDetail = () => {
         <Button variant="contained" color="success">이미지 편집</Button>
       </div>
 
-      <div className="product-detail">
+      {/* <div className="product-detail">
         {productList?.category == "short" && img != null ?
           <div className="img-box">
             <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img>
@@ -133,7 +134,9 @@ const ProductDetail = () => {
             <img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img>
           </div> : 
         ""}
-      </div>
+      </div> */}
+
+      <canvas id="canvas"></canvas>
         
       <div className="product-info">
           {productList ? <p>{productList.id}</p> : ""}
@@ -153,15 +156,6 @@ const ProductDetail = () => {
             <Button><FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon></Button>
             <Button>구매하기</Button>
           </div>
-            
-          <canvas id="canvas" style={{
-              position: "absolute",
-              left: "0",
-              top: "0",
-              width: "100%",
-              height: "100%",
-              zIndex: "10"
-            }}></canvas>
 
             {/* 원하는 객체가 있는지 삼항 연산자, 콘솔로 찍어봤을 때
             거짓 경우(객체 로딩 중) -> 참 경우(객체 로딩 완료)로 넘어가면서
