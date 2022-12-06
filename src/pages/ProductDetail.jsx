@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import Button from '@mui/material/Button';
 
-const ProductDetail = () => {
 
+const ProductDetail = () => {
   const [productList, setProductList] = useState(null);
   const [img, setImg] = useState(null);
   const [canvas, setCanvas] = useState(null);
@@ -78,14 +78,14 @@ const ProductDetail = () => {
       stroke: "lightgreen",
       strokeWidth: 4,
     });
-
+    
     canvas.add(rect);
     canvas.setActiveObject(rect);
   }
 
   const initCanvas = () => {
     return new fabric.Canvas('canvas', {
-      backgroundColor: "transparent"
+      backgroundColor: "transparent",
     })
   }
 
@@ -103,6 +103,14 @@ const ProductDetail = () => {
     }
   }, [productList])
 
+  useEffect(() => {
+    if(canvas != null) {
+      add();
+    }
+  }, [canvas]);
+
+  console.log(canvas);
+
   return (
     <div className="product-area">
 
@@ -118,27 +126,11 @@ const ProductDetail = () => {
         {productList?.category == "short" && img != null ?
           <div className="img-box">
             <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img>
-            <canvas id="canvas" style={{
-              position: "absolute",
-              left: "0",
-              top: "0",
-              width: "100%",
-              height: "100%",
-              zIndex: "10"
-            }}></canvas>
           </div> : 
         ""}
         {productList?.category == "long" && img != null ?
           <div className="img-box">
             <img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img>
-            <canvas id="canvas" style={{
-              position: "absolute",
-              left: "0",
-              top: "0",
-              width: "100%",
-              height: "100%",
-              zIndex: "10"
-            }}></canvas>
           </div> : 
         ""}
       </div>
@@ -162,6 +154,14 @@ const ProductDetail = () => {
             <Button>구매하기</Button>
           </div>
             
+          <canvas id="canvas" style={{
+              position: "absolute",
+              left: "0",
+              top: "0",
+              width: "100%",
+              height: "100%",
+              zIndex: "10"
+            }}></canvas>
 
             {/* 원하는 객체가 있는지 삼항 연산자, 콘솔로 찍어봤을 때
             거짓 경우(객체 로딩 중) -> 참 경우(객체 로딩 완료)로 넘어가면서
@@ -171,6 +171,8 @@ const ProductDetail = () => {
             객체가 있는지를 "?"를 통해 한번 더 체크해야 한다. */}
 
             {productList ? console.log("OK") : console.log("not yet")}
+
+            
         </div>
     </div>
   );
