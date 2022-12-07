@@ -3,7 +3,6 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 const Layout = () => {
-  
   return (
     <div>
       <Navbar />
@@ -11,6 +10,6 @@ const Layout = () => {
       <Footer />
     </div>
   );
-}
+};
 
 export default Layout;
