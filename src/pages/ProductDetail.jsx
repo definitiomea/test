@@ -6,6 +6,7 @@ import 'fabric-history';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import Button from '@mui/material/Button';
+import { height } from "@mui/system";
 
 
 const ProductDetail = () => {
@@ -89,11 +90,34 @@ const ProductDetail = () => {
 
   const initCanvas = () => {
     return new fabric.Canvas('canvas', {
-      width: 400,
-      height: 400,
+      width: 350,
+      height: 420,
       backgroundColor: "transparent",
-      backgroundImage: new fabric.Image(backImg)
     })
+  }
+
+  const handleImage = (event) => {
+    if (!event) {
+      canvas.clear();
+    }
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const imgObj = new Image();
+      imgObj.src = event.target.result;
+      imgObj.onload = () => {
+        const uploadImg = new fabric.Image(imgObj);
+        uploadImg.scaleToHeight(100);
+        uploadImg.scaleToWidth(100);
+        canvas.centerObject(uploadImg);
+        canvas.add(uploadImg);
+        canvas.setActiveObject(img);
+        canvas.renderAll();
+      }
+    }
+    if(event.target.files[0]) {
+      reader.readAsDataURL(file);
+    }
   }
 
   useEffect(() => {
@@ -117,27 +141,27 @@ const ProductDetail = () => {
 
       <div className="product-button">
         <Button variant="contained" color="success" onClick={() => {flipShirts()}}>앞/뒤</Button>
-        <Button variant="contained" color="success" onClick={() => {add()}}>사진 업로드</Button>
+        <Button variant="contained" color="success" onClick={() => {add()}}>도형 생성</Button>
+        <input type="file" accept="image/*" onChange={handleImage} />
         <Button variant="contained" color="success" onClick={() => {}}>사진 삭제</Button>
         <Button variant="contained" color="success">텍스트</Button>
         <Button variant="contained" color="success">이미지 편집</Button>
       </div>
 
       <div className="product-detail">
-        {productList?.category == "short" && img != null ?
-          <div className="img-box">
-            <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img>
-          </div> : 
-        ""}
-        {productList?.category == "long" && img != null ?
-          <div className="img-box">
-            <img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img>
-          </div> : 
-        ""}
+        <div className="img-box">
+          {productList?.category == "short" && img != null ?
+            <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img> :
+          ""}
+          {productList?.category == "long" && img != null ?
+            <img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img> :  
+          ""}
+          <div style={{position: "absolute", top: "0%", left: "0%", width: "350px", height: "420px"}}>
+            <canvas id="canvas"></canvas>
+          </div>
+        </div>
       </div>
 
-      {/* <canvas id="canvas"></canvas> */}
-        
       <div className="product-info">
           {productList ? <p>{productList.id}</p> : ""}
           {productList ? <p>{productList.productName}</p> : ""}
