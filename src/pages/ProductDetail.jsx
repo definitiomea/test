@@ -123,7 +123,7 @@ const ProductDetail = () => {
         <Button variant="contained" color="success">이미지 편집</Button>
       </div>
 
-      {/* <div className="product-detail">
+      <div className="product-detail">
         {productList?.category == "short" && img != null ?
           <div className="img-box">
             <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img>
@@ -134,9 +134,9 @@ const ProductDetail = () => {
             <img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img>
           </div> : 
         ""}
-      </div> */}
+      </div>
 
-      <canvas id="canvas"></canvas>
+      {/* <canvas id="canvas"></canvas> */}
         
       <div className="product-info">
           {productList ? <p>{productList.id}</p> : ""}
