@@ -22,7 +22,8 @@ html {
   padding: 20px;
   display: flex;
 }
-.navbar a, .nav-link a {
+.navbar a,
+.nav-link a {
   padding: 10px;
   color: whitesmoke;
   text-decoration: none;
@@ -83,7 +84,8 @@ html {
 .sign-up {
   width: 300px;
 }
-.sign-up label, .sign-up input {
+.sign-up label,
+.sign-up input {
   display: block;
   width: 100%;
   height: 30px;
