@@ -107,8 +107,6 @@ const ProductDetail = () => {
     canvas.renderAll();
   } */
 
-  canvas.addHandler()
-
   const flipShirts = () => {
     for(let i = 0; i < productList.productImg.length; i++) {
       if(img == productList.productImg[i] && i % 2 == 0) {
