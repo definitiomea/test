@@ -1,0 +1,66 @@
+#wrap {
+  max-width: 1000px;
+  margin: 0 auto; /* 화면 가운데로 */
+  height: 100%;
+  box-sizing: border-box;
+  font-family: "oncothic";
+}
+
+/* 회원정보 */
+
+/* 주문베송 조회 */
+
+.mypage-head {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+background-color: rgba(169, 169, 169, 0.211);
+  padding: 20px 0;
+}
+
+.mypage-body {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.img {
+  width: 150px;
+}
+
+.mypage-pd {
+  display: flex;
+  align-items: center;
+}
+
+.mypage-info {
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.mypage-column {
+  text-align: center;
+}
+
+.delivery-button {
+  float: right;
+  background-color: black;
+  padding: 2px 5px;
+  color: white;
+  font-size: 13px;
+}
+
+.mypage-event {
+  margin-top: 50px;
+}
+
+.delivery-modal {
+  margin-top: 50px;
+  padding: 20px;
+  text-align: left;
+}

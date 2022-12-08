@@ -1,26 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import DataContext from "../context/DataContext";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../style/Navbar.css";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../redux/reducers/userReducer";
 
-const Navbar = () => {
+const Navbar = (props) => {
   // 모바일 버전 시 네브 토글바
   const [toggleOpen, setToggleOpen] = useState(false);
 
   // 로그인
   const [login, setLogin] = useState(false);
-  const data = useContext(DataContext);
+  const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setLogin(data.state.user ? true : false);
-  }, [data.state.user]);
+    setLogin(user ? true : false);
+  }, [user]);
 
   const logOut = () => {
     setLogin(false);
-    data.action.setUser(null);
+    dispatch(setUser(null));
     navigate("");
   };
 
@@ -91,7 +94,7 @@ const Navbar = () => {
               <div
                 className={location.pathname === "/" ? "white-nav" : "dark-nav"}
               >
-                {data.state.user.name}님
+                {user.name}님
               </div>
               <div className="dropdown-menu">
                 <NavLink

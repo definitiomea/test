@@ -1,9 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import video from "../img/main/main-video.mp4";
 import "../style/Home.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
 
 const Home = () => {
+  // 메인 슬라이더 세팅
+  const settings = {
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    vertical: true,
+    draggable: false,
+  };
+
+  const slider = useRef(null);
+
+  function scroll(e) {
+    if (slider === null) return 0;
+
+    e.wheelDelta > 0 ? slider.current.slickPrev() : slider.current.slickNext();
+  }
+
+  useEffect(() => {
+    window.addEventListener("wheel", scroll, true);
+
+    return () => {
+      window.removeEventListener("wheel", scroll, true);
+    };
+  }, []);
+
   // 세번째스크린 구독서비스
   const [email, setEmail] = useState("");
 
