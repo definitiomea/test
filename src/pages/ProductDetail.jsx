@@ -6,13 +6,13 @@ import 'fabric-history';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import Button from '@mui/material/Button';
-import { height } from "@mui/system";
-
 
 const ProductDetail = () => {
   const [productList, setProductList] = useState(null);
   const [img, setImg] = useState(null);
   const [canvas, setCanvas] = useState(null);
+  /* const [pallete, setPallete] = useState(false);
+  const [textPallete, setTextPallete] = useState('#333333'); */
 
   const { id } = useParams(); // id : productList {id}
 
@@ -27,6 +27,14 @@ const ProductDetail = () => {
   let delImg = new Image();
   delImg.src = deleteIcon;
 
+  let flipIcon = "https://cdn-icons-png.flaticon.com/512/1827/1827961.png";
+  let flipImg = new Image();
+  flipImg.src = flipIcon;
+
+  let palleteIcon = "https://cdn-icons-png.flaticon.com/512/565/565789.png";
+  let palleteImg = new Image();
+  palleteImg.src = palleteIcon;
+
   fabric.Object.prototype.transparentCorners = false;
   fabric.Object.prototype.cornerColor = "blue";
   fabric.Object.prototype.cornerStyle = "circle";
@@ -37,9 +45,31 @@ const ProductDetail = () => {
     offsetY: 16,
     cursorStyle: "pointer",
     mouseUpHandler: deleteObject,
-    render: renderIcon,
+    render: renderIcon(delImg),
     cornerSize: 24,
   });
+
+  fabric.Object.prototype.controls.flipControl = new fabric.Control({
+    x: -0.5,
+    y: -0.5,
+    offsetY: -16,
+    cursorStyle: "pointer",
+    mouseUpHandler: flipObject,
+    render: renderIcon(flipImg),
+    cornerSize: 24,
+  });
+
+  console.log(fabric.Object.controls);
+
+  /* fabric.Object.prototype.controls.textPalleteControl = new fabric.Control({
+    x: 0,
+    y: 0,
+    offsetY: 16,
+    cursorStyle: "pointer",
+    mouseUpHandler: textPalleteChanger,
+    render: renderIcon(palleteImg),
+    cornerSize: 24
+  }); */
 
   function deleteObject (eventData, transform) {
     let target = transform.target;
@@ -48,14 +78,36 @@ const ProductDetail = () => {
     canvas.requestRenderAll();
   }
 
-  function renderIcon (ctx, left, top, styleOverride, fabricObject) {
-    let size = this.cornerSize;
-    ctx.save();
-    ctx.translate(left, top);
-    ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle));
-    ctx.drawImage(delImg, -size / 2, -size / 2, size, size);
-    ctx.restore();
+  function renderIcon(icon) {
+    return function renderIcon (ctx, left, top, styleOverride, fabricObject) {
+      let size = this.cornerSize;
+      ctx.save();
+      ctx.translate(left, top);
+      ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle));
+      ctx.drawImage(icon, -size / 2, -size / 2, size, size);
+      ctx.restore();
+    }
   }
+
+  function flipObject (eventData, transform) {
+    let target = transform.target;
+    let canvas = target.canvas;
+    target.toggle('flipX', true);
+    canvas.setActiveObject(target);
+    canvas.renderAll();
+  }
+
+  /* function textPalleteChanger(eventData, transform) {
+    let target = transform.target;
+    let canvas = target.canvas;
+    if(target.text) {
+      target.set({fill: textPallete});
+    }
+    canvas.setActiveObject(target);
+    canvas.renderAll();
+  } */
+
+  canvas.addHandler()
 
   const flipShirts = () => {
     for(let i = 0; i < productList.productImg.length; i++) {
@@ -83,10 +135,6 @@ const ProductDetail = () => {
     canvas.add(rect);
     canvas.setActiveObject(rect);
   }
-
-  let test = "https://www.princeton.edu/sites/default/files/styles/scale_1440/public/images/2022/02/KOA_Nassau_2697x1517.jpg?itok=lA8UuoHt";
-  let backImg = new Image();
-  backImg.src = test;
 
   const initCanvas = () => {
     return new fabric.Canvas('canvas', {
@@ -120,6 +168,17 @@ const ProductDetail = () => {
     }
   }
 
+  const addText = () => { 
+    canvas.add(new fabric.IText('Tap and Type', { 
+        left: 0,
+        top: 0,
+        fontFamily: 'arial black',
+        fill: /* textPallete */ "#333333",
+        fontSize: 20,
+    }));
+    /* setPallete(true); */
+  }
+
   useEffect(() => {
     setCanvas(initCanvas());
   }, [])
@@ -134,8 +193,6 @@ const ProductDetail = () => {
     }
   }, [productList])
 
-  console.log(canvas);
-
   return (
     <div className="product-area">
 
@@ -144,8 +201,13 @@ const ProductDetail = () => {
         <Button variant="contained" color="success" onClick={() => {add()}}>도형 생성</Button>
         <input type="file" accept="image/*" onChange={handleImage} />
         <Button variant="contained" color="success" onClick={() => {}}>사진 삭제</Button>
-        <Button variant="contained" color="success">텍스트</Button>
+        <Button variant="contained" color="success" onClick={() => {addText()}}>텍스트</Button>
+        {/* {pallete ? <input type="color" onChange={(e) => {setTextPallete(e.target.value)}} /> : ""}
+        {pallete ? <Button onClick={() => {setPallete(false)}}>색상 편집 닫기</Button> : ""} */}
         <Button variant="contained" color="success">이미지 편집</Button>
+        <Button variant="contained" color="success" onClick={() => {canvas.undo()}}>되돌리기</Button>
+        <Button variant="contained" color="success" onClick={() => {canvas.redo()}}>되돌리기 취소</Button>
+        <Button variant="contained" color="success" onClick={() => {canvas.clear()}}>이미지 전체 삭제</Button>
       </div>
 
       <div className="product-detail">
