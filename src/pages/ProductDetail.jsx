@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { fabric } from 'fabric';
+import domtoimage from 'dom-to-image';
+import { saveAs } from 'file-saver';
 import 'fabric-history';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,10 +13,9 @@ const ProductDetail = () => {
   const [productList, setProductList] = useState(null);
   const [img, setImg] = useState(null);
   const [canvas, setCanvas] = useState(null);
-  /* const [pallete, setPallete] = useState(false);
-  const [textPallete, setTextPallete] = useState('#333333'); */
 
   const { id } = useParams(); // id : productList {id}
+  const test = useRef(null);
 
   const getProduct = async () => {
     let url = `https://my-json-server.typicode.com/hans-4303/test/productList/${id}`;
@@ -26,18 +27,17 @@ const ProductDetail = () => {
   let deleteIcon = "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='595.275px' height='595.275px' viewBox='200 215 230 470' xml:space='preserve'%3E%3Ccircle style='fill:%23F44336;' cx='299.76' cy='439.067' r='218.516'/%3E%3Cg%3E%3Crect x='267.162' y='307.978' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -222.6202 340.6915)' style='fill:white;' width='65.545' height='262.18'/%3E%3Crect x='266.988' y='308.153' transform='matrix(0.7071 0.7071 -0.7071 0.7071 398.3889 -83.3116)' style='fill:white;' width='65.544' height='262.179'/%3E%3C/g%3E%3C/svg%3E";
   let delImg = new Image();
   delImg.src = deleteIcon;
+  delImg.crossOrigin = "Anomymous";
 
   let flipIcon = "https://cdn-icons-png.flaticon.com/512/1827/1827961.png";
   let flipImg = new Image();
   flipImg.src = flipIcon;
-
-  let palleteIcon = "https://cdn-icons-png.flaticon.com/512/565/565789.png";
-  let palleteImg = new Image();
-  palleteImg.src = palleteIcon;
+  flipImg.crossOrigin = "Anomymous";
 
   fabric.Object.prototype.transparentCorners = false;
   fabric.Object.prototype.cornerColor = "blue";
   fabric.Object.prototype.cornerStyle = "circle";
+  fabric.Object.prototype.crossOrigin = "Anomymous";
 
   fabric.Object.prototype.controls.deleteControl = new fabric.Control({
     x: 0.5,
@@ -58,18 +58,6 @@ const ProductDetail = () => {
     render: renderIcon(flipImg),
     cornerSize: 24,
   });
-
-  console.log(fabric.Object.controls);
-
-  /* fabric.Object.prototype.controls.textPalleteControl = new fabric.Control({
-    x: 0,
-    y: 0,
-    offsetY: 16,
-    cursorStyle: "pointer",
-    mouseUpHandler: textPalleteChanger,
-    render: renderIcon(palleteImg),
-    cornerSize: 24
-  }); */
 
   function deleteObject (eventData, transform) {
     let target = transform.target;
@@ -97,15 +85,15 @@ const ProductDetail = () => {
     canvas.renderAll();
   }
 
-  /* function textPalleteChanger(eventData, transform) {
-    let target = transform.target;
-    let canvas = target.canvas;
-    if(target.text) {
-      target.set({fill: textPallete});
+  const setTextColor = (event) => {
+    if(canvas.getActiveObject() !== undefined && canvas.getActiveObject().text !== undefined) {
+      canvas.getActiveObject().set({fill: event.target.value})
+      canvas.renderAll();
     }
-    canvas.setActiveObject(target);
-    canvas.renderAll();
-  } */
+    else {
+      console.log("not yet or not a text");
+    }
+  }
 
   const flipShirts = () => {
     for(let i = 0; i < productList.productImg.length; i++) {
@@ -128,6 +116,7 @@ const ProductDetail = () => {
       objectCaching: false,
       stroke: "lightgreen",
       strokeWidth: 4,
+      crossOrigin: "Anomymous"
     });
     
     canvas.add(rect);
@@ -151,13 +140,14 @@ const ProductDetail = () => {
     reader.onload = (event) => {
       const imgObj = new Image();
       imgObj.src = event.target.result;
+      imgObj.crossOrigin = "Anomymous";
       imgObj.onload = () => {
         const uploadImg = new fabric.Image(imgObj);
         uploadImg.scaleToHeight(100);
         uploadImg.scaleToWidth(100);
         canvas.centerObject(uploadImg);
         canvas.add(uploadImg);
-        canvas.setActiveObject(img);
+        canvas.setActiveObject(uploadImg);
         canvas.renderAll();
       }
     }
@@ -171,10 +161,23 @@ const ProductDetail = () => {
         left: 0,
         top: 0,
         fontFamily: 'arial black',
-        fill: /* textPallete */ "#333333",
+        fill: "#333333",
         fontSize: 20,
+        crossOrigin: "Anomymous"
     }));
-    /* setPallete(true); */
+  }
+
+  const download = () => {
+    console.log("download here");
+    domtoimage.toBlob(test.current).then(function (dataUrl) {
+      dataUrl.crossOrigin = "Anomymous";
+      console.log(dataUrl);
+
+      /* let testImg = new Image();
+      testImg.src = dataUrl;
+      console.log(testImg); */
+      window.saveAs(dataUrl, '');
+    })
   }
 
   useEffect(() => {
@@ -200,15 +203,15 @@ const ProductDetail = () => {
         <input type="file" accept="image/*" onChange={handleImage} />
         <Button variant="contained" color="success" onClick={() => {}}>사진 삭제</Button>
         <Button variant="contained" color="success" onClick={() => {addText()}}>텍스트</Button>
-        {/* {pallete ? <input type="color" onChange={(e) => {setTextPallete(e.target.value)}} /> : ""}
-        {pallete ? <Button onClick={() => {setPallete(false)}}>색상 편집 닫기</Button> : ""} */}
+        <input type="color" onChange={(event) => setTextColor(event)}></input>
         <Button variant="contained" color="success">이미지 편집</Button>
         <Button variant="contained" color="success" onClick={() => {canvas.undo()}}>되돌리기</Button>
         <Button variant="contained" color="success" onClick={() => {canvas.redo()}}>되돌리기 취소</Button>
         <Button variant="contained" color="success" onClick={() => {canvas.clear()}}>이미지 전체 삭제</Button>
+        <Button onClick={() => {download()}}>시험용 다운로드</Button>
       </div>
 
-      <div className="product-detail">
+      <div className="product-detail" ref={test}>
         <div className="img-box">
           {productList?.category == "short" && img != null ?
             <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img> :
