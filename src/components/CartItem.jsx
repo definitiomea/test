@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { Grid } from "@material-ui/core";
 
 const CartItem = (props) => {
   const { item, cartlist, setCartlist, findProduct } = props; // CartBox
@@ -54,7 +55,7 @@ const CartItem = (props) => {
   };
 
   return (
-    <div className="item-box">
+    <Grid>
       <div>{findProduct(item).productImg}</div>
       <div>
         {findProduct(item).category} <br />
@@ -94,7 +95,7 @@ const CartItem = (props) => {
       >
         X
       </button>
-    </div>
+    </Grid>
   );
 };
 
