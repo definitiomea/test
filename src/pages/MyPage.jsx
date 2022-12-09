@@ -1,9 +1,17 @@
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import Test from "./DaumPostcodeEmbed";
+import Slider from "react-slick";
 
 const Mypage = () => {
   const navigate = useNavigate();
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   return (
     <div>
       {/* 회원정보 수정 form */}
@@ -41,12 +49,20 @@ const Mypage = () => {
         </MypageHead>
 
         {/* 장바구니 상품 목록 */}
-        <div className="mypage-body">
-          <div className="mypage-pd">
+        <MypageBody>
+          <MypagePd>
             <div>
-              <img className="img" src="" alt="" />
+              <img
+                className="img"
+                src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
+                alt=""
+                style={{
+                  width: "200px",
+                  height: "100px",
+                }}
+              />
             </div>
-            <div className="mypage-info">
+            <MypageInfo>
               {/* 상품 정보 */}
               <div>
                 <span>short sleeve t-shirt</span>
@@ -65,38 +81,72 @@ const Mypage = () => {
                 <span>size : </span>
                 <span>S</span>
               </div>
-            </div>
-          </div>
+            </MypageInfo>
+          </MypagePd>
 
           <div>2022.11.11</div>
 
-          <div className="mypage-column">
+          <MypageColum>
             <div>9,500원</div>
             <div>1개</div> {/* 연한 회색 처리 */}
-          </div>
+          </MypageColum>
 
-          <div className="mypage-column">
+          <MypageColum>
             <div>배송중</div>
             <div>
               <a
-                href="https://tracker.delivery/#/:carrier_id/:track_id"
+                href="https://tracker.delivery/#/kr.epost/1111111111111"
                 target="_blank"
               >
                 배송조회
               </a>
             </div>
-          </div>
-        </div>
+          </MypageColum>
+        </MypageBody>
       </MypageOrder>
 
       {/* 이벤트 배너 form  */}
-      <div className="mypage-event">
+      <MypageEvent>
         <h4>이벤트</h4>
-      </div>
+      </MypageEvent>
       <div
         style={{ width: "100%", height: "200px", backgroundColor: "skyblue" }}
       >
-        <button onClick={() => navigate("/event")}>이벤트 바로가기</button>
+        <Slider {...settings}>
+          <div>
+            <img
+              src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
+              alt=""
+              onClick={() => navigate("/event")}
+              style={{
+                width: "100%",
+                height: "50px",
+              }}
+            />
+          </div>
+          <div>
+            <img
+              src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
+              alt=""
+              onClick={() => navigate("/event")}
+              style={{
+                width: "100%",
+                height: "50px",
+              }}
+            />
+          </div>
+          <div>
+            <img
+              src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
+              alt=""
+              onClick={() => navigate("/event")}
+              style={{
+                width: "100%",
+                height: "50px",
+              }}
+            />
+          </div>
+        </Slider>
       </div>
     </div>
   );
@@ -130,4 +180,32 @@ const MypageHead = styled.div`
   align-items: center;
   border: solid 1px;
   padding: 20px 0;
+`;
+
+const MypageBody = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  border: solid 1px;
+  padding: 20px 0;
+`;
+
+const MypagePd = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const MypageInfo = styled.div`
+  flex-direction: column;
+  margin-left: 10px;
+`;
+
+const MypageColum = styled.div`
+  text-align: center;
+`;
+
+const MypageEvent = styled.div`
+  margin-top: 50px;
 `;
