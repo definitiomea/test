@@ -1,4 +1,4 @@
-import { Container, Typography } from "@material-ui/core";
+import styled from "styled-components";
 import { useEffect, useState } from "react";
 import CartItem from "../components/CartItem";
 
@@ -81,6 +81,8 @@ const Cart = () => {
 
   // 상품 총 금액 (배송비 제외), 총 구매수량
   const productTotal = () => {
+    // 구매수량 삭제, 장바구니 아이템이 없으면 배송비 0 처리
+
     // prev: 이전값 > 현재까지 누적된 값
     // cur : 현재값
     // 0 : 초기값, 안쓰면 배열의 첫번째 요소가 들어감
@@ -106,12 +108,21 @@ const Cart = () => {
   };
 
   return (
-    <Container>
-      <div>상품정보 ㅣ 사이즈 ㅣ 구매수량 ㅣ 상품금액</div>
+    <Wrap>
+      <h2>My Cart</h2>
+      <Label>
+        <div>Product Name</div>
+        <div>Size</div>
+        <div>Quantity</div>
+        <div>Price</div>
+        <div>Remove</div>
+      </Label>
       {cartlist.length == 0 ? (
-        <div>장바구니가 비어있습니다</div>
+        <Item>
+          <div className="empty-cart">Empty</div>
+        </Item>
       ) : (
-        <div>
+        <Item>
           {cartlist.map((item) => (
             <CartItem
               key={item.cartID}
@@ -121,27 +132,98 @@ const Cart = () => {
               findProduct={findProduct}
             />
           ))}
-        </div>
+        </Item>
       )}
-      <h3>총수량 : {productTotal().amount}</h3>
-      <h3>상품금액 : {productTotal().pay}</h3>
-      <h3>배송비 : {deliveryPay}</h3>
-      <h3>결제예상금액 : {totalPay()}</h3>
+      <Total>
+        <div>
+          <div>Subtotal</div>
+          <div>Delivery</div>
+          <div className="total">Total</div>
+        </div>
+        <div>
+          <div>{productTotal().pay}</div>
+          <div>{deliveryPay}</div>
+          <div className="total">{totalPay()}</div>
+        </div>
+      </Total>
+      <br />
+      <button onClick={emptyCart}>장바구니 비우기</button>
+      <button>주문하기</button>
       <div>
         <h2>배송지 정보</h2>
         배송지 직접 입력하는 공간 <br />
         저장된 배송지 정보 불러오는 버튼 <br />
+        저장된 배송지가 있다면 자동으로 채워준다
       </div>
-      <button>주문하기</button>
-      <button onClick={emptyCart}>장바구니 비우기</button>
       <div>
         <br />
-        주문하기 버튼을 누르면 모달창으로 주문완료 띄우기, 데이터는 orderlist로 이동 <br />
+        주문하기 버튼을 누르면 모달창으로 주문완료 띄우기, 데이터는 orderlist로
+        이동 <br />
         주문완료 모달창에는 홈으로 가기/주문내역 확인하기 버튼 <br />
         홈은 홈으로, 주문내역은 마이페이지로 이동
       </div>
-    </Container>
+    </Wrap>
   );
 };
 
 export default Cart;
+
+// 글로벌 스타일로 빼기
+const Wrap = styled.div`
+  width: 90%;
+  max-width: 1080px;
+  margin: 3rem auto;
+  ${"h2"} {
+    margin: 2rem 0;
+    font-weight: bold;
+  }
+  // 미디어쿼리 - width
+`;
+
+// 글로벌 스타일로 빼기
+const Label = styled.div`
+  display: grid;
+  grid-template-columns: 4fr 2fr 2fr 2fr 2fr;
+  gap: 1.5rem;
+  align-items: center;
+  justify-items: center;
+  padding: 1.2rem 0;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  font-weight: bold;
+  // 미디어쿼리 - grid-template-columns
+`;
+
+const Item = styled(Label)`
+  min-height: 180px;
+  border: none;
+  font-weight: normal;
+  text-align: center;
+  .empty-cart {
+    grid-column: 1 / 6;
+    color: lightgray;
+  }
+  ${"input"} {
+    max-width: 4rem;
+  }
+`;
+
+const Total = styled(Label)`
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  ${"div"} {
+    &:first-child {
+      grid-column: 1 / 3;
+      justify-self: start;
+    }
+    &:last-child {
+      grid-column: 3 / 6;
+      justify-self: end;
+    }
+  }
+  .total {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+  }
+  // 미디어 쿼리 - 패딩
+`;

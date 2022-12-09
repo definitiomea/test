@@ -1,5 +1,5 @@
 body,
-html {
+html, ul, li {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -100,7 +100,7 @@ html {
   color: whitesmoke;
   display: flex;
   position: absolute;
-  bottom: 0;
+  margin-top: auto; /* 푸터 수정 */
 }
 .footer h1 {
   margin: auto;

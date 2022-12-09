@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useRef } from "react";
-import { Grid } from "@material-ui/core";
 
 const CartItem = (props) => {
   const { item, cartlist, setCartlist, findProduct } = props; // CartBox
@@ -50,46 +49,73 @@ const CartItem = (props) => {
 
   // 장바구니에서 삭제
   const deleteItem = (cartID) => {
-    const newCartlist = cartlist.filter((item) => (item.cartID != cartID));
+    const newCartlist = cartlist.filter((item) => item.cartID != cartID);
     setCartlist(newCartlist);
     localStorage.setItem("moti_cartlist", JSON.stringify(newCartlist));
   };
 
   return (
-    <Wrap>
-      <div>{findProduct(item).productImg}</div>
-      <div>
-        <div>{findProduct(item).category}</div>
-        <div>{findProduct(item).productName} {"(" + item.color + ")"}</div>
-        <div>print : {item.print}</div>
-      </div>
+    <>
+      <StyleProduct>
+        <div className="img">{findProduct(item).productImg}</div>
+        <div>
+          <div>{findProduct(item).category}</div>
+          <div>
+            {findProduct(item).productName} {"(" + item.color + ")"}
+          </div>
+          <div>print : {item.print}</div>
+        </div>
+      </StyleProduct>
       <div>{item.size}</div>
       <div>
-        <button onClick={() => {amountDecrease(item.cartID);}}>-</button>
+        <button
+          onClick={() => {
+            amountDecrease(item.cartID);
+          }}
+        >
+          -
+        </button>
         <input
           type="number"
           defaultValue={item.amount}
           ref={inputRef}
-          onChange={(e) => {amountInput(e, item.cartID);}}
+          onChange={(e) => {
+            amountInput(e, item.cartID);
+          }}
         />
-        <button onClick={() => {amountIncrease(item.cartID);}}>+</button>
+        <button
+          onClick={() => {
+            amountIncrease(item.cartID);
+          }}
+        >
+          +
+        </button>
       </div>
       <div>{findProduct(item).price * item.amount}</div>
-      <button onClick={() => {deleteItem(item.cartID);}}>X</button>
-    </Wrap>
+      <button
+        onClick={() => {
+          deleteItem(item.cartID);
+        }}
+      >
+        X
+      </button>
+    </>
   );
 };
 
+// 상품 이미지 클릭하면 해당 상품으로 이동
+
 export default CartItem;
 
-const Wrap = styled.div`
-  margin: 1rem 0;
-  display: grid;
-  grid-template-columns: 2fr 3fr 1fr 2fr 2fr 1fr;
-  gap: 1.5rem;
+const StyleProduct = styled.div`
+  display: flex;
   align-items: center;
-  justify-items: center;
-  ${"input"} {
-    max-width: 4rem;
+  .img {
+    // 임시 - 상품이미지 불러와서 대체할 것 <img>
+    // 미디어쿼리 - 작은 화면에서는 사진 안보이게
+    width: 120px;
+    height: 120px;
+    background-color: gray;
+    margin-right: 1.5rem;
   }
-`
+`;
