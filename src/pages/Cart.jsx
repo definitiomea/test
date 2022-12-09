@@ -6,7 +6,6 @@ import { inputCart, amountIncrease } from "../redux/reducers/cart";
 
 const Cart = () => {
   // 리덕스 테스트
-  const count = useSelector((state) => state.cartlist.id);
   const cartitem = useSelector((state) => state.cartlist.cartlist);
   const dispatch = useDispatch();
 
@@ -117,7 +116,6 @@ const Cart = () => {
     <Wrap>
       {/** 리덕스 툴킷, 펄시스트 테스트 */}
       <h1>{count}</h1>
-      <button onClick={() => {dispatch(amountIncrease());}}> +1 </button>
       <button onClick={() => {dispatch(inputCart());}}> 장바구니 담기 </button>
       <h2>My Cart</h2>
       <Label>
