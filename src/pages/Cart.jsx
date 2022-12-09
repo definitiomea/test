@@ -1,8 +1,15 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import CartItem from "../components/CartItem";
+import { useDispatch, useSelector } from "react-redux";
+import { inputCart, amountIncrease } from "../redux/reducers/cart";
 
 const Cart = () => {
+  // 리덕스 테스트
+  const count = useSelector((state) => state.cartlist.id);
+  const cartitem = useSelector((state) => state.cartlist.cartlist);
+  const dispatch = useDispatch();
+
   // 임시데이터 - 상품리스트(json)
   const [product, setProduct] = useState([
     {
@@ -58,8 +65,6 @@ const Cart = () => {
     },
   ]);
   // 상품상세페이지(구매/장바구니 버튼)에서 로컬스토리지에 장바구니 데이터를 담았다고 가정
-  // 로컬스토리지에 값이 들어간 것을 확인 후 주석처리 할 것
-  // 로컬스토리지 확인 : 개발자 도구 > Application > Local Storage > http://localhost:3000
   // localStorage.setItem("moti_cartlist", JSON.stringify(list));
 
   // 로컬스토리지의 장바구니 데이터 들고오기
@@ -109,6 +114,10 @@ const Cart = () => {
 
   return (
     <Wrap>
+      {/** 리덕스 툴킷, 펄시스트 테스트 */}
+      <h1>{count}</h1>
+      <button onClick={() => {dispatch(amountIncrease());}}> +1 </button>
+      <button onClick={() => {dispatch(inputCart());}}> 장바구니 담기 </button>
       <h2>My Cart</h2>
       <Label>
         <div>Product Name</div>
