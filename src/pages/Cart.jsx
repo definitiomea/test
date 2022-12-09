@@ -74,6 +74,7 @@ const Cart = () => {
   // 얼마 이상 배송비 무료 할 것인지?
   // 숫자(금액) 세자리 마다 콤마 넣기
 
+  // 로컬스토리지에서 값 들고오기
   useEffect(() => {
     const data = localStorage.getItem("moti_cartlist");
     setCartlist(data ? JSON.parse(data) : []);

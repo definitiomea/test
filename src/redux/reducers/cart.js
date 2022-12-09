@@ -7,7 +7,6 @@ let cartID = 0;
 // 초기값
 const initialState = {
   cartlist: [],
-  id: 0,
 };
 
 const cartSlice = createSlice({
@@ -27,11 +26,11 @@ const cartSlice = createSlice({
       };
       state.cartlist.push(newCartitem);
     },
-    // 장바구니 상품별 수량 1증가, 1감소, 직접 입력
+
+
+    // 장바구니 상품별 수량 1증가, 1감소, 직접 입력 : 이거는 제가 할 것
     amountDecrease: (state) => {},
-    amountIncrease: (state) => {
-      state.id += 1;
-    },
+    amountIncrease: (state) => {},
     amountInput: (state, action) => {},
   },
 });
