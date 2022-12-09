@@ -138,7 +138,7 @@ const Cart = () => {
         <div>
           <div>Subtotal</div>
           <div>Delivery</div>
-          <div className="total">Total</div>
+          <div className="total">Total Price</div>
         </div>
         <div>
           <div>{productTotal().pay}</div>
@@ -153,7 +153,7 @@ const Cart = () => {
         <h2>배송지 정보</h2>
         배송지 직접 입력하는 공간 <br />
         저장된 배송지 정보 불러오는 버튼 <br />
-        저장된 배송지가 있다면 자동으로 채워준다
+        저장된 배송지가 있다면 자동으로 채워준다(컴포넌트 빼기)
       </div>
       <div>
         <br />
@@ -211,6 +211,8 @@ const Item = styled(Label)`
 const Total = styled(Label)`
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+  font-weight: normal;
+  font-size: 1.2rem;
   ${"div"} {
     &:first-child {
       grid-column: 1 / 3;
@@ -219,11 +221,14 @@ const Total = styled(Label)`
     &:last-child {
       grid-column: 3 / 6;
       justify-self: end;
+      ${"div"} {
+        text-align: right;
+      }
     }
-  }
-  .total {
-    margin-top: 1rem;
-    font-size: 1.5rem;
+    .total {
+      margin-top: 1rem;
+      color: #f44336;
+    }
   }
   // 미디어 쿼리 - 패딩
 `;
