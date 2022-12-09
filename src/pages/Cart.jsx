@@ -1,3 +1,4 @@
+import { Container, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import CartItem from "../components/CartItem";
 
@@ -105,12 +106,12 @@ const Cart = () => {
   };
 
   return (
-    <div>
+    <Container>
       <div>상품정보 ㅣ 사이즈 ㅣ 구매수량 ㅣ 상품금액</div>
       {cartlist.length == 0 ? (
-        <div className="cartlist-wrap">장바구니가 비어있습니다</div>
+        <div>장바구니가 비어있습니다</div>
       ) : (
-        <div className="cartlist-wrap">
+        <div>
           {cartlist.map((item) => (
             <CartItem
               key={item.cartID}
@@ -126,7 +127,7 @@ const Cart = () => {
       <h3>상품금액 : {productTotal().pay}</h3>
       <h3>배송비 : {deliveryPay}</h3>
       <h3>결제예상금액 : {totalPay()}</h3>
-      <div className="cartlist-wrap">
+      <div>
         <h2>배송지 정보</h2>
         배송지 직접 입력하는 공간 <br />
         저장된 배송지 정보 불러오는 버튼 <br />
@@ -139,7 +140,7 @@ const Cart = () => {
         주문완료 모달창에는 홈으로 가기/주문내역 확인하기 버튼 <br />
         홈은 홈으로, 주문내역은 마이페이지로 이동
       </div>
-    </div>
+    </Container>
   );
 };
 

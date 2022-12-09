@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import { useRef } from "react";
 import { Grid } from "@material-ui/core";
 
@@ -55,48 +56,40 @@ const CartItem = (props) => {
   };
 
   return (
-    <Grid>
+    <Wrap>
       <div>{findProduct(item).productImg}</div>
       <div>
-        {findProduct(item).category} <br />
-        {findProduct(item).productName} {"(" + item.color + ")"} <br />
-        print : {item.print}
+        <div>{findProduct(item).category}</div>
+        <div>{findProduct(item).productName} {"(" + item.color + ")"}</div>
+        <div>print : {item.print}</div>
       </div>
       <div>{item.size}</div>
       <div>
-        <button
-          onClick={() => {
-            amountDecrease(item.cartID);
-          }}
-        >
-          -
-        </button>
+        <button onClick={() => {amountDecrease(item.cartID);}}>-</button>
         <input
           type="number"
           defaultValue={item.amount}
           ref={inputRef}
-          onChange={(e) => {
-            amountInput(e, item.cartID);
-          }}
+          onChange={(e) => {amountInput(e, item.cartID);}}
         />
-        <button
-          onClick={() => {
-            amountIncrease(item.cartID);
-          }}
-        >
-          +
-        </button>
+        <button onClick={() => {amountIncrease(item.cartID);}}>+</button>
       </div>
       <div>{findProduct(item).price * item.amount}</div>
-      <button
-        onClick={() => {
-          deleteItem(item.cartID);
-        }}
-      >
-        X
-      </button>
-    </Grid>
+      <button onClick={() => {deleteItem(item.cartID);}}>X</button>
+    </Wrap>
   );
 };
 
 export default CartItem;
+
+const Wrap = styled.div`
+  margin: 1rem 0;
+  display: grid;
+  grid-template-columns: 2fr 3fr 1fr 2fr 2fr 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  justify-items: center;
+  ${"input"} {
+    max-width: 4rem;
+  }
+`
