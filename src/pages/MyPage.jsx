@@ -2,9 +2,37 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import Test from "./DaumPostcodeEmbed";
 import Slider from "react-slick";
+import { useEffect, useState } from "react";
+import { Modal } from "@mui/material";
+import { Box } from "@mui/system";
 
 const Mypage = () => {
+  // 택배사 목록 state
+  const [carriers, setCarriers] = useState([]);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const navigate = useNavigate();
+
+  const openDeliveryTracker = () => {
+    onSubmit();
+  };
+
+  const onSubmit = () => {
+    // map https://apis.tracker.delivery/carriers/:carrier_id/tracks/:track_id 패치값 가져와서 배송지 조회기능 구현
+  };
+
+  // 택배사 목록 비동기로 가져오기
+  const getDelivery = async () => {
+    const json = await (
+      await fetch(`https://apis.tracker.delivery/carriers`)
+    ).json();
+    setCarriers(json);
+  };
+  useEffect(() => {
+    getDelivery();
+  }, []);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -12,6 +40,18 @@ const Mypage = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "white",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
   return (
     <div>
       {/* 회원정보 수정 form */}
@@ -93,14 +133,30 @@ const Mypage = () => {
 
           <MypageColum>
             <div>배송중</div>
-            <div>
-              <a
-                href="https://tracker.delivery/#/kr.epost/1111111111111"
-                target="_blank"
-              >
-                배송조회
-              </a>
-            </div>
+            <button onClick={handleOpen}>배송조회</button>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <form onSubmit={onSubmit}>
+                  <select>
+                    {/* 택배사 목록 map로 option설정 */}
+                    {carriers.map((array) => {
+                      return (
+                        <option value={array.id} key={array.id}>
+                          {array.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  <input type="number" placeholder="운송장번호" />
+                  <button onClick={openDeliveryTracker}>조회</button>
+                </form>
+              </Box>
+            </Modal>
           </MypageColum>
         </MypageBody>
       </MypageOrder>
