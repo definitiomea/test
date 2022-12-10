@@ -5,6 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import App from "./App";
+import GlobalStyle from "../src/style/GlobalStyles";
+
 import store from "./redux/store";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
@@ -21,6 +23,7 @@ root.render(
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
           <App />
+          <GlobalStyle />
         </BrowserRouter>
       </PersistGate>
     </Provider>

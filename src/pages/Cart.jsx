@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { Container } from "@material-ui/core";
+import List from "../style/List";
+
 import { useEffect, useState } from "react";
 import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
@@ -113,113 +116,82 @@ const Cart = () => {
   };
 
   return (
-    <Wrap>
-      {/** 리덕스 툴킷, 펄시스트 테스트 */}
-      <button onClick={() => {dispatch(inputCart());}}> 장바구니 담기 </button>
+    <Container maxWidth="lg">
+      {/** 리덕스 툴킷, 펄시스트 테스트
+       *   <button onClick={() => {dispatch(inputCart());}}>장바구니 담기</button> */}
       <h2>My Cart</h2>
-      <Label>
-        <div>Product Name</div>
-        <div>Size</div>
-        <div>Quantity</div>
-        <div>Price</div>
-        <div>Remove</div>
-      </Label>
-      {cartlist.length == 0 ? (
-        <Item>
-          <div className="empty-cart">Empty</div>
-        </Item>
-      ) : (
-        <Item>
-          {cartlist.map((item) => (
-            <CartItem
-              key={item.cartID}
-              item={item}
-              cartlist={cartlist}
-              setCartlist={setCartlist}
-              findProduct={findProduct}
-            />
-          ))}
-        </Item>
-      )}
-      <Total>
+      <List>
+        <li className="label">
+          <div>Product Name</div>
+          <div>Size</div>
+          <div>Quantity</div>
+          <div>Price</div>
+          <div>Remove</div>
+        </li>
+        {cartlist.length == 0 ? (
+          <li className="product-empty">Empty</li>
+        ) : (
+          <>
+            {cartlist.map((item) => (
+              <CartItem
+                key={item.cartID}
+                item={item}
+                cartlist={cartlist}
+                setCartlist={setCartlist}
+                findProduct={findProduct}
+              />
+            ))}
+          </>
+        )}
+      </List>
+      <Wrap>
         <div>
+          <h3>Delivery Information</h3>
+          배송지 직접 입력하는 공간 <br />
+          저장된 배송지 정보 불러오는 버튼 <br />
+          저장된 배송지가 있다면 자동으로 채워준다(컴포넌트로 빼기)
+        </div>
+        <div>
+          <h3>Summary</h3>
           <div>Subtotal</div>
-          <div>Delivery</div>
-          <div className="total">Total Price</div>
-        </div>
-        <div>
           <div>{productTotal().pay}</div>
+          <div>Delivery</div>
           <div>{deliveryPay}</div>
-          <div className="total">{totalPay()}</div>
+          <div>Total Price</div>
+          <div>{totalPay()}</div>
+          <button onClick={emptyCart}>장바구니 비우기</button>
+          <button>주문하기</button>
         </div>
-      </Total>
-      <br />
-      <button onClick={emptyCart}>장바구니 비우기</button>
-      <button>주문하기</button>
+      </Wrap>
       <div>
-        <h2>배송지 정보</h2>
-        배송지 직접 입력하는 공간 <br />
-        저장된 배송지 정보 불러오는 버튼 <br />
-        저장된 배송지가 있다면 자동으로 채워준다(컴포넌트 빼기)
-      </div>
-      <div>
-        <br />
+        <br /><br />
         주문하기 버튼을 누르면 모달창으로 주문완료 띄우기, 데이터는 orderlist로
         이동 <br />
         주문완료 모달창에는 홈으로 가기/주문내역 확인하기 버튼 <br />
         홈은 홈으로, 주문내역은 마이페이지로 이동
+        <br /><br />
       </div>
-    </Wrap>
+    </Container>
   );
 };
 
 export default Cart;
 
-// 글로벌 스타일로 빼기
 const Wrap = styled.div`
-  width: 90%;
-  max-width: 1080px;
-  margin: 3rem auto;
+  display: flex;
+  padding: 1.2rem;
+  ${"div"} {
+    width: 100%;
+  }
   ${"h2"} {
-    margin: 2rem 0;
-    font-weight: bold;
+    margin-top: 0;
   }
-  // 미디어쿼리 - width
-`;
+`
 
-// 글로벌 스타일로 빼기
-const Label = styled.div`
-  display: grid;
-  grid-template-columns: 4fr 2fr 2fr 2fr 2fr;
-  gap: 1.5rem;
-  align-items: center;
-  justify-items: center;
-  padding: 1.2rem 0;
-  border-top: 1px solid lightgray;
-  border-bottom: 1px solid lightgray;
-  font-weight: bold;
-  // 미디어쿼리 - grid-template-columns
-`;
 
-const Item = styled(Label)`
-  min-height: 180px;
-  border: none;
-  font-weight: normal;
-  text-align: center;
-  .empty-cart {
-    grid-column: 1 / 6;
-    color: lightgray;
-  }
-  ${"input"} {
-    max-width: 4rem;
-  }
-`;
-
-const Total = styled(Label)`
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  font-weight: normal;
+const Total = styled(List)`
   font-size: 1.2rem;
+  border-top: none;
   ${"div"} {
     &:first-child {
       grid-column: 1 / 3;
@@ -237,5 +209,4 @@ const Total = styled(Label)`
       color: #f44336;
     }
   }
-  // 미디어 쿼리 - 패딩
 `;
