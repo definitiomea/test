@@ -115,7 +115,6 @@ const Cart = () => {
   return (
     <Wrap>
       {/** 리덕스 툴킷, 펄시스트 테스트 */}
-      <h1>{count}</h1>
       <button onClick={() => {dispatch(inputCart());}}> 장바구니 담기 </button>
       <h2>My Cart</h2>
       <Label>
