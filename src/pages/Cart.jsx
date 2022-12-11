@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { Container } from "@material-ui/core";
 import List from "../style/List";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 import { useEffect, useState } from "react";
 import CartItem from "../components/CartItem";
@@ -36,6 +38,7 @@ const Cart = () => {
       productImg: "상품이미지3",
     },
   ]);
+  
   // 임시데이터 - 장바구니(로컬스토리지)
   const [list, setList] = useState([
     {
@@ -66,6 +69,7 @@ const Cart = () => {
       pay: 30000,
     },
   ]);
+
   // 상품상세페이지(구매/장바구니 버튼)에서 로컬스토리지에 장바구니 데이터를 담았다고 가정
   // localStorage.setItem("moti_cartlist", JSON.stringify(list));
 
@@ -119,14 +123,19 @@ const Cart = () => {
     <Container maxWidth="lg">
       {/** 리덕스 툴킷, 펄시스트 테스트
        *   <button onClick={() => {dispatch(inputCart());}}>장바구니 담기</button> */}
-      <h2>My Cart</h2>
+      <Title>
+        <FontAwesomeIcon icon={faCartShopping} />
+        <h2>My Cart</h2>
+      </Title>
       <List>
         <li className="label">
           <div>Product Name</div>
           <div>Size</div>
           <div>Quantity</div>
           <div>Price</div>
-          <div>Remove</div>
+          <div>
+            <button onClick={emptyCart}>Clear All</button>
+          </div>
         </li>
         {cartlist.length == 0 ? (
           <li className="product-empty">Empty</li>
@@ -145,31 +154,37 @@ const Cart = () => {
         )}
       </List>
       <Wrap>
-        <div>
+        <div className="delivery-info">
           <h3>Delivery Information</h3>
           배송지 직접 입력하는 공간 <br />
           저장된 배송지 정보 불러오는 버튼 <br />
           저장된 배송지가 있다면 자동으로 채워준다(컴포넌트로 빼기)
         </div>
-        <div>
-          <h3>Summary</h3>
-          <div>Subtotal</div>
-          <div>{productTotal().pay}</div>
-          <div>Delivery</div>
-          <div>{deliveryPay}</div>
-          <div>Total Price</div>
-          <div>{totalPay()}</div>
-          <button onClick={emptyCart}>장바구니 비우기</button>
+        <div className="summary">
+          <div>
+            <div>
+              <div>Subtotal</div>
+              <div>Delivery</div>
+              <div>Total Price</div>
+            </div>
+            <div>
+              <div>{productTotal().pay}</div>
+              <div>{deliveryPay}</div>
+              <div>{totalPay()}</div>
+            </div>
+          </div>
           <button>주문하기</button>
         </div>
       </Wrap>
       <div>
-        <br /><br />
+        <br />
+        <br />
         주문하기 버튼을 누르면 모달창으로 주문완료 띄우기, 데이터는 orderlist로
         이동 <br />
         주문완료 모달창에는 홈으로 가기/주문내역 확인하기 버튼 <br />
         홈은 홈으로, 주문내역은 마이페이지로 이동
-        <br /><br />
+        <br />
+        <br />
       </div>
     </Container>
   );
@@ -177,36 +192,33 @@ const Cart = () => {
 
 export default Cart;
 
+const Title = styled.div`
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  ${"h2"} {
+    display: inline-block;
+    font-weight: bold;
+    margin: 0; // GlobalStyles?
+    margin-left: 1rem;
+  }
+  &:first-child {
+    font-size: 1.8rem;
+  }
+`;
+
 const Wrap = styled.div`
   display: flex;
-  padding: 1.2rem;
+  margin-top: 3rem;
   ${"div"} {
     width: 100%;
   }
-  ${"h2"} {
-    margin-top: 0;
+  .delivery-info {
+    flex: 2;
+    padding: 0rem 1.2rem;
   }
-`
-
-
-const Total = styled(List)`
-  font-size: 1.2rem;
-  border-top: none;
-  ${"div"} {
-    &:first-child {
-      grid-column: 1 / 3;
-      justify-self: start;
-    }
-    &:last-child {
-      grid-column: 3 / 6;
-      justify-self: end;
-      ${"div"} {
-        text-align: right;
-      }
-    }
-    .total {
-      margin-top: 1rem;
-      color: #f44336;
-    }
+  .summary {
+    flex: 1;
+    padding: 2rem;
+    background-color: #e9ecef;
   }
 `;

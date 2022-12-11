@@ -14,12 +14,6 @@ const GlobalStyle = createGlobalStyle`
     // font-family: ;
   }
 
-  h2 {
-    font-weight: bold;
-    margin-top: 3rem;
-    margin-bottom: 2rem;
-  }
-
   // 필요에 따라 스타일 추가, 수정
 `;
 
