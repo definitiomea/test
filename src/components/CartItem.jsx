@@ -2,92 +2,71 @@ import styled from "styled-components";
 import { useRef } from "react";
 
 const CartItem = (props) => {
-  const { item, cartlist, setCartlist, findProduct } = props; // CartBox
+  const { cartItem, productlist } = props; // CartBox
   const inputRef = useRef();
 
-  // 구매수량 1 감소
-  const amountDecrease = (cartID) => {
-    const newCart = cartlist.map((item) => {
-      if (item.cartID == cartID && item.amount > 1) {
-        inputRef.current.value = item.amount - 1;
-        return { ...item, amount: item.amount - 1 };
-      } else {
-        return item;
-      }
-    });
-    setCartlist(newCart);
-    localStorage.setItem("moti_cartlist", JSON.stringify(newCart)); // cart.js로 옮길때 삭제?
+  // 상품리스트에서 cartlist의 상품정보 찾기
+  const findProduct = (cartItem) => {
+    return productlist.find(
+      (productItem) => productItem.productID == cartItem.productID
+    );
   };
 
-  // 구매수량 1 증가
-  const amountIncrease = (cartID) => {
-    const newCart = cartlist.map((item) => {
-      if (item.cartID == cartID && item.amount < 999) {
-        inputRef.current.value = item.amount + 1;
-        return { ...item, amount: item.amount + 1 };
-      } else {
-        return item;
-      }
-    });
-    setCartlist(newCart);
-    localStorage.setItem("moti_cartlist", JSON.stringify(newCart));
+  // 상품별 총 금액
+  const subTotalPrice = (cartItem) => {
+    const priceStr = findProduct(cartItem).price;
+    const price = parseInt(priceStr.replace(",", "")); // 콤마 제거, 문자열 > 숫자형
+    const totalPrice = price * cartItem.quantity;
+    return totalPrice.toLocaleString("ko-KR"); // 콤마 추가
   };
 
-  // 구매수량 직접 입력
-  const amountInput = (e, cartID) => {
-    // 1보다 작으면 1이, 999보다 크면 999가 되도록 수정
-    const newAmount = e.target.value < 1 ? 1 : +e.target.value;
-    const newCart = cartlist.map((item) => {
-      if (item.cartID == cartID && item.amount < 999) {
-        return { ...item, amount: newAmount };
-      } else {
-        return item;
-      }
-    });
-    setCartlist(newCart);
-    localStorage.setItem("moti_cartlist", JSON.stringify(newCart));
-  };
-
-  // 장바구니에서 삭제
-  const deleteItem = (cartID) => {
-    const newCartlist = cartlist.filter((item) => item.cartID != cartID);
-    setCartlist(newCartlist);
-    localStorage.setItem("moti_cartlist", JSON.stringify(newCartlist));
+  // 상품이미지
+  const getCategory = (cartItem) => {
+    switch (cartItem.category) {
+      case "short":
+        return (
+          <img
+            src={require(`../img/shirts-img/short/${
+              findProduct(cartItem).thumbnail[0]
+            }`)}
+            alt="No Image"
+          />
+        );
+      case "long":
+        return (
+          <img
+            src={require(`../img/shirts-img/long/${
+              findProduct(cartItem).thumbnail[0]
+            }`)}
+            alt="No Image"
+          />
+        );
+      default:
+        return <div>No Image</div>;
+    }
   };
 
   return (
     <li>
       <StyledProduct>
-        <div className="img">{findProduct(item).productImg}</div>
+        <div className="img">{getCategory(findProduct(cartItem))}</div>
         <div>
-          <div>{findProduct(item).category}</div>
+          <div>{findProduct(cartItem).category}</div>
           <div>
-            {findProduct(item).productName} {"(" + item.color + ")"}
+            {`${findProduct(cartItem).productName} (${cartItem.color})`}
           </div>
-          <div>print : {item.print}</div>
+          {/** print는 데이터 형태 확인할 것(수정 가능성 있음) */}
+          <div>print : {cartItem.print}</div>
         </div>
       </StyledProduct>
-      <div>{item.size}</div>
+      <div>{cartItem.size}</div>
       <div>
-        <button onClick={() => {amountDecrease(item.cartID);}}>-</button>
-        <input
-          type="number"
-          defaultValue={item.amount}
-          ref={inputRef}
-          onChange={(e) => {
-            amountInput(e, item.cartID);
-          }}
-        />
-        <button onClick={() => {amountIncrease(item.cartID);}}>+</button>
+        <button>-</button>
+        <input type="number" defaultValue={cartItem.quantity} ref={inputRef} />
+        <button>+</button>
       </div>
-      <div>{findProduct(item).price * item.amount}</div>
-      <button
-        onClick={() => {
-          deleteItem(item.cartID);
-        }}
-      >
-        X
-      </button>
+      <div>{subTotalPrice(cartItem)}</div>
+      <button>X</button>
     </li>
   );
 };
@@ -98,14 +77,18 @@ export default CartItem;
 
 const StyledProduct = styled.div`
   display: flex;
-  align-items: center;
+  align-self: center;
   justify-self: left;
-  .img {
-    // 임시 - 상품이미지 불러와서 대체할 것 <img>
-    // 미디어쿼리 - 작은 화면에서는 사진 안보이게
+  ${"div"} {
+    &:last-child {
+      padding-top: 1rem;
+    }
+  }
+  // 미디어쿼리 - 작은 화면에서는 상품이미지 안 보이게
+  ${"img"} {
     width: 120px;
-    height: 120px;
-    background-color: gray;
+    min-height: 120px;
     margin-right: 1.5rem;
+    background-color: #dee2e6;
   }
 `;
