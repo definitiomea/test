@@ -24,6 +24,14 @@ const ProductDetail = () => {
     setProductList(data);
   }
 
+  const initCanvas = () => {
+    return new fabric.Canvas('canvas', {
+      width: 350,
+      height: 420,
+      backgroundColor: "transparent",
+    })
+  }
+
   let deleteIcon = "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='595.275px' height='595.275px' viewBox='200 215 230 470' xml:space='preserve'%3E%3Ccircle style='fill:%23F44336;' cx='299.76' cy='439.067' r='218.516'/%3E%3Cg%3E%3Crect x='267.162' y='307.978' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -222.6202 340.6915)' style='fill:white;' width='65.545' height='262.18'/%3E%3Crect x='266.988' y='308.153' transform='matrix(0.7071 0.7071 -0.7071 0.7071 398.3889 -83.3116)' style='fill:white;' width='65.544' height='262.179'/%3E%3C/g%3E%3C/svg%3E";
   let delImg = new Image();
   delImg.src = deleteIcon;
@@ -66,6 +74,14 @@ const ProductDetail = () => {
     canvas.requestRenderAll();
   }
 
+  function flipObject (eventData, transform) {
+    let target = transform.target;
+    let canvas = target.canvas;
+    target.toggle('flipX', true);
+    canvas.setActiveObject(target);
+    canvas.renderAll();
+  }
+
   function renderIcon(icon) {
     return function renderIcon (ctx, left, top, styleOverride, fabricObject) {
       let size = this.cornerSize;
@@ -75,14 +91,6 @@ const ProductDetail = () => {
       ctx.drawImage(icon, -size / 2, -size / 2, size, size);
       ctx.restore();
     }
-  }
-
-  function flipObject (eventData, transform) {
-    let target = transform.target;
-    let canvas = target.canvas;
-    target.toggle('flipX', true);
-    canvas.setActiveObject(target);
-    canvas.renderAll();
   }
 
   const setTextColor = (event) => {
@@ -121,14 +129,6 @@ const ProductDetail = () => {
     
     canvas.add(rect);
     canvas.setActiveObject(rect);
-  }
-
-  const initCanvas = () => {
-    return new fabric.Canvas('canvas', {
-      width: 350,
-      height: 420,
-      backgroundColor: "transparent",
-    })
   }
 
   const handleImage = (event) => {
@@ -200,7 +200,7 @@ const ProductDetail = () => {
       <div className="product-button">
         <Button variant="contained" color="success" onClick={() => {flipShirts()}}>앞/뒤</Button>
         <Button variant="contained" color="success" onClick={() => {add()}}>도형 생성</Button>
-        <input type="file" accept="image/*" onChange={handleImage} />
+        <input type="file" accept="image/*" onChange={(event) => {handleImage(event)}} />
         <Button variant="contained" color="success" onClick={() => {}}>사진 삭제</Button>
         <Button variant="contained" color="success" onClick={() => {addText()}}>텍스트</Button>
         <input type="color" onChange={(event) => setTextColor(event)}></input>
@@ -243,12 +243,6 @@ const ProductDetail = () => {
             <Button><FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon></Button>
             <Button>구매하기</Button>
           </div>
-            {/* 원하는 객체가 있는지 삼항 연산자, 콘솔로 찍어봤을 때
-            거짓 경우(객체 로딩 중) -> 참 경우(객체 로딩 완료)로 넘어가면서
-            둘 다가 찍힌다.
-            
-            그래서, 로딩 되기 전의 거짓 경우와 로딩 되었을 때의 참 경우 둘 다가 필요하고,
-            객체가 있는지를 "?"를 통해 한번 더 체크해야 한다. */}
         </div>
     </div>
   );
