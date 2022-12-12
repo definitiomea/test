@@ -15,7 +15,10 @@ const ProductDetail = () => {
   const [canvas, setCanvas] = useState(null);
 
   /* 시험 삼아서 이 state에 저장한다 치고, */
-  const [path, setPath] = useState([]);
+  const [path, setPath] = useState({
+    name: "",
+    imageUrl: "",
+  });
 
   const { id } = useParams(); // id : productList {id}
   const test = useRef(null);
@@ -25,7 +28,7 @@ const ProductDetail = () => {
     let response = await fetch(url);
     let data = await response.json();
     setProductList(data);
-    console.log(productList);
+    // console.log(productList);
   }
 
   const initCanvas = () => {
@@ -172,21 +175,27 @@ const ProductDetail = () => {
   }
 
   /* 이 다운로드 메서드 안에 setPath를 다뤄보려고 했는데 일단 조잡하지만 한 번은 작동돼요 */
-  const download = () => {
-    domtoimage.toBlob(test.current).then(function (dataUrl) {
-      dataUrl.crossOrigin = "Anomymous";
-
-      let testImg = new Image();
-      testImg.src = dataUrl;
-      testImg.crossOrigin = "Anomymous";
-      
-      window.saveAs(dataUrl, '');
-      console.log(dataUrl);
-      console.log(testImg);
-      console.log(testImg.src);
-
-      setPath(...path, path.push(dataUrl));
-    })
+  /**
+   * ▼ async/await 사용 (async/await 뺐더니 오류 생김)
+   * https://www.ouyiz.me/blog/how-to-turn-a-react-component-into-an-image
+   */
+  const download = async () => {
+    const dataUrl = await domtoimage.toBlob(test.current); // Blob 데이터로 만듬
+    const reader = new FileReader(); // Blob 데이터를 읽기 위해 FileReaderAPI 사용
+    // FileReaderAPI의 readAsDataURL을 사용해 
+    // Blob 데이터를 base64 인코딩 문자열로 변환 (url주소)
+    reader.readAsDataURL(dataUrl);
+    // FileReaderAPI는 onload 이벤트로 파일을 읽었음을 알려줘야 함
+    reader.onload = () => {
+      const base64Data = reader.result;
+      setPath({
+        name: "test이미지",
+        imageUrl: base64Data,
+      });
+    }
+    // 한 번 클릭했을 때는 콘솔에 안찍힘 (이미지는 바로 반영되어 보인다), 
+    // 두 번 클릭하면 setPath로 반영된 값이 콘솔에 찍힘
+    console.log(path);
   }
 
   const exportImg = () => {
@@ -221,7 +230,7 @@ const ProductDetail = () => {
 
   /* 하지만 useEffect를 통해서 path 배열 안에 여러 개가 추가되는지 확인하려고 했을 때 문제도 생겼고.. */
   useEffect(() => {
-    console.log(path);
+    // console.log(path);
   }, [path]);
 
   return (
@@ -274,6 +283,13 @@ const ProductDetail = () => {
             <Button><FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon></Button>
             <Button>구매하기</Button>
           </div>
+        </div>
+
+        {/** 이미지 데이터 넘기기 테스트 */}
+        <div>
+          <h2>이미지 데이터 테스트</h2>
+          <h3>이름 : {path.name}</h3>
+            <img src={path.imageUrl} alt="" style={{width: "200px"}} />
         </div>
     </div>
   );

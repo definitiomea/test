@@ -18,7 +18,7 @@ let persistor = persistStore(store);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  <>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
@@ -27,9 +27,10 @@ root.render(
         </BrowserRouter>
       </PersistGate>
     </Provider>
-  </React.StrictMode>
+  </>
 );
 
 reportWebVitals();
 
 // 티셔츠 이미지 편집(캔버스) 기능 확인할 때는 StricMode 주석 처리 할 것
+// <React.StrictMode></React.StrictMode>
