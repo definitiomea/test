@@ -173,11 +173,26 @@ const ProductDetail = () => {
       dataUrl.crossOrigin = "Anomymous";
       console.log(dataUrl);
 
-      /* let testImg = new Image();
+      let testImg = new Image();
       testImg.src = dataUrl;
-      console.log(testImg); */
+      console.log(testImg);
+      console.log(testImg.src);
+      
       window.saveAs(dataUrl, '');
     })
+  }
+
+  const exportImg = () => {
+    domtoimage.toPixelData(test.current).then(function (pixels) {
+      for (let y = 0; y < test.current.scrollHeight; ++y) {
+        for (let x = 0; x < test.current.scrollWidth; ++x) {
+          pixels.pixelAtXYOffset = (4 * y * test.current.scrollHeight) + (4 * x);
+          pixels.pixelAtXY = pixels.slice(test.current.pixelAtXYOffset, test.current.pixelAtXYOffset + 4);
+        }
+      }
+      console.log(pixels.pixelAtXY);
+      console.log(pixels);
+    });
   }
 
   useEffect(() => {
@@ -209,6 +224,7 @@ const ProductDetail = () => {
         <Button variant="contained" color="success" onClick={() => {canvas.redo()}}>되돌리기 취소</Button>
         <Button variant="contained" color="success" onClick={() => {canvas.clear()}}>이미지 전체 삭제</Button>
         <Button onClick={() => {download()}}>시험용 다운로드</Button>
+        <Button onClick={() => {exportImg()}}>이미지 내보내기 테스트</Button>
       </div>
 
       <div className="product-detail" ref={test}>
