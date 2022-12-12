@@ -117,12 +117,12 @@ html, ul, li {
 .img-box {
   width: 350px;
   height: auto;
-  margin: 20px;
+  margin: 10px;
   cursor: pointer;
   position: relative;
 }
 .product-img {
-  max-width: 80%;
+  max-width: 100%;
 }
 .product-area {
   display: flex;
