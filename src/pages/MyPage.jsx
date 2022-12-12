@@ -13,13 +13,17 @@ const Mypage = () => {
   const [delivery, setDelivery] = useState([]);
   const [trackId, setTrackId] = useState("");
   const [carrierId, setCarrierId] = useState("");
+  const [result, setResult] = useState(true);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setResult(true);
+  };
   const navigate = useNavigate();
 
   const deliveryState = () => {
-    return <Delivery />;
+    setResult(false);
   };
 
   const changeCarrierId = (e) => {
@@ -42,7 +46,7 @@ const Mypage = () => {
       setDelivery(json);
     };
     getDelivery();
-    console.log(delivery.state.text);
+    console.log(delivery);
   };
 
   // 택배사 목록 비동기로 가져오기
@@ -164,25 +168,29 @@ const Mypage = () => {
               aria-describedby="modal-modal-description"
             >
               <Box sx={style}>
-                <form onSubmit={onSubmit}>
-                  <select onChange={changeCarrierId} value={carrierId}>
-                    {/* 택배사 목록 map로 option설정 */}
-                    {carriers.map((array) => {
-                      return (
-                        <option value={array.id} key={array.id}>
-                          {array.name}
-                        </option>
-                      );
-                    })}
-                  </select>
-                  <input
-                    type="number"
-                    placeholder="운송장번호"
-                    onChange={changeTrackId}
-                    defaultValue={trackId}
-                  />
-                  <button onClick={deliveryState}>조회</button>
-                </form>
+                {result ? (
+                  <form onSubmit={onSubmit}>
+                    <select onChange={changeCarrierId} value={carrierId}>
+                      {/* 택배사 목록 map로 option설정 */}
+                      {carriers.map((array) => {
+                        return (
+                          <option value={array.id} key={array.id}>
+                            {array.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    <input
+                      type="number"
+                      placeholder="운송장번호"
+                      onChange={changeTrackId}
+                      defaultValue={trackId}
+                    />
+                    <button onClick={deliveryState}>조회</button>
+                  </form>
+                ) : (
+                  <Delivery />
+                )}
               </Box>
             </Modal>
           </MypageColum>
