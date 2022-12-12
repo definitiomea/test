@@ -7,7 +7,7 @@ let cartID = 0;
 // 초기값
 const initialState = {
   cartlist: [
-    // 테스트용 데이터, amount > quantity로 바꾸기 요청
+    // 테스트용 데이터
     {
       cartID: 1,
       productID: 1,
@@ -15,7 +15,7 @@ const initialState = {
       size: "S",
       print: "front",
       quantity: 5,
-      totalPay: "47,500",
+      totalPay: 47500, // 문자열 > 숫자형으로
     },
     {
       cartID: 2,
@@ -24,7 +24,7 @@ const initialState = {
       size: "M",
       print: "back",
       quantity: 2,
-      totalPay: "19,000",
+      totalPay: 19000,
     },
     {
       cartID: 3,
@@ -33,7 +33,7 @@ const initialState = {
       size: "L",
       print: "front / back",
       quantity: 3,
-      totalPay: "28,500",
+      totalPay: 28500,
     },
   ],
 };
@@ -50,23 +50,20 @@ const cartSlice = createSlice({
         color: "black",
         size: "S",
         print: "font",
-        quantity: 5,     // amount에서 quantity로 수정
-        totalPay: "47,500", // 상품별 금액 * 구매수량
+        quantity: 5, // amount에서 quantity로 수정
+        totalPay: 47500, // 상품별 금액 * 구매수량 (금액 계산을 여러번하기 때문에 숫자형으로)
         // 이미지
       };
       state.cartlist.push(newCartitem);
     },
 
-
-
-
-    // 토탈페이 수정 추가하기
-
+    // 코드 중복 줄이기
     // 장바구니 상품별 구매 수량 -1
     quantityDecrease: (state, action) => {
       const newCartlist = state.cartlist.map((item) => {
         if (item.cartID == action.payload && item.quantity > 1) {
-          return { ...item, quantity: item.quantity - 1 };
+          const newPay = (item.totalPay / item.quantity) * (item.quantity - 1);
+          return { ...item, quantity: item.quantity - 1, totalPay: newPay };
         } else {
           return item;
         }
@@ -77,7 +74,8 @@ const cartSlice = createSlice({
     quantityIncrease: (state, action) => {
       const newCartlist = state.cartlist.map((item) => {
         if (item.cartID == action.payload && item.quantity < 999) {
-          return { ...item, quantity: item.quantity + 1 };
+          const newPay = (item.totalPay / item.quantity) * (item.quantity + 1);
+          return { ...item, quantity: item.quantity + 1, totalPay: newPay };
         } else {
           return item;
         }
@@ -97,7 +95,8 @@ const cartSlice = createSlice({
       };
       const newCartlist = state.cartlist.map((item) => {
         if (item.cartID == action.payload.cartID) {
-          return { ...item, quantity: newQuantity() };
+          const newPay = (item.totalPay / item.quantity) * newQuantity();
+          return { ...item, quantity: newQuantity(), totalPay: newPay };
         } else {
           return item;
         }

@@ -20,7 +20,7 @@ const CartItem = (props) => {
   // 구매 수량이 바뀔 때마다 input에 반영되기 위함
   useEffect(() => {
     inputRef.current.value = cartItem.quantity;
-  }, [cartItem]);
+  }, [cartItem.quantity]);
 
   // 상품리스트에서 cartlist의 상품정보 찾기
   const findProduct = (cartItem) => {
@@ -29,7 +29,7 @@ const CartItem = (props) => {
     );
   };
 
-  // 상품별 총 금액
+  // 상품별 총 금액 
   const subTotalPrice = (cartItem) => {
     const priceStr = findProduct(cartItem).price;
     const price = parseInt(priceStr.replace(",", ""));

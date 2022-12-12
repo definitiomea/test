@@ -1,6 +1,4 @@
-/*
-GlobalStyles.jsx로 이동
-
+/* 초기화 관련 > GlobalStyles.jsx로 이동
 body,
 html, ul, li {
   margin: 0;
@@ -96,7 +94,7 @@ html, ul, li {
   margin-bottom: 10px;
 }
 
-/* 푸터 */
+/* 푸터 > GlobalStyles.jsx로 이동
 .footer {
   height: 100px;
   width: 100%;
@@ -105,7 +103,7 @@ html, ul, li {
   display: flex;
   position: absolute;
   bottom: 0;
-  margin-top: auto; /* 푸터 수정 */
+  margin-top: auto;
 }
 .footer h1 {
   margin: auto;
@@ -113,6 +111,7 @@ html, ul, li {
 .hidden {
   display: none;
 }
+*/
 
 .img-box {
   width: 350px;

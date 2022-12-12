@@ -10,8 +10,7 @@ import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/reducers/cart";
 
-// 대량 구매 할인을 할 것인지?
-// 얼마 이상 배송비 무료 할 것인지?
+// 장바구니가 비었을 때, 배송비 0
 // 숫자(금액) 세자리 마다 콤마 넣기
 
 const Cart = () => {
@@ -20,6 +19,7 @@ const Cart = () => {
   const [dataloading, setDataloading] = useState(false);
   const [productlist, setProductlist] = useState("");
   const [deliveryPay, setDeliveryPay] = useState(3000);
+  const [subtotal, setSubtotal] = useState(0);
 
   // 상품리스트 데이터 들고오기
   useEffect(() => {
@@ -36,10 +36,21 @@ const Cart = () => {
     getData();
   }, [dataloading]);
 
+  // 장바구니 아이템이 없으면 배송비를 0으로 출력
+  useEffect(() => {
+    cartlist.length == 0 ? setDeliveryPay(0) : setDeliveryPay(3000);
+  }, [cartlist]);
+
   // 배송비 제외 총 금액
-  const subtotal = () => {
-    
-  }
+  const getSubtotal = () => {
+    // prev: 이전값 > 현재까지 누적된 값
+    // cur : 현재값
+    // 0 : 초기값, 안쓰면 배열의 첫번째 요소가 들어감
+    const subtotal = cartlist.reduce((prev, cur) => {
+      return (prev += cur.totalPay);
+    }, 0);
+    return subtotal;
+  };
 
   return (
     <Container maxWidth="lg">
@@ -98,9 +109,11 @@ const Cart = () => {
                   <div>Total Price</div>
                 </div>
                 <div>
-                  <div>0000</div>
-                  <div>0000</div>
-                  <div>00000</div>
+                  <div>{getSubtotal().toLocaleString("ko-KR")}</div>
+                  <div>{deliveryPay.toLocaleString("ko-KR")}</div>
+                  <div>
+                    {(getSubtotal() + deliveryPay).toLocaleString("ko-KR")}
+                  </div>
                 </div>
               </div>
               <button>주문하기</button>
