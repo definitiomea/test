@@ -13,6 +13,7 @@ const ProductDetail = () => {
   const [productList, setProductList] = useState(null);
   const [img, setImg] = useState(null);
   const [canvas, setCanvas] = useState(null);
+  const [path, setPath] = useState([]);
 
   const { id } = useParams(); // id : productList {id}
   const test = useRef(null);
@@ -168,31 +169,38 @@ const ProductDetail = () => {
   }
 
   const download = () => {
-    console.log("download here");
     domtoimage.toBlob(test.current).then(function (dataUrl) {
       dataUrl.crossOrigin = "Anomymous";
-      console.log(dataUrl);
 
       let testImg = new Image();
       testImg.src = dataUrl;
-      console.log(testImg);
-      console.log(testImg.src);
+      testImg.crossOrigin = "Anomymous";
       
       window.saveAs(dataUrl, '');
+      console.log(dataUrl);
+      console.log(testImg);
+      console.log(testImg.src);
+
+      /* setPath(...path, path.push(dataUrl)); */
     })
   }
 
   const exportImg = () => {
-    domtoimage.toPixelData(test.current).then(function (pixels) {
+    /* 이쪽으로 코드를 쓰면 uint8array 쓰는 게 확정이기 때문에.... 미루고
+
+     domtoimage.toPixelData(test.current).then(function (pixels) {
       for (let y = 0; y < test.current.scrollHeight; ++y) {
         for (let x = 0; x < test.current.scrollWidth; ++x) {
           pixels.pixelAtXYOffset = (4 * y * test.current.scrollHeight) + (4 * x);
           pixels.pixelAtXY = pixels.slice(test.current.pixelAtXYOffset, test.current.pixelAtXYOffset + 4);
         }
       }
-      console.log(pixels.pixelAtXY);
+      
       console.log(pixels);
-    });
+      console.log(pixels.pixelAtXY);
+    }); */
+
+
   }
 
   useEffect(() => {
@@ -208,6 +216,10 @@ const ProductDetail = () => {
       setImg(productList.productImg[0])
     }
   }, [productList])
+
+  /* useEffect(() => {
+    console.log(path);
+  }, [path]); */
 
   return (
     <div className="product-area">
