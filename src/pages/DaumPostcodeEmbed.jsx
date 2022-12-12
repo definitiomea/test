@@ -82,12 +82,11 @@ function BasicModal() {
           id="sample6_postcode"
           placeholder="우편번호"
           onChange={changeZoneCode}
-          value={zoneCode}
+          defaultValue={zoneCode}
         />
         <input
           type="button"
-          onclick="sample6_execDaumPostcode()"
-          value="우편번호 찾기"
+          defaultValue="우편번호 찾기"
           onClick={handleOpen}
         />
         <br />
@@ -96,7 +95,7 @@ function BasicModal() {
           id="sample6_address"
           placeholder="주소"
           onChange={changeAddress}
-          value={address}
+          defaultValue={address}
         />
         <br />
         <input type="text" id="sample6_detailAddress" placeholder="상세주소" />
