@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const StyledList = styled.ul`
   padding: 0;
-  margin: 0;
+  margin: 1rem 0;
   border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
   ${"li"} {

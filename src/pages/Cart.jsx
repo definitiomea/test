@@ -3,11 +3,12 @@ import List from "../style/List";
 import { Container } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import Button from "@mui/material/Button";
 
 import { useEffect, useState } from "react";
 import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
-import {} from "../redux/reducers/cart";
+import { clearCart } from "../redux/reducers/cart";
 
 // 대량 구매 할인을 할 것인지?
 // 얼마 이상 배송비 무료 할 것인지?
@@ -35,6 +36,11 @@ const Cart = () => {
     getData();
   }, [dataloading]);
 
+  // 배송비 제외 총 금액
+  const subtotal = () => {
+    
+  }
+
   return (
     <Container maxWidth="lg">
       {productlist ? (
@@ -50,7 +56,15 @@ const Cart = () => {
               <div>Quantity</div>
               <div>Price</div>
               <div>
-                <button>Clear All</button>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  onClick={() => {
+                    dispatch(clearCart());
+                  }}
+                >
+                  Clear All
+                </Button>
               </div>
             </li>
             {cartlist.length == 0 ? (
@@ -62,12 +76,46 @@ const Cart = () => {
                     key={cartItem.cartID}
                     cartItem={cartItem}
                     productlist={productlist}
+                    dispatch={dispatch}
                   />
                 ))}
               </>
             )}
           </List>
           {/** 배송지, 총금액 */}
+          <Wrap>
+            <div className="delivery-info">
+              <h3>Delivery Information</h3>
+              배송지 직접 입력하는 공간 <br />
+              저장된 배송지 정보 불러오는 버튼 <br />
+              저장된 배송지가 있다면 자동으로 채워준다(컴포넌트로 빼기)
+            </div>
+            <div className="summary">
+              <div>
+                <div>
+                  <div>Subtotal</div>
+                  <div>Delivery</div>
+                  <div>Total Price</div>
+                </div>
+                <div>
+                  <div>0000</div>
+                  <div>0000</div>
+                  <div>00000</div>
+                </div>
+              </div>
+              <button>주문하기</button>
+            </div>
+          </Wrap>
+          <div>
+            <br />
+            <br />
+            주문하기 버튼을 누르면 모달창으로 주문완료 띄우기, 데이터는
+            orderlist로 이동 <br />
+            주문완료 모달창에는 홈으로 가기/주문내역 확인하기 버튼 <br />
+            홈은 홈으로, 주문내역은 마이페이지로 이동
+            <br />
+            <br />
+          </div>
         </>
       ) : (
         <h1>now loading(컴포넌트 만들기)</h1>

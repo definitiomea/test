@@ -1,9 +1,26 @@
 import styled from "styled-components";
+import IconButton from "@mui/material/IconButton";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+import {
+  quantityIncrease,
+  quantityDecrease,
+  quantityInput,
+  deleteItem,
+} from "../redux/reducers/cart";
 import { useRef } from "react";
+import { useEffect } from "react";
 
 const CartItem = (props) => {
-  const { cartItem, productlist } = props; // CartBox
+  const { cartItem, productlist, dispatch } = props; // Cart.jsx
   const inputRef = useRef();
+
+  // 구매 수량이 바뀔 때마다 input에 반영되기 위함
+  useEffect(() => {
+    inputRef.current.value = cartItem.quantity;
+  }, [cartItem]);
 
   // 상품리스트에서 cartlist의 상품정보 찾기
   const findProduct = (cartItem) => {
@@ -15,13 +32,13 @@ const CartItem = (props) => {
   // 상품별 총 금액
   const subTotalPrice = (cartItem) => {
     const priceStr = findProduct(cartItem).price;
-    const price = parseInt(priceStr.replace(",", "")); // 콤마 제거, 문자열 > 숫자형
+    const price = parseInt(priceStr.replace(",", ""));
     const totalPrice = price * cartItem.quantity;
-    return totalPrice.toLocaleString("ko-KR"); // 콤마 추가
+    return totalPrice.toLocaleString("ko-KR");
   };
 
   // 상품이미지
-  const getCategory = (cartItem) => {
+  const getImage = (cartItem) => {
     switch (cartItem.category) {
       case "short":
         return (
@@ -49,7 +66,7 @@ const CartItem = (props) => {
   return (
     <li>
       <StyledProduct>
-        <div className="img">{getCategory(findProduct(cartItem))}</div>
+        {getImage(findProduct(cartItem))}
         <div>
           <div>{findProduct(cartItem).category}</div>
           <div>
@@ -60,13 +77,49 @@ const CartItem = (props) => {
         </div>
       </StyledProduct>
       <div>{cartItem.size}</div>
-      <div>
-        <button>-</button>
-        <input type="number" defaultValue={cartItem.quantity} ref={inputRef} />
-        <button>+</button>
-      </div>
+      <ButtonWrap>
+        <IconButton
+          sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
+          aria-label="remove"
+          onClick={() => {
+            dispatch(quantityDecrease(cartItem.cartID));
+          }}
+        >
+          <RemoveIcon />
+        </IconButton>
+        <input
+          type="number"
+          defaultValue={cartItem.quantity}
+          ref={inputRef}
+          onChange={(e) => {
+            dispatch(
+              quantityInput({
+                cartID: cartItem.cartID,
+                value: e.target.value,
+              })
+            );
+          }}
+        />
+        <IconButton
+          sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
+          aria-label="add"
+          onClick={() => {
+            dispatch(quantityIncrease(cartItem.cartID));
+          }}
+        >
+          <AddIcon />
+        </IconButton>
+      </ButtonWrap>
       <div>{subTotalPrice(cartItem)}</div>
-      <button>X</button>
+      <IconButton
+        sx={{ "&:hover": { color: "#dc3545" } }}
+        aria-label="delete"
+        onClick={() => {
+          dispatch(deleteItem(cartItem.cartID));
+        }}
+      >
+        <DeleteIcon />
+      </IconButton>
     </li>
   );
 };
@@ -90,5 +143,28 @@ const StyledProduct = styled.div`
     min-height: 120px;
     margin-right: 1.5rem;
     background-color: #dee2e6;
+  }
+`;
+
+const ButtonWrap = styled.div`
+  display: flex;
+  background-color: #f8f9fa;
+  ${"input"} {
+    max-width: 4rem;
+    text-align: center;
+    border: none;
+    background-color: #f8f9fa;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    &:active {
+      background-color: #e9ecef;
+    }
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 1px 1px #dee2e6 inset;
+    }
   }
 `;
