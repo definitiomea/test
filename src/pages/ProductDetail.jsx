@@ -13,6 +13,8 @@ const ProductDetail = () => {
   const [productList, setProductList] = useState(null);
   const [img, setImg] = useState(null);
   const [canvas, setCanvas] = useState(null);
+
+  /* 시험 삼아서 이 state에 저장한다 치고, */
   const [path, setPath] = useState([]);
 
   const { id } = useParams(); // id : productList {id}
@@ -168,6 +170,7 @@ const ProductDetail = () => {
     }));
   }
 
+  /* 이 다운로드 메서드 안에 setPath를 다뤄보려고 했는데 일단 조잡하지만 한 번은 작동돼요 */
   const download = () => {
     domtoimage.toBlob(test.current).then(function (dataUrl) {
       dataUrl.crossOrigin = "Anomymous";
@@ -181,7 +184,7 @@ const ProductDetail = () => {
       console.log(testImg);
       console.log(testImg.src);
 
-      /* setPath(...path, path.push(dataUrl)); */
+      setPath(...path, path.push(dataUrl));
     })
   }
 
@@ -199,8 +202,6 @@ const ProductDetail = () => {
       console.log(pixels);
       console.log(pixels.pixelAtXY);
     }); */
-
-
   }
 
   useEffect(() => {
@@ -217,9 +218,10 @@ const ProductDetail = () => {
     }
   }, [productList])
 
-  /* useEffect(() => {
+  /* 하지만 useEffect를 통해서 path 배열 안에 여러 개가 추가되는지 확인하려고 했을 때 문제도 생겼고.. */
+  useEffect(() => {
     console.log(path);
-  }, [path]); */
+  }, [path]);
 
   return (
     <div className="product-area">
