@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/reducers/cart";
+import Loading from "../components/Loding";
 
 const Cart = () => {
   const cartlist = useSelector((state) => state.cartlist.cartlist);
@@ -117,7 +118,7 @@ const Cart = () => {
           </Wrap>
         </>
       ) : (
-        <h1>now loading(컴포넌트 만들기)</h1>
+        <Loading />
       )}
     </Container>
   );
