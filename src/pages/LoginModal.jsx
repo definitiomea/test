@@ -1,13 +1,16 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import Modal from "../components/Modal";
 import UserProfile from "../components/UserProfile";
 
 const LoginModal = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  console.log(isLoggedIn);
+  const user = useSelector((state) => state.user);
+
+  // console.log(isLoggedIn);
 
   const openModal = () => {
     setModalOpen(true);
@@ -19,17 +22,13 @@ const LoginModal = () => {
   return (
     // layout의 login button 자리에 위치
     <div>
-      {isLoggedIn ? (
+      {user.isLoggedIn ? (
         // log out button or 간단한 유저 프로필
-        <UserProfile setIsLoggedIn={setIsLoggedIn} />
+        <UserProfile />
       ) : (
         <div>
           <button onClick={openModal}>Login</button>
-          <Modal
-            open={modalOpen}
-            close={closeModal}
-            setIsLoggedIn={setIsLoggedIn}
-          />
+          <Modal open={modalOpen} close={closeModal} />
         </div>
       )}
     </div>

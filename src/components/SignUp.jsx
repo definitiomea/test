@@ -1,10 +1,11 @@
 import { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useInput from "../hooks/useInput";
 
-import { SIGN_UP } from "../redux/reducers/signup";
+import { SIGN_UP } from "../redux/signup";
 
 const SignUpPage = () => {
+  const signup = useSelector((state) => state.signup);
   const dispatch = useDispatch();
   const [id, onChangeId] = useInput("");
   // const [id, setId] = useState("");
@@ -27,21 +28,20 @@ const SignUpPage = () => {
     [password]
   );
 
+  let user = {
+    id,
+    password,
+    email,
+    address,
+  };
   const onSubmitForm = (e) => {
     e.preventDefault();
     if (password !== passwordCheck) {
       alert("비밀번호 불일치");
       return setPasswordError(true);
-    }
-    dispatch(
-      SIGN_UP({
-        id: id,
-        password: password,
-        email: email,
-        address: address,
-      })
-    );
-    console.log(id, password, email, address);
+    } // else if(이미 가입된 아이디가 있다면 회원가입 실패)
+    dispatch(SIGN_UP(user));
+    // console.log(id, password, email, address);
   };
 
   return (

@@ -2,11 +2,12 @@ import "../css/modal.css";
 import useInput from "../hooks/useInput";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux/reducers/user";
+import { login } from "../redux/user";
 
 const Modal = (props) => {
-  const { open, close, setIsLoggedIn } = props;
-  const signup = useSelector((state) => state.signup.value);
+  const { open, close } = props;
+  const signup = useSelector((state) => state.signup);
+
   const dispatch = useDispatch();
 
   // const [id, setId] = useState("");
@@ -28,15 +29,32 @@ const Modal = (props) => {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
-    if (id !== signup.id || password !== signup.password) {
-      alert("로그인 실패");
-      return setIsLoggedIn(false);
-    }
-    dispatch(
-      login({ id: signup.id, email: signup.email, address: signup.address })
+
+    // const isUser = (element) => {
+    //   if (element.id === id || element.password === password) {
+    //     return true;
+    //   }
+    // };
+
+    const findUser = signup.userlist.find(
+      (user) => user.id === id && user.password === password
     );
-    console.log(id, password);
-    setIsLoggedIn(true);
+    console.log(findUser);
+
+    if (!findUser) {
+      alert("로그인 실패");
+    } else {
+      dispatch(
+        login({
+          id: findUser.id,
+          email: findUser.email,
+          address: findUser.address,
+          isLoggedIn: true,
+        })
+      );
+    }
+
+    // console.log(id, password);
   };
 
   return (
