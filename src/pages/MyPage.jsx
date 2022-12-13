@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Link, useNavigate } from "react-router-dom";
 import Test from "./DaumPostcodeEmbed";
-import Slider from "react-slick";
+import "../components/ReviewAdd";
 
 const Mypage = () => {
   const navigate = useNavigate();
@@ -12,6 +12,18 @@ const Mypage = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+
+  // 승연 임시데이터
+  const perchaseItem = {
+    category: "Short Sleeve T-shirt",
+    productName: "relax-fit",
+    color: "white",
+    size: "S",
+    print: "front",
+    amount: 1,
+    pay: "9,500",
+  };
+
   return (
     <div>
       {/* 회원정보 수정 form */}
@@ -55,7 +67,7 @@ const Mypage = () => {
               <img
                 className="img"
                 src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-                alt=""
+                alt="#"
                 style={{
                   width: "200px",
                   height: "100px",
@@ -114,38 +126,38 @@ const Mypage = () => {
           <div>주문상태</div>
         </MypageHead>
 
-        {/* 주문완료 섹션 */}
+        {/* 승연 테스트 - 주문완료 섹션 */}
         <MypageBody>
           <MypagePd>
             <div>
               <img
                 className="img"
-                src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-                alt=""
+                src={require("../img/shirts-img/short/short-relax-white-front.jpg")}
+                alt="#"
                 style={{
                   width: "200px",
-                  height: "100px",
+                  height: "200px",
                 }}
               />
             </div>
             <MypageInfo>
               {/* 상품 정보 */}
               <div>
-                <span>short sleeve t-shirt</span>
-                <span>standard fit</span>
-                <span> (navy) </span>
+                <span>{perchaseItem.category} </span>
+                <span>{perchaseItem.productName} </span>
+                <span> ({perchaseItem.color}) </span>
               </div>
 
               {/* 프린팅 면 정보*/}
               <div>
                 <span>print : </span>
-                <span>front</span>
+                <span>{perchaseItem.print}</span>
               </div>
 
               {/* 사이즈 정보 */}
               <div>
                 <span>size : </span>
-                <span>S</span>
+                <span>{perchaseItem.size}</span>
               </div>
             </MypageInfo>
           </MypagePd>
@@ -153,13 +165,15 @@ const Mypage = () => {
           <div>2022.12.09</div>
 
           <MypageColum>
-            <div>9,500원</div>
-            <div>1개</div> {/* 연한 회색 처리 */}
+            <div>{perchaseItem.pay}</div>
+            <div>{perchaseItem.amount}개</div> {/* 연한 회색 처리 */}
           </MypageColum>
 
           <MypageColum>
             <div>
-              <Link to="/mypage/review">후기작성</Link>
+              <Link to="/mypage/review" state={{ perchaseItem: perchaseItem }}>
+                후기작성
+              </Link>
             </div>
           </MypageColum>
         </MypageBody>

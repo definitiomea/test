@@ -63,7 +63,7 @@ const Home = () => {
       {/* 두번째 스크린 */}
       <section className="second-screen">
         <div className="section-img">
-          <img src={require("../img/main/main-img.jpg")} alt="" />
+          <img src={require("../img/main/main-img.jpg")} alt="main" />
         </div>
         <div className="second-content">
           <section>사이트 소개/장점</section>
