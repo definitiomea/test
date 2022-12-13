@@ -1,13 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/user";
 const UserProfile = (props) => {
-  const { setIsLoggedIn } = props;
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.user);
 
   const onClickBtn = () => {
     dispatch(logout());
-    setIsLoggedIn(false);
   };
   return (
     <div>

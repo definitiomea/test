@@ -1,13 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialStateValue = { id: "", password: "", email: "", address: "" };
+const initialState = { userlist: [] };
 
 export const signupSlice = createSlice({
   name: "signup",
-  initialState: { value: initialStateValue },
+  initialState,
   reducers: {
     SIGN_UP: (state, action) => {
-      state.value = action.payload;
+      const newUser = {
+        id: action.payload.id,
+        password: action.payload.password,
+        email: action.payload.email,
+        address: action.payload.address,
+      };
+      const newUserlist = state.userlist.concat(newUser);
+      state.userlist = newUserlist;
+      console.log(state.userlist);
     },
   },
 });
