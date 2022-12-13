@@ -202,10 +202,14 @@ const ProductDetail = () => {
     reader.readAsDataURL(dataUrl);
     reader.onload = () => {
       const base64Data = reader.result;
-      setPath({
-        name: "test이미지",
-        imageUrl: base64Data,
-      });
+      /* setPath([...path,{
+        name: "테스트용 이미지",
+        imageUrl: base64Data
+      }]); */
+      setPath(path.concat({
+        name: "테스트용 이미지",
+        imageUrl: base64Data
+      }))
     }
   }
 
@@ -213,11 +217,11 @@ const ProductDetail = () => {
     console.log(path);
     return (
         <div>
-            {path ?
+            {path ? path.map((img, index) => (
             <div>
-                <h3>{path.name}</h3>
-                <img src={path.imageUrl}></img>
-            </div> : ""}
+                <h3>{img.name} {index}</h3>
+                <img src={img.imageUrl}></img>
+            </div>)) : ""}
         </div>
     );
   }
@@ -236,9 +240,9 @@ const ProductDetail = () => {
     }
   }, [productList])
 
-  useEffect(() => {
+  /* useEffect(() => {
     console.log(path);
-  }, [path]);
+  }, [path]); */
 
   return (
     <div className="product-area">
