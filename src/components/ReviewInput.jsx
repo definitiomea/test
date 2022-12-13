@@ -1,9 +1,8 @@
 import { useDispatch } from "react-redux";
 
-const CommentInput = () => {
-  const dispatch=useDispatch()
-
-  const comment=dispatch{(type)}
+const CommentInput = (props) => {
+  const { productID } = props;
+  const dispatch = useDispatch();
 
   return (
     <div>

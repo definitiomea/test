@@ -21,18 +21,20 @@ const initialState = {
       date: "2022-11-19",
     },
     {
+      id: 1,
       userID: "sun",
-      category: "short sleeve",
+      category: "short",
       productName: "slim fit",
       size: "M",
       rating: 4,
-      comment: "good good",
+      comment: "색감이 너무 좋습니다!",
       image: { src: "" },
       date: "2022-11-20",
     },
     {
+      id: 2,
       userID: "jun",
-      category: "short sleeve",
+      category: "short",
       productName: "standard fit",
       size: "L",
       rating: 5,
@@ -41,8 +43,9 @@ const initialState = {
       date: "2022-11-18",
     },
     {
+      id: 3,
       userID: "jung",
-      category: "short sleeve",
+      category: "short",
       productName: "relax fit",
       size: "M",
       rating: 4,
@@ -51,8 +54,9 @@ const initialState = {
       date: "2022-11-20",
     },
     {
+      id: 4,
       userID: "yeon",
-      category: "long sleeve",
+      category: "long",
       productName: "standard fit",
       size: "S",
       rating: 3,
@@ -61,8 +65,9 @@ const initialState = {
       date: "2022-11-23",
     },
     {
+      id: 5,
       userID: "jungkook",
-      category: "long sleeve",
+      category: "long",
       productName: "standard fit",
       size: "L",
       rating: 5,
@@ -71,8 +76,9 @@ const initialState = {
       date: "2022-12-01",
     },
     {
+      id: 6,
       userID: "jimin",
-      category: "long sleeve",
+      category: "long",
       productName: "relax fit",
       size: "S",
       rating: 5,
@@ -81,8 +87,9 @@ const initialState = {
       date: "2022-12-02",
     },
     {
+      id: 7,
       userID: "namjun",
-      category: "long sleeve",
+      category: "long",
       productName: "relaxfit",
       size: "L",
       rating: 4,
@@ -94,17 +101,21 @@ const initialState = {
 };
 
 const reviewSlice = createSlice({
-  name: "reviewlist",
+  name: "reviewList",
   initialState,
   reducers: {
     // 리뷰쓰기
     writeReivew: (state, action) => {
       const newReview = {
+        id: null,
         userID: null,
+        reviewID: null,
+        productID: null,
         category: null,
         productName: null,
         size: null,
-        rating: 5,
+        color: null,
+        rating: null,
         comment: null,
       };
       state.review.push(newReview);
