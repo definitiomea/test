@@ -34,7 +34,7 @@ const CartItem = (props) => {
     setTotal(cartItem.totalPay);
   }, [cartItem.totalPay]);
 
-  // 상품이미지 가져오기
+  // 상품이미지 가져오기 >> 사용자가 도안을 편집한 이미지로 대체할 것
   const getImage = (cartItem) => {
     switch (cartItem.category) {
       case "short":
