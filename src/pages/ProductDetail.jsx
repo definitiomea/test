@@ -15,7 +15,10 @@ const ProductDetail = () => {
   const [canvas, setCanvas] = useState(null);
 
   /* 시험 삼아서 이 state에 저장한다 치고, */
-  const [path, setPath] = useState([]);
+  const [path, setPath] = useState({
+    name: "",
+    imageUrl: "",
+  });
 
   const { id } = useParams(); // id : productList {id}
   const test = useRef(null);
@@ -25,6 +28,7 @@ const ProductDetail = () => {
     let response = await fetch(url);
     let data = await response.json();
     setProductList(data);
+    // console.log(productList);
   }
 
   const initCanvas = () => {
