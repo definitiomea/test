@@ -2,10 +2,9 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 
-let cartID = 0;
-
 // 초기값
 const initialState = {
+  cartID: 0, // 장바구니 아이템 삭제를 위해 겹치는 일이 없도록 (고유값)
   cartlist: [
     // 테스트용 데이터
     {
@@ -57,33 +56,45 @@ const cartSlice = createSlice({
       state.cartlist.push(newCartitem);
     },
 
-    // 코드 중복 줄이기
-    // 장바구니 상품별 구매 수량 -1
+
+
+
+    
+    // 장바구니 상품별 구매수량 -1 (구매수량 최소 1)
     quantityDecrease: (state, action) => {
+      const price = parseInt(action.payload.productPrice.replace(",", ""));
       const newCartlist = state.cartlist.map((item) => {
-        if (item.cartID == action.payload && item.quantity > 1) {
-          const newPay = (item.totalPay / item.quantity) * (item.quantity - 1);
-          return { ...item, quantity: item.quantity - 1, totalPay: newPay };
+        if (item.cartID == action.payload.cartID && item.quantity > 1) {
+          return {
+            ...item,
+            quantity: item.quantity - 1,
+            totalPay: price * (item.quantity - 1),
+          };
         } else {
           return item;
         }
       });
       state.cartlist = newCartlist;
     },
-    // 장바구니 상품별 구매 수량 +1
+    // 장바구니 상품별 구매수량 +1 (구매수량 최대 999)
     quantityIncrease: (state, action) => {
+      const price = parseInt(action.payload.productPrice.replace(",", ""));
       const newCartlist = state.cartlist.map((item) => {
-        if (item.cartID == action.payload && item.quantity < 999) {
-          const newPay = (item.totalPay / item.quantity) * (item.quantity + 1);
-          return { ...item, quantity: item.quantity + 1, totalPay: newPay };
+        if (item.cartID == action.payload.cartID && item.quantity < 999) {
+          return {
+            ...item,
+            quantity: item.quantity + 1,
+            totalPay: price * (item.quantity + 1),
+          };
         } else {
           return item;
         }
       });
       state.cartlist = newCartlist;
     },
-    // 장바구니 상품별 구매 수량 직접 입력 (최소 1, 최대 999)
+    // 장바구니 상품별 구매수량 직접 입력 (구매수량 최소 1, 최대 999)
     quantityInput: (state, action) => {
+      const price = parseInt(action.payload.productPrice.replace(",", ""));
       const newQuantity = () => {
         if (action.payload.value < 1) {
           return 1;
@@ -95,8 +106,11 @@ const cartSlice = createSlice({
       };
       const newCartlist = state.cartlist.map((item) => {
         if (item.cartID == action.payload.cartID) {
-          const newPay = (item.totalPay / item.quantity) * newQuantity();
-          return { ...item, quantity: newQuantity(), totalPay: newPay };
+          return {
+            ...item,
+            quantity: newQuantity(),
+            totalPay: price * newQuantity(),
+          };
         } else {
           return item;
         }

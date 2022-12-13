@@ -10,16 +10,12 @@ import CartItem from "../components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/reducers/cart";
 
-// 장바구니가 비었을 때, 배송비 0
-// 숫자(금액) 세자리 마다 콤마 넣기
-
 const Cart = () => {
   const cartlist = useSelector((state) => state.cartlist.cartlist);
   const dispatch = useDispatch();
   const [dataloading, setDataloading] = useState(false);
   const [productlist, setProductlist] = useState("");
   const [deliveryPay, setDeliveryPay] = useState(3000);
-  const [subtotal, setSubtotal] = useState(0);
 
   // 상품리스트 데이터 들고오기
   useEffect(() => {
@@ -93,7 +89,6 @@ const Cart = () => {
               </>
             )}
           </List>
-          {/** 배송지, 총금액 */}
           <Wrap>
             <div className="delivery-info">
               <h3>Delivery Information</h3>
@@ -106,12 +101,12 @@ const Cart = () => {
                 <div>
                   <div>Subtotal</div>
                   <div>Delivery</div>
-                  <div>Total Price</div>
+                  <div className="total">Total Price</div>
                 </div>
                 <div>
                   <div>{getSubtotal().toLocaleString("ko-KR")}</div>
                   <div>{deliveryPay.toLocaleString("ko-KR")}</div>
-                  <div>
+                  <div className="total">
                     {(getSubtotal() + deliveryPay).toLocaleString("ko-KR")}
                   </div>
                 </div>
@@ -119,16 +114,6 @@ const Cart = () => {
               <button>주문하기</button>
             </div>
           </Wrap>
-          <div>
-            <br />
-            <br />
-            주문하기 버튼을 누르면 모달창으로 주문완료 띄우기, 데이터는
-            orderlist로 이동 <br />
-            주문완료 모달창에는 홈으로 가기/주문내역 확인하기 버튼 <br />
-            홈은 홈으로, 주문내역은 마이페이지로 이동
-            <br />
-            <br />
-          </div>
         </>
       ) : (
         <h1>now loading(컴포넌트 만들기)</h1>
@@ -136,6 +121,11 @@ const Cart = () => {
     </Container>
   );
 };
+
+// 주문하기 버튼을 누르면 모달창으로 주문완료 띄우기, 데이터는
+// orderlist로 이동
+// 주문완료 모달창에는 홈으로 가기/주문내역 확인하기 버튼
+// 홈은 홈으로, 주문내역은 마이페이지로 이동
 
 export default Cart;
 
@@ -155,7 +145,7 @@ const Title = styled.div`
 
 const Wrap = styled.div`
   display: flex;
-  margin-top: 3rem;
+  margin: 3rem 0;
   ${"div"} {
     width: 100%;
   }
@@ -167,5 +157,24 @@ const Wrap = styled.div`
     flex: 1;
     padding: 2rem;
     background-color: #e9ecef;
+    > div {
+      display: flex;
+      margin-bottom: 2rem;
+      > div {
+        &:first-child {
+          text-align: left;
+        }
+        &:last-child {
+          text-align: right;
+        }
+      }
+    }
+    .total {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    ${"div"} {
+      padding: 0.2rem 0;
+    }
   }
 `;

@@ -10,34 +10,31 @@ import {
   quantityInput,
   deleteItem,
 } from "../redux/reducers/cart";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useEffect } from "react";
 
 const CartItem = (props) => {
   const { cartItem, productlist, dispatch } = props; // Cart.jsx
   const inputRef = useRef();
+  const [total, setTotal] = useState(cartItem.totalPay)
 
-  // 구매 수량이 바뀔 때마다 input에 반영되기 위함
+  // 상품리스트에서 cartlist의 상품정보 찾기
+  const findProduct = (cartItem) =>
+    productlist.find(
+      (productItem) => productItem.productID == cartItem.productID
+    );
+
+  // 구매 수량이 바뀔 때마다 input에 반영하기 위함
   useEffect(() => {
     inputRef.current.value = cartItem.quantity;
   }, [cartItem.quantity]);
+  
+  // 상품별 총 금액이 바뀔 때마다 반영하기 위함
+  useEffect(() => {
+    setTotal(cartItem.totalPay);
+  }, [cartItem.totalPay]);
 
-  // 상품리스트에서 cartlist의 상품정보 찾기
-  const findProduct = (cartItem) => {
-    return productlist.find(
-      (productItem) => productItem.productID == cartItem.productID
-    );
-  };
-
-  // 상품별 총 금액 
-  const subTotalPrice = (cartItem) => {
-    const priceStr = findProduct(cartItem).price;
-    const price = parseInt(priceStr.replace(",", ""));
-    const totalPrice = price * cartItem.quantity;
-    return totalPrice.toLocaleString("ko-KR");
-  };
-
-  // 상품이미지
+  // 상품이미지 가져오기
   const getImage = (cartItem) => {
     switch (cartItem.category) {
       case "short":
@@ -82,7 +79,12 @@ const CartItem = (props) => {
           sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
           aria-label="remove"
           onClick={() => {
-            dispatch(quantityDecrease(cartItem.cartID));
+            dispatch(
+              quantityDecrease({
+                cartID: cartItem.cartID,
+                productPrice: findProduct(cartItem).price,
+              })
+            );
           }}
         >
           <RemoveIcon />
@@ -95,6 +97,7 @@ const CartItem = (props) => {
             dispatch(
               quantityInput({
                 cartID: cartItem.cartID,
+                productPrice: findProduct(cartItem).price,
                 value: e.target.value,
               })
             );
@@ -104,13 +107,16 @@ const CartItem = (props) => {
           sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
           aria-label="add"
           onClick={() => {
-            dispatch(quantityIncrease(cartItem.cartID));
+            dispatch(quantityIncrease({
+              cartID: cartItem.cartID,
+              productPrice: findProduct(cartItem).price,
+            }));
           }}
         >
           <AddIcon />
         </IconButton>
       </ButtonWrap>
-      <div>{subTotalPrice(cartItem)}</div>
+      <div>{total.toLocaleString("ko-KR")}</div>
       <IconButton
         sx={{ "&:hover": { color: "#dc3545" } }}
         aria-label="delete"
