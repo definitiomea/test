@@ -175,20 +175,15 @@ const ProductDetail = () => {
     domtoimage.toBlob(test.current).then(function (dataUrl) {
       dataUrl.crossOrigin = "Anomymous";
 
-      let testImg = new Image();
+      /* let testImg = new Image();
       testImg.src = dataUrl;
-      testImg.crossOrigin = "Anomymous";
+      testImg.crossOrigin = "Anomymous"; */
       
       window.saveAs(dataUrl, '');
-      console.log(dataUrl);
-      console.log(testImg);
-      console.log(testImg.src);
-
-      setPath(...path, path.push(dataUrl));
     })
   }
 
-  const exportImg = () => {
+  const exportImg = async () => {
     /* 이쪽으로 코드를 쓰면 uint8array 쓰는 게 확정이기 때문에.... 미루고
 
      domtoimage.toPixelData(test.current).then(function (pixels) {
@@ -202,6 +197,29 @@ const ProductDetail = () => {
       console.log(pixels);
       console.log(pixels.pixelAtXY);
     }); */
+    const dataUrl = await domtoimage.toBlob(test.current); 
+    const reader = new FileReader(); 
+    reader.readAsDataURL(dataUrl);
+    reader.onload = () => {
+      const base64Data = reader.result;
+      setPath({
+        name: "test이미지",
+        imageUrl: base64Data,
+      });
+    }
+  }
+
+  const ImageTest = ({path}) => {
+    console.log(path);
+    return (
+        <div>
+            {path ?
+            <div>
+                <h3>{path.name}</h3>
+                <img src={path.imageUrl}></img>
+            </div> : ""}
+        </div>
+    );
   }
 
   useEffect(() => {
@@ -218,7 +236,6 @@ const ProductDetail = () => {
     }
   }, [productList])
 
-  /* 하지만 useEffect를 통해서 path 배열 안에 여러 개가 추가되는지 확인하려고 했을 때 문제도 생겼고.. */
   useEffect(() => {
     console.log(path);
   }, [path]);
@@ -274,6 +291,7 @@ const ProductDetail = () => {
             <Button>구매하기</Button>
           </div>
         </div>
+        <ImageTest path={path}></ImageTest>
     </div>
   );
 }
