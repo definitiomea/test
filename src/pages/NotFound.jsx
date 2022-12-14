@@ -55,6 +55,7 @@ const Wrap = styled.div`
     margin: 2rem 1rem 1rem 0; 
     color: #f8f9fa;
     background-color: #212529;
+    border-radius: 0;
     font-weight: bold;
     &:hover {
       background-color: black;
