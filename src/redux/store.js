@@ -1,22 +1,26 @@
 import { configureStore } from "@reduxjs/toolkit";
-import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-import userReducer from "./reducers/user";
-import signupReducer from "./reducers/signup";
+import user from "./user";
+import signup from "./signup";
 import cartReducer from "./reducers/cart";
 
 const reducers = combineReducers({
-  user: userReducer,
-  signup: signupReducer,
+  user: user,
+  signup: signup,
   cartlist: cartReducer,
 });
 
 const persistConfig = {
+  // key: storage에 저장할 때의 key값 지정
   key: "root",
+  // session, local storage 중에서 저장할 storage 지정
   storage,
-  whitelist: ["user", "cartlist"],
+  // storage에 저장할 redux module 나열
+  // blacklist : 저장하지 않을 redux module 나열
+  whitelist: ["signup", "user", "cartlist"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
