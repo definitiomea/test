@@ -34,7 +34,7 @@ const NotFound = () => {
 export default NotFound;
 
 const Wrap = styled.div`
-  height: calc(100vh - 160px);
+  min-height: calc(100vh - 160px);
   display: flex;
   justify-content: center;
   align-items: center;
