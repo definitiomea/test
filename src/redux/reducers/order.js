@@ -8,6 +8,8 @@ const initialState = {
   orderlist: [
     // 테스트용 데이터 - 필요없는 데이터는 삭제할 것
     {
+      // 누구의 구매내역인지 알아야하므로 유저 추가
+      user: "",
       orderID: 1,
       category: "short",
       productID: 1,
@@ -19,9 +21,12 @@ const initialState = {
       quantity: 5,
       price: "47,500",
       // 이미지 : 도안이 들어간 사진으로 보일것인지
-      thumbnail: "short-slim-black-front.jpg"
+      thumbnail: "short-slim-black-front.jpg",
+      // 배송상태
+      delivery: "상품준비"
     },
     {
+      user: "",
       orderID: 2,
       category: "short",
       productID: 2,
@@ -31,9 +36,11 @@ const initialState = {
       print: "back",
       quantity: 2,
       price: "19,000",
-      thumbnail: "short-stnadard-blue-front.jpg"
+      thumbnail: "short-stnadard-blue-front.jpg",
+      delivery: "상품준비"
     },
     {
+      user: "",
       orderID: 3,
       category: "short",
       productID: 3,
@@ -43,7 +50,8 @@ const initialState = {
       print: "front / back",
       quantity: 3,
       price: "28,500",
-      thumbnail: "short-relax-beige-front.jpg"
+      thumbnail: "short-relax-beige-front.jpg",
+      delivery: "상품준비"
     },
   ],
 };
