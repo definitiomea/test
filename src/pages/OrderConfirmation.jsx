@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import Button from "@mui/material/Button";
-import TaskAltOutlinedIcon from '@mui/icons-material/TaskAltOutlined';
+import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 
 const OrderConfirmation = () => {
-  
-
   return (
     <Wrap>
       <TaskAltOutlinedIcon />
@@ -14,12 +12,12 @@ const OrderConfirmation = () => {
       <Button>구매내역 확인하기</Button>
     </Wrap>
   );
-}
+};
 
 export default OrderConfirmation;
 
 const Wrap = styled.div`
-  height: calc(100vh - 160px);
+  height: calc(100vh - 160px); // 160 : 푸터 + 네브
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -29,11 +27,8 @@ const Wrap = styled.div`
     height: 5rem;
     color: #adb5bd;
   }
-  div {
-    &:first-child {
-      font-size: 3rem;
-      font-weight: bold;
-    }
+  &:nth-child(1) {
+    font-weight: bold;
   }
   // 버튼 컴프를 따로 만든다면 가져오기
   .MuiButtonBase-root {
