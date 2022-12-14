@@ -21,14 +21,13 @@ html, ul, li {
 }
 .navbar .nav-link {
   margin-left: auto;
-  padding: 20px;
   display: flex;
 }
 .navbar a, .nav-link a {
-  padding: 10px;
   color: whitesmoke;
   text-decoration: none;
   align-self: center;
+  margin-right: 20px;
 }
 .nav-link a:first-child {
   padding: 0 10px;

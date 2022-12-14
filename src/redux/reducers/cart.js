@@ -1,5 +1,4 @@
 // 장바구니 리스트 관리
-
 import { createSlice } from "@reduxjs/toolkit";
 
 // 초기값
@@ -19,7 +18,7 @@ const initialState = {
     {
       cartID: 2,
       productID: 2,
-      color: "navy",
+      color: "blue",
       size: "M",
       print: "back",
       quantity: 2,
@@ -28,7 +27,7 @@ const initialState = {
     {
       cartID: 3,
       productID: 3,
-      color: "white",
+      color: "beige",
       size: "L",
       print: "front / back",
       quantity: 3,

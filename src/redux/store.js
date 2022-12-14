@@ -3,14 +3,16 @@ import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import user from "./user";
-import signup from "./signup";
+import user from "./reducers/user";
+import signup from "./reducers/signup";
 import cartReducer from "./reducers/cart";
+import orderReduer from "./reducers/order"
 
 const reducers = combineReducers({
   user: user,
   signup: signup,
   cartlist: cartReducer,
+  orderlist: orderReduer
 });
 
 const persistConfig = {
@@ -20,7 +22,7 @@ const persistConfig = {
   storage,
   // storage에 저장할 redux module 나열
   // blacklist : 저장하지 않을 redux module 나열
-  whitelist: ["signup", "user", "cartlist"],
+  whitelist: ["signup", "user", "cartlist", "orderlist"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
