@@ -47,6 +47,7 @@ const ErrorWrap = styled.div`
   ${"p"} {
     margin-bottom: 5rem;
   }
+  // 버튼 컴프를 따로 만든다면 가져오기
   .MuiButtonBase-root {
     margin-right: 1rem;
     margin-bottom: 1rem;
