@@ -1,15 +1,17 @@
 import styled from "styled-components";
 import Button from "@mui/material/Button";
+import SmsFailedOutlinedIcon from '@mui/icons-material/SmsFailedOutlined';
 import { useNavigate } from "react-router-dom";
 
 const NotFound = () => {
   const navigate = useNavigate();
 
   return (
-    <ErrorWrap>
+    <Wrap>
+      <SmsFailedOutlinedIcon />
       <div>
-        <h1>OOPS!</h1>
-        <p>We couldn't find the page your looking for.</p>
+        <div>OOPS</div>
+        <div>We couldn't find the page your looking for.</div>
         <Button
           onClick={() => {
             navigate("/");
@@ -25,32 +27,32 @@ const NotFound = () => {
           GO BACK
         </Button>
       </div>
-    </ErrorWrap>
+    </Wrap>
   );
 };
 
 export default NotFound;
 
-const ErrorWrap = styled.div`
-  position: relative;
+const Wrap = styled.div`
   height: calc(100vh - 160px);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  ${"h1"} {
-    color: #adb5bd;
-    font-size: 4rem;
-    font-weight: bold;
-    margin-bottom: 1.5rem;
+  svg {
+    width: 11rem;
+    height: 11rem;
+    color: #ced4da;
+    margin-right: 2rem;
   }
-  ${"p"} {
-    margin-bottom: 5rem;
+  div {
+    &:first-child {
+      font-size: 3rem;
+      font-weight: bold;
+    }
   }
   // 버튼 컴프를 따로 만든다면 가져오기
   .MuiButtonBase-root {
-    margin-right: 1rem;
-    margin-bottom: 1rem;
+    margin: 2rem 1rem 1rem 0; 
     color: #f8f9fa;
     background-color: #212529;
     font-weight: bold;
