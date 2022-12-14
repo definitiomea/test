@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Button from "@mui/material/Button";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
+import MyButton from "../style/Button";
 
 const OrderConfirmation = () => {
   return (
@@ -8,8 +8,8 @@ const OrderConfirmation = () => {
       <TaskAltOutlinedIcon />
       <div>주문이 완료되었습니다.</div>
       <div>Thankyou for your purchase!</div>
-      <Button>홈으로 가기</Button>
-      <Button>구매내역 확인하기</Button>
+      <MyButton>홈으로 가기</MyButton>
+      <MyButton>구매내역 확인하기</MyButton>
     </Wrap>
   );
 };
@@ -29,14 +29,5 @@ const Wrap = styled.div`
   }
   &:nth-child(1) {
     font-weight: bold;
-  }
-  // 버튼 컴프를 따로 만든다면 가져오기
-  .MuiButtonBase-root {
-    color: #f8f9fa;
-    background-color: #212529;
-    border-radius: 0;
-    &:hover {
-      background-color: black;
-    }
   }
 `;

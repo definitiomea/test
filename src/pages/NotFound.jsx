@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Button from "@mui/material/Button";
 import SmsFailedOutlinedIcon from '@mui/icons-material/SmsFailedOutlined';
+import MyButton from "../style/Button";
 import { useNavigate } from "react-router-dom";
 
 const NotFound = () => {
@@ -12,20 +12,20 @@ const NotFound = () => {
       <div>
         <div>OOPS</div>
         <div>We couldn't find the page your looking for.</div>
-        <Button
+        <MyButton
           onClick={() => {
             navigate("/");
           }}
         >
           VISIT HOMEPAGE
-        </Button>
-        <Button
+        </MyButton>
+        <MyButton
           onClick={() => {
             navigate(-1);
           }}
         >
           GO BACK
-        </Button>
+        </MyButton>
       </div>
     </Wrap>
   );
@@ -50,15 +50,8 @@ const Wrap = styled.div`
       font-weight: bold;
     }
   }
-  // 버튼 컴프를 따로 만든다면 가져오기
-  .MuiButtonBase-root {
+  button {
     margin: 2rem 1rem 1rem 0; 
-    color: #f8f9fa;
-    background-color: #212529;
-    border-radius: 0;
     font-weight: bold;
-    &:hover {
-      background-color: black;
-    }
   }
 `;
