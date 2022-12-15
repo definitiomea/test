@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { fabric } from 'fabric';
 import domtoimage from 'dom-to-image';
 import { saveAs } from 'file-saver';
@@ -9,19 +10,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import Button from '@mui/material/Button';
 
+import { inputCart } from '../redux/reducers/cart'
+
 const ProductDetail = () => {
   const [productList, setProductList] = useState(null);
   const [img, setImg] = useState(null);
   const [canvas, setCanvas] = useState(null);
 
   /* 시험 삼아서 이 state에 저장한다 치고, */
-  const [path, setPath] = useState({
-    name: "",
-    imageUrl: "",
-  });
+  const [path, setPath] = useState([]);
 
   const { id } = useParams(); // id : productList {id}
   const test = useRef(null);
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const getProduct = async () => {
     let url = `https://my-json-server.typicode.com/hans-4303/test/productList/${id}`;
@@ -179,39 +183,44 @@ const ProductDetail = () => {
    * ▼ async/await 사용 (async/await 뺐더니 오류 생김)
    * https://www.ouyiz.me/blog/how-to-turn-a-react-component-into-an-image
    */
-  const download = async () => {
-    const dataUrl = await domtoimage.toBlob(test.current); // Blob 데이터로 만듬
-    const reader = new FileReader(); // Blob 데이터를 읽기 위해 FileReaderAPI 사용
-    // FileReaderAPI의 readAsDataURL을 사용해 
-    // Blob 데이터를 base64 인코딩 문자열로 변환 (url주소)
-    reader.readAsDataURL(dataUrl);
-    // FileReaderAPI는 onload 이벤트로 파일을 읽었음을 알려줘야 함
-    reader.onload = () => {
-      const base64Data = reader.result;
-      setPath({
-        name: "test이미지",
-        imageUrl: base64Data,
-      });
-    }
-    // 한 번 클릭했을 때는 콘솔에 안찍힘 (이미지는 바로 반영되어 보인다), 
-    // 두 번 클릭하면 setPath로 반영된 값이 콘솔에 찍힘
-    console.log(path);
+   const download = () => {
+    domtoimage.toBlob(test.current).then(function (dataUrl) {
+      dataUrl.crossOrigin = "Anomymous";
+      /* let testImg = new Image();
+      testImg.src = dataUrl;
+      testImg.crossOrigin = "Anomymous"; */
+      
+      window.saveAs(dataUrl, '');
+    })
   }
 
-  const exportImg = () => {
-    /* 이쪽으로 코드를 쓰면 uint8array 쓰는 게 확정이기 때문에.... 미루고
+  
+  const exportImg = async () => {
+    const dataUrl = await domtoimage.toBlob(test.current);
+    const reader = new FileReader();
+    reader.readAsDataURL(dataUrl);
+    reader.onload = () => {
+      const base64Data = reader.result;
+      setPath(path.concat({
+        name: "test이미지",
+        imageUrl: base64Data,
+      }));
 
-     domtoimage.toPixelData(test.current).then(function (pixels) {
-      for (let y = 0; y < test.current.scrollHeight; ++y) {
-        for (let x = 0; x < test.current.scrollWidth; ++x) {
-          pixels.pixelAtXYOffset = (4 * y * test.current.scrollHeight) + (4 * x);
-          pixels.pixelAtXY = pixels.slice(test.current.pixelAtXYOffset, test.current.pixelAtXYOffset + 4);
-        }
-      }
-      
-      console.log(pixels);
-      console.log(pixels.pixelAtXY);
-    }); */
+      /* 디스패치를 객체로 넣으려면 이렇게 맞을까요? */
+      dispatch(inputCart({id: productList?.id, img: base64Data}))
+    }
+  }
+
+  const ImageTest = () => {
+    return (
+      <div>
+        {path ? path.map((img, index) => (
+            <div>
+              <h3>{img.name} {index}</h3>
+              <img src={img.imageUrl}></img>
+            </div>)) : ""}
+      </div>
+    );
   }
 
   useEffect(() => {
@@ -230,7 +239,7 @@ const ProductDetail = () => {
 
   /* 하지만 useEffect를 통해서 path 배열 안에 여러 개가 추가되는지 확인하려고 했을 때 문제도 생겼고.. */
   useEffect(() => {
-    // console.log(path);
+    console.log(path);
   }, [path]);
 
   return (
@@ -286,11 +295,8 @@ const ProductDetail = () => {
         </div>
 
         {/** 이미지 데이터 넘기기 테스트 */}
-        <div>
-          <h2>이미지 데이터 테스트</h2>
-          <h3>이름 : {path.name}</h3>
-            <img src={path.imageUrl} alt="" style={{width: "200px"}} />
-        </div>
+        <ImageTest></ImageTest>
+
     </div>
   );
 }

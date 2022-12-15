@@ -45,14 +45,15 @@ const cartSlice = createSlice({
     inputCart: (state, action) => {
       const newCartitem = {
         cartID: 4,
-        productID: 1,
+        productID: /* 1 */ action.payload.id,
         color: "black",
         size: "S",
         print: "front", // 배열이나 문자열이나
         quantity: 5, // amount에서 quantity로 수정
         totalPay: 47500, // 상품별 금액 * 구매수량 (금액 계산을 여러번하기 때문에 숫자형으로)
-        // 이미지
-        img : "",
+        
+        /* 분명 이렇게 하면 로딩이 되어야 할텐데 */
+        img : action.payload.img,
       };
       const newCartlist = state.cartlist.concat(newCartitem);
       state.cartlist = newCartlist;
