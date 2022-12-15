@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import List from "../style/List";
-
 import { Container } from "@material-ui/core";
-import Button from "@mui/material/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "@mui/material";
+import List from "../style/List";
+import MyButton from "../style/Button";
 
 import { useEffect, useState } from "react";
 import CartItem from "../components/CartItem";
@@ -113,7 +113,7 @@ const Cart = () => {
                   </div>
                 </div>
               </div>
-              <button>주문하기</button>
+              <MyButton>주문하기</MyButton>
             </div>
           </Wrap>
         </>
