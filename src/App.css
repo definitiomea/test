@@ -24,7 +24,8 @@ html, ul, li {
   padding: 20px;
   display: flex;
 }
-.navbar a, .nav-link a {
+.navbar a,
+.nav-link a {
   padding: 10px;
   color: whitesmoke;
   text-decoration: none;
@@ -85,7 +86,8 @@ html, ul, li {
 .sign-up {
   width: 300px;
 }
-.sign-up label, .sign-up input {
+.sign-up label,
+.sign-up input {
   display: block;
   width: 100%;
   height: 30px;
@@ -135,4 +137,19 @@ html, ul, li {
 
 .product-info {
   padding: 20px;
+}
+
+/* 폰트입니다 */
+@font-face {
+  font-family: logo;
+  src: url("./fonts/titleLogo.otf");
+}
+@font-face {
+  font-family: nav;
+  src: url("./fonts/nav.otf");
+}
+
+@font-face {
+  font-family: ongothic;
+  src: url("./fonts/유니버셜온고딕체.otf");
 }

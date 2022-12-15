@@ -51,7 +51,12 @@ const ProductCard = (props) => {
           {thumbNail.productName}
           <br />
           {thumbNail.price}
+
+          
         </p>
+
+
+
         <p onClick={() => {navigate("/shop/" + thumbNail.id)}}>
           {/* {thumbNail.category == "short" ? "short" : "long"} */}
           <br />
