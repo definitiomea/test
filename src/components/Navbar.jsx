@@ -35,6 +35,7 @@ const Navbar = (props) => {
         <div>
           <NavLink
             to="/"
+            // 메인이 아닐때 네브 배경 색상이 필요해보임 (글자가 겹쳐보인다)
             // 메인이 아닐 때 nav의 폰트색상 black
             className={location.pathname === "/" ? "white-logo" : "dark-logo"}
             // 로고 클릭시 상단으로 부드럽게 이동
