@@ -8,7 +8,7 @@ import Cart from "./pages/Cart";
 import MyPage from "./pages/MyPage";
 import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
-import ReviewAdd from "./components/ReviewAdd";
+import ReaviewAdd from "./components/ReviewAdd";
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
           <Route path="signup" element={<SignUp />} />
           <Route path="cart" element={<Cart />} />
           <Route path="mypage" element={<MyPage />} />
-          <Route path="mypage/review" element={<ReviewAdd />}></Route>
+          <Route path="mypage/review" element={<ReaviewAdd />}></Route>
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

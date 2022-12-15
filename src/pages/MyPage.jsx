@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 import { Link, useNavigate } from "react-router-dom";
 import Test from "./DaumPostcodeEmbed";
-import Slider from "react-slick";
+import "../components/ReviewAdd";
+import { useSelector } from "react-redux";
+import order, { inpputOrder } from "../redux/reducers/order";
 
 const Mypage = () => {
   const navigate = useNavigate();
@@ -12,6 +14,12 @@ const Mypage = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+
+  // 주문완료 섹션 출력 함수
+  const orderDone = useSelector((state) => state.orderlist.orderlist);
+
+  console.log(orderDone.orderlist);
+
   return (
     <div>
       {/* 회원정보 수정 form */}
@@ -55,7 +63,7 @@ const Mypage = () => {
               <img
                 className="img"
                 src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-                alt=""
+                alt="#"
                 style={{
                   width: "200px",
                   height: "100px",
@@ -94,10 +102,7 @@ const Mypage = () => {
           <MypageColum>
             <div>배송중</div>
             <div>
-              <a
-                href="https://tracker.delivery/#/kr.epost/1111111111111"
-                target="_blank"
-              >
+              <a href="https://tracker.delivery/#/kr.epost/1111111111111" target="_blank">
                 배송조회
               </a>
             </div>
@@ -114,55 +119,57 @@ const Mypage = () => {
           <div>주문상태</div>
         </MypageHead>
 
-        {/* 주문완료 섹션 */}
-        <MypageBody>
-          <MypagePd>
-            <div>
-              <img
-                className="img"
-                src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-                alt=""
-                style={{
-                  width: "200px",
-                  height: "100px",
-                }}
-              />
-            </div>
-            <MypageInfo>
-              {/* 상품 정보 */}
-              <div>
-                <span>short sleeve t-shirt</span>
-                <span>standard fit</span>
-                <span> (navy) </span>
-              </div>
+        {/* 승연 테스트 - 주문완료 섹션 */}
+        {orderDone.map((re) =>
+          re.orderID == 3 ? (
+            <MypageBody>
+              <MypagePd>
+                <div>
+                  <img
+                    className="img"
+                    src={re.thumbnail}
+                    alt="#"
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                    }}
+                  />
+                </div>
+                <MypageInfo>
+                  {/* 상품 정보 */}
+                  <div>
+                    <span>{re.category} </span>
+                    <span>{re.productName} </span>
+                    <span> ({re.color}) </span>
+                  </div>
 
-              {/* 프린팅 면 정보*/}
-              <div>
-                <span>print : </span>
-                <span>front</span>
-              </div>
+                  {/* 사이즈 정보 */}
+                  <div>
+                    <span>size : </span>
+                    <span>{re.size}</span>
+                  </div>
+                </MypageInfo>
+              </MypagePd>
 
-              {/* 사이즈 정보 */}
-              <div>
-                <span>size : </span>
-                <span>S</span>
-              </div>
-            </MypageInfo>
-          </MypagePd>
+              <div></div>
 
-          <div>2022.12.09</div>
+              <MypageColum>
+                <div>{re.price}</div>
+                <div>{re.quantity}개</div> {/* 연한 회색 처리 */}
+              </MypageColum>
 
-          <MypageColum>
-            <div>9,500원</div>
-            <div>1개</div> {/* 연한 회색 처리 */}
-          </MypageColum>
-
-          <MypageColum>
-            <div>
-              <Link to="/mypage/review">후기작성</Link>
-            </div>
-          </MypageColum>
-        </MypageBody>
+              <MypageColum>
+                <div>
+                  <Link to="/mypage/review" state={{ orderDone: orderDone }}>
+                    후기작성
+                  </Link>
+                </div>
+              </MypageColum>
+            </MypageBody>
+          ) : (
+            "출력못함"
+          )
+        )}
       </MypageOrder>
     </div>
   );
@@ -220,8 +227,4 @@ const MypageInfo = styled.div`
 
 const MypageColum = styled.div`
   text-align: center;
-`;
-
-const MypageEvent = styled.div`
-  margin-top: 50px;
 `;

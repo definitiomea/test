@@ -13,10 +13,11 @@ const Home = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
-    vertical: true,
+    vertical: true, // 상하 슬라이드로 변경
     draggable: false,
   };
 
+  // 휠 스크롤로 변경
   const slider = useRef(null);
 
   function scroll(e) {
@@ -27,10 +28,6 @@ const Home = () => {
 
   useEffect(() => {
     window.addEventListener("wheel", scroll, true);
-
-    return () => {
-      window.removeEventListener("wheel", scroll, true);
-    };
   }, []);
 
   // 세번째스크린 구독서비스
@@ -47,58 +44,61 @@ const Home = () => {
   return (
     <div className="main-container">
       {/* 첫번째 스크린 */}
-      <section className="first-screen">
-        <div className="section-video">
-          {/* 자동재생 무음 반복 */}
-          <video src={video} autoPlay muted loop />
-        </div>
-        <div className="first-content">
-          <p>Create your own t-shirts</p>
-          <Link to="shop" className="toGoShop">
-            VIEW
-          </Link>
-        </div>
-      </section>
 
-      {/* 두번째 스크린 */}
-      <section className="second-screen">
-        <div className="section-img">
-          <img src={require("../img/main/main-img.jpg")} alt="" />
-        </div>
-        <div className="second-content">
-          <section>사이트 소개/장점</section>
-          <section>제작방식</section>
-        </div>
-      </section>
+      <Slider {...settings} ref={slider}>
+        <section className="first-screen">
+          <div className="section-video">
+            {/* 자동재생 무음 반복 */}
+            <video src={video} autoPlay muted loop />
+          </div>
+          <div className="first-content">
+            <p>Create your own t-shirts</p>
+            <Link to="shop" className="toGoShop">
+              VIEW
+            </Link>
+          </div>
+        </section>
 
-      {/* 세번째 스크린 */}
-      <section className="last-screen">
-        <div className="last-content">
-          <form onSubmit={submitEmail}>
-            <h3>상품 업데이트 정보를 구독 받으세요</h3>
-            <input
-              type="email"
-              placeholder="이메일을 입력해주세요"
-              onChange={
-                ((e) => {
-                  setEmail(e.target.value);
-                },
-                [])
-              }
-            />
-            <button className="submit-button">구독</button>
-          </form>
-          <div>
-            {/* 가시성을 위해 아이콘으로 변경하기 */}
-            <a href="https://www.instagram.com/">Instagram</a>
-            <a href="https://www.facebook.com/">Facebook</a>
-            <a href="">Kakaotalk</a>
+        {/* 두번째 스크린 */}
+        <section className="second-screen">
+          <div className="section-img">
+            <img src={require("../img/main/main-img.jpg")} alt="main" />
           </div>
-          <div>
-            <p>Copyright © 2022 Team MOTI</p>
+          <div className="second-content">
+            <section>사이트 소개/장점</section>
+            <section>제작방식</section>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* 세번째 스크린 */}
+        <section className="last-screen">
+          <div className="last-content">
+            <form onSubmit={submitEmail}>
+              <h3>상품 업데이트 정보를 구독 받으세요</h3>
+              <input
+                type="email"
+                placeholder="이메일을 입력해주세요"
+                onChange={
+                  ((e) => {
+                    setEmail(e.target.value);
+                  },
+                  [])
+                }
+              />
+              <button className="submit-button">구독</button>
+            </form>
+            <div>
+              {/* 가시성을 위해 아이콘으로 변경하기 */}
+              <a href="https://www.instagram.com/">Instagram</a>
+              <a href="https://www.facebook.com/">Facebook</a>
+              <a href="">Kakaotalk</a>
+            </div>
+            <div>
+              <p>Copyright © 2022 Team MOTI</p>
+            </div>
+          </div>
+        </section>
+      </Slider>
     </div>
   );
 };
