@@ -25,17 +25,22 @@ const ReaviewAdd = () => {
         <section style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}>
           {/* 상품이미지 box*/}
           <div>
-            <img src="" alt="" style={{ width: "100px", height: "100px" }} />
+            <img src={require(`.././img/shirts-img/short/short-relax-beige-front.jpg`)} alt="" style={{ width: "100px", height: "100px" }} />
           </div>
 
           {/* 상품옵션 box */}
           <div>
-            <span>
-              <strong>{data.category}</strong>
-            </span>
-            <span>
-              선택 : {data.productName} ({data.color})
-            </span>
+            <div>
+              <span>
+                <strong>{data.category}</strong>
+              </span>
+              <span> {data.productName}</span>
+              <span> ({data.color})</span>
+            </div>
+            <div>
+              <span>size : </span>
+              <span>{data.size}</span>
+            </div>
           </div>
         </section>
 

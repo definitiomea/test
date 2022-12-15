@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DaumPostcodeEmbed from "./DaumPostcodeEmbed";
 import Slider from "react-slick";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Modal } from "@mui/material";
 import { Box } from "@mui/system";
 import Delivery from "./Delivery";
@@ -34,11 +35,7 @@ const Mypage = () => {
     e.preventDefault();
     // map https://apis.tracker.delivery/carriers/:carrier_id/tracks/:track_id 패치값 가져와서 배송지 조회기능 구현
     const getDelivery = async () => {
-      const json = await (
-        await fetch(
-          `https://apis.tracker.delivery/carriers/${carrierId}/tracks/${trackId}`
-        )
-      ).json();
+      const json = await (await fetch(`https://apis.tracker.delivery/carriers/${carrierId}/tracks/${trackId}`)).json();
       setDelivery(json);
     };
     getDelivery();
@@ -47,9 +44,7 @@ const Mypage = () => {
 
   // 택배사 목록 비동기로 가져오기
   const getCarriers = async () => {
-    const json = await (
-      await fetch(`https://apis.tracker.delivery/carriers`)
-    ).json();
+    const json = await (await fetch(`https://apis.tracker.delivery/carriers`)).json();
     setCarriers(json);
   };
   useEffect(() => {
@@ -74,6 +69,9 @@ const Mypage = () => {
     boxShadow: 24,
     p: 4,
   };
+
+  // 주문완료 섹션 출력 함수
+  const orderDone = useSelector((state) => state.orderlist.orderlist);
 
   return (
     <div>
@@ -157,12 +155,7 @@ const Mypage = () => {
           <MypageColum>
             <div>배송중</div>
             <button onClick={handleOpen}>배송조회</button>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
+            <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
               <Box sx={style}>
                 {result ? (
                   <form onSubmit={onSubmit}>
@@ -176,12 +169,7 @@ const Mypage = () => {
                         );
                       })}
                     </select>
-                    <input
-                      type="number"
-                      placeholder="운송장번호"
-                      onChange={changeTrackId}
-                      defaultValue={trackId}
-                    />
+                    <input type="number" placeholder="운송장번호" onChange={changeTrackId} defaultValue={trackId} />
                     <button>조회</button>
                   </form>
                 ) : !delivery?.message ? (
@@ -204,49 +192,65 @@ const Mypage = () => {
         </MypageBody>
       </MypageOrder>
 
-      {/* 이벤트 배너 form  */}
-      <MypageEvent>
-        <h4>이벤트</h4>
-      </MypageEvent>
-      <div
-        style={{ width: "100%", height: "200px", backgroundColor: "skyblue" }}
-      >
-        <Slider {...settings}>
-          <div>
-            <img
-              src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-              alt=""
-              onClick={() => navigate("/event")}
-              style={{
-                width: "100%",
-                height: "50px",
-              }}
-            />
-          </div>
-          <div>
-            <img
-              src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-              alt=""
-              onClick={() => navigate("/event")}
-              style={{
-                width: "100%",
-                height: "50px",
-              }}
-            />
-          </div>
-          <div>
-            <img
-              src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-              alt=""
-              onClick={() => navigate("/event")}
-              style={{
-                width: "100%",
-                height: "50px",
-              }}
-            />
-          </div>
-        </Slider>
-      </div>
+      <h4>주문완료</h4>
+      <MypageHead>
+        <div>상품정보</div>
+        <div>주문일자</div>
+        <div>주문금액(수량)</div>
+        <div>주문상태</div>
+      </MypageHead>
+
+      {/* 주문완료 섹션 */}
+      {orderDone.map((re) =>
+        re.orderID == 3 ? (
+          <MypageBody>
+            <MypagePd>
+              <div>
+                <img
+                  className="img"
+                  src={require(`.././img/shirts-img/short/short-relax-beige-front.jpg`)}
+                  alt="#"
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                  }}
+                />
+              </div>
+              <MypageInfo>
+                {/* 상품 정보 */}
+                <div>
+                  <span>{re.category} </span>
+                  <span>{re.productName} </span>
+                  <span> ({re.color}) </span>
+                </div>
+
+                {/* 사이즈 정보 */}
+                <div>
+                  <span>size : </span>
+                  <span>{re.size}</span>
+                </div>
+              </MypageInfo>
+            </MypagePd>
+
+            <div></div>
+
+            <MypageColum>
+              <div>{re.price}</div>
+              <div>{re.quantity}개</div> {/* 연한 회색 처리 */}
+            </MypageColum>
+
+            <MypageColum>
+              <div>
+                <Link to="/mypage/review" state={{ orderDone: orderDone[2] }}>
+                  후기작성
+                </Link>
+              </div>
+            </MypageColum>
+          </MypageBody>
+        ) : (
+          ""
+        )
+      )}
     </div>
   );
 };
@@ -303,8 +307,4 @@ const MypageInfo = styled.div`
 
 const MypageColum = styled.div`
   text-align: center;
-`;
-
-const MypageEvent = styled.div`
-  margin-top: 50px;
 `;

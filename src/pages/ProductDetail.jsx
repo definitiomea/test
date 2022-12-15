@@ -1,18 +1,20 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { fabric } from 'fabric';
-import domtoimage from 'dom-to-image';
-import { saveAs } from 'file-saver';
-import 'fabric-history';
+import { fabric } from "fabric";
+import domtoimage from "dom-to-image";
+import { saveAs } from "file-saver";
+import "fabric-history";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "@mui/material/Button";
 import CommentInput from "../components/ReviewInput";
-import CommentList from "../components/CommentList";
+import CommentList from "../components/ReviewList";
 import styled from "@emotion/styled";
+import ReviewList from "../components/ReviewList";
+import ReviewInput from "../components/ReviewInput";
 
-const ProductDetail = () => {
+const ProductDetail = (props) => {
   const [productList, setProductList] = useState(null);
   const [img, setImg] = useState(null);
   const [canvas, setCanvas] = useState(null);
@@ -23,21 +25,23 @@ const ProductDetail = () => {
   const { id } = useParams(); // id : productList {id}
   const test = useRef(null);
 
+  const compare = props;
+
   const getProduct = async () => {
     let url = `https://my-json-server.typicode.com/hans-4303/test/productList/${id}`;
     let response = await fetch(url);
     let data = await response.json();
     setProductList(data);
     // console.log(productList);
-  }
+  };
 
   const initCanvas = () => {
-    return new fabric.Canvas('canvas', {
+    return new fabric.Canvas("canvas", {
       width: 350,
       height: 420,
       backgroundColor: "transparent",
-    })
-  }
+    });
+  };
 
   let deleteIcon =
     "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='595.275px' height='595.275px' viewBox='200 215 230 470' xml:space='preserve'%3E%3Ccircle style='fill:%23F44336;' cx='299.76' cy='439.067' r='218.516'/%3E%3Cg%3E%3Crect x='267.162' y='307.978' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -222.6202 340.6915)' style='fill:white;' width='65.545' height='262.18'/%3E%3Crect x='266.988' y='308.153' transform='matrix(0.7071 0.7071 -0.7071 0.7071 398.3889 -83.3116)' style='fill:white;' width='65.544' height='262.179'/%3E%3C/g%3E%3C/svg%3E";
@@ -72,34 +76,33 @@ const ProductDetail = () => {
     canvas.requestRenderAll();
   }
 
-  function flipObject (eventData, transform) {
+  function flipObject(eventData, transform) {
     let target = transform.target;
     let canvas = target.canvas;
-    target.toggle('flipX', true);
+    target.toggle("flipX", true);
     canvas.setActiveObject(target);
     canvas.renderAll();
   }
 
   function renderIcon(icon) {
-    return function renderIcon (ctx, left, top, styleOverride, fabricObject) {
+    return function renderIcon(ctx, left, top, styleOverride, fabricObject) {
       let size = this.cornerSize;
       ctx.save();
       ctx.translate(left, top);
       ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle));
       ctx.drawImage(icon, -size / 2, -size / 2, size, size);
       ctx.restore();
-    }
+    };
   }
 
   const setTextColor = (event) => {
-    if(canvas.getActiveObject() !== undefined && canvas.getActiveObject().text !== undefined) {
-      canvas.getActiveObject().set({fill: event.target.value})
+    if (canvas.getActiveObject() !== undefined && canvas.getActiveObject().text !== undefined) {
+      canvas.getActiveObject().set({ fill: event.target.value });
       canvas.renderAll();
-    }
-    else {
+    } else {
       console.log("not yet or not a text");
     }
-  }
+  };
 
   const flipShirts = () => {
     for (let i = 0; i < productList.productImg.length; i++) {
@@ -121,7 +124,7 @@ const ProductDetail = () => {
       objectCaching: false,
       stroke: "lightgreen",
       strokeWidth: 4,
-      crossOrigin: "Anomymous"
+      crossOrigin: "Anomymous",
     });
 
     canvas.add(rect);
@@ -146,23 +149,25 @@ const ProductDetail = () => {
         canvas.add(uploadImg);
         canvas.setActiveObject(uploadImg);
         canvas.renderAll();
-      }
-    }
-    if(event.target.files[0]) {
+      };
+    };
+    if (event.target.files[0]) {
       reader.readAsDataURL(file);
     }
-  }
+  };
 
-  const addText = () => { 
-    canvas.add(new fabric.IText('Tap and Type', { 
+  const addText = () => {
+    canvas.add(
+      new fabric.IText("Tap and Type", {
         left: 0,
         top: 0,
-        fontFamily: 'arial black',
+        fontFamily: "arial black",
         fill: "#333333",
         fontSize: 20,
-        crossOrigin: "Anomymous"
-    }));
-  }
+        crossOrigin: "Anomymous",
+      })
+    );
+  };
 
   /* 이 다운로드 메서드 안에 setPath를 다뤄보려고 했는데 일단 조잡하지만 한 번은 작동돼요 */
   const download = () => {
@@ -172,10 +177,10 @@ const ProductDetail = () => {
       /* let testImg = new Image();
       testImg.src = dataUrl;
       testImg.crossOrigin = "Anomymous"; */
-      
-      window.saveAs(dataUrl, '');
-    })
-  }
+
+      window.saveAs(dataUrl, "");
+    });
+  };
 
   const exportImg = async () => {
     /* 이쪽으로 코드를 쓰면 uint8array 쓰는 게 확정이기 때문에.... 미루고
@@ -191,8 +196,8 @@ const ProductDetail = () => {
       console.log(pixels);
       console.log(pixels.pixelAtXY);
     }); */
-    const dataUrl = await domtoimage.toBlob(test.current); 
-    const reader = new FileReader(); 
+    const dataUrl = await domtoimage.toBlob(test.current);
+    const reader = new FileReader();
     reader.readAsDataURL(dataUrl);
     reader.onload = () => {
       const base64Data = reader.result;
@@ -200,25 +205,32 @@ const ProductDetail = () => {
         name: "테스트용 이미지",
         imageUrl: base64Data
       }]); */
-      setPath(path.concat({
-        name: "테스트용 이미지",
-        imageUrl: base64Data
-      }))
-    }
-  }
+      setPath(
+        path.concat({
+          name: "테스트용 이미지",
+          imageUrl: base64Data,
+        })
+      );
+    };
+  };
 
-  const ImageTest = ({path}) => {
+  const ImageTest = ({ path }) => {
     console.log(path);
     return (
-        <div>
-            {path ? path.map((img, index) => (
-            <div>
-                <h3>{img.name} {index}</h3>
+      <div>
+        {path
+          ? path.map((img, index) => (
+              <div>
+                <h3>
+                  {img.name} {index}
+                </h3>
                 <img src={img.imageUrl}></img>
-            </div>)) : ""}
-        </div>
+              </div>
+            ))
+          : ""}
+      </div>
     );
-  }
+  };
 
   useEffect(() => {
     setCanvas(initCanvas());
@@ -238,25 +250,45 @@ const ProductDetail = () => {
     console.log(path);
   }, [path]); */
 
+  console.log(productList);
+
   return (
     <div className="product-area">
       <div className="product-button">
-        <Button variant="contained" color="success" onClick={() => {flipShirts()}}>앞/뒤</Button>
-        <Button variant="contained" color="success" onClick={() => {add()}}>사진 업로드</Button>
-        <Button variant="contained" color="success" onClick={() => {}}>사진 삭제</Button>
-        <Button variant="contained" color="success">텍스트</Button>
-        <Button variant="contained" color="success">이미지 편집</Button>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => {
+            flipShirts();
+          }}
+        >
+          앞/뒤
+        </Button>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => {
+            add();
+          }}
+        >
+          사진 업로드
+        </Button>
+        <Button variant="contained" color="success" onClick={() => {}}>
+          사진 삭제
+        </Button>
+        <Button variant="contained" color="success">
+          텍스트
+        </Button>
+        <Button variant="contained" color="success">
+          이미지 편집
+        </Button>
       </div>
 
       <div className="product-detail" ref={test}>
         <div className="img-box">
-          {productList?.category == "short" && img != null ?
-            <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img> :
-          ""}
-          {productList?.category == "long" && img != null ?
-            <img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img> :  
-          ""}
-          <div style={{position: "absolute", top: "0%", left: "0%", width: "350px", height: "420px"}}>
+          {productList?.category == "short" && img != null ? <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img> : ""}
+          {productList?.category == "long" && img != null ? <img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img> : ""}
+          <div style={{ position: "absolute", top: "0%", left: "0%", width: "350px", height: "420px" }}>
             <canvas id="canvas"></canvas>
           </div>
         </div>
@@ -305,11 +337,10 @@ const ProductDetail = () => {
             그래서, 로딩 되기 전의 거짓 경우와 로딩 되었을 때의 참 경우 둘 다가 필요하고,
             객체가 있는지를 "?"를 통해 한번 더 체크해야 한다. */}
       </div>
-
       {/* 리뷰공간 */}
       <div>
-        <CommentList />
-        <CommentInput productID={id} />
+        {productList ? <ReviewList compare={productList} /> : ""}
+        {/* <ReviewInput productID={id} /> */}
       </div>
     </div>
   );
