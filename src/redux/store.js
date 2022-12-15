@@ -3,18 +3,20 @@ import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import user from "./reducers/userReducer";
 import productReducer from "./reducers/productReducer";
-import review from "./reducers/reviewReducer";
-import orderlistReducer from "./reducers/order";
+import userReducer from "./reducers/userReducer";
+import signupReducer from "./reducers/signup";
+import cartReducer from "./reducers/cart";
 import orderReduer from "./reducers/order"
+import review from "./reducers/reviewReducer";
 
 const reducers = combineReducers({
-  user: user,
+  user: userReducer,
+  signup: signupReducer,
   product: productReducer,
+  cartlist: cartReducer,
+  orderlist: orderReduer,
   review: review,
-  orderlist: orderlistReducer,
-  orderlist: orderReduer
 });
 
 const persistConfig = {

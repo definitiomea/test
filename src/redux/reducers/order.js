@@ -1,8 +1,5 @@
 // 주문 내역
 import { createSlice } from "@reduxjs/toolkit";
-import shortRelaxBeige from "../../img/shirts-img/short/short-relax-beige-front.jpg";
-
-import { createSlice } from "@reduxjs/toolkit";
 
 // 초기값
 const initialState = {
