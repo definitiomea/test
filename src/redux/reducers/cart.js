@@ -46,7 +46,6 @@ const cartSlice = createSlice({
         size: "S",
         print: "front", // 배열이나 문자열이나
         quantity: 5, // amount에서 quantity로 수정
-        totalPay: 47500, // 상품별 금액 * 구매수량 (금액 계산을 여러번하기 때문에 숫자형으로)
         // 이미지
         img : "",
       };
