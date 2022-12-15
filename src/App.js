@@ -8,6 +8,7 @@ import Cart from './pages/Cart';
 import MyPage from './pages/MyPage';
 import ProductDetail from './pages/ProductDetail';
 import NotFound from './pages/NotFound';
+import OrderConfirmation from './pages/OrderConfirmation';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path='shop/:id' element={<ProductDetail />} />
           <Route path='signup' element={<SignUp />} />
           <Route path='cart' element={<Cart />} />
+          <Route path='orderconfirmation' element={<OrderConfirmation />} />
           <Route path='mypage' element={<MyPage />} />
           <Route path='*' element={<NotFound />} />
         </Route>
