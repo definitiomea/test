@@ -34,14 +34,28 @@ const SignUpPage = () => {
     email,
     address,
   };
+
+  const findUser = signup.userlist.find(
+    (signup) => signup.id === id || signup.email === email
+  );
+
   const onSubmitForm = (e) => {
     e.preventDefault();
+
+    if (signup.userlist.length === 0 || !findUser) {
+      dispatch(SIGN_UP(user));
+    }
+    if (id === findUser.id) {
+      alert("사용중인 아이디");
+    }
+    if (email === findUser.email) {
+      alert("사용중인 email");
+    }
+
     if (password !== passwordCheck) {
       alert("비밀번호 불일치");
       return setPasswordError(true);
     } // else if(이미 가입된 아이디가 있다면 회원가입 실패)
-    dispatch(SIGN_UP(user));
-    // console.log(id, password, email, address);
   };
 
   return (
