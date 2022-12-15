@@ -3,7 +3,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-  @font-face {
+  /* @font-face {
   font-family: logo;
   src: url("./fonts/titleLogo.otf");
   }
@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: ongothic;
     src: url("./fonts/유니버셜온고딕체.otf");
-  }
+  } */
 
   * {
     box-sizing: border-box;
