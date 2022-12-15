@@ -1,12 +1,61 @@
 import styled from "@emotion/styled";
-import { Link, useNavigate } from "react-router-dom";
-import Test from "./DaumPostcodeEmbed";
-import "../components/ReviewAdd";
-import { useSelector } from "react-redux";
-import order, { inpputOrder } from "../redux/reducers/order";
+import { useNavigate } from "react-router-dom";
+import DaumPostcodeEmbed from "./DaumPostcodeEmbed";
+import Slider from "react-slick";
+import { useEffect, useState } from "react";
+import { Modal } from "@mui/material";
+import { Box } from "@mui/system";
+import Delivery from "./Delivery";
 
 const Mypage = () => {
+  // 택배사 목록 state
+  const [carriers, setCarriers] = useState([]);
+  const [delivery, setDelivery] = useState();
+  const [trackId, setTrackId] = useState("");
+  const [carrierId, setCarrierId] = useState("");
+  const [result, setResult] = useState(true);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    setResult(true);
+  };
   const navigate = useNavigate();
+
+  const changeCarrierId = (e) => {
+    setCarrierId(e.target.value);
+  };
+
+  const changeTrackId = (e) => {
+    setTrackId(e.target.value);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    // map https://apis.tracker.delivery/carriers/:carrier_id/tracks/:track_id 패치값 가져와서 배송지 조회기능 구현
+    const getDelivery = async () => {
+      const json = await (
+        await fetch(
+          `https://apis.tracker.delivery/carriers/${carrierId}/tracks/${trackId}`
+        )
+      ).json();
+      setDelivery(json);
+    };
+    getDelivery();
+    setResult(false);
+  };
+
+  // 택배사 목록 비동기로 가져오기
+  const getCarriers = async () => {
+    const json = await (
+      await fetch(`https://apis.tracker.delivery/carriers`)
+    ).json();
+    setCarriers(json);
+  };
+  useEffect(() => {
+    getCarriers();
+  }, []);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -14,11 +63,17 @@ const Mypage = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-
-  // 주문완료 섹션 출력 함수
-  const orderDone = useSelector((state) => state.orderlist.orderlist);
-
-  console.log(orderDone.orderlist);
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "white",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
 
   return (
     <div>
@@ -35,14 +90,14 @@ const Mypage = () => {
         </Labels>
 
         <Inputs>
-          <input type="text" value="홍길동" />
-          <input type="text" value="010-****-1234" />
-          <input type="text" value="roadBronze" />
+          <input type="text" defaultValue="홍길동" />
+          <input type="text" defaultValue="010-****-1234" />
+          <input type="text" defaultValue="roadBronze" />
           <input type="password" placeholder="비밀번호를 입력하세요" />
           <input type="password" placeholder="비밀번호를 입력하세요" />
         </Inputs>
 
-        <Test />
+        <DaumPostcodeEmbed />
       </UsetInfo>
       <button>회원정보 수정</button>
 
@@ -63,7 +118,7 @@ const Mypage = () => {
               <img
                 className="img"
                 src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-                alt="#"
+                alt=""
                 style={{
                   width: "200px",
                   height: "100px",
@@ -101,83 +156,104 @@ const Mypage = () => {
 
           <MypageColum>
             <div>배송중</div>
-            <div>
-              <a href="https://tracker.delivery/#/kr.epost/1111111111111" target="_blank">
-                배송조회
-              </a>
-            </div>
+            <button onClick={handleOpen}>배송조회</button>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                {result ? (
+                  <form onSubmit={onSubmit}>
+                    <select onChange={changeCarrierId} value={carrierId}>
+                      {/* 택배사 목록 map로 option설정 */}
+                      {carriers.map((array) => {
+                        return (
+                          <option value={array.id} key={array.id}>
+                            {array.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    <input
+                      type="number"
+                      placeholder="운송장번호"
+                      onChange={changeTrackId}
+                      defaultValue={trackId}
+                    />
+                    <button>조회</button>
+                  </form>
+                ) : !delivery?.message ? (
+                  <Delivery
+                    stateText={delivery?.state.text}
+                    toName={delivery?.to.name}
+                    carrierName={delivery?.carrier.name}
+                    carrierTel={delivery?.carrier.tel}
+                    carrierId={delivery?.carrier.id}
+                    message={delivery?.message}
+                  />
+                ) : (
+                  <div>
+                    <p>{delivery?.message}</p>
+                  </div>
+                )}
+              </Box>
+            </Modal>
           </MypageColum>
         </MypageBody>
       </MypageOrder>
 
-      <MypageOrder>
-        <h4>주문완료</h4>
-        <MypageHead>
-          <div>상품정보</div>
-          <div>주문일자</div>
-          <div>주문금액(수량)</div>
-          <div>주문상태</div>
-        </MypageHead>
-
-        {/* 승연 테스트 - 주문완료 섹션 */}
-        {orderDone.map((re) =>
-          re.orderID == 3 ? (
-            <MypageBody>
-              <MypagePd>
-                <div>
-                  <img
-                    className="img"
-                    src={re.thumbnail}
-                    alt="#"
-                    style={{
-                      width: "100px",
-                      height: "100px",
-                    }}
-                  />
-                </div>
-                <MypageInfo>
-                  {/* 상품 정보 */}
-                  <div>
-                    <span>{re.category} </span>
-                    <span>{re.productName} </span>
-                    <span> ({re.color}) </span>
-                  </div>
-
-                  {/* 사이즈 정보 */}
-                  <div>
-                    <span>size : </span>
-                    <span>{re.size}</span>
-                  </div>
-                </MypageInfo>
-              </MypagePd>
-
-              <div></div>
-
-              <MypageColum>
-                <div>{re.price}</div>
-                <div>{re.quantity}개</div> {/* 연한 회색 처리 */}
-              </MypageColum>
-
-              <MypageColum>
-                <div>
-                  <Link to="/mypage/review" state={{ orderDone: orderDone }}>
-                    후기작성
-                  </Link>
-                </div>
-              </MypageColum>
-            </MypageBody>
-          ) : (
-            "출력못함"
-          )
-        )}
-      </MypageOrder>
+      {/* 이벤트 배너 form  */}
+      <MypageEvent>
+        <h4>이벤트</h4>
+      </MypageEvent>
+      <div
+        style={{ width: "100%", height: "200px", backgroundColor: "skyblue" }}
+      >
+        <Slider {...settings}>
+          <div>
+            <img
+              src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
+              alt=""
+              onClick={() => navigate("/event")}
+              style={{
+                width: "100%",
+                height: "50px",
+              }}
+            />
+          </div>
+          <div>
+            <img
+              src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
+              alt=""
+              onClick={() => navigate("/event")}
+              style={{
+                width: "100%",
+                height: "50px",
+              }}
+            />
+          </div>
+          <div>
+            <img
+              src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
+              alt=""
+              onClick={() => navigate("/event")}
+              style={{
+                width: "100%",
+                height: "50px",
+              }}
+            />
+          </div>
+        </Slider>
+      </div>
     </div>
   );
 };
 
 export default Mypage;
 
-const UsetInfo = styled.form`
+const UsetInfo = styled.div`
   display: grid;
   grid-template-columns: auto 1fr;
 `;
@@ -187,7 +263,7 @@ const Labels = styled.div`
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
 `;
 
-const Inputs = styled.div`
+const Inputs = styled.form`
   display: grid;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
 `;
@@ -227,4 +303,8 @@ const MypageInfo = styled.div`
 
 const MypageColum = styled.div`
   text-align: center;
+`;
+
+const MypageEvent = styled.div`
+  margin-top: 50px;
 `;

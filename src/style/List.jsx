@@ -7,7 +7,7 @@ const StyledList = styled.ul`
   border-bottom: 1px solid lightgray;
   ${"li"} {
     display: grid;
-    grid-template-columns: 4fr 2fr 2fr 2fr 2fr;
+    grid-template-columns: 4fr repeat(4, 2fr); // 본인거에 맞춰서 조절
     gap: 1.5rem;
     align-items: center;
     justify-items: center;

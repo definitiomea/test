@@ -16,7 +16,7 @@ import { useEffect } from "react";
 const CartItem = (props) => {
   const { cartItem, productlist, dispatch } = props; // Cart.jsx
   const inputRef = useRef();
-  const [total, setTotal] = useState(cartItem.totalPay)
+  const [total, setTotal] = useState(cartItem.totalPay);
 
   // 상품리스트에서 cartlist의 상품정보 찾기
   const findProduct = (cartItem) =>
@@ -28,7 +28,7 @@ const CartItem = (props) => {
   useEffect(() => {
     inputRef.current.value = cartItem.quantity;
   }, [cartItem.quantity]);
-  
+
   // 상품별 총 금액이 바뀔 때마다 반영하기 위함
   useEffect(() => {
     setTotal(cartItem.totalPay);
@@ -107,10 +107,12 @@ const CartItem = (props) => {
           sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
           aria-label="add"
           onClick={() => {
-            dispatch(quantityIncrease({
-              cartID: cartItem.cartID,
-              productPrice: findProduct(cartItem).price,
-            }));
+            dispatch(
+              quantityIncrease({
+                cartID: cartItem.cartID,
+                productPrice: findProduct(cartItem).price,
+              })
+            );
           }}
         >
           <AddIcon />
@@ -143,7 +145,7 @@ const StyledProduct = styled.div`
       padding-top: 1rem;
     }
   }
-  // 미디어쿼리 - 작은 화면에서는 상품이미지 안 보이게
+  // 미디어쿼리 - 작은 화면에서는 이미지 안 보이게
   ${"img"} {
     width: 120px;
     min-height: 120px;
