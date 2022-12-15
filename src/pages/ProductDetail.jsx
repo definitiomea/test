@@ -210,7 +210,7 @@ const ProductDetail = () => {
       {/* 리뷰공간 */}
       <div>
         <CommentList />
-        {/* <CommentInput productID={id} /> */}
+        <CommentInput productID={id} />
       </div>
     </div>
   );

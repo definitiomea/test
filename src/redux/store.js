@@ -6,13 +6,13 @@ import { persistReducer } from "redux-persist";
 import userReducer from "./reducers/userReducer";
 import productReducer from "./reducers/productReducer";
 import reviewReducer from "./reducers/reviewReducer";
-
-
+import orderlistReducer from "./reducers/order";
 
 const reducers = combineReducers({
   user: userReducer,
   product: productReducer,
   review: reviewReducer,
+  orderlist: orderlistReducer,
 });
 
 const persistConfig = {

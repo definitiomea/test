@@ -12,7 +12,7 @@ const initialState = {
     {
       id: 0,
       userID: "jeon",
-      category: "short sleeve",
+      category: "short",
       productName: "slim fit",
       size: "S",
       rating: 5,

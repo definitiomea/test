@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { Link, useNavigate } from "react-router-dom";
 import Test from "./DaumPostcodeEmbed";
 import "../components/ReviewAdd";
+import { useSelector } from "react-redux";
+import order, { inpputOrder } from "../redux/reducers/order";
 
 const Mypage = () => {
   const navigate = useNavigate();
@@ -13,16 +15,10 @@ const Mypage = () => {
     slidesToScroll: 1,
   };
 
-  // 승연 임시데이터
-  const perchaseItem = {
-    category: "Short Sleeve T-shirt",
-    productName: "relax-fit",
-    color: "white",
-    size: "S",
-    print: "front",
-    amount: 1,
-    pay: "9,500",
-  };
+  // 주문완료 섹션 출력 함수
+  const orderDone = useSelector((state) => state.orderlist.orderlist);
+
+  console.log(orderDone.orderlist);
 
   return (
     <div>
@@ -106,10 +102,7 @@ const Mypage = () => {
           <MypageColum>
             <div>배송중</div>
             <div>
-              <a
-                href="https://tracker.delivery/#/kr.epost/1111111111111"
-                target="_blank"
-              >
+              <a href="https://tracker.delivery/#/kr.epost/1111111111111" target="_blank">
                 배송조회
               </a>
             </div>
@@ -127,56 +120,56 @@ const Mypage = () => {
         </MypageHead>
 
         {/* 승연 테스트 - 주문완료 섹션 */}
-        <MypageBody>
-          <MypagePd>
-            <div>
-              <img
-                className="img"
-                src={require("../img/shirts-img/short/short-relax-white-front.jpg")}
-                alt="#"
-                style={{
-                  width: "200px",
-                  height: "200px",
-                }}
-              />
-            </div>
-            <MypageInfo>
-              {/* 상품 정보 */}
-              <div>
-                <span>{perchaseItem.category} </span>
-                <span>{perchaseItem.productName} </span>
-                <span> ({perchaseItem.color}) </span>
-              </div>
+        {orderDone.map((re) =>
+          re.orderID == 3 ? (
+            <MypageBody>
+              <MypagePd>
+                <div>
+                  <img
+                    className="img"
+                    src={re.thumbnail}
+                    alt="#"
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                    }}
+                  />
+                </div>
+                <MypageInfo>
+                  {/* 상품 정보 */}
+                  <div>
+                    <span>{re.category} </span>
+                    <span>{re.productName} </span>
+                    <span> ({re.color}) </span>
+                  </div>
 
-              {/* 프린팅 면 정보*/}
-              <div>
-                <span>print : </span>
-                <span>{perchaseItem.print}</span>
-              </div>
+                  {/* 사이즈 정보 */}
+                  <div>
+                    <span>size : </span>
+                    <span>{re.size}</span>
+                  </div>
+                </MypageInfo>
+              </MypagePd>
 
-              {/* 사이즈 정보 */}
-              <div>
-                <span>size : </span>
-                <span>{perchaseItem.size}</span>
-              </div>
-            </MypageInfo>
-          </MypagePd>
+              <div></div>
 
-          <div>2022.12.09</div>
+              <MypageColum>
+                <div>{re.price}</div>
+                <div>{re.quantity}개</div> {/* 연한 회색 처리 */}
+              </MypageColum>
 
-          <MypageColum>
-            <div>{perchaseItem.pay}</div>
-            <div>{perchaseItem.amount}개</div> {/* 연한 회색 처리 */}
-          </MypageColum>
-
-          <MypageColum>
-            <div>
-              <Link to="/mypage/review" state={{ perchaseItem: perchaseItem }}>
-                후기작성
-              </Link>
-            </div>
-          </MypageColum>
-        </MypageBody>
+              <MypageColum>
+                <div>
+                  <Link to="/mypage/review" state={{ orderDone: orderDone }}>
+                    후기작성
+                  </Link>
+                </div>
+              </MypageColum>
+            </MypageBody>
+          ) : (
+            "출력못함"
+          )
+        )}
       </MypageOrder>
     </div>
   );
@@ -234,8 +227,4 @@ const MypageInfo = styled.div`
 
 const MypageColum = styled.div`
   text-align: center;
-`;
-
-const MypageEvent = styled.div`
-  margin-top: 50px;
 `;

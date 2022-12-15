@@ -5,8 +5,9 @@ import { useLocation } from "react-router-dom";
 import { writeReview, writerReview } from "../redux/reducers/reviewReducer";
 
 const ReaviewAdd = () => {
+  // Link를 통해 이동할 때는 useLocation()을 사용해야함
   const location = useLocation();
-  const data = location.state.perchaseItem;
+  const data = location.state.orderDone;
 
   const commentList = useSelector((state) => state.reivew);
   const dispatch = useDispatch();
@@ -21,9 +22,7 @@ const ReaviewAdd = () => {
 
         {/* 구매 상품정보 section */}
 
-        <section
-          style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}
-        >
+        <section style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}>
           {/* 상품이미지 box*/}
           <div>
             <img src="" alt="" style={{ width: "100px", height: "100px" }} />
@@ -41,9 +40,7 @@ const ReaviewAdd = () => {
         </section>
 
         {/* 리뷰 작성 section */}
-        <section
-          style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}
-        >
+        <section style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}>
           {/* 별점 box */}
           <div>
             <p>
@@ -63,12 +60,7 @@ const ReaviewAdd = () => {
               </p>
               <div>
                 <label htmlFor="reviewInput">최소 10자 이상입니다.</label>
-                <textarea
-                  name=""
-                  id="reviewInput"
-                  cols="30"
-                  rows="10"
-                ></textarea>
+                <textarea name="" id="reviewInput" cols="30" rows="10"></textarea>
                 <em>
                   <span>입력글자수</span>
                 </em>
@@ -83,9 +75,7 @@ const ReaviewAdd = () => {
         </section>
 
         {/* 취소 or 등록 section */}
-        <section
-          style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}
-        >
+        <section style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}>
           <div>
             <button>취소</button>
           </div>
