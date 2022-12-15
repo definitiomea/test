@@ -10,7 +10,7 @@ import Delivery from "./Delivery";
 const Mypage = () => {
   // 택배사 목록 state
   const [carriers, setCarriers] = useState([]);
-  const [delivery, setDelivery] = useState([]);
+  const [delivery, setDelivery] = useState();
   const [trackId, setTrackId] = useState("");
   const [carrierId, setCarrierId] = useState("");
   const [result, setResult] = useState(true);
@@ -21,10 +21,6 @@ const Mypage = () => {
     setResult(true);
   };
   const navigate = useNavigate();
-
-  const deliveryState = () => {
-    setResult(false);
-  };
 
   const changeCarrierId = (e) => {
     setCarrierId(e.target.value);
@@ -46,7 +42,7 @@ const Mypage = () => {
       setDelivery(json);
     };
     getDelivery();
-    console.log(delivery);
+    setResult(false);
   };
 
   // 택배사 목록 비동기로 가져오기
@@ -186,10 +182,21 @@ const Mypage = () => {
                       onChange={changeTrackId}
                       defaultValue={trackId}
                     />
-                    <button onClick={deliveryState}>조회</button>
+                    <button>조회</button>
                   </form>
+                ) : !delivery?.message ? (
+                  <Delivery
+                    stateText={delivery?.state.text}
+                    toName={delivery?.to.name}
+                    carrierName={delivery?.carrier.name}
+                    carrierTel={delivery?.carrier.tel}
+                    carrierId={delivery?.carrier.id}
+                    message={delivery?.message}
+                  />
                 ) : (
-                  <Delivery />
+                  <div>
+                    <p>{delivery?.message}</p>
+                  </div>
                 )}
               </Box>
             </Modal>
