@@ -6,6 +6,7 @@ const StyledButton = styled(Button)`
     color: #f8f9fa;
     background-color: #212529;
     border-radius: 0;
+    font-family: "ongothic";
     &:hover {
       background-color: black;
     }
@@ -25,6 +26,7 @@ export default MyButton;
 
 // 스타일 수정 > () 안에 컴포넌트 이름
 // const NewList = styled(MyButton)`
-//   border-top: none;
+//   &.MuiButtonBase-root {
 //   ...
+//   }
 // `;

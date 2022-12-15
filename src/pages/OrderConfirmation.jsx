@@ -17,7 +17,7 @@ const OrderConfirmation = () => {
 export default OrderConfirmation;
 
 const Wrap = styled.div`
-  min-height: calc(100vh - 160px); // 160 : 푸터 + 네브
+  min-height: calc(100vh - 204px); // 160 : 푸터 + 네브
   display: flex;
   flex-direction: column;
   justify-content: center;

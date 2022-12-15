@@ -27,8 +27,8 @@ const CartItem = (props) => {
   const totalPay = (price, quantity) => {
     const pay = parseInt(price.replace(",", ""));
     const totalPay = pay * quantity;
-    return totalPay.toLocaleString("ko-KR"); 
-  }
+    return totalPay.toLocaleString("ko-KR");
+  };
 
   // 상품이미지 가져오기 >> 사용자가 도안을 편집한 이미지로 대체할 것
   const getImage = (cartItem) => {
@@ -55,7 +55,7 @@ const CartItem = (props) => {
         return <div>No Image</div>;
     }
   };
-  
+
   // 구매 수량이 바뀔 때마다 input에 반영하기 위함
   useEffect(() => {
     inputRef.current.value = cartItem.quantity;
@@ -119,9 +119,7 @@ const CartItem = (props) => {
           <AddIcon />
         </IconButton>
       </ButtonWrap>
-      <div>{
-      totalPay(findProduct(cartItem).price, cartItem.quantity)
-      }</div>
+      <div>{totalPay(findProduct(cartItem).price, cartItem.quantity)}</div>
       <IconButton
         sx={{ "&:hover": { color: "#dc3545" } }}
         aria-label="delete"
@@ -134,8 +132,6 @@ const CartItem = (props) => {
     </li>
   );
 };
-
-// 상품 이미지 클릭하면 해당 상품으로 이동
 
 export default CartItem;
 
@@ -154,6 +150,10 @@ const StyledProduct = styled.div`
     min-height: 120px;
     margin-right: 1.5rem;
     background-color: #dee2e6;
+
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
   }
 `;
 
@@ -161,10 +161,13 @@ const ButtonWrap = styled.div`
   display: flex;
   background-color: #f8f9fa;
   ${"input"} {
-    max-width: 4rem;
+    height: auto;
+    max-width: 3.5rem;
+    min-height: 32px;
     text-align: center;
     border: none;
     background-color: #f8f9fa;
+    color: black;
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
@@ -176,6 +179,11 @@ const ButtonWrap = styled.div`
     &:focus {
       outline: none;
       box-shadow: 0 0 1px 1px #dee2e6 inset;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    button {
+      display: none;
     }
   }
 `;

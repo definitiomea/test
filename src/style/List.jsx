@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledList = styled.ul`
+const StyledList = styled.div`
   padding: 0;
   margin: 1rem 0;
   border-top: 1px solid lightgray;
@@ -20,6 +20,10 @@ const StyledList = styled.ul`
       min-height: 240px;
       grid-template-columns: 1fr;
       color: lightgray;
+    }
+
+    @media screen and (max-width: 768px) {
+      // grid-template-columns: 4fr 1fr 4fr 2fr 1fr;
     }
   }
 `;

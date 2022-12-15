@@ -34,7 +34,7 @@ const NotFound = () => {
 export default NotFound;
 
 const Wrap = styled.div`
-  min-height: calc(100vh - 160px);
+  min-height: calc(100vh - 204px); // 204px = 푸터 높이 + 네브 높이
   display: flex;
   justify-content: center;
   align-items: center;

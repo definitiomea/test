@@ -51,7 +51,7 @@ const Cart = () => {
   };
 
   return (
-    <Container maxWidth="lg">
+    <StyledContainer maxWidth="lg">
       {productlist ? (
         <>
           <Title>
@@ -120,27 +120,31 @@ const Cart = () => {
       ) : (
         <Loading />
       )}
-    </Container>
+    </StyledContainer>
   );
 };
 
-// 주문하기 버튼을 누르면 모달창으로 주문완료 띄우기, 데이터는 orderlist로 이동
-// 주문완료 모달창에는 홈으로 가기/주문내역 확인하기 버튼
-// 홈은 홈으로, 주문내역은 마이페이지로 이동
-
 export default Cart;
 
+const StyledContainer = styled(Container)`
+  &.MuiContainer-root {
+    padding: 0 48px;
+  }
+`;
+
 const Title = styled.div`
-  margin-top: 3rem;
+  margin-top: 4rem;
   margin-bottom: 2rem;
   ${"h2"} {
     display: inline-block;
+    font-family: "nav";
+    font-size: 1.5rem;
     font-weight: bold;
-    margin: 0; // GlobalStyles?
+    margin: 0;
     margin-left: 1rem;
   }
   &:first-child {
-    font-size: 1.8rem;
+    font-size: 1.3rem;
   }
 `;
 

@@ -9,6 +9,7 @@ nav {
   justify-content: space-between;
   width: 100%;
   position: fixed;
+  top: 0; /* fixed를 쓰고 위치 지정을 할 것, 장바구니에서 네브 위 공간 생김 해결 */
   padding: 2rem 3rem;
   align-items: center;
   z-index: 1;
@@ -170,7 +171,7 @@ button {
 
     background-color: black;
     color: white;
-    margin-top: ;
+    margin-top: 0; /* 다른 사람 수치 확인 */
   }
 
   .mobile-nav * {
