@@ -44,13 +44,13 @@ const cartSlice = createSlice({
     // 장바구니에 담기
     inputCart: (state, action) => {
       const newCartitem = {
-        cartID: 4,
+        cartID: state.cartID++,
         productID: /* 1 */ action.payload.id,
-        color: "black",
-        size: "S",
-        print: "front", // 배열이나 문자열이나
-        quantity: 5, // amount에서 quantity로 수정
-        totalPay: 47500, // 상품별 금액 * 구매수량 (금액 계산을 여러번하기 때문에 숫자형으로)
+        color: /* "black" */ action.payload.color,
+        size: /* "S" */ action.payload.size,
+        print: /* "front" */ action.payload.print, // 배열이나 문자열이나
+        quantity: /* 5 */ action.payload.quantity, // amount에서 quantity로 수정
+        totalPay: action.payload.quantity * action.payload.productPrice, // 상품별 금액 * 구매수량 (금액 계산을 여러번하기 때문에 숫자형으로)
         
         /* 분명 이렇게 하면 로딩이 되어야 할텐데 */
         img : action.payload.img,

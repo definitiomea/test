@@ -17,12 +17,16 @@ const ProductDetail = () => {
   const [img, setImg] = useState(null);
   const [canvas, setCanvas] = useState(null);
   const [color, setColor] = useState(null);
+  const [print, setPrint] = useState('front');
 
   /* 시험 삼아서 이 state에 저장한다 치고, */
   const [path, setPath] = useState([]);
 
   const { id } = useParams(); // id : productList {id}
+  
   const test = useRef(null);
+  const sizeSelect = useRef(null);
+  const quantitySelect = useRef(null);
 
   const dispatch = useDispatch();
 
@@ -40,16 +44,18 @@ const ProductDetail = () => {
     for(let i = 0; i < productList.productImg.length; i++) {
       if(img == productList.productImg[i] && i % 2 == 0) {
         setImg(productList.productImg[i + 1]);
+        setPrint('back');
       }
       else if(img == productList.productImg[i] && i % 2 == 1) {
         setImg(productList.productImg[i - 1]);
+        setPrint('front');
       }
     }
   }
 
   const changeShirtColor = (index) => {
     setImg(productList.productImg[index * 2]);
-    /* setColor(); */
+    setColor(productList.colorName[index]);
   }
 
   const initCanvas = () => {
@@ -131,8 +137,6 @@ const ProductDetail = () => {
     }
   }
 
-  
-
   const add = () => {
     let rect = new fabric.Rect({
       left: 60,
@@ -201,6 +205,8 @@ const ProductDetail = () => {
       window.saveAs(dataUrl, '');
     })
   }
+
+  const productPrice = parseInt(productList?.price.replace(",", ""));
   
   const exportImg = async () => {
     const dataUrl = await domtoimage.toBlob(test.current);
@@ -214,7 +220,7 @@ const ProductDetail = () => {
       }));
 
       /* 디스패치를 객체로 넣으려면 이렇게 맞을까요? */
-      dispatch(inputCart({id: productList?.id, img: base64Data}))
+      dispatch(inputCart({id: productList?.id, img: base64Data, imgArray: path, size: sizeSelect.current.value, color: color, quantity: parseInt(quantitySelect.current.value), print: print, productPrice: productPrice}))
     }
   }
 
@@ -232,7 +238,7 @@ const ProductDetail = () => {
 
   const quantityOption = () => {
     const quantity = [];
-    for(let i = 0; i < 999; i++) {
+    for(let i = 1; i < 999; i++) {
       quantity.push(<option key={i}>{i}</option>)
     }
     return quantity;
@@ -249,7 +255,7 @@ const ProductDetail = () => {
   useEffect(()=>{
     if(productList != null) {
       setImg(productList.productImg[0])
-      console.log(productList.colorName);
+      setColor(productList.colorName[0])
     }
   }, [productList])
 
@@ -300,11 +306,11 @@ const ProductDetail = () => {
             ""}
           </div>
 
-          <select style={{width: "100px"}} onChange={(event) => {console.log(event.target.value)}}>
+          <select style={{width: "100px"}} ref={sizeSelect}>
             {productList?.size.map((size, index) => <option key={index}>{size}</option>)}
           </select>
 
-          <select name="" id="">
+          <select name="" id="" ref={quantitySelect}>
             {quantityOption()}
           </select>
 

@@ -63,7 +63,7 @@ const CartItem = (props) => {
   return (
     <li>
       <StyledProduct>
-        {getImage(findProduct(cartItem))}
+        {/* {getImage(findProduct(cartItem))} */}
         {cartItem.img ? <img src={cartItem.img} alt="" /> : ""}
         <div>
           <div>{findProduct(cartItem).category}</div>
