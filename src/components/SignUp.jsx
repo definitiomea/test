@@ -1,12 +1,17 @@
 import { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import useInput from "../hooks/useInput";
 
-import { SIGN_UP } from "../redux/signup";
+import { SIGN_UP } from "../redux/reducers/signup";
+
+import MyButton from "../style/Button";
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const signup = useSelector((state) => state.signup);
   const dispatch = useDispatch();
+  const [name, onChangeName] = useInput("");
   const [id, onChangeId] = useInput("");
   // const [id, setId] = useState("");
   // const onChangeId = (e) => {
@@ -29,6 +34,7 @@ const SignUpPage = () => {
   );
 
   let user = {
+    name,
     id,
     password,
     email,
@@ -42,15 +48,16 @@ const SignUpPage = () => {
   const onSubmitForm = (e) => {
     e.preventDefault();
 
-    if (signup.userlist.length === 0 || !findUser) {
+    if (!findUser) {
       dispatch(SIGN_UP(user));
+      navigate("/");
     }
-    if (id === findUser.id) {
-      alert("사용중인 아이디");
-    }
-    if (email === findUser.email) {
-      alert("사용중인 email");
-    }
+    // if (id === findUser.id) {
+    //   alert("사용중인 아이디");
+    // }
+    // if (email === findUser.email) {
+    //   alert("사용중인 email");
+    // }
 
     if (password !== passwordCheck) {
       alert("비밀번호 불일치");
@@ -59,8 +66,29 @@ const SignUpPage = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={onSubmitForm}>
+    <div
+      className="signup-form"
+      style={{
+        padding: "150px 15px 15px 15px",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <form
+        style={{ border: "2px solid black", padding: "15px" }}
+        onSubmit={onSubmitForm}
+      >
+        <div>
+          <label>Name</label>
+          <br />
+          <input
+            type="text"
+            name="user-name"
+            value={name}
+            required
+            onChange={onChangeName}
+          />
+        </div>
         <div>
           <label>ID</label>
           <br />
@@ -117,7 +145,7 @@ const SignUpPage = () => {
             onChange={onChangeAddress}
           />
         </div>
-        <button type="submit">Sign up</button>
+        <MyButton type="submit">Sign up</MyButton>
       </form>
     </div>
   );
