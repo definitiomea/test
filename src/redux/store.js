@@ -4,10 +4,10 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import productReducer from "./reducers/productReducer";
-import userReducer from "./reducers/userReducer";
+import userReducer from "./reducers/user";  // userReducer는 네브바 확인용 
 import signupReducer from "./reducers/signup";
 import cartReducer from "./reducers/cart";
-import orderReduer from "./reducers/order"
+import orderReducer from "./reducers/order" // 오타 수정
 import review from "./reducers/reviewReducer";
 
 const reducers = combineReducers({
@@ -15,7 +15,7 @@ const reducers = combineReducers({
   signup: signupReducer,
   product: productReducer,
   cartlist: cartReducer,
-  orderlist: orderReduer,
+  orderlist: orderReducer,
   review: review,
 });
 

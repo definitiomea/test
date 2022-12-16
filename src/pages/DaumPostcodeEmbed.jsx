@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
 
-// 컴포넌트 파일로 이동할 것
 const Postcode = (props) => {
   const handleComplete = (data) => {
     let fullAddress = data.address;

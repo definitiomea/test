@@ -34,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100px;
     width: 100%;
     background-color: black;
-    color: whitesmoke;
+    color: #f8f9fa;
   }
   .hidden {
     display: none;

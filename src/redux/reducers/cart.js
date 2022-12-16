@@ -13,6 +13,7 @@ const initialState = {
       size: "S",
       print: "front",
       quantity: 5,
+      totalPay: 47500,
     },
     {
       cartID: 2,
@@ -21,6 +22,7 @@ const initialState = {
       size: "M",
       print: "back",
       quantity: 2,
+      totalPay: 19000,
     },
     {
       cartID: 3,
@@ -29,6 +31,7 @@ const initialState = {
       size: "L",
       print: "front / back",
       quantity: 3,
+      totalPay: 28500,
     },
   ],
 };
@@ -44,23 +47,22 @@ const cartSlice = createSlice({
         productID: 1,
         color: "black",
         size: "S",
-        print: "front", // 배열이나 문자열이나
-        quantity: 5, // amount에서 quantity로 수정
-        // 이미지
-        img : "",
+        print: "front",  // front, back, front/back
+        quantity: 5,     // amount에서 quantity로 수정
+        img : "",        // dataUrl
+        totalPay: 10000, // 숫자형
       };
       const newCartlist = state.cartlist.concat(newCartitem);
       state.cartlist = newCartlist;
     },
     // 장바구니 상품별 구매수량 -1 (구매수량 최소 1)
     quantityDecrease: (state, action) => {
-      const price = parseInt(action.payload.productPrice.replace(",", ""));
       const newCartlist = state.cartlist.map((item) => {
         if (item.cartID == action.payload.cartID && item.quantity > 1) {
           return {
             ...item,
             quantity: item.quantity - 1,
-            totalPay: price * (item.quantity - 1),
+            totalPay: action.payload.productPrice * (item.quantity - 1),
           };
         } else {
           return item;
@@ -70,13 +72,12 @@ const cartSlice = createSlice({
     },
     // 장바구니 상품별 구매수량 +1 (구매수량 최대 999)
     quantityIncrease: (state, action) => {
-      const price = parseInt(action.payload.productPrice.replace(",", ""));
       const newCartlist = state.cartlist.map((item) => {
         if (item.cartID == action.payload.cartID && item.quantity < 999) {
           return {
             ...item,
             quantity: item.quantity + 1,
-            totalPay: price * (item.quantity + 1),
+            totalPay: action.payload.productPrice * (item.quantity + 1),
           };
         } else {
           return item;
@@ -86,7 +87,6 @@ const cartSlice = createSlice({
     },
     // 장바구니 상품별 구매수량 직접 입력 (구매수량 최소 1, 최대 999)
     quantityInput: (state, action) => {
-      const price = parseInt(action.payload.productPrice.replace(",", ""));
       const newQuantity = () => {
         if (action.payload.value < 1) {
           return 1;
@@ -101,7 +101,7 @@ const cartSlice = createSlice({
           return {
             ...item,
             quantity: newQuantity(),
-            totalPay: price * newQuantity(),
+            totalPay: action.payload.productPrice * newQuantity(),
           };
         } else {
           return item;

@@ -12,64 +12,63 @@ import {
 } from "../redux/reducers/cart";
 import { useRef } from "react";
 import { useEffect } from "react";
+import { useState } from "react";
 
 const CartItem = (props) => {
   const { cartItem, productlist, dispatch } = props; // Cart.jsx
+  const [product, setProduct] = useState({});
+  const [totalPay, setTotalPay] = useState(cartItem.totalPay);
   const inputRef = useRef();
 
-  // 상품리스트에서 cartlist의 상품정보 찾기
-  const findProduct = (cartItem) =>
-    productlist.find(
+  // 구매 수량 변경 : +1 , -1, 직접입력
+  const handleDecrease = () => {
+    dispatch(
+      quantityDecrease({
+        cartID: cartItem.cartID,
+        productPrice: parseInt(product.price.replace(",", "")),
+      })
+    );
+  };
+  const handleIncrease = () => {
+    dispatch(
+      quantityIncrease({
+        cartID: cartItem.cartID,
+        productPrice: parseInt(product.price.replace(",", "")),
+      })
+    );
+  };
+  const handleInput = (e) => {
+    dispatch(
+      quantityInput({
+        cartID: cartItem.cartID,
+        productPrice: parseInt(product.price.replace(",", "")),
+        value: e.target.value,
+      })
+    );
+  };
+
+  // 상품리스트에서 장바구니에 담긴 아이템들의 상품정보 찾기
+  useEffect(() => {
+    const item = productlist.find(
       (productItem) => productItem.productID == cartItem.productID
     );
+    setProduct(item);
+  }, []);
 
-  // 상품별 총 금액
-  const totalPay = (price, quantity) => {
-    const pay = parseInt(price.replace(",", ""));
-    const totalPay = pay * quantity;
-    return totalPay.toLocaleString("ko-KR");
-  };
-
-  // 상품이미지 가져오기 >> 사용자가 도안을 편집한 이미지로 대체할 것
-  const getImage = (cartItem) => {
-    switch (cartItem.category) {
-      case "short":
-        return (
-          <img
-            src={require(`../img/shirts-img/short/${
-              findProduct(cartItem).thumbnail[0]
-            }`)}
-            alt="No Image"
-          />
-        );
-      case "long":
-        return (
-          <img
-            src={require(`../img/shirts-img/long/${
-              findProduct(cartItem).thumbnail[0]
-            }`)}
-            alt="No Image"
-          />
-        );
-      default:
-        return <div>No Image</div>;
-    }
-  };
-
-  // 구매 수량이 바뀔 때마다 input에 반영하기 위함
+  // 구매 수량이 바뀔 때마다 input과 price에 반영하기 위함
   useEffect(() => {
     inputRef.current.value = cartItem.quantity;
+    setTotalPay(cartItem.totalPay);
   }, [cartItem.quantity]);
 
   return (
     <li>
       <StyledProduct>
-        {getImage(findProduct(cartItem))}
+        {/** 이미지 수정 */}
+        <img />
         <div>
-          <div>{findProduct(cartItem).category}</div>
-          <div>
-            {`${findProduct(cartItem).productName} (${cartItem.color})`}
-          </div>
+          <div>{product.category}</div>
+          <div>{`${product.productName} (${cartItem.color})`}</div>
           {/** print는 데이터 형태 확인할 것(수정 가능성 있음) */}
           <div>print : {cartItem.print}</div>
         </div>
@@ -79,14 +78,7 @@ const CartItem = (props) => {
         <IconButton
           sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
           aria-label="remove"
-          onClick={() => {
-            dispatch(
-              quantityDecrease({
-                cartID: cartItem.cartID,
-                productPrice: findProduct(cartItem).price,
-              })
-            );
-          }}
+          onClick={handleDecrease}
         >
           <RemoveIcon />
         </IconButton>
@@ -94,32 +86,17 @@ const CartItem = (props) => {
           type="number"
           defaultValue={cartItem.quantity}
           ref={inputRef}
-          onChange={(e) => {
-            dispatch(
-              quantityInput({
-                cartID: cartItem.cartID,
-                productPrice: findProduct(cartItem).price,
-                value: e.target.value,
-              })
-            );
-          }}
+          onChange={handleInput}
         />
         <IconButton
           sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
           aria-label="add"
-          onClick={() => {
-            dispatch(
-              quantityIncrease({
-                cartID: cartItem.cartID,
-                productPrice: findProduct(cartItem).price,
-              })
-            );
-          }}
+          onClick={handleIncrease}
         >
           <AddIcon />
         </IconButton>
       </ButtonWrap>
-      <div>{totalPay(findProduct(cartItem).price, cartItem.quantity)}</div>
+      <div>{totalPay.toLocaleString("ko-KR")}</div>
       <IconButton
         sx={{ "&:hover": { color: "#dc3545" } }}
         aria-label="delete"
@@ -147,6 +124,7 @@ const StyledProduct = styled.div`
   // 미디어쿼리 - 작은 화면에서는 이미지 안 보이게
   ${"img"} {
     width: 120px;
+    min-width: 120px;
     min-height: 120px;
     margin-right: 1.5rem;
     background-color: #dee2e6;

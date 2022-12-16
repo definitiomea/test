@@ -22,6 +22,7 @@ const ProductDetail = () => {
 
   const { id } = useParams(); // id : productList {id}
   const test = useRef(null);
+  console.log(id);
 
   const dispatch = useDispatch();
 
