@@ -16,6 +16,7 @@ const ProductDetail = () => {
   const [productList, setProductList] = useState(null);
   const [img, setImg] = useState(null);
   const [canvas, setCanvas] = useState(null);
+  const [color, setColor] = useState(null);
 
   /* 시험 삼아서 이 state에 저장한다 치고, */
   const [path, setPath] = useState([]);
@@ -33,6 +34,22 @@ const ProductDetail = () => {
     let data = await response.json();
     setProductList(data);
     // console.log(productList);
+  }
+
+  const flipShirts = () => {
+    for(let i = 0; i < productList.productImg.length; i++) {
+      if(img == productList.productImg[i] && i % 2 == 0) {
+        setImg(productList.productImg[i + 1]);
+      }
+      else if(img == productList.productImg[i] && i % 2 == 1) {
+        setImg(productList.productImg[i - 1]);
+      }
+    }
+  }
+
+  const changeShirtColor = (index) => {
+    setImg(productList.productImg[index * 2]);
+    /* setColor(); */
   }
 
   const initCanvas = () => {
@@ -114,16 +131,7 @@ const ProductDetail = () => {
     }
   }
 
-  const flipShirts = () => {
-    for(let i = 0; i < productList.productImg.length; i++) {
-      if(img == productList.productImg[i] && i % 2 == 0) {
-        setImg(productList.productImg[i + 1]);
-      }
-      else if(img == productList.productImg[i] && i % 2 == 1) {
-        setImg(productList.productImg[i - 1]);
-      }
-    }
-  }
+  
 
   const add = () => {
     let rect = new fabric.Rect({
@@ -193,7 +201,6 @@ const ProductDetail = () => {
       window.saveAs(dataUrl, '');
     })
   }
-
   
   const exportImg = async () => {
     const dataUrl = await domtoimage.toBlob(test.current);
@@ -223,6 +230,14 @@ const ProductDetail = () => {
     );
   }
 
+  const quantityOption = () => {
+    const quantity = [];
+    for(let i = 0; i < 999; i++) {
+      quantity.push(<option key={i}>{i}</option>)
+    }
+    return quantity;
+  }
+
   useEffect(() => {
     setCanvas(initCanvas());
   }, [])
@@ -234,6 +249,7 @@ const ProductDetail = () => {
   useEffect(()=>{
     if(productList != null) {
       setImg(productList.productImg[0])
+      console.log(productList.colorName);
     }
   }, [productList])
 
@@ -280,12 +296,16 @@ const ProductDetail = () => {
           {productList ? <p>{productList.price}</p> : ""}
           <div style={{display: "flex"}}>
             {productList ? productList.color.map((color, index) => 
-              <div style={{width: "15px", height: "15px", border: "1px solid transparent", borderRadius: "50%", backgroundColor: color}} onClick={() => {setImg(productList.productImg[index * 2])}} key={index}></div>) :
+              <div style={{width: "15px", height: "15px", border: "1px solid transparent", borderRadius: "50%", backgroundColor: color}} onClick={() => {changeShirtColor(index)}} key={index}></div>) :
             ""}
           </div>
 
-          <select style={{width: "100px"}}>
+          <select style={{width: "100px"}} onChange={(event) => {console.log(event.target.value)}}>
             {productList?.size.map((size, index) => <option key={index}>{size}</option>)}
+          </select>
+
+          <select name="" id="">
+            {quantityOption()}
           </select>
 
           <div>
