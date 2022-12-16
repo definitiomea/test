@@ -4,8 +4,7 @@ import video from "../img/main/main-video.mp4";
 import "../style/Home.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { fafacebook } from "@fortawesome/free-solid-svg-icons";
+
 const Home = () => {
   // 메인 슬라이더 세팅
   const settings = {
@@ -93,10 +92,8 @@ const Home = () => {
             <div>
               {/* 가시성을 위해 아이콘으로 변경하기 */}
               <a href="https://www.instagram.com/">Instagram</a>
-              <a href="https://www.facebook.com/">
-                <FontAwesomeIcon icon={fafacebook} />
-              </a>
-              <a href=""></a>
+              <a href="https://www.facebook.com/">Facebook</a>
+              <a href="">Github</a>
             </div>
             <div>
               <p>Copyright © 2022 Team MOTI</p>
