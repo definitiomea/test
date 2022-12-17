@@ -18,6 +18,7 @@ const ProductDetail = () => {
   const [canvas, setCanvas] = useState(null);
   const [color, setColor] = useState(null);
   const [print, setPrint] = useState('front');
+  const [editArray, setEditArray] = useState([]);
 
   /* 시험 삼아서 이 state에 저장한다 치고, */
   const [path, setPath] = useState([]);
@@ -56,6 +57,7 @@ const ProductDetail = () => {
   const changeShirtColor = (index) => {
     setImg(productList.productImg[index * 2]);
     setColor(productList.colorName[index]);
+    setEditArray([]);
   }
 
   const initCanvas = () => {
@@ -220,7 +222,29 @@ const ProductDetail = () => {
       }));
 
       /* 디스패치를 객체로 넣으려면 이렇게 맞을까요? */
-      dispatch(inputCart({id: productList?.id, img: base64Data, imgArray: path, size: sizeSelect.current.value, color: color, quantity: parseInt(quantitySelect.current.value), print: print, productPrice: productPrice}))
+      dispatch(inputCart({id: productList?.id, img: base64Data, imgArray: editArray, size: sizeSelect.current.value, color: color, quantity: parseInt(quantitySelect.current.value), print: print, productPrice: productPrice}))
+    }
+  }
+
+  const customFlip = async () => {
+    const dataUrl = await domtoimage.toBlob(test.current);
+    const reader = new FileReader();
+    reader.readAsDataURL(dataUrl);
+    reader.onload = () => {
+      const base64Data = reader.result;
+      /* 여기에서 이미지를 배열에 추가하고, 객체에 앞, 뒷면 state를 추가한 뒤 앞 뒷면을 setImg로 뒤집으면? */
+        setEditArray(editArray.concat({print: print, imageUrl: base64Data}));
+      
+        for(let i = 0; i < productList.productImg.length; i++) {
+        if(img == productList.productImg[i] && i % 2 == 0) {
+          setImg(productList.productImg[i + 1]);
+          setPrint('back');
+        }
+        else if(img == productList.productImg[i] && i % 2 == 1) {
+          setImg(productList.productImg[i - 1]);
+          setPrint('front');
+        }
+      }
     }
   }
 
@@ -261,8 +285,8 @@ const ProductDetail = () => {
 
   /* 하지만 useEffect를 통해서 path 배열 안에 여러 개가 추가되는지 확인하려고 했을 때 문제도 생겼고.. */
   useEffect(() => {
-    console.log(path);
-  }, [path]);
+    console.log(editArray);
+  }, [editArray]);
 
   return (
     <div className="product-area">
@@ -280,6 +304,7 @@ const ProductDetail = () => {
         <Button variant="contained" color="success" onClick={() => {canvas.clear()}}>이미지 전체 삭제</Button>
         <Button onClick={() => {download()}}>시험용 다운로드</Button>
         <Button onClick={() => {exportImg()}}>이미지 내보내기 테스트</Button>
+        <Button onClick={() => {customFlip()}}>앞, 혹은 뒷면 이미지를..?</Button>
       </div>
 
       <div className="product-detail" ref={test}>

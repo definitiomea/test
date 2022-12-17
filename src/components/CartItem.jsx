@@ -64,14 +64,15 @@ const CartItem = (props) => {
     <li>
       <StyledProduct>
         {/* {getImage(findProduct(cartItem))} */}
-        {cartItem.img ? <img src={cartItem.img} alt="" /> : ""}
+        {cartItem.img && cartItem.imgArray.length == 0 ? <img src={cartItem.img} alt="" /> : ""}
+        {cartItem.imgArray && cartItem.imgArray.length > 0 ? cartItem.imgArray.map((pic) => (<img src={pic.imageUrl}></img>)) : ""}
         <div>
           <div>{findProduct(cartItem).category}</div>
           <div>
             {`${findProduct(cartItem).productName} (${cartItem.color})`}
           </div>
           {/** print는 데이터 형태 확인할 것(수정 가능성 있음) */}
-          <div>print : {cartItem.print}</div>
+          <div>print : {cartItem.imgArray.length == 0 ? cartItem.print : ""} {cartItem.imgArray && cartItem.imgArray.length > 0 ? cartItem.imgArray.map((print) => (` ${print.print} `)) : ""}</div>
         </div>
       </StyledProduct>
       <div>{cartItem.size}</div>

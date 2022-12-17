@@ -54,6 +54,7 @@ const cartSlice = createSlice({
         
         /* 분명 이렇게 하면 로딩이 되어야 할텐데 */
         img : action.payload.img,
+        imgArray: action.payload.imgArray
       };
       const newCartlist = state.cartlist.concat(newCartitem);
       state.cartlist = newCartlist;
