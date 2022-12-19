@@ -202,6 +202,10 @@ const ProductDetail = () => {
 
   const productPrice = parseInt(productList?.price.replace(",", ""));
   
+  /* 편집한 이미지가 없다고 할 때 현재 캔버스를 넣어주는 시도를 했지만,
+  아마도 비동기이기 때문에? editArray.concat이 늦게 반영되는 상황이 벌어졌고 dispatch와 타이밍을 맞추지 못하게 됐어요
+  이럴 바에 차라리 편집 내역이 들어간 배열의 길이를 따져서 dispatch를 조건부로 넘겨주는 걸로 생각하고,
+  그대로 실행해서 성공 */
   const exportImg = async () => {
     if(editArray.length == 0) {
       alert('편집한 이미지가 없습니다.');
@@ -218,6 +222,8 @@ const ProductDetail = () => {
     } */
     else {
       dispatch(inputCart({id: productList?.id, /* img: base64Data, */ imgArray: editArray, size: sizeSelect.current.value, color: color, quantity: parseInt(quantitySelect.current.value), /* print: print, */ productPrice: productPrice}))
+      setEditArray([]);
+      alert('편집했던 이미지를 장바구니에 담으셨습니다');
     }
   }
 
@@ -229,11 +235,17 @@ const ProductDetail = () => {
       const base64Data = reader.result;
       /* 여기에서 이미지를 배열에 추가하고, 객체에 앞, 뒷면 state를 추가한 뒤 앞 뒷면을 setImg로 뒤집으면? */
         if(editArray.length >= 2) {
-          alert('같은 티셔츠에 대해 앞, 뒷면 사진이 모두 있습니다. 이 이상 추가할 수 없습니다.')
+          alert('같은 티셔츠에 대해 앞, 뒷면 사진이 모두 있습니다. 이 이상 저장할 수 없습니다.')
           return;
         }
         else {
-          alert(`${print}면 내역을 저장하고, 다음 면으로 넘어갑니다`);
+          if(editArray.length == 0) {
+            alert(`${print == 'front' ? '앞' : '뒷'}면 내역을 저장하고, 다음 면으로 넘어갑니다. 한 면만 편집하기로 하셨다면 지금 장바구니 버튼을 눌러주실 수도 있습니다.`);
+          }
+          else if(editArray.length == 1) {
+            alert(`${print == 'front' ? '앞' : '뒷'}면 내역을 저장했습니다. 앞 뒤 두 면 모두를 편집하셨습니다.`);
+          }
+          
           setEditArray(editArray.concat({print: print, imageUrl: base64Data}));
       
           for(let i = 0; i < productList.productImg.length; i++) {
@@ -251,10 +263,18 @@ const ProductDetail = () => {
   }
 
   const customErase = () => {
-    setEditArray([]);
+    const choice = window.confirm('편집했던 내역을 삭제하시겠습니까? 확인을 누르시면 삭제, 취소를 누르시면 보존됩니다.');
+    if(choice) {
+      setEditArray([]);
+      alert('편집 내역이 초기화되었습니다.')
+    }
+    else {
+      alert('편집 내역이 유지됩니다.')
+      return;
+    }
   }
 
-  const ImageTest = () => {
+  /* const ImageTest = () => {
     return (
       <div>
         {path ? path.map((img, index) => (
@@ -264,7 +284,7 @@ const ProductDetail = () => {
             </div>)) : ""}
       </div>
     );
-  }
+  } */
 
   const quantityOption = () => {
     const quantity = [];
@@ -310,7 +330,7 @@ const ProductDetail = () => {
         <Button variant="contained" color="success" onClick={() => {canvas.clear()}}>이미지, 편집 전체 삭제</Button>
         {/* <Button onClick={() => {download()}}>시험용 다운로드</Button> */}
         <Button onClick={() => {exportImg()}}>이미지 내보내기(dispatch)</Button>
-        <Button onClick={() => {customFlip()}}>앞, 혹은 뒷면 이미지 편집 내역 저장</Button>
+        <Button onClick={() => {customFlip()}}>편집한 면의 이미지 저장</Button>
         <Button onClick={() => {customErase()}}>앞, 혹은 뒷면 이미지 편집 내역 지우기</Button>
       </div>
 
@@ -353,7 +373,7 @@ const ProductDetail = () => {
         </div>
 
         {/** 이미지 데이터 넘기기 테스트 */}
-        <ImageTest></ImageTest>
+        {/* <ImageTest></ImageTest> */}
 
     </div>
   );
