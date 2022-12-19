@@ -3,19 +3,6 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-  /* @font-face {
-  font-family: logo;
-  src: url("./fonts/titleLogo.otf");
-  }
-  @font-face {
-    font-family: nav;
-    src: url("./fonts/nav.otf");
-  }
-  @font-face {
-    font-family: ongothic;
-    src: url("./fonts/유니버셜온고딕체.otf");
-  } */
-
   * {
     box-sizing: border-box;
     font-family: "ongothic";
@@ -42,12 +29,12 @@ const GlobalStyle = createGlobalStyle`
   // 네브 제외 콘텐츠, 네브바 아래 위치하게
   .body-container {
     position: relative;
-    top: 104px;
+    top: 136px;
   }
   // 메인(home) 페이지에서는 네브바가 겹쳐야하므로 제외
   .main-container {
     position: absolute;
-    top: -104px;
+    top: -136px;
   }
 
   // 필요에 따라 스타일 추가, 수정

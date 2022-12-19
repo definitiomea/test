@@ -48,35 +48,45 @@ const Cart = () => {
     }, 0);
     return subtotal;
   };
-  
+
   // 장바구니 아이템이 없으면 배송비를 0으로 출력
   useEffect(() => {
     cartlist.length == 0 ? setDeliveryPay(0) : setDeliveryPay(3000);
   }, [cartlist]);
 
+  // productlist에서 cartlist에 담긴 상품 정보 골라내기
+  const findProduct = () => {
+    const productArr = [];
+    for (let i = 0; i < cartlist.length; i++) {
+      productArr.push(
+        productlist.find(
+          (product) => product.productID == cartlist[i].productID
+        )
+      );
+    } // [ {product3}, {1}, {2} ]
+    return productArr;
+  };
+
   // 주문하기
-  const order = (cartlist) => {
+  const order = () => {
+    if (cartlist.length == 0) {
+      alert("장바구니가 비어있습니다.");
+      return;
+    }
     // if (user.id == "") {
     //   alert("로그인 후 이용해주세요");
+    //   return;
     // }
-    const productID = cartlist.map((cartitem) => (cartitem.productID)); // [1,2,3]
-    const test = []; // [ { product1 }, {2}, {3} ]
-    for (let i=0; i<cartlist.length; i++) {
-      test.push(
-        productlist.find((product) => (product.productID == productID[i]))
-      );
-    }
-    for (let i=0; i<cartlist.length; i++) {
-      cartlist[i].productID = test[i].productID;
-      cartlist[i].category = test[i].category;
-      cartlist[i].productName = test[i].productName;
-    }
-    dispatch(inputOrder({
-      user: user.id,
-      cartlist,
-    }))
-    navigate("/orderconfirmation");
-  }
+    dispatch(
+      inputOrder({
+        user: user.id,
+        cartlist: cartlist,
+        product: findProduct(),
+      })
+    );
+    // 장바구니 목록 삭제 (clear cart)
+    // navigate("/orderconfirm");
+  };
 
   return (
     <StyledContainer maxWidth="lg">
@@ -124,7 +134,8 @@ const Cart = () => {
               <h3>Delivery Information</h3>
               배송지 직접 입력하는 공간 <br />
               저장된 배송지 정보 불러오는 버튼 <br />
-              저장된 배송지가 있다면 자동으로 채워준다(컴포넌트로 빼기)
+              저장된 배송지가 있다면 자동으로 채워준다(컴포넌트로 빼기) <br />
+              유저가 로그인 된 상태라면 저장된 배송지~
             </div>
             <div className="summary">
               <div>
@@ -141,7 +152,7 @@ const Cart = () => {
                   </div>
                 </div>
               </div>
-              <MyButton onClick={() => {order(cartlist)}}>주문하기</MyButton>
+              <MyButton onClick={order}>주문하기</MyButton>
             </div>
           </Wrap>
         </>
@@ -161,8 +172,7 @@ const StyledContainer = styled(Container)`
 `;
 
 const Title = styled.div`
-  margin-top: 4rem;
-  margin-bottom: 2rem;
+  margin: 2rem 0 1rem 0;
   ${"h2"} {
     display: inline-block;
     font-family: "nav";
@@ -184,7 +194,6 @@ const Wrap = styled.div`
   }
   .delivery-info {
     flex: 2;
-    padding: 0rem 1.2rem;
   }
   .summary {
     flex: 1;

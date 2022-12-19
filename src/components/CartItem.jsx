@@ -20,6 +20,15 @@ const CartItem = (props) => {
   const [totalPay, setTotalPay] = useState(cartItem.totalPay);
   const inputRef = useRef();
 
+  const inputProps = () => {
+    if (product) {
+      return {
+        cartID: cartItem.cartID,
+        productPrice: parseInt(product.price.replace(",", "")),
+      };
+    }
+  };
+
   // 구매 수량 변경 : +1 , -1, 직접입력
   const handleDecrease = () => {
     dispatch(
@@ -38,6 +47,7 @@ const CartItem = (props) => {
     );
   };
   const handleInput = (e) => {
+    // inputProps().value = e.target.value;
     dispatch(
       quantityInput({
         cartID: cartItem.cartID,
@@ -63,7 +73,7 @@ const CartItem = (props) => {
 
   return (
     <li>
-      <StyledProduct>
+      <ProductWrap>
         {/** 이미지 수정 */}
         <img />
         <div>
@@ -72,9 +82,9 @@ const CartItem = (props) => {
           {/** print는 데이터 형태 확인할 것(수정 가능성 있음) */}
           <div>print : {cartItem.print}</div>
         </div>
-      </StyledProduct>
+      </ProductWrap>
       <div>{cartItem.size}</div>
-      <ButtonWrap>
+      <QuantityWrap>
         <IconButton
           sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
           aria-label="remove"
@@ -95,7 +105,7 @@ const CartItem = (props) => {
         >
           <AddIcon />
         </IconButton>
-      </ButtonWrap>
+      </QuantityWrap>
       <div>{totalPay.toLocaleString("ko-KR")}</div>
       <IconButton
         sx={{ "&:hover": { color: "#dc3545" } }}
@@ -112,7 +122,7 @@ const CartItem = (props) => {
 
 export default CartItem;
 
-const StyledProduct = styled.div`
+const ProductWrap = styled.div`
   display: flex;
   align-self: center;
   justify-self: left;
@@ -135,10 +145,10 @@ const StyledProduct = styled.div`
   }
 `;
 
-const ButtonWrap = styled.div`
+const QuantityWrap = styled.div`
   display: flex;
   background-color: #f8f9fa;
-  ${"input"} {
+  input {
     height: auto;
     max-width: 3.5rem;
     min-height: 32px;

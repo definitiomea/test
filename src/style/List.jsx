@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 const StyledList = styled.div`
-  padding: 0;
-  margin: 1rem 0;
   border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
   ${"li"} {
@@ -17,7 +15,7 @@ const StyledList = styled.div`
       border-bottom: 1px solid lightgray;
     }
     &.product-empty {
-      min-height: 240px;
+      min-height: 180px;
       grid-template-columns: 1fr;
       color: lightgray;
     }

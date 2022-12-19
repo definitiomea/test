@@ -3,37 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // 초기값
 const initialState = {
-  cartID: 0, // 장바구니 아이템 삭제를 위해 겹치는 일이 없도록 (고유값)
-  cartlist: [
-    // 테스트용 데이터
-    {
-      cartID: 1,
-      productID: 1,
-      color: "black",
-      size: "S",
-      print: "front",
-      quantity: 5,
-      totalPay: 47500,
-    },
-    {
-      cartID: 2,
-      productID: 2,
-      color: "blue",
-      size: "M",
-      print: "back",
-      quantity: 2,
-      totalPay: 19000,
-    },
-    {
-      cartID: 3,
-      productID: 3,
-      color: "beige",
-      size: "L",
-      print: "front / back",
-      quantity: 3,
-      totalPay: 28500,
-    },
-  ],
+  cartID: 0,
+  cartlist: [],
 };
 
 const cartSlice = createSlice({

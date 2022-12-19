@@ -1,8 +1,4 @@
 /* 웹 버전 */
-* {
-  margin: 0;
-}
-
 nav {
   box-sizing: border-box;
   display: flex;
