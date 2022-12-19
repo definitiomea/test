@@ -14,14 +14,15 @@ const cartSlice = createSlice({
     // 장바구니에 담기
     inputCart: (state, action) => {
       const newCartitem = {
-        cartID: 4,
-        productID: 1,
-        color: "black",
-        size: "S",
-        print: "front",  // front, back, front/back
-        quantity: 5,     // amount에서 quantity로 수정
-        img : "",        // dataUrl
-        totalPay: 10000, // 숫자형
+        cartID: state.cartID++,
+        productID: action.payload.id,
+        color: action.payload.color,
+        size: action.payload.size,
+        print: action.payload.print, // 배열?
+        quantity: action.payload.quantity, // 숫자형
+        totalPay: action.payload.quantity * action.payload.productPrice, // 숫자형
+        img : action.payload.img,
+        imgArray: action.payload.imgArray
       };
       const newCartlist = state.cartlist.concat(newCartitem);
       state.cartlist = newCartlist;

@@ -16,13 +16,18 @@ const ProductDetail = () => {
   const [productList, setProductList] = useState(null);
   const [img, setImg] = useState(null);
   const [canvas, setCanvas] = useState(null);
+  const [color, setColor] = useState(null);
+  const [print, setPrint] = useState('front');
+  const [editArray, setEditArray] = useState([]);
 
   /* 시험 삼아서 이 state에 저장한다 치고, */
   const [path, setPath] = useState([]);
 
   const { id } = useParams(); // id : productList {id}
+  
   const test = useRef(null);
-  console.log(id);
+  const sizeSelect = useRef(null);
+  const quantitySelect = useRef(null);
 
   const dispatch = useDispatch();
 
@@ -34,6 +39,25 @@ const ProductDetail = () => {
     let data = await response.json();
     setProductList(data);
     // console.log(productList);
+  }
+
+  const flipShirts = () => {
+    for(let i = 0; i < productList.productImg.length; i++) {
+      if(img == productList.productImg[i] && i % 2 == 0) {
+        setImg(productList.productImg[i + 1]);
+        setPrint('back');
+      }
+      else if(img == productList.productImg[i] && i % 2 == 1) {
+        setImg(productList.productImg[i - 1]);
+        setPrint('front');
+      }
+    }
+  }
+
+  const changeShirtColor = (index) => {
+    setImg(productList.productImg[index * 2]);
+    setColor(productList.colorName[index]);
+    setEditArray([]);
   }
 
   const initCanvas = () => {
@@ -115,17 +139,6 @@ const ProductDetail = () => {
     }
   }
 
-  const flipShirts = () => {
-    for(let i = 0; i < productList.productImg.length; i++) {
-      if(img == productList.productImg[i] && i % 2 == 0) {
-        setImg(productList.productImg[i + 1]);
-      }
-      else if(img == productList.productImg[i] && i % 2 == 1) {
-        setImg(productList.productImg[i - 1]);
-      }
-    }
-  }
-
   const add = () => {
     let rect = new fabric.Rect({
       left: 60,
@@ -195,6 +208,8 @@ const ProductDetail = () => {
     })
   }
 
+  const productPrice = parseInt(productList?.price.replace(",", ""));
+  
   const exportImg = async () => {
     const dataUrl = await domtoimage.toBlob(test.current);
     const reader = new FileReader();
@@ -205,6 +220,31 @@ const ProductDetail = () => {
         name: "test이미지",
         imageUrl: base64Data,
       }));
+
+      /* 디스패치를 객체로 넣으려면 이렇게 맞을까요? */
+      dispatch(inputCart({id: productList?.id, img: base64Data, imgArray: editArray, size: sizeSelect.current.value, color: color, quantity: parseInt(quantitySelect.current.value), print: print, productPrice: productPrice}))
+    }
+  }
+
+  const customFlip = async () => {
+    const dataUrl = await domtoimage.toBlob(test.current);
+    const reader = new FileReader();
+    reader.readAsDataURL(dataUrl);
+    reader.onload = () => {
+      const base64Data = reader.result;
+      /* 여기에서 이미지를 배열에 추가하고, 객체에 앞, 뒷면 state를 추가한 뒤 앞 뒷면을 setImg로 뒤집으면? */
+        setEditArray(editArray.concat({print: print, imageUrl: base64Data}));
+      
+        for(let i = 0; i < productList.productImg.length; i++) {
+        if(img == productList.productImg[i] && i % 2 == 0) {
+          setImg(productList.productImg[i + 1]);
+          setPrint('back');
+        }
+        else if(img == productList.productImg[i] && i % 2 == 1) {
+          setImg(productList.productImg[i - 1]);
+          setPrint('front');
+        }
+      }
     }
   }
 
@@ -220,6 +260,14 @@ const ProductDetail = () => {
     );
   }
 
+  const quantityOption = () => {
+    const quantity = [];
+    for(let i = 1; i < 999; i++) {
+      quantity.push(<option key={i}>{i}</option>)
+    }
+    return quantity;
+  }
+
   useEffect(() => {
     setCanvas(initCanvas());
   }, [])
@@ -231,12 +279,13 @@ const ProductDetail = () => {
   useEffect(()=>{
     if(productList != null) {
       setImg(productList.productImg[0])
+      setColor(productList.colorName[0])
     }
   }, [productList])
 
   /* 하지만 useEffect를 통해서 path 배열 안에 여러 개가 추가되는지 확인하려고 했을 때 문제도 생겼고.. */
   useEffect(() => {
-    console.log(path);
+    // console.log(path);
   }, [path]);
 
   return (
@@ -255,6 +304,7 @@ const ProductDetail = () => {
         <Button variant="contained" color="success" onClick={() => {canvas.clear()}}>이미지 전체 삭제</Button>
         <Button onClick={() => {download()}}>시험용 다운로드</Button>
         <Button onClick={() => {exportImg()}}>이미지 내보내기 테스트</Button>
+        <Button onClick={() => {customFlip()}}>앞, 혹은 뒷면 이미지를..?</Button>
       </div>
 
       <div className="product-detail" ref={test}>
@@ -277,12 +327,16 @@ const ProductDetail = () => {
           {productList ? <p>{productList.price}</p> : ""}
           <div style={{display: "flex"}}>
             {productList ? productList.color.map((color, index) => 
-              <div style={{width: "15px", height: "15px", border: "1px solid transparent", borderRadius: "50%", backgroundColor: color}} onClick={() => {setImg(productList.productImg[index * 2])}} key={index}></div>) :
+              <div style={{width: "15px", height: "15px", border: "1px solid transparent", borderRadius: "50%", backgroundColor: color}} onClick={() => {changeShirtColor(index)}} key={index}></div>) :
             ""}
           </div>
 
-          <select style={{width: "100px"}}>
+          <select style={{width: "100px"}} ref={sizeSelect}>
             {productList?.size.map((size, index) => <option key={index}>{size}</option>)}
+          </select>
+
+          <select name="" id="" ref={quantitySelect}>
+            {quantityOption()}
           </select>
 
           <div>
@@ -293,6 +347,7 @@ const ProductDetail = () => {
 
         {/** 이미지 데이터 넘기기 테스트 */}
         <ImageTest></ImageTest>
+
     </div>
   );
 }

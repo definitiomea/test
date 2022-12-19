@@ -75,12 +75,25 @@ const CartItem = (props) => {
     <li>
       <ProductWrap>
         {/** 이미지 수정 */}
+        {/* {getImage(findProduct(cartItem))} */}
+        {/*
+        {cartItem.img && cartItem.imgArray.length == 0 ? <img src={cartItem.img} alt="" /> : ""}
+        {cartItem.imgArray && cartItem.imgArray.length > 0 ? cartItem.imgArray.map((pic) => (<img src={pic.imageUrl}></img>)) : ""}
+        */}
         <img />
         <div>
           <div>{product.category}</div>
           <div>{`${product.productName} (${cartItem.color})`}</div>
           {/** print는 데이터 형태 확인할 것(수정 가능성 있음) */}
-          <div>print : {cartItem.print}</div>
+          <div>
+            print : 
+            {/*
+            {cartItem.imgArray.length == 0 ? cartItem.print : ""}{" "}
+            {cartItem.imgArray && cartItem.imgArray.length > 0
+              ? cartItem.imgArray.map((print) => ` ${print.print} `)
+              : ""}
+             */}
+          </div>
         </div>
       </ProductWrap>
       <div>{cartItem.size}</div>
