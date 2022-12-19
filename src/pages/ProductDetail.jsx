@@ -192,17 +192,9 @@ const ProductDetail = () => {
     }));
   }
 
-  /* 이 다운로드 메서드 안에 setPath를 다뤄보려고 했는데 일단 조잡하지만 한 번은 작동돼요 */
-  /**
-   * ▼ async/await 사용 (async/await 뺐더니 오류 생김)
-   * https://www.ouyiz.me/blog/how-to-turn-a-react-component-into-an-image
-   */
    const download = () => {
     domtoimage.toBlob(test.current).then(function (dataUrl) {
       dataUrl.crossOrigin = "Anomymous";
-      /* let testImg = new Image();
-      testImg.src = dataUrl;
-      testImg.crossOrigin = "Anomymous"; */
       
       window.saveAs(dataUrl, '');
     })
@@ -211,18 +203,21 @@ const ProductDetail = () => {
   const productPrice = parseInt(productList?.price.replace(",", ""));
   
   const exportImg = async () => {
-    const dataUrl = await domtoimage.toBlob(test.current);
+    if(editArray.length == 0) {
+      alert('편집한 이미지가 없습니다.');
+      return;
+    }
+    /* const dataUrl = await domtoimage.toBlob(test.current);
     const reader = new FileReader();
     reader.readAsDataURL(dataUrl);
     reader.onload = () => {
       const base64Data = reader.result;
-      setPath(path.concat({
-        name: "test이미지",
-        imageUrl: base64Data,
-      }));
-
-      /* 디스패치를 통해 필요한 값들 모두를 전달해요 */
-      dispatch(inputCart({id: productList?.id, img: base64Data, imgArray: editArray, size: sizeSelect.current.value, color: color, quantity: parseInt(quantitySelect.current.value), print: print, productPrice: productPrice}))
+      if(editArray.length == 0) {
+        setEditArray(editArray.concat({print: print, imageUrl: base64Data}));
+      }
+    } */
+    else {
+      dispatch(inputCart({id: productList?.id, /* img: base64Data, */ imgArray: editArray, size: sizeSelect.current.value, color: color, quantity: parseInt(quantitySelect.current.value), /* print: print, */ productPrice: productPrice}))
     }
   }
 
@@ -233,19 +228,30 @@ const ProductDetail = () => {
     reader.onload = () => {
       const base64Data = reader.result;
       /* 여기에서 이미지를 배열에 추가하고, 객체에 앞, 뒷면 state를 추가한 뒤 앞 뒷면을 setImg로 뒤집으면? */
-        setEditArray(editArray.concat({print: print, imageUrl: base64Data}));
-      
-        for(let i = 0; i < productList.productImg.length; i++) {
-        if(img == productList.productImg[i] && i % 2 == 0) {
-          setImg(productList.productImg[i + 1]);
-          setPrint('back');
+        if(editArray.length >= 2) {
+          alert('같은 티셔츠에 대해 앞, 뒷면 사진이 모두 있습니다. 이 이상 추가할 수 없습니다.')
+          return;
         }
-        else if(img == productList.productImg[i] && i % 2 == 1) {
-          setImg(productList.productImg[i - 1]);
-          setPrint('front');
+        else {
+          alert(`${print}면 내역을 저장하고, 다음 면으로 넘어갑니다`);
+          setEditArray(editArray.concat({print: print, imageUrl: base64Data}));
+      
+          for(let i = 0; i < productList.productImg.length; i++) {
+            if(img == productList.productImg[i] && i % 2 == 0) {
+              setImg(productList.productImg[i + 1]);
+              setPrint('back');
+            }
+            else if(img == productList.productImg[i] && i % 2 == 1) {
+              setImg(productList.productImg[i - 1]);
+              setPrint('front');
+            }
+          }
         }
       }
-    }
+  }
+
+  const customErase = () => {
+    setEditArray([]);
   }
 
   const ImageTest = () => {
@@ -292,19 +298,20 @@ const ProductDetail = () => {
     <div className="product-area">
 
       <div className="product-button">
-        <Button variant="contained" color="success" onClick={() => {flipShirts()}}>앞/뒤</Button>
-        <Button variant="contained" color="success" onClick={() => {add()}}>도형 생성</Button>
+        <Button variant="contained" color="success" onClick={() => {flipShirts()}}>앞/뒤 뒤집기</Button>
+        {/* <Button variant="contained" color="success" onClick={() => {add()}}>도형 생성</Button> */}
         <input type="file" accept="image/*" onChange={(event) => {handleImage(event)}} />
-        <Button variant="contained" color="success" onClick={() => {}}>사진 삭제</Button>
-        <Button variant="contained" color="success" onClick={() => {addText()}}>텍스트</Button>
+        {/* <Button variant="contained" color="success" onClick={() => {}}>사진 삭제</Button> */}
+        <Button variant="contained" color="success" onClick={() => {addText()}}>텍스트 추가하기</Button>
         <input type="color" onChange={(event) => setTextColor(event)}></input>
-        <Button variant="contained" color="success">이미지 편집</Button>
-        <Button variant="contained" color="success" onClick={() => {canvas.undo()}}>되돌리기</Button>
-        <Button variant="contained" color="success" onClick={() => {canvas.redo()}}>되돌리기 취소</Button>
-        <Button variant="contained" color="success" onClick={() => {canvas.clear()}}>이미지 전체 삭제</Button>
-        <Button onClick={() => {download()}}>시험용 다운로드</Button>
-        <Button onClick={() => {exportImg()}}>이미지 내보내기 테스트</Button>
-        <Button onClick={() => {customFlip()}}>앞, 혹은 뒷면 이미지를..?</Button>
+        {/* <Button variant="contained" color="success">이미지 편집</Button> */}
+        <Button variant="contained" color="success" onClick={() => {canvas.undo()}}>편집 되돌리기</Button>
+        <Button variant="contained" color="success" onClick={() => {canvas.redo()}}>편집 되돌리기 취소</Button>
+        <Button variant="contained" color="success" onClick={() => {canvas.clear()}}>이미지, 편집 전체 삭제</Button>
+        {/* <Button onClick={() => {download()}}>시험용 다운로드</Button> */}
+        <Button onClick={() => {exportImg()}}>이미지 내보내기(dispatch)</Button>
+        <Button onClick={() => {customFlip()}}>앞, 혹은 뒷면 이미지 편집 내역 저장</Button>
+        <Button onClick={() => {customErase()}}>앞, 혹은 뒷면 이미지 편집 내역 지우기</Button>
       </div>
 
       <div className="product-detail" ref={test}>

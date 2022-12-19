@@ -66,8 +66,8 @@ const cartSlice = createSlice({
         totalPay: action.payload.quantity * action.payload.productPrice, // 상품별 금액 * 구매수량 (금액 계산을 여러번하기 때문에 숫자형으로)
 
         /* 이미지가 한 개만 있을 경우에 사용할 img */
-        img : action.payload.img,
-        
+        /* img : action.payload.img, */
+
         /* 이미지가 최대 두 개 있을 경우에 사용할 imgArray */
         imgArray: action.payload.imgArray
       };

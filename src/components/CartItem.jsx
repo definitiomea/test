@@ -68,7 +68,7 @@ const CartItem = (props) => {
         {/* 이제 적절한 데이터 호출 부분 */}
 
         {/* 1) 만약 장바구니에 들어가는 아이템이 이미지를 하나만 가져서, imgArray의 길이가 0이라고 한다면 이미지 한 개만 보여주고 */}
-        {cartItem.img && cartItem.imgArray.length == 0 ? <img src={cartItem.img} alt="" /> : ""}
+        {/* {cartItem.img && cartItem.imgArray.length == 0 ? <img src={cartItem.img} alt="" /> : ""} */}
         {/* 2) 만약 장바구니에 들어가는 아이템이 이미지를 최대 2개 가지기 때문에 imgArray의 길이가 0을 넘긴다고 한다면
         해당 imgArray를 쭉 보여주도록 설정했어요 */}
         {cartItem.imgArray && cartItem.imgArray.length > 0 ? cartItem.imgArray.map((pic) => (<img src={pic.imageUrl}></img>)) : ""}
