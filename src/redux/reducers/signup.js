@@ -1,3 +1,4 @@
+import { ListItem } from "@mui/material";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = { userlist: [] };
@@ -17,9 +18,19 @@ export const signupSlice = createSlice({
       state.userlist = newUserlist;
       console.log(state.userlist);
     },
+
+    ADDIT_USER: (state, action) => {
+      state.userlist.map((user) => {
+        if (action.payload.id === user.id) {
+          return action.payload;
+        } else {
+          return user;
+        }
+      });
+    },
   },
 });
 
-export const { SIGN_UP } = signupSlice.actions;
+export const { SIGN_UP, ADDIT_USER } = signupSlice.actions;
 
 export default signupSlice.reducer;

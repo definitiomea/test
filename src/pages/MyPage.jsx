@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { Modal } from "@mui/material";
 import { Box } from "@mui/system";
 import Delivery from "./Delivery";
+import { useDispatch, useSelector } from "react-redux";
+import { ADDIT_USER } from "../redux/reducers/signup";
 
 const Mypage = () => {
   // 택배사 목록 state
@@ -14,6 +16,12 @@ const Mypage = () => {
   const [trackId, setTrackId] = useState("");
   const [carrierId, setCarrierId] = useState("");
   const [result, setResult] = useState(true);
+  const [trans, setTrans] = useState({
+    id: "홍길동",
+    password: "******",
+    email: "******@gmail.com",
+    address: "부산",
+  });
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -21,6 +29,14 @@ const Mypage = () => {
     setResult(true);
   };
   const navigate = useNavigate();
+
+  const onChange = (e) => {
+    const additUser = {
+      ...user,
+      [e.target.name]: e.target.value,
+    };
+    setTrans(additUser);
+  };
 
   const changeCarrierId = (e) => {
     setCarrierId(e.target.value);
@@ -56,6 +72,11 @@ const Mypage = () => {
     getCarriers();
   }, []);
 
+  const user = useSelector((state) => state.user);
+  console.log(user);
+
+  const dispatch = useDispatch();
+
   const settings = {
     dots: true,
     infinite: true,
@@ -89,17 +110,35 @@ const Mypage = () => {
           <label>비밀번호 확인</label>
         </Labels>
 
-        <Inputs>
-          <input type="text" defaultValue="홍길동" />
-          <input type="text" defaultValue="010-****-1234" />
-          <input type="text" defaultValue="roadBronze" />
-          <input type="password" placeholder="비밀번호를 입력하세요" />
-          <input type="password" placeholder="비밀번호를 입력하세요" />
+        <Inputs
+          onSubmit={() => {
+            dispatch(ADDIT_USER(trans));
+          }}
+        >
+          <input
+            type="text"
+            name="name"
+            defaultValue={user.name}
+            onChange={onChange}
+          />
+          <input type="text" defaultValue={user} onChange={onChange} />
+          <input type="text" defaultValue={user.id} onChange={onChange} />
+          <input
+            type="password"
+            name="password"
+            placeholder={user}
+            onChange={onChange}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder={user}
+            onChange={onChange}
+          />
+          <DaumPostcodeEmbed />
+          <button>회원정보 수정</button>
         </Inputs>
-
-        <DaumPostcodeEmbed />
       </UsetInfo>
-      <button>회원정보 수정</button>
 
       {/* 주문/배송조회 form  */}
       <MypageOrder>
