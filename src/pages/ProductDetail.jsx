@@ -221,7 +221,7 @@ const ProductDetail = () => {
         imageUrl: base64Data,
       }));
 
-      /* 디스패치를 객체로 넣으려면 이렇게 맞을까요? */
+      /* 디스패치를 통해 필요한 값들 모두를 전달해요 */
       dispatch(inputCart({id: productList?.id, img: base64Data, imgArray: editArray, size: sizeSelect.current.value, color: color, quantity: parseInt(quantitySelect.current.value), print: print, productPrice: productPrice}))
     }
   }

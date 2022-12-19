@@ -64,7 +64,13 @@ const CartItem = (props) => {
     <li>
       <StyledProduct>
         {/* {getImage(findProduct(cartItem))} */}
+
+        {/* 이제 적절한 데이터 호출 부분 */}
+
+        {/* 1) 만약 장바구니에 들어가는 아이템이 이미지를 하나만 가져서, imgArray의 길이가 0이라고 한다면 이미지 한 개만 보여주고 */}
         {cartItem.img && cartItem.imgArray.length == 0 ? <img src={cartItem.img} alt="" /> : ""}
+        {/* 2) 만약 장바구니에 들어가는 아이템이 이미지를 최대 2개 가지기 때문에 imgArray의 길이가 0을 넘긴다고 한다면
+        해당 imgArray를 쭉 보여주도록 설정했어요 */}
         {cartItem.imgArray && cartItem.imgArray.length > 0 ? cartItem.imgArray.map((pic) => (<img src={pic.imageUrl}></img>)) : ""}
         <div>
           <div>{findProduct(cartItem).category}</div>
@@ -72,6 +78,8 @@ const CartItem = (props) => {
             {`${findProduct(cartItem).productName} (${cartItem.color})`}
           </div>
           {/** print는 데이터 형태 확인할 것(수정 가능성 있음) */}
+
+          {/* 이쪽도 조건부에 따라 필요한 만큼만 나오도록 각 아이템의 imgArray 배열의 길이를 따져서 렌더링해서 끝 */}
           <div>print : {cartItem.imgArray.length == 0 ? cartItem.print : ""} {cartItem.imgArray && cartItem.imgArray.length > 0 ? cartItem.imgArray.map((print) => (` ${print.print} `)) : ""}</div>
         </div>
       </StyledProduct>

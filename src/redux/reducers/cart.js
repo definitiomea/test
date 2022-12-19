@@ -44,16 +44,31 @@ const cartSlice = createSlice({
     // 장바구니에 담기
     inputCart: (state, action) => {
       const newCartitem = {
+        /* 장바구니 ID는 state를 참조 */
         cartID: state.cartID++,
+
+        /* 제품 ID는 불러오기 */
         productID: /* 1 */ action.payload.id,
+
+        /* 색상 불러오기 */
         color: /* "black" */ action.payload.color,
+
+        /* 사이즈도 불러오기 */
         size: /* "S" */ action.payload.size,
+
+        /* 이미지가 한 개만 있을 경우에 사용할 print 값 불러오기 */
         print: /* "front" */ action.payload.print, // 배열이나 문자열이나
+
+        /* 수량도 불러오기 */
         quantity: /* 5 */ action.payload.quantity, // amount에서 quantity로 수정
+
+        /* 총 가격은 수량과 값을 연산해서 대입하기 */
         totalPay: action.payload.quantity * action.payload.productPrice, // 상품별 금액 * 구매수량 (금액 계산을 여러번하기 때문에 숫자형으로)
-        
-        /* 분명 이렇게 하면 로딩이 되어야 할텐데 */
+
+        /* 이미지가 한 개만 있을 경우에 사용할 img */
         img : action.payload.img,
+        
+        /* 이미지가 최대 두 개 있을 경우에 사용할 imgArray */
         imgArray: action.payload.imgArray
       };
       const newCartlist = state.cartlist.concat(newCartitem);
