@@ -19,7 +19,7 @@ const CartItem = (props) => {
   const [product, setProduct] = useState({});
   const [totalPay, setTotalPay] = useState(cartItem.totalPay);
   const inputRef = useRef();
-
+  
   const inputProps = () => {
     if (product) {
       return {

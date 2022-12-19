@@ -23,6 +23,8 @@ const Cart = () => {
   const [deliveryPay, setDeliveryPay] = useState(3000);
   const navigate = useNavigate();
 
+  // console.log(cartlist);
+
   // 상품리스트 데이터 들고오기 (db.json)
   useEffect(() => {
     const getData = async () => {

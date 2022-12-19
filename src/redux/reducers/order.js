@@ -71,21 +71,21 @@ const orderSlice = createSlice({
     inputOrder: (state, action) => {
       const cartlist = action.payload.cartlist;
       const product = action.payload.product;
-      const newOrderlist = {
-        user: action.payload.user,
-        orderID: cartlist.cartID,
-        orderDate: getDate(),
-        delivery: "상품준비"
+
+      const newOrderlist = cartlist;
+      for (let i = 0; i < newOrderlist.length; i++) {
+        newOrderlist[i].user = action.payload.user;
+        newOrderlist[i].orderID = cartlist[i].cartID;
+        newOrderlist[i].orderDate = getDate();
+        newOrderlist[i].category = product[i].category;
+        newOrderlist[i].productName = product[i].productName;
+        newOrderlist[i].price = cartlist[i].totalPay.toLocaleString("ko-KR");
+        newOrderlist[i].delivery = "상품준비"
+        delete cartlist[i].totalPay;
+        delete cartlist[i].cartID;
       }
-      // for (let i = 0; i < newOrder.length; i++) {
-      //   cart
-      // } 
 
-      // for (let i = 0; i < newOrder.length; i++) {
-      //   newOrder[i].user= action.payload.user;
-      //   newOrder[i].orderID= ++state.orderID;
-
-      // }
+      console.log(newOrderlist);
       // const newOrderlist = state.orderlist.concat(newOrder);
       // state.orderlist = newOrderlist;
       // console.log(state.orderlist);

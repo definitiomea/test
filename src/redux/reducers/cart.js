@@ -4,7 +4,45 @@ import { createSlice } from "@reduxjs/toolkit";
 // 초기값
 const initialState = {
   cartID: 0,
-  cartlist: [],
+  cartlist: [
+    // 테스트용 데이터
+    {
+      cartID: 3,
+      productID: 3,
+      color: "black",
+      size: "S",
+      quantity: 5,
+      totalPay: 47500,
+      imgArray: [
+        {print: "front", imgUrl: ""},
+        {print: "back", imgUrl: ""}
+      ]
+    },
+    {
+      cartID: 4,
+      productID: 2,
+      color: "white",
+      size: "M",
+      quantity: 1,
+      totalPay: 9500,
+      imgArray: [
+        {print: "front", imgUrl: ""},
+        {print: "back", imgUrl: ""}
+      ]
+    },
+    {
+      cartID: 5,
+      productID: 5,
+      color: "blue",
+      size: "L",
+      quantity: 3,
+      totalPay: 28500,
+      imgArray: [
+        {print: "front", imgUrl: ""},
+        {print: "back", imgUrl: ""}
+      ]
+    },
+  ],
 };
 
 const cartSlice = createSlice({
@@ -18,11 +56,11 @@ const cartSlice = createSlice({
         productID: action.payload.id,
         color: action.payload.color,
         size: action.payload.size,
-        print: action.payload.print, // 배열?
+        // print: action.payload.print,
         quantity: action.payload.quantity, // 숫자형
         totalPay: action.payload.quantity * action.payload.productPrice, // 숫자형
-        img : action.payload.img,
-        imgArray: action.payload.imgArray
+        // img : action.payload.img,
+        imgArray: action.payload.imgArray // 배열
       };
       const newCartlist = state.cartlist.concat(newCartitem);
       state.cartlist = newCartlist;

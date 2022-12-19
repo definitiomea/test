@@ -19,7 +19,7 @@ const Home = () => {
 
   // 휠 스크롤로 변경
   const slider = useRef(null);
-
+  
   function scroll(e) {
     if (slider === null) return 0;
 
