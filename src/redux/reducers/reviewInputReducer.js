@@ -7,7 +7,7 @@ const initialState = {
 };
 
 export const reviewSlice = createSlice({
-  name: "reviewAdd",
+  name: "reviewInput",
   initialState,
   reducers: {
     ADD_STAR(state, action) {
@@ -22,5 +22,5 @@ export const reviewSlice = createSlice({
   },
 });
 
-export const reviewAddActions = reviewSlice.actions;
+export const reviewInputActions = reviewSlice.actions;
 export default reviewSlice.reducer;

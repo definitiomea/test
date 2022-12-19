@@ -339,8 +339,13 @@ const ProductDetail = (props) => {
       </div>
       {/* 리뷰공간 */}
       <div>
+        {/* 더미 리뷰리스트 출력 */}
         {productList ? <ReviewList compare={productList} /> : ""}
-        {/* <ReviewInput productID={id} /> */}
+        {/*
+         * 고객이 작성한 리뷰 출력
+         * - 페이지 ReviewAdd에서 작성되고, 컴포넌트 ReviewInput에 출력 폼 있음
+         */}
+        <ReviewInput productID={id} />
       </div>
     </div>
   );

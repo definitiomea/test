@@ -7,7 +7,7 @@ const ReviewInput = (props) => {
   return (
     <div>
       <p>
-        <strong>후기</strong>
+        <strong>reivew</strong>
       </p>
       <span>userID</span>
       <br />
@@ -18,7 +18,7 @@ const ReviewInput = (props) => {
       <span>size</span>
       <br />
       <p>comment </p>
-      <img src="" alt="" />
+      <img src={dispatch(review)} alt="" />
       <span>date</span>
     </div>
   );
