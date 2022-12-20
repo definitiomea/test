@@ -1,34 +1,63 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { fabric } from 'fabric';
-import 'fabric-history';
+import { fabric } from "fabric";
+import domtoimage from "dom-to-image";
+import { saveAs } from "file-saver";
+import "fabric-history";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
-import Button from '@mui/material/Button';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import Button from "@mui/material/Button";
+import CommentInput from "../components/ReviewInput";
+import CommentList from "../components/ReviewList";
+import styled from "@emotion/styled";
+import ReviewList from "../components/ReviewList";
+import ReviewInput from "../components/ReviewInput";
 
-
-const ProductDetail = () => {
+const ProductDetail = (props) => {
   const [productList, setProductList] = useState(null);
   const [img, setImg] = useState(null);
   const [canvas, setCanvas] = useState(null);
 
+  /* 시험 삼아서 이 state에 저장한다 치고, */
+  const [path, setPath] = useState([]);
+
   const { id } = useParams(); // id : productList {id}
+  const test = useRef(null);
+
+  const compare = props;
 
   const getProduct = async () => {
     let url = `https://my-json-server.typicode.com/hans-4303/test/productList/${id}`;
     let response = await fetch(url);
     let data = await response.json();
     setProductList(data);
-  }
+    // console.log(productList);
+  };
 
-  let deleteIcon = "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='595.275px' height='595.275px' viewBox='200 215 230 470' xml:space='preserve'%3E%3Ccircle style='fill:%23F44336;' cx='299.76' cy='439.067' r='218.516'/%3E%3Cg%3E%3Crect x='267.162' y='307.978' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -222.6202 340.6915)' style='fill:white;' width='65.545' height='262.18'/%3E%3Crect x='266.988' y='308.153' transform='matrix(0.7071 0.7071 -0.7071 0.7071 398.3889 -83.3116)' style='fill:white;' width='65.544' height='262.179'/%3E%3C/g%3E%3C/svg%3E";
+  const initCanvas = () => {
+    return new fabric.Canvas("canvas", {
+      width: 350,
+      height: 420,
+      backgroundColor: "transparent",
+    });
+  };
+
+  let deleteIcon =
+    "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='595.275px' height='595.275px' viewBox='200 215 230 470' xml:space='preserve'%3E%3Ccircle style='fill:%23F44336;' cx='299.76' cy='439.067' r='218.516'/%3E%3Cg%3E%3Crect x='267.162' y='307.978' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -222.6202 340.6915)' style='fill:white;' width='65.545' height='262.18'/%3E%3Crect x='266.988' y='308.153' transform='matrix(0.7071 0.7071 -0.7071 0.7071 398.3889 -83.3116)' style='fill:white;' width='65.544' height='262.179'/%3E%3C/g%3E%3C/svg%3E";
   let delImg = new Image();
   delImg.src = deleteIcon;
+  delImg.crossOrigin = "Anomymous";
+
+  let flipIcon = "https://cdn-icons-png.flaticon.com/512/1827/1827961.png";
+  let flipImg = new Image();
+  flipImg.src = flipIcon;
+  flipImg.crossOrigin = "Anomymous";
 
   fabric.Object.prototype.transparentCorners = false;
   fabric.Object.prototype.cornerColor = "blue";
   fabric.Object.prototype.cornerStyle = "circle";
+  fabric.Object.prototype.crossOrigin = "Anomymous";
 
   fabric.Object.prototype.controls.deleteControl = new fabric.Control({
     x: 0.5,
@@ -40,32 +69,50 @@ const ProductDetail = () => {
     cornerSize: 24,
   });
 
-  function deleteObject (eventData, transform) {
+  function deleteObject(eventData, transform) {
     let target = transform.target;
     let canvas = target.canvas;
     canvas.remove(target);
     canvas.requestRenderAll();
   }
 
-  function renderIcon (ctx, left, top, styleOverride, fabricObject) {
-    let size = this.cornerSize;
-    ctx.save();
-    ctx.translate(left, top);
-    ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle));
-    ctx.drawImage(delImg, -size / 2, -size / 2, size, size);
-    ctx.restore();
+  function flipObject(eventData, transform) {
+    let target = transform.target;
+    let canvas = target.canvas;
+    target.toggle("flipX", true);
+    canvas.setActiveObject(target);
+    canvas.renderAll();
   }
 
+  function renderIcon(icon) {
+    return function renderIcon(ctx, left, top, styleOverride, fabricObject) {
+      let size = this.cornerSize;
+      ctx.save();
+      ctx.translate(left, top);
+      ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle));
+      ctx.drawImage(icon, -size / 2, -size / 2, size, size);
+      ctx.restore();
+    };
+  }
+
+  const setTextColor = (event) => {
+    if (canvas.getActiveObject() !== undefined && canvas.getActiveObject().text !== undefined) {
+      canvas.getActiveObject().set({ fill: event.target.value });
+      canvas.renderAll();
+    } else {
+      console.log("not yet or not a text");
+    }
+  };
+
   const flipShirts = () => {
-    for(let i = 0; i < productList.productImg.length; i++) {
-      if(img == productList.productImg[i] && i % 2 == 0) {
+    for (let i = 0; i < productList.productImg.length; i++) {
+      if (img == productList.productImg[i] && i % 2 == 0) {
         setImg(productList.productImg[i + 1]);
-      }
-      else if(img == productList.productImg[i] && i % 2 == 1) {
+      } else if (img == productList.productImg[i] && i % 2 == 1) {
         setImg(productList.productImg[i - 1]);
       }
     }
-  }
+  };
 
   const add = () => {
     let rect = new fabric.Rect({
@@ -77,94 +124,231 @@ const ProductDetail = () => {
       objectCaching: false,
       stroke: "lightgreen",
       strokeWidth: 4,
+      crossOrigin: "Anomymous",
     });
-    
+
     canvas.add(rect);
     canvas.setActiveObject(rect);
-  }
+  };
 
-  let test = "https://www.princeton.edu/sites/default/files/styles/scale_1440/public/images/2022/02/KOA_Nassau_2697x1517.jpg?itok=lA8UuoHt";
-  let backImg = new Image();
-  backImg.src = test;
+  const handleImage = (event) => {
+    if (!event) {
+      canvas.clear();
+    }
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const imgObj = new Image();
+      imgObj.src = event.target.result;
+      imgObj.crossOrigin = "Anomymous";
+      imgObj.onload = () => {
+        const uploadImg = new fabric.Image(imgObj);
+        uploadImg.scaleToHeight(100);
+        uploadImg.scaleToWidth(100);
+        canvas.centerObject(uploadImg);
+        canvas.add(uploadImg);
+        canvas.setActiveObject(uploadImg);
+        canvas.renderAll();
+      };
+    };
+    if (event.target.files[0]) {
+      reader.readAsDataURL(file);
+    }
+  };
 
-  const initCanvas = () => {
-    return new fabric.Canvas('canvas', {
-      width: 400,
-      height: 400,
-      backgroundColor: "transparent",
-      backgroundImage: new fabric.Image(backImg)
-    })
-  }
+  const addText = () => {
+    canvas.add(
+      new fabric.IText("Tap and Type", {
+        left: 0,
+        top: 0,
+        fontFamily: "arial black",
+        fill: "#333333",
+        fontSize: 20,
+        crossOrigin: "Anomymous",
+      })
+    );
+  };
+
+  /* 이 다운로드 메서드 안에 setPath를 다뤄보려고 했는데 일단 조잡하지만 한 번은 작동돼요 */
+  const download = () => {
+    domtoimage.toBlob(test.current).then(function (dataUrl) {
+      dataUrl.crossOrigin = "Anomymous";
+
+      /* let testImg = new Image();
+      testImg.src = dataUrl;
+      testImg.crossOrigin = "Anomymous"; */
+
+      window.saveAs(dataUrl, "");
+    });
+  };
+
+  const exportImg = async () => {
+    /* 이쪽으로 코드를 쓰면 uint8array 쓰는 게 확정이기 때문에.... 미루고
+
+     domtoimage.toPixelData(test.current).then(function (pixels) {
+      for (let y = 0; y < test.current.scrollHeight; ++y) {
+        for (let x = 0; x < test.current.scrollWidth; ++x) {
+          pixels.pixelAtXYOffset = (4 * y * test.current.scrollHeight) + (4 * x);
+          pixels.pixelAtXY = pixels.slice(test.current.pixelAtXYOffset, test.current.pixelAtXYOffset + 4);
+        }
+      }
+      
+      console.log(pixels);
+      console.log(pixels.pixelAtXY);
+    }); */
+    const dataUrl = await domtoimage.toBlob(test.current);
+    const reader = new FileReader();
+    reader.readAsDataURL(dataUrl);
+    reader.onload = () => {
+      const base64Data = reader.result;
+      /* setPath([...path,{
+        name: "테스트용 이미지",
+        imageUrl: base64Data
+      }]); */
+      setPath(
+        path.concat({
+          name: "테스트용 이미지",
+          imageUrl: base64Data,
+        })
+      );
+    };
+  };
+
+  const ImageTest = ({ path }) => {
+    console.log(path);
+    return (
+      <div>
+        {path
+          ? path.map((img, index) => (
+              <div>
+                <h3>
+                  {img.name} {index}
+                </h3>
+                <img src={img.imageUrl}></img>
+              </div>
+            ))
+          : ""}
+      </div>
+    );
+  };
 
   useEffect(() => {
     setCanvas(initCanvas());
-  }, [])
+  }, []);
 
   useEffect(() => {
     getProduct();
   }, [id]);
 
-  useEffect(()=>{
-    if(productList != null) {
-      setImg(productList.productImg[0])
+  useEffect(() => {
+    if (productList != null) {
+      setImg(productList.productImg[0]);
     }
-  }, [productList])
+  }, [productList]);
 
-  console.log(canvas);
+  /* useEffect(() => {
+    console.log(path);
+  }, [path]); */
+
+  console.log(productList);
 
   return (
     <div className="product-area">
-
       <div className="product-button">
-        <Button variant="contained" color="success" onClick={() => {flipShirts()}}>앞/뒤</Button>
-        <Button variant="contained" color="success" onClick={() => {add()}}>사진 업로드</Button>
-        <Button variant="contained" color="success" onClick={() => {}}>사진 삭제</Button>
-        <Button variant="contained" color="success">텍스트</Button>
-        <Button variant="contained" color="success">이미지 편집</Button>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => {
+            flipShirts();
+          }}
+        >
+          앞/뒤
+        </Button>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => {
+            add();
+          }}
+        >
+          사진 업로드
+        </Button>
+        <Button variant="contained" color="success" onClick={() => {}}>
+          사진 삭제
+        </Button>
+        <Button variant="contained" color="success">
+          텍스트
+        </Button>
+        <Button variant="contained" color="success">
+          이미지 편집
+        </Button>
       </div>
 
-      <div className="product-detail">
-        {productList?.category == "short" && img != null ?
-          <div className="img-box">
-            <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img>
-          </div> : 
-        ""}
-        {productList?.category == "long" && img != null ?
-          <div className="img-box">
-            <img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img>
-          </div> : 
-        ""}
+      <div className="product-detail" ref={test}>
+        <div className="img-box">
+          {productList?.category == "short" && img != null ? <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img> : ""}
+          {productList?.category == "long" && img != null ? <img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img> : ""}
+          <div style={{ position: "absolute", top: "0%", left: "0%", width: "350px", height: "420px" }}>
+            <canvas id="canvas"></canvas>
+          </div>
+        </div>
       </div>
 
-      {/* <canvas id="canvas"></canvas> */}
-        
       <div className="product-info">
-          {productList ? <p>{productList.id}</p> : ""}
-          {productList ? <p>{productList.productName}</p> : ""}
-          {productList ? <p>{productList.price}</p> : ""}
-          <div style={{display: "flex"}}>
-            {productList ? productList.color.map((color, index) => 
-              <div style={{width: "15px", height: "15px", border: "1px solid transparent", borderRadius: "50%", backgroundColor: color}} onClick={() => {setImg(productList.productImg[index * 2])}} key={index}></div>) :
-            ""}
-          </div>
+        {productList ? <p>{productList.id}</p> : ""}
+        {productList ? <p>{productList.productName}</p> : ""}
+        {productList ? <p>{productList.price}</p> : ""}
+        <div style={{ display: "flex" }}>
+          {productList
+            ? productList.color.map((color, index) => (
+                <div
+                  style={{
+                    width: "15px",
+                    height: "15px",
+                    border: "1px solid transparent",
+                    borderRadius: "50%",
+                    backgroundColor: color,
+                  }}
+                  onClick={() => {
+                    setImg(productList.productImg[index * 2]);
+                  }}
+                  key={index}
+                ></div>
+              ))
+            : ""}
+        </div>
 
-          <select style={{width: "100px"}}>
-            {productList?.size.map((size, index) => <option key={index}>{size}</option>)}
-          </select>
+        <select style={{ width: "100px" }}>
+          {productList?.size.map((size, index) => (
+            <option key={index}>{size}</option>
+          ))}
+        </select>
 
-          <div>
-            <Button><FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon></Button>
-            <Button>구매하기</Button>
-          </div>
-            {/* 원하는 객체가 있는지 삼항 연산자, 콘솔로 찍어봤을 때
+        <div>
+          <Button>
+            <FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon>
+          </Button>
+          <Button>구매하기</Button>
+        </div>
+        {/* 원하는 객체가 있는지 삼항 연산자, 콘솔로 찍어봤을 때
             거짓 경우(객체 로딩 중) -> 참 경우(객체 로딩 완료)로 넘어가면서
             둘 다가 찍힌다.
             
             그래서, 로딩 되기 전의 거짓 경우와 로딩 되었을 때의 참 경우 둘 다가 필요하고,
             객체가 있는지를 "?"를 통해 한번 더 체크해야 한다. */}
-        </div>
+      </div>
+      {/* 리뷰공간 */}
+      <div>
+        {/* 더미 리뷰리스트 출력 */}
+        {productList ? <ReviewList compare={productList} /> : ""}
+        {/*
+         * 고객이 작성한 리뷰 출력
+         * - 페이지 ReviewAdd에서 작성되고, 컴포넌트 ReviewInput에 출력 폼 있음
+         */}
+        <ReviewInput productID={id} />
+      </div>
     </div>
   );
-}
- 
+};
+
 export default ProductDetail;

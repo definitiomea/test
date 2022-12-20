@@ -1,9 +1,11 @@
+/* 초기화 관련 > GlobalStyles.jsx로 이동
 body,
-html {
+html, ul, li {
   margin: 0;
   padding: 0;
   height: 100%;
 }
+*/
 
 /* 네브바 */
 .navbar {
@@ -19,14 +21,14 @@ html {
 }
 .navbar .nav-link {
   margin-left: auto;
-  padding: 20px;
   display: flex;
 }
-.navbar a, .nav-link a {
-  padding: 10px;
+.navbar a,
+.nav-link a {
   color: whitesmoke;
   text-decoration: none;
   align-self: center;
+  margin-right: 20px;
 }
 .nav-link a:first-child {
   padding: 0 10px;
@@ -83,7 +85,8 @@ html {
 .sign-up {
   width: 300px;
 }
-.sign-up label, .sign-up input {
+.sign-up label,
+.sign-up input {
   display: block;
   width: 100%;
   height: 30px;
@@ -92,7 +95,7 @@ html {
   margin-bottom: 10px;
 }
 
-/* 푸터 */
+/* 푸터 > GlobalStyles.jsx로 이동
 .footer {
   height: 100px;
   width: 100%;
@@ -101,6 +104,7 @@ html {
   display: flex;
   position: absolute;
   bottom: 0;
+  margin-top: auto;
 }
 .footer h1 {
   margin: auto;
@@ -108,16 +112,17 @@ html {
 .hidden {
   display: none;
 }
+*/
 
 .img-box {
   width: 350px;
   height: auto;
-  margin: 20px;
+  margin: 10px;
   cursor: pointer;
   position: relative;
 }
 .product-img {
-  max-width: 80%;
+  max-width: 100%;
 }
 .product-area {
   display: flex;
@@ -131,4 +136,19 @@ html {
 
 .product-info {
   padding: 20px;
+}
+
+/* 폰트입니다 */
+@font-face {
+  font-family: logo;
+  src: url("./fonts/titleLogo.otf");
+}
+@font-face {
+  font-family: nav;
+  src: url("./fonts/nav.otf");
+}
+
+@font-face {
+  font-family: ongothic;
+  src: url("./fonts/유니버셜온고딕체.otf");
 }
