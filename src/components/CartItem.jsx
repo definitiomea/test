@@ -80,7 +80,7 @@ const CartItem = (props) => {
           {/** print는 데이터 형태 확인할 것(수정 가능성 있음) */}
 
           {/* 이쪽도 조건부에 따라 필요한 만큼만 나오도록 각 아이템의 imgArray 배열의 길이를 따져서 렌더링해서 끝 */}
-          <div>print : {cartItem.imgArray.length == 0 ? cartItem.print : ""} {cartItem.imgArray && cartItem.imgArray.length > 0 ? cartItem.imgArray.map((print) => (` ${print.print} `)) : ""}</div>
+          <div>print : {/* {cartItem.imgArray.length == 0 ? cartItem.print : ""} */} {cartItem.imgArray && cartItem.imgArray.length > 0 ? cartItem.imgArray.map((print) => (` ${print.print} `)) : ""}</div>
         </div>
       </StyledProduct>
       <div>{cartItem.size}</div>

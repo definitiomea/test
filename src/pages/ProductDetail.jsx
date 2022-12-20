@@ -64,6 +64,7 @@ const ProductDetail = () => {
   const changeShirtColor = (index) => {
     setImg(productList.productImg[index * 2]);
     setColor(productList.colorName[index]);
+    setPrint("front");
     setEditArray([]);
   };
 
