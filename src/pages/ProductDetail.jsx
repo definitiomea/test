@@ -20,9 +20,6 @@ const ProductDetail = () => {
   const [print, setPrint] = useState('front');
   const [editArray, setEditArray] = useState([]);
 
-  /* 시험 삼아서 이 state에 저장한다 치고, */
-  const [path, setPath] = useState([]);
-
   const { id } = useParams(); // id : productList {id}
   
   const test = useRef(null);
@@ -31,14 +28,11 @@ const ProductDetail = () => {
 
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
-
   const getProduct = async () => {
     let url = `https://my-json-server.typicode.com/hans-4303/test/productList/${id}`;
     let response = await fetch(url);
     let data = await response.json();
     setProductList(data);
-    // console.log(productList);
   }
 
   const flipShirts = () => {
@@ -139,7 +133,7 @@ const ProductDetail = () => {
     }
   }
 
-  const add = () => {
+  /* const add = () => {
     let rect = new fabric.Rect({
       left: 60,
       top: 50,
@@ -154,7 +148,7 @@ const ProductDetail = () => {
     
     canvas.add(rect);
     canvas.setActiveObject(rect);
-  }
+  } */
 
   const handleImage = (event) => {
     if (!event) {
@@ -192,20 +186,22 @@ const ProductDetail = () => {
     }));
   }
 
-   const download = () => {
+   /* const download = () => {
     domtoimage.toBlob(test.current).then(function (dataUrl) {
       dataUrl.crossOrigin = "Anomymous";
       
       window.saveAs(dataUrl, '');
     })
-  }
+  } */
 
   const productPrice = parseInt(productList?.price.replace(",", ""));
   
   /* 편집한 이미지가 없다고 할 때 현재 캔버스를 넣어주는 시도를 했지만,
   아마도 비동기이기 때문에? editArray.concat이 늦게 반영되는 상황이 벌어졌고 dispatch와 타이밍을 맞추지 못하게 됐어요
+  
   이럴 바에 차라리 편집 내역이 들어간 배열의 길이를 따져서 dispatch를 조건부로 넘겨주는 걸로 생각하고,
   그대로 실행해서 성공 */
+
   const exportImg = async () => {
     if(editArray.length == 0) {
       alert('편집한 이미지가 없습니다.');
@@ -221,7 +217,7 @@ const ProductDetail = () => {
       }
     } */
     else {
-      dispatch(inputCart({id: productList?.id, /* img: base64Data, */ imgArray: editArray, size: sizeSelect.current.value, color: color, quantity: parseInt(quantitySelect.current.value), /* print: print, */ productPrice: productPrice}))
+      dispatch(inputCart({id: productList?.id, imgArray: editArray, size: sizeSelect.current.value, color: color, quantity: parseInt(quantitySelect.current.value), productPrice: productPrice}))
       setEditArray([]);
       alert('편집했던 이미지를 장바구니에 담으셨습니다');
     }
@@ -233,7 +229,6 @@ const ProductDetail = () => {
     reader.readAsDataURL(dataUrl);
     reader.onload = () => {
       const base64Data = reader.result;
-      /* 여기에서 이미지를 배열에 추가하고, 객체에 앞, 뒷면 state를 추가한 뒤 앞 뒷면을 setImg로 뒤집으면? */
         if(editArray.length >= 2) {
           alert('같은 티셔츠에 대해 앞, 뒷면 사진이 모두 있습니다. 이 이상 저장할 수 없습니다.')
           return;
@@ -274,18 +269,6 @@ const ProductDetail = () => {
     }
   }
 
-  /* const ImageTest = () => {
-    return (
-      <div>
-        {path ? path.map((img, index) => (
-            <div>
-              <h3>{img.name} {index}</h3>
-              <img src={img.imageUrl}></img>
-            </div>)) : ""}
-      </div>
-    );
-  } */
-
   const quantityOption = () => {
     const quantity = [];
     for(let i = 1; i < 999; i++) {
@@ -309,7 +292,7 @@ const ProductDetail = () => {
     }
   }, [productList])
 
-  /* 하지만 useEffect를 통해서 path 배열 안에 여러 개가 추가되는지 확인하려고 했을 때 문제도 생겼고.. */
+  /* 이쪽 Effect도 테스트해보고 지우는 걸로 */
   useEffect(() => {
     console.log(editArray);
   }, [editArray]);
@@ -371,9 +354,6 @@ const ProductDetail = () => {
             <Button>구매하기</Button>
           </div>
         </div>
-
-        {/** 이미지 데이터 넘기기 테스트 */}
-        {/* <ImageTest></ImageTest> */}
 
     </div>
   );
