@@ -1,7 +1,8 @@
-import { ListItem } from "@mui/material";
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { userlist: [] };
+const initialState = {
+  userlist: [],
+};
 
 export const signupSlice = createSlice({
   name: "signup",
@@ -21,7 +22,7 @@ export const signupSlice = createSlice({
     },
 
     ADDIT_USER: (state, action) => {
-      state.userlist.map((user) => {
+      state.userlist = state.userlist.map((user) => {
         if (action.payload.id === user.id) {
           return action.payload;
         } else {
