@@ -29,12 +29,12 @@ const GlobalStyle = createGlobalStyle`
   // 네브 제외 콘텐츠, 네브바 아래 위치하게
   .body-container {
     position: relative;
-    top: 136px;
+    top: 136px; // 네브바 높이
   }
   // 메인(home) 페이지에서는 네브바가 겹쳐야하므로 제외
   .main-container {
     position: absolute;
-    top: -136px;
+    top: -136px; // 네브바 높이
   }
 
   // 필요에 따라 스타일 추가, 수정

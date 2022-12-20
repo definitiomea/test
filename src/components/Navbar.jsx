@@ -24,7 +24,7 @@ const Navbar = (props) => {
   const logOut = () => {
     setLogin(false);
     dispatch(setUser(null));
-    navigate("");
+    navigate("/");
   };
 
   const location = useLocation();

@@ -16,7 +16,7 @@ import { inputOrder } from "../redux/reducers/order";
 
 const Cart = () => {
   const cartlist = useSelector((state) => state.cartlist.cartlist);
-  const user = useSelector((state) => state.user);
+  const userID = useSelector((state) => state.user.id);
   const dispatch = useDispatch();
   const [dataloading, setDataloading] = useState(false);
   const [productlist, setProductlist] = useState("");
@@ -24,6 +24,30 @@ const Cart = () => {
   const navigate = useNavigate();
 
   // console.log(cartlist);
+
+  // 배송비 제외 총 금액
+  const getSubtotal = () => {
+    // prev: 이전값 > 현재까지 누적된 값
+    // cur : 현재값
+    // 0 : 초기값, 안쓰면 배열의 첫번째 요소가 들어감
+    const subtotal = cartlist.reduce((prev, cur) => {
+      return (prev += cur.totalPay);
+    }, 0);
+    return subtotal;
+  };
+
+  // productlist에서 cartlist에 담긴 상품 정보 골라내기
+  const findProduct = () => {
+    const productArr = [];
+    for (let i = 0; i < cartlist.length; i++) {
+      productArr.push(
+        productlist.find(
+          (product) => product.productID == cartlist[i].productID
+        )
+      );
+    } // [ {product3}, {1}, {2} ]
+    return productArr;
+  };
 
   // 상품리스트 데이터 들고오기 (db.json)
   useEffect(() => {
@@ -40,34 +64,10 @@ const Cart = () => {
     getData();
   }, [dataloading]);
 
-  // 배송비 제외 총 금액
-  const getSubtotal = () => {
-    // prev: 이전값 > 현재까지 누적된 값
-    // cur : 현재값
-    // 0 : 초기값, 안쓰면 배열의 첫번째 요소가 들어감
-    const subtotal = cartlist.reduce((prev, cur) => {
-      return (prev += cur.totalPay);
-    }, 0);
-    return subtotal;
-  };
-
   // 장바구니 아이템이 없으면 배송비를 0으로 출력
   useEffect(() => {
     cartlist.length == 0 ? setDeliveryPay(0) : setDeliveryPay(3000);
   }, [cartlist]);
-
-  // productlist에서 cartlist에 담긴 상품 정보 골라내기
-  const findProduct = () => {
-    const productArr = [];
-    for (let i = 0; i < cartlist.length; i++) {
-      productArr.push(
-        productlist.find(
-          (product) => product.productID == cartlist[i].productID
-        )
-      );
-    } // [ {product3}, {1}, {2} ]
-    return productArr;
-  };
 
   // 주문하기
   const order = () => {
@@ -81,12 +81,13 @@ const Cart = () => {
     // }
     dispatch(
       inputOrder({
-        user: user.id,
+        user: userID,
         cartlist: cartlist,
         product: findProduct(),
       })
     );
     // 장바구니 목록 삭제 (clear cart)
+    // dispatch(clearCart());
     // navigate("/orderconfirm");
   };
 
