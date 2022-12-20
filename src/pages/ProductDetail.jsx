@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
 import { fabric } from 'fabric';
 import domtoimage from 'dom-to-image';
 import { saveAs } from 'file-saver';
@@ -293,9 +294,9 @@ const ProductDetail = () => {
   }, [productList])
 
   /* 이쪽 Effect도 테스트해보고 지우는 걸로 */
-  useEffect(() => {
+  /* useEffect(() => {
     console.log(editArray);
-  }, [editArray]);
+  }, [editArray]); */
 
   return (
     <div className="product-area">
