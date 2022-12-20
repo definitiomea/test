@@ -4,45 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 // 초기값
 const initialState = {
   cartID: 0,
-  cartlist: [
-    // 테스트용 데이터
-    {
-      cartID: 3,
-      productID: 3,
-      color: "black",
-      size: "S",
-      quantity: 5,
-      totalPay: 47500,
-      imgArray: [
-        {print: "front", imgUrl: ""},
-        {print: "back", imgUrl: ""}
-      ]
-    },
-    {
-      cartID: 4,
-      productID: 2,
-      color: "white",
-      size: "M",
-      quantity: 1,
-      totalPay: 9500,
-      imgArray: [
-        {print: "front", imgUrl: ""},
-        {print: "back", imgUrl: ""}
-      ]
-    },
-    {
-      cartID: 5,
-      productID: 5,
-      color: "blue",
-      size: "L",
-      quantity: 3,
-      totalPay: 28500,
-      imgArray: [
-        {print: "front", imgUrl: ""},
-        {print: "back", imgUrl: ""}
-      ]
-    },
-  ],
+  cartlist: [],
 };
 
 const cartSlice = createSlice({
@@ -56,11 +18,13 @@ const cartSlice = createSlice({
         productID: action.payload.id,
         color: action.payload.color,
         size: action.payload.size,
+        // 이미지가 한 개만 있을 경우에 사용할 print 값 불러오기
+        // ※ 한 개만 있어도 값이 imgArray로 들어가서 undefined로 값이 들어가던데 안쓰는게 맞는지 확인하기
         // print: action.payload.print,
-        quantity: action.payload.quantity, // 숫자형
-        totalPay: action.payload.quantity * action.payload.productPrice, // 숫자형
-        // img : action.payload.img,
-        imgArray: action.payload.imgArray // 배열
+        quantity: action.payload.quantity,
+        totalPay: action.payload.quantity * action.payload.productPrice,
+        // 이미지가 최대 두 개 있을 경우에 사용할 imgArray
+        imgArray: action.payload.imgArray,
       };
       const newCartlist = state.cartlist.concat(newCartitem);
       state.cartlist = newCartlist;

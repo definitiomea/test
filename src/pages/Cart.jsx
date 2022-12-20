@@ -23,8 +23,6 @@ const Cart = () => {
   const [deliveryPay, setDeliveryPay] = useState(3000);
   const navigate = useNavigate();
 
-  // console.log(cartlist);
-
   // 배송비 제외 총 금액
   const getSubtotal = () => {
     // prev: 이전값 > 현재까지 누적된 값
@@ -175,7 +173,7 @@ const StyledContainer = styled(Container)`
 `;
 
 const Title = styled.div`
-  margin: 2rem 0 1rem 0;
+  margin: 2rem 0;
   ${"h2"} {
     display: inline-block;
     font-family: "nav";
