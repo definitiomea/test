@@ -21,8 +21,6 @@ const Mypage = () => {
     setOpen(false);
     setResult(true);
   };
-  const navigate = useNavigate();
-
   const changeCarrierId = (e) => {
     setCarrierId(e.target.value);
   };

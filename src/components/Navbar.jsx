@@ -1,14 +1,25 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../style/Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../redux/reducers/userReducer";
+import { logout } from "../redux/reducers/user";
+
+import Modal from "../components/Modal";
 
 const Navbar = (props) => {
   // 모바일 버전 시 네브 토글바
   const [toggleOpen, setToggleOpen] = useState(false);
+
+  // modal login form
+  const [modalOpen, setModalOpen] = useState(false);
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   // 로그인
   const [login, setLogin] = useState(false);
@@ -18,12 +29,13 @@ const Navbar = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setLogin(user ? true : false);
+    setLogin(user.isLoggedIn ? true : false);
   }, [user]);
 
   const logOut = () => {
     setLogin(false);
-    dispatch(setUser(null));
+    // dispatch(setUser(null));
+    dispatch(logout());
     navigate("");
   };
 
@@ -76,10 +88,21 @@ const Navbar = (props) => {
           </li>
 
           <li>
-            <NavLink to="cart" className={main ? "white-nav" : "dark-nav"} v>
+            <NavLink to="cart" className={main ? "white-nav" : "dark-nav"}>
               CART
             </NavLink>
           </li>
+
+          {/* <li>
+            <NavLink
+              to="login"
+              className={location.pathname === "/" ? "white-nav" : "dark-nav"}
+              v
+            >
+              LOG IN
+            </NavLink>
+          </li> */}
+
           {login ? (
             <li className="dropdown">
               <div className={main ? "white-nav" : "dark-nav"}>{user.name}님</div>
@@ -93,14 +116,20 @@ const Navbar = (props) => {
               </div>
             </li>
           ) : (
-            <button
-              className={main ? "white-nav" : "dark-nav"}
-              onClick={() => {
-                navigate("/login");
-              }}
-            >
-              LOGIN
-            </button>
+            <div>
+              <button
+                className={main ? "white-nav" : "dark-nav"}
+                onClick={
+                  openModal
+                  //   () => {
+                  //   navigate("/login");
+                  // }
+                }
+              >
+                LOGIN
+              </button>
+              <Modal open={modalOpen} close={closeModal} />
+            </div>
           )}
         </ul>
         {/* 모바일 화면 - 햄버거 메뉴 */}

@@ -5,11 +5,11 @@ const ReviewList = (props) => {
   // reviewReducer에서 initialState값 가져옴
   const reviewList = useSelector((state) => state.review.reviewList);
 
-  console.log(reviewList);
+  // console.log(reviewList);
 
   // productDetail에서 props 받음
   const { compare } = props;
-  console.log(compare);
+  // console.log(compare);
 
   return (
     <div>

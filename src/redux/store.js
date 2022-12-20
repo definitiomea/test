@@ -4,10 +4,10 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import productReducer from "./reducers/productReducer";
-import userReducer from "./reducers/userReducer";
+import userReducer from "./reducers/user";
 import signupReducer from "./reducers/signup";
 import cartReducer from "./reducers/cart";
-import orderReduer from "./reducers/order"
+import orderReduer from "./reducers/order";
 import review from "./reducers/reviewReducer";
 
 const reducers = combineReducers({

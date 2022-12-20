@@ -26,7 +26,7 @@ for문을 돌리면 i<=3 이 될 때까지는 true값을 반환함
     }
     setClicked(clickStates);
   };
-  console.log(clicked);
+  // console.log(clicked);
   // filter을 이용해 true값만 뽑아서 length를 이용해 개수를 확인 후 별점값을 내보냄
   const sendReview = () => {
     let score = clicked.filter(Boolean).length;
@@ -94,7 +94,7 @@ for문을 돌리면 i<=3 이 될 때까지는 true값을 반환함
             <FontAwesomeIcon
               icon={faStar}
               key={star}
-              size="35"
+              size="lg"
               onClick={() => handleStarClick(star)}
               className={clicked[star] ? "yellowStar" : undefined}
             />

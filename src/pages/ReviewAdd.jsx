@@ -2,12 +2,10 @@ import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { writeReview } from "../redux/reducers/reviewReducer";
 import ReviewStar from "../components/ReviewStar";
 import { Modal } from "@mui/material";
 import { useState } from "react";
 import { Box } from "@mui/system";
-import { useEffect } from "react";
 
 const ReaviewAdd = () => {
   // Link를 통해 이동할 때는 useLocation()을 사용해야함
@@ -69,9 +67,6 @@ const ReaviewAdd = () => {
     navigate("/mypage");
   };
 
-  // 등록 버튼누르면 후기가 등록됨
-  const [reviewAdd, setReviewAdd] = useState();
-
   return (
     <ReviewBox>
       <div>
@@ -81,7 +76,6 @@ const ReaviewAdd = () => {
         </header>
 
         {/* 구매 상품정보 section */}
-
         <section style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}>
           {/* 상품이미지 box*/}
           <div>
@@ -103,7 +97,6 @@ const ReaviewAdd = () => {
             </div>
           </div>
         </section>
-
         {/* 리뷰 작성 section */}
         <section style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}>
           {/* 별점 box */}
@@ -210,7 +203,6 @@ const ReaviewAdd = () => {
             </ReviewColum>
           </div>
         </section>
-
         {/* 취소 or 등록 section */}
         <section style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}>
           <ReviewBtn>
@@ -223,13 +215,7 @@ const ReaviewAdd = () => {
             </button>
           </ReviewBtn>
           <ReviewBtn>
-            <button
-              onClick={() => {
-                setReviewAdd();
-              }}
-            >
-              등록
-            </button>
+            <button>등록</button>
           </ReviewBtn>
         </section>
       </div>
