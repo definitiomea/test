@@ -27,14 +27,16 @@ const ProductDetail = () => {
 
   const { id } = useParams(); // id : productList {id}
 
-  const test = useRef(null);
+  const editZone = useRef(null);
   const sizeSelect = useRef(null);
   const quantitySelect = useRef(null);
 
   const dispatch = useDispatch();
 
+  /* 셋팅 불러오기 */
   FabricSettings();
 
+  /* 각각의 티셔츠 받아오기 */
   const getProduct = async () => {
     let url = `https://my-json-server.typicode.com/hans-4303/test/productList/${id}`;
     let response = await fetch(url);
@@ -42,6 +44,10 @@ const ProductDetail = () => {
     setProductList(data);
   };
 
+  /* 제품의 가격 */
+  const productPrice = parseInt(productList?.price.replace(",", ""));
+
+  /* 셔츠 뒤집기 */
   const flipShirts = () => {
     for (let i = 0; i < productList.productImg.length; i++) {
       if (img == productList.productImg[i] && i % 2 == 0) {
@@ -54,12 +60,14 @@ const ProductDetail = () => {
     }
   };
 
+  /* 셔츠 색상 바꾸기 */
   const changeShirtColor = (index) => {
     setImg(productList.productImg[index * 2]);
     setColor(productList.colorName[index]);
     setEditArray([]);
   };
 
+  /* 텍스트 색상 바꾸기 */
   const setTextColor = (event) => {
     if (
       canvas.getActiveObject() !== undefined &&
@@ -72,6 +80,7 @@ const ProductDetail = () => {
     }
   };
 
+  /* 이미지 업로드하기 */
   const handleImage = (event) => {
     if (!event) {
       canvas.clear();
@@ -97,6 +106,7 @@ const ProductDetail = () => {
     }
   };
 
+  /* 텍스트 추가하기 */
   const addText = () => {
     canvas.add(
       new fabric.IText("Tap and Type", {
@@ -110,14 +120,13 @@ const ProductDetail = () => {
     );
   };
 
-  const productPrice = parseInt(productList?.price.replace(",", ""));
-
   /* 편집한 이미지가 없다고 할 때 현재 캔버스를 넣어주는 시도를 했지만,
   아마도 비동기이기 때문에? editArray.concat이 늦게 반영되는 상황이 벌어졌고 dispatch와 타이밍을 맞추지 못하게 됐어요
   
   이럴 바에 차라리 편집 내역이 들어간 배열의 길이를 따져서 dispatch를 조건부로 넘겨주는 걸로 생각하고,
   그대로 실행해서 성공 */
 
+  /* 이미지 내보내기, 장바구니 버튼에 연결하는 걸로 */
   const exportImg = async () => {
     if (editArray.length == 0) {
       alert("편집한 이미지가 없습니다.");
@@ -138,8 +147,9 @@ const ProductDetail = () => {
     }
   };
 
-  const customFlip = async () => {
-    const dataUrl = await domtoimage.toBlob(test.current);
+  /* 이미지 저장  */
+  const customSave = async () => {
+    const dataUrl = await domtoimage.toBlob(editZone.current);
     const reader = new FileReader();
     reader.readAsDataURL(dataUrl);
     reader.onload = () => {
@@ -179,6 +189,7 @@ const ProductDetail = () => {
     };
   };
 
+  /* 이미지 초기화 */
   const customErase = () => {
     const choice = window.confirm(
       "편집했던 내역을 삭제하시겠습니까? 확인을 누르시면 삭제, 취소를 누르시면 보존됩니다."
@@ -192,11 +203,13 @@ const ProductDetail = () => {
     }
   };
 
+  /* 페이지가 로딩되면 제품 정보를 받고, 캔버스를 정해주면 되므로 */
   useEffect(() => {
     getProduct();
     setCanvas(InitCanvas());
   }, [id]);
 
+  /* 제품 정보가 로딩되면 기본 이미지와 기본 색상 정보가 있어야 하므로 */
   useEffect(() => {
     if (productList != null) {
       setImg(productList.productImg[0]);
@@ -273,7 +286,7 @@ const ProductDetail = () => {
         </Button>
         <Button
           onClick={() => {
-            customFlip();
+            customSave();
           }}
         >
           편집한 면의 이미지 저장
@@ -287,7 +300,7 @@ const ProductDetail = () => {
         </Button>
       </div>
 
-      <div className="product-detail" ref={test}>
+      <div className="product-detail" ref={editZone}>
         <div className="img-box">
           {productList?.category == "short" && img != null ? (
             <img
