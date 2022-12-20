@@ -10,13 +10,12 @@ import {
   quantityInput,
   deleteItem,
 } from "../redux/reducers/cart";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useEffect } from "react";
 
 const CartItem = (props) => {
   const { cartItem, productlist, dispatch } = props; // Cart.jsx
   const inputRef = useRef();
-  const [total, setTotal] = useState(cartItem.totalPay);
 
   // 상품리스트에서 cartlist의 상품정보 찾기
   const findProduct = (cartItem) =>
@@ -24,15 +23,12 @@ const CartItem = (props) => {
       (productItem) => productItem.productID == cartItem.productID
     );
 
-  // 구매 수량이 바뀔 때마다 input에 반영하기 위함
-  useEffect(() => {
-    inputRef.current.value = cartItem.quantity;
-  }, [cartItem.quantity]);
-
-  // 상품별 총 금액이 바뀔 때마다 반영하기 위함
-  useEffect(() => {
-    setTotal(cartItem.totalPay);
-  }, [cartItem.totalPay]);
+  // 상품별 총 금액
+  const totalPay = (price, quantity) => {
+    const pay = parseInt(price.replace(",", ""));
+    const totalPay = pay * quantity;
+    return totalPay.toLocaleString("ko-KR"); 
+  }
 
   // 상품이미지 가져오기 >> 사용자가 도안을 편집한 이미지로 대체할 것
   const getImage = (cartItem) => {
@@ -59,6 +55,11 @@ const CartItem = (props) => {
         return <div>No Image</div>;
     }
   };
+  
+  // 구매 수량이 바뀔 때마다 input에 반영하기 위함
+  useEffect(() => {
+    inputRef.current.value = cartItem.quantity;
+  }, [cartItem.quantity]);
 
   return (
     <li>
@@ -118,7 +119,9 @@ const CartItem = (props) => {
           <AddIcon />
         </IconButton>
       </ButtonWrap>
-      <div>{total.toLocaleString("ko-KR")}</div>
+      <div>{
+      totalPay(findProduct(cartItem).price, cartItem.quantity)
+      }</div>
       <IconButton
         sx={{ "&:hover": { color: "#dc3545" } }}
         aria-label="delete"

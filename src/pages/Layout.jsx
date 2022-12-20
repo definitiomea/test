@@ -1,16 +1,17 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 const Layout = () => {
+  const location = useLocation();
+
   return (
     <div>
-      <div id="wrapper">
-        <Navbar />
-        <Outlet />
-      </div>
-      <Footer />
+      <Navbar />
+      <Outlet />
+      {/* 메인위치에서는 푸터 숨김 */}
+      {location.pathname !== "/" && <Footer />}
     </div>
   );
 };

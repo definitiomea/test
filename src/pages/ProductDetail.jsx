@@ -5,9 +5,12 @@ import domtoimage from 'dom-to-image';
 import { saveAs } from 'file-saver';
 import 'fabric-history';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
-import Button from '@mui/material/Button';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import Button from "@mui/material/Button";
+import CommentInput from "../components/ReviewInput";
+import CommentList from "../components/CommentList";
+import styled from "@emotion/styled";
 
 const ProductDetail = () => {
   const [productList, setProductList] = useState(null);
@@ -15,10 +18,7 @@ const ProductDetail = () => {
   const [canvas, setCanvas] = useState(null);
 
   /* 시험 삼아서 이 state에 저장한다 치고, */
-  const [path, setPath] = useState({
-    name: "",
-    imageUrl: "",
-  });
+  const [path, setPath] = useState([]);
 
   const { id } = useParams(); // id : productList {id}
   const test = useRef(null);
@@ -39,7 +39,8 @@ const ProductDetail = () => {
     })
   }
 
-  let deleteIcon = "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='595.275px' height='595.275px' viewBox='200 215 230 470' xml:space='preserve'%3E%3Ccircle style='fill:%23F44336;' cx='299.76' cy='439.067' r='218.516'/%3E%3Cg%3E%3Crect x='267.162' y='307.978' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -222.6202 340.6915)' style='fill:white;' width='65.545' height='262.18'/%3E%3Crect x='266.988' y='308.153' transform='matrix(0.7071 0.7071 -0.7071 0.7071 398.3889 -83.3116)' style='fill:white;' width='65.544' height='262.179'/%3E%3C/g%3E%3C/svg%3E";
+  let deleteIcon =
+    "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='595.275px' height='595.275px' viewBox='200 215 230 470' xml:space='preserve'%3E%3Ccircle style='fill:%23F44336;' cx='299.76' cy='439.067' r='218.516'/%3E%3Cg%3E%3Crect x='267.162' y='307.978' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -222.6202 340.6915)' style='fill:white;' width='65.545' height='262.18'/%3E%3Crect x='266.988' y='308.153' transform='matrix(0.7071 0.7071 -0.7071 0.7071 398.3889 -83.3116)' style='fill:white;' width='65.544' height='262.179'/%3E%3C/g%3E%3C/svg%3E";
   let delImg = new Image();
   delImg.src = deleteIcon;
   delImg.crossOrigin = "Anomymous";
@@ -60,21 +61,11 @@ const ProductDetail = () => {
     offsetY: 16,
     cursorStyle: "pointer",
     mouseUpHandler: deleteObject,
-    render: renderIcon(delImg),
+    render: renderIcon,
     cornerSize: 24,
   });
 
-  fabric.Object.prototype.controls.flipControl = new fabric.Control({
-    x: -0.5,
-    y: -0.5,
-    offsetY: -16,
-    cursorStyle: "pointer",
-    mouseUpHandler: flipObject,
-    render: renderIcon(flipImg),
-    cornerSize: 24,
-  });
-
-  function deleteObject (eventData, transform) {
+  function deleteObject(eventData, transform) {
     let target = transform.target;
     let canvas = target.canvas;
     canvas.remove(target);
@@ -111,15 +102,14 @@ const ProductDetail = () => {
   }
 
   const flipShirts = () => {
-    for(let i = 0; i < productList.productImg.length; i++) {
-      if(img == productList.productImg[i] && i % 2 == 0) {
+    for (let i = 0; i < productList.productImg.length; i++) {
+      if (img == productList.productImg[i] && i % 2 == 0) {
         setImg(productList.productImg[i + 1]);
-      }
-      else if(img == productList.productImg[i] && i % 2 == 1) {
+      } else if (img == productList.productImg[i] && i % 2 == 1) {
         setImg(productList.productImg[i - 1]);
       }
     }
-  }
+  };
 
   const add = () => {
     let rect = new fabric.Rect({
@@ -133,10 +123,10 @@ const ProductDetail = () => {
       strokeWidth: 4,
       crossOrigin: "Anomymous"
     });
-    
+
     canvas.add(rect);
     canvas.setActiveObject(rect);
-  }
+  };
 
   const handleImage = (event) => {
     if (!event) {
@@ -175,30 +165,19 @@ const ProductDetail = () => {
   }
 
   /* 이 다운로드 메서드 안에 setPath를 다뤄보려고 했는데 일단 조잡하지만 한 번은 작동돼요 */
-  /**
-   * ▼ async/await 사용 (async/await 뺐더니 오류 생김)
-   * https://www.ouyiz.me/blog/how-to-turn-a-react-component-into-an-image
-   */
-  const download = async () => {
-    const dataUrl = await domtoimage.toBlob(test.current); // Blob 데이터로 만듬
-    const reader = new FileReader(); // Blob 데이터를 읽기 위해 FileReaderAPI 사용
-    // FileReaderAPI의 readAsDataURL을 사용해 
-    // Blob 데이터를 base64 인코딩 문자열로 변환 (url주소)
-    reader.readAsDataURL(dataUrl);
-    // FileReaderAPI는 onload 이벤트로 파일을 읽었음을 알려줘야 함
-    reader.onload = () => {
-      const base64Data = reader.result;
-      setPath({
-        name: "test이미지",
-        imageUrl: base64Data,
-      });
-    }
-    // 한 번 클릭했을 때는 콘솔에 안찍힘 (이미지는 바로 반영되어 보인다), 
-    // 두 번 클릭하면 setPath로 반영된 값이 콘솔에 찍힘
-    console.log(path);
+  const download = () => {
+    domtoimage.toBlob(test.current).then(function (dataUrl) {
+      dataUrl.crossOrigin = "Anomymous";
+
+      /* let testImg = new Image();
+      testImg.src = dataUrl;
+      testImg.crossOrigin = "Anomymous"; */
+      
+      window.saveAs(dataUrl, '');
+    })
   }
 
-  const exportImg = () => {
+  const exportImg = async () => {
     /* 이쪽으로 코드를 쓰면 uint8array 쓰는 게 확정이기 때문에.... 미루고
 
      domtoimage.toPixelData(test.current).then(function (pixels) {
@@ -212,43 +191,61 @@ const ProductDetail = () => {
       console.log(pixels);
       console.log(pixels.pixelAtXY);
     }); */
+    const dataUrl = await domtoimage.toBlob(test.current); 
+    const reader = new FileReader(); 
+    reader.readAsDataURL(dataUrl);
+    reader.onload = () => {
+      const base64Data = reader.result;
+      /* setPath([...path,{
+        name: "테스트용 이미지",
+        imageUrl: base64Data
+      }]); */
+      setPath(path.concat({
+        name: "테스트용 이미지",
+        imageUrl: base64Data
+      }))
+    }
+  }
+
+  const ImageTest = ({path}) => {
+    console.log(path);
+    return (
+        <div>
+            {path ? path.map((img, index) => (
+            <div>
+                <h3>{img.name} {index}</h3>
+                <img src={img.imageUrl}></img>
+            </div>)) : ""}
+        </div>
+    );
   }
 
   useEffect(() => {
     setCanvas(initCanvas());
-  }, [])
+  }, []);
 
   useEffect(() => {
     getProduct();
   }, [id]);
 
-  useEffect(()=>{
-    if(productList != null) {
-      setImg(productList.productImg[0])
-    }
-  }, [productList])
-
-  /* 하지만 useEffect를 통해서 path 배열 안에 여러 개가 추가되는지 확인하려고 했을 때 문제도 생겼고.. */
   useEffect(() => {
-    // console.log(path);
-  }, [path]);
+    if (productList != null) {
+      setImg(productList.productImg[0]);
+    }
+  }, [productList]);
+
+  /* useEffect(() => {
+    console.log(path);
+  }, [path]); */
 
   return (
     <div className="product-area">
-
       <div className="product-button">
         <Button variant="contained" color="success" onClick={() => {flipShirts()}}>앞/뒤</Button>
-        <Button variant="contained" color="success" onClick={() => {add()}}>도형 생성</Button>
-        <input type="file" accept="image/*" onChange={(event) => {handleImage(event)}} />
+        <Button variant="contained" color="success" onClick={() => {add()}}>사진 업로드</Button>
         <Button variant="contained" color="success" onClick={() => {}}>사진 삭제</Button>
-        <Button variant="contained" color="success" onClick={() => {addText()}}>텍스트</Button>
-        <input type="color" onChange={(event) => setTextColor(event)}></input>
+        <Button variant="contained" color="success">텍스트</Button>
         <Button variant="contained" color="success">이미지 편집</Button>
-        <Button variant="contained" color="success" onClick={() => {canvas.undo()}}>되돌리기</Button>
-        <Button variant="contained" color="success" onClick={() => {canvas.redo()}}>되돌리기 취소</Button>
-        <Button variant="contained" color="success" onClick={() => {canvas.clear()}}>이미지 전체 삭제</Button>
-        <Button onClick={() => {download()}}>시험용 다운로드</Button>
-        <Button onClick={() => {exportImg()}}>이미지 내보내기 테스트</Button>
       </div>
 
       <div className="product-detail" ref={test}>
@@ -266,33 +263,56 @@ const ProductDetail = () => {
       </div>
 
       <div className="product-info">
-          {productList ? <p>{productList.id}</p> : ""}
-          {productList ? <p>{productList.productName}</p> : ""}
-          {productList ? <p>{productList.price}</p> : ""}
-          <div style={{display: "flex"}}>
-            {productList ? productList.color.map((color, index) => 
-              <div style={{width: "15px", height: "15px", border: "1px solid transparent", borderRadius: "50%", backgroundColor: color}} onClick={() => {setImg(productList.productImg[index * 2])}} key={index}></div>) :
-            ""}
-          </div>
-
-          <select style={{width: "100px"}}>
-            {productList?.size.map((size, index) => <option key={index}>{size}</option>)}
-          </select>
-
-          <div>
-            <Button><FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon></Button>
-            <Button>구매하기</Button>
-          </div>
+        {productList ? <p>{productList.id}</p> : ""}
+        {productList ? <p>{productList.productName}</p> : ""}
+        {productList ? <p>{productList.price}</p> : ""}
+        <div style={{ display: "flex" }}>
+          {productList
+            ? productList.color.map((color, index) => (
+                <div
+                  style={{
+                    width: "15px",
+                    height: "15px",
+                    border: "1px solid transparent",
+                    borderRadius: "50%",
+                    backgroundColor: color,
+                  }}
+                  onClick={() => {
+                    setImg(productList.productImg[index * 2]);
+                  }}
+                  key={index}
+                ></div>
+              ))
+            : ""}
         </div>
 
-        {/** 이미지 데이터 넘기기 테스트 */}
+        <select style={{ width: "100px" }}>
+          {productList?.size.map((size, index) => (
+            <option key={index}>{size}</option>
+          ))}
+        </select>
+
         <div>
-          <h2>이미지 데이터 테스트</h2>
-          <h3>이름 : {path.name}</h3>
-            <img src={path.imageUrl} alt="" style={{width: "200px"}} />
+          <Button>
+            <FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon>
+          </Button>
+          <Button>구매하기</Button>
         </div>
+        {/* 원하는 객체가 있는지 삼항 연산자, 콘솔로 찍어봤을 때
+            거짓 경우(객체 로딩 중) -> 참 경우(객체 로딩 완료)로 넘어가면서
+            둘 다가 찍힌다.
+            
+            그래서, 로딩 되기 전의 거짓 경우와 로딩 되었을 때의 참 경우 둘 다가 필요하고,
+            객체가 있는지를 "?"를 통해 한번 더 체크해야 한다. */}
+      </div>
+
+      {/* 리뷰공간 */}
+      <div>
+        <CommentList />
+        <CommentInput productID={id} />
+      </div>
     </div>
   );
-}
- 
+};
+
 export default ProductDetail;

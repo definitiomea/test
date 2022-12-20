@@ -37,11 +37,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 15px;
+  padding-top: 50px;
+  /* margin-bottom: 15px; */
 }
+
+.login-form input {
+  margin-bottom: 10px;
+}
+
+.signup-btn {
+  display: block;
+  margin: auto;
+  margin-top: 5px;
+}
+
 .social {
   display: flex;
   justify-content: space-around;
+  margin-top: 10px;
 }
 
 .modal.openModal {
