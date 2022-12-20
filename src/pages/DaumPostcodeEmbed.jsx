@@ -31,9 +31,11 @@ const Postcode = (props) => {
   return <DaumPostcode onComplete={handleComplete} {...props} />;
 };
 
-function BasicModal() {
+function BasicModal(setAllAddress) {
   const [address, setAddress] = useState("");
   const [zoneCode, setZoneCode] = useState("");
+  const [detailAddress, setDetailAddress] = useState("");
+  const [reference, setReference] = useState("");
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -50,6 +52,21 @@ function BasicModal() {
   const zoneCodeValue = (value) => {
     setZoneCode(value);
     handleClose();
+  };
+  const changeDetailAddress = (e) => {
+    setDetailAddress(e.target.value);
+  };
+  const changeReference = (e) => {
+    setReference(e.target.value);
+  };
+  const submit = () => {
+    handleOpen();
+    setAllAddress({
+      zoneCode: zoneCode,
+      address: address,
+      detailAddress: detailAddress,
+      reference: reference,
+    });
   };
 
   const style = {
@@ -84,11 +101,6 @@ function BasicModal() {
           onChange={changeZoneCode}
           defaultValue={zoneCode}
         />
-        <input
-          type="button"
-          defaultValue="우편번호 찾기"
-          onClick={handleOpen}
-        />
         <br />
         <input
           type="text"
@@ -98,8 +110,21 @@ function BasicModal() {
           defaultValue={address}
         />
         <br />
-        <input type="text" id="sample6_detailAddress" placeholder="상세주소" />
-        <input type="text" id="sample6_extraAddress" placeholder="참고항목" />
+        <input
+          type="text"
+          id="sample6_detailAddress"
+          placeholder="상세주소"
+          onChange={changeDetailAddress}
+          value={detailAddress}
+        />
+        <input
+          type="text"
+          id="sample6_extraAddress"
+          placeholder="참고항목"
+          onChange={changeReference}
+          value={reference}
+        />
+        <input type="button" defaultValue="우편번호 찾기" onClick={submit} />
       </form>
     </div>
   );

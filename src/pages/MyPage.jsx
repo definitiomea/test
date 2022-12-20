@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DaumPostcodeEmbed from "./DaumPostcodeEmbed";
 import Slider from "react-slick";
 import { useEffect, useState } from "react";
@@ -18,13 +18,13 @@ const Mypage = () => {
   const [carrierId, setCarrierId] = useState("");
   const [result, setResult] = useState(true);
   const [trans, setTrans] = useState(null);
+  const [allAddress, setAllAddress] = useState("");
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     setResult(true);
   };
-  const navigate = useNavigate();
 
   const onChange = (e) => {
     const additUser = {
@@ -68,19 +68,11 @@ const Mypage = () => {
     getCarriers();
   }, []);
 
-  const user = useSelector((state) => state.user);
-  const userlist = useSelector((state) => state.signup);
+  const user = useSelector((state) => state);
   console.log(user);
 
   const dispatch = useDispatch();
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
   const style = {
     position: "absolute",
     top: "50%",
@@ -92,6 +84,9 @@ const Mypage = () => {
     boxShadow: 24,
     p: 4,
   };
+
+  // 주문완료 섹션 출력 함수
+  const orderDone = useSelector((state) => state.orderlist.orderlist);
 
   return (
     <div>
@@ -109,8 +104,8 @@ const Mypage = () => {
 
         <Inputs
           onSubmit={(e) => {
-            dispatch(ADDIT_USER(trans));
-            dispatch(loginUser(trans));
+            dispatch(ADDIT_USER(trans, allAddress));
+            dispatch(loginUser(trans, allAddress));
             e.preventDefault();
           }}
         >
@@ -138,13 +133,13 @@ const Mypage = () => {
             defaultValue={user.password}
             onChange={onChange}
           />
-          {/* <input
+          <input
             type="password"
             name="password"
             placeholder={user.password}
             onChange={onChange}
           />
-          <DaumPostcodeEmbed /> */}
+          <DaumPostcodeEmbed setAllAddress={setAllAddress} />
           <button>회원정보 수정</button>
         </Inputs>
       </UsetInfo>
@@ -252,49 +247,65 @@ const Mypage = () => {
         </MypageBody>
       </MypageOrder>
 
-      {/* 이벤트 배너 form  */}
-      <MypageEvent>
-        <h4>이벤트</h4>
-      </MypageEvent>
-      <div
-        style={{ width: "100%", height: "200px", backgroundColor: "skyblue" }}
-      >
-        <Slider {...settings}>
-          <div>
-            <img
-              src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-              alt=""
-              onClick={() => navigate("/event")}
-              style={{
-                width: "100%",
-                height: "50px",
-              }}
-            />
-          </div>
-          <div>
-            <img
-              src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-              alt=""
-              onClick={() => navigate("/event")}
-              style={{
-                width: "100%",
-                height: "50px",
-              }}
-            />
-          </div>
-          <div>
-            <img
-              src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-              alt=""
-              onClick={() => navigate("/event")}
-              style={{
-                width: "100%",
-                height: "50px",
-              }}
-            />
-          </div>
-        </Slider>
-      </div>
+      <h4>주문완료</h4>
+      <MypageHead>
+        <div>상품정보</div>
+        <div>주문일자</div>
+        <div>주문금액(수량)</div>
+        <div>주문상태</div>
+      </MypageHead>
+
+      {/* 주문완료 섹션 */}
+      {orderDone.map((re) =>
+        re.orderID == 3 ? (
+          <MypageBody>
+            <MypagePd>
+              <div>
+                <img
+                  className="img"
+                  src={require(`.././img/shirts-img/short/short-relax-beige-front.jpg`)}
+                  alt="#"
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                  }}
+                />
+              </div>
+              <MypageInfo>
+                {/* 상품 정보 */}
+                <div>
+                  <span>{re.category} </span>
+                  <span>{re.productName} </span>
+                  <span> ({re.color}) </span>
+                </div>
+
+                {/* 사이즈 정보 */}
+                <div>
+                  <span>size : </span>
+                  <span>{re.size}</span>
+                </div>
+              </MypageInfo>
+            </MypagePd>
+
+            <div></div>
+
+            <MypageColum>
+              <div>{re.price}</div>
+              <div>{re.quantity}개</div> {/* 연한 회색 처리 */}
+            </MypageColum>
+
+            <MypageColum>
+              <div>
+                <Link to="/mypage/review" state={{ orderDone: orderDone[2] }}>
+                  후기작성
+                </Link>
+              </div>
+            </MypageColum>
+          </MypageBody>
+        ) : (
+          ""
+        )
+      )}
     </div>
   );
 };
@@ -351,8 +362,4 @@ const MypageInfo = styled.div`
 
 const MypageColum = styled.div`
   text-align: center;
-`;
-
-const MypageEvent = styled.div`
-  margin-top: 50px;
 `;

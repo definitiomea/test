@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { writeReview } from "../redux/reducers/reviewReducer";
-import ReviewStar from "./ReviewStar";
+import ReviewStar from "../components/ReviewStar";
 import { Modal } from "@mui/material";
 import { useState } from "react";
 import { Box } from "@mui/system";
@@ -68,6 +68,9 @@ const ReaviewAdd = () => {
   const prePage = () => {
     navigate("/mypage");
   };
+
+  // 등록 버튼누르면 후기가 등록됨
+  const [reviewAdd, setReviewAdd] = useState();
 
   return (
     <ReviewBox>
@@ -220,7 +223,13 @@ const ReaviewAdd = () => {
             </button>
           </ReviewBtn>
           <ReviewBtn>
-            <button>등록</button>
+            <button
+              onClick={() => {
+                setReviewAdd();
+              }}
+            >
+              등록
+            </button>
           </ReviewBtn>
         </section>
       </div>

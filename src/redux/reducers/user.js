@@ -12,6 +12,9 @@ export const userSlice = createSlice({
       state.email = action.payload.email;
       state.address = action.payload.address;
       state.password = action.payload.password;
+      state.zoneCode = action.payload.zoneCode;
+      state.detailAddress = action.payload.detailAddress;
+      state.reference = action.payload.reference;
       state.isLoggedIn = action.payload.isLoggedIn;
     },
     logout: (state) => {
@@ -20,6 +23,10 @@ export const userSlice = createSlice({
       state.email = initialState.email;
       state.address = initialState.address;
       state.password = initialState.password;
+      state.zoneCode = initialState.zoneCode;
+      state.detailAddress = initialState.detailAddress;
+      state.reference = initialState.reference;
+      state.isLoggedIn = initialState.isLoggedIn;
       state.isLoggedIn = initialState.isLoggedIn;
     },
   },

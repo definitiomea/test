@@ -15,6 +15,9 @@ export const signupSlice = createSlice({
         password: action.payload.password,
         email: action.payload.email,
         address: action.payload.address,
+        zoneCode: action.payload.zoneCode,
+        detailAddress: action.payload.detailAddress,
+        reference: action.payload.reference,
       };
       const newUserlist = state.userlist.concat(newUser);
       state.userlist = newUserlist;

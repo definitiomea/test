@@ -9,9 +9,19 @@ nav {
   justify-content: space-between;
   width: 100%;
   position: fixed;
-  padding: 2rem 3rem;
+  top: 0;
+  padding: 1.2rem 3rem;
   align-items: center;
   z-index: 1;
+}
+
+.main-nav {
+  background-color: none;
+}
+
+.page-nav {
+  background-color: white;
+  box-shadow: 0px 0px 30px 0px rgb(207, 207, 207);
 }
 
 /* 로고 */
@@ -22,11 +32,19 @@ nav {
   font-family: "logo";
 }
 
+.white-logo:hover {
+  color: white;
+}
+
 .dark-logo {
   text-decoration: none;
   font-size: 3rem;
   color: black;
   font-family: "logo";
+}
+
+.dark-logo:hover {
+  color: black;
 }
 
 /* 네브메뉴 */
@@ -52,10 +70,16 @@ ul * {
   font-family: "nav";
 }
 
+.white-nav:hover {
+  color: white;
+}
 .dark-nav {
   text-decoration: none;
   color: black;
   font-family: "nav";
+}
+.dark-nav:hover {
+  color: black;
 }
 
 /* 드롭다운 메뉴 - 마이페이지, 로그아웃 */
@@ -71,7 +95,7 @@ ul * {
   z-index: 1;
   padding: 10px 10px;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.146);
-  background-color: transparent;
+  background-color: white;
 }
 
 .dropdown-menu *:hover {
@@ -91,7 +115,7 @@ ul * {
 }
 
 .white-dropdown {
-  color: white;
+  color: rgb(121, 121, 121);
   text-decoration: none;
 }
 

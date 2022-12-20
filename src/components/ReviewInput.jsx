@@ -1,13 +1,13 @@
 import { useDispatch } from "react-redux";
 
-const CommentInput = (props) => {
+const ReviewInput = (props) => {
   const { productID } = props;
   const dispatch = useDispatch();
 
   return (
     <div>
       <p>
-        <strong>후기</strong>
+        <strong>reivew</strong>
       </p>
       <span>userID</span>
       <br />
@@ -24,4 +24,4 @@ const CommentInput = (props) => {
   );
 };
 
-export default CommentInput;
+export default ReviewInput;
