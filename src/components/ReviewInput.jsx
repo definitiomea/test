@@ -1,9 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { inputOrder } from "../redux/reducers/order";
-import { ADD_IMG, ADD_STAR, ADD_CONTENT } from "../redux/reducers/reviewInputReducer";
+import {
+  ADD_IMG,
+  ADD_STAR,
+  ADD_CONTENT,
+} from "../redux/reducers/reviewInputReducer";
 
-const ReviewInput = (props) => {
-  const { productID } = props;
+const ReviewInput = () => {
   const dispatch = useDispatch();
   // 로그인 유저 아이디정보
   const userID = useSelector((state) => state.user.id);
@@ -24,10 +27,11 @@ const ReviewInput = (props) => {
       </div>
 
       <div>
-        <p>{userID}</p>
-        <p>{reviewProduct.category}</p>
-        <p>{reviewProduct.productName}</p>
-        <p>{reviewProduct.size}</p>
+        <p>{dispatch(userID)}</p>
+        <p>별점존</p>
+        <p>{dispatch(reviewProduct.category)}</p>
+        <p>{dispatch(reviewProduct.productName)}</p>
+        <p>{dispatch(reviewProduct.size)}</p>
         <p>comment</p>
       </div>
       <div>

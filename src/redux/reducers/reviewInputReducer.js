@@ -10,16 +10,25 @@ export const reviewSlice = createSlice({
   name: "reviewInput",
   initialState,
   reducers: {
-    ADD_IMG(state, action) {
-      state.reviewImg = action.payload.reviewImg;
-    },
-    ADD_STAR(state, action) {
-      state.reviewStar = action.payload.reviewStar;
-    },
-    ADD_CONTENT(state, action) {
-      state.reviewContent = action.payload.reviewContent;
+    addReview: (state, action) => {
+      const newReview = {
+        userID: action.payload.userID,
+        img: action.payload.img,
+      };
     },
   },
+
+  // reducers: {
+  //   ADD_IMG(state, action) {
+  //     state.reviewImg = action.payload.reviewImg;
+  //   },
+  //   ADD_STAR(state, action) {
+  //     state.reviewStar = action.payload.reviewStar;
+  //   },
+  //   ADD_CONTENT(state, action) {
+  //     state.reviewContent = action.payload.reviewContent;
+  //   },
+  // },
 });
 
 export const { ADD_IMG, ADD_STAR, ADD_CONTENT } = reviewSlice.actions;
