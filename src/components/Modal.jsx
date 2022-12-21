@@ -1,8 +1,8 @@
-import "../css/modal.css";
+import "../style/modal.css";
 import useInput from "../hooks/useInput";
-import { useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux/reducers/user";
+import { loginUser } from "../redux/reducers/user";
 
 const Modal = (props) => {
   const { open, close } = props;
@@ -46,8 +46,7 @@ const Modal = (props) => {
       alert("로그인 실패");
     } else {
       dispatch(
-        login({
-          name: findUser.name,
+        loginUser({
           id: findUser.id,
           email: findUser.email,
           address: findUser.address,

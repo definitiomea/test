@@ -8,6 +8,7 @@ export const signupSlice = createSlice({
   reducers: {
     SIGN_UP: (state, action) => {
       const newUser = {
+        name: action.payload.name,
         id: action.payload.id,
         password: action.payload.password,
         email: action.payload.email,

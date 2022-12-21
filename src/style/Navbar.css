@@ -95,7 +95,7 @@ ul * {
   z-index: 1;
   padding: 10px 10px;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.146);
-  background-color: white;
+  background-color: transparent;
 }
 
 .dropdown-menu *:hover {
