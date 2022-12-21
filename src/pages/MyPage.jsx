@@ -18,7 +18,6 @@ const Mypage = () => {
   const [carrierId, setCarrierId] = useState("");
   const [result, setResult] = useState(true);
   const [trans, setTrans] = useState(null);
-  const [allAddress, setAllAddress] = useState("");
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -68,8 +67,7 @@ const Mypage = () => {
     getCarriers();
   }, []);
 
-  const user = useSelector((state) => state);
-  console.log(user);
+  const user = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
@@ -104,8 +102,8 @@ const Mypage = () => {
 
         <Inputs
           onSubmit={(e) => {
-            dispatch(ADDIT_USER(trans, allAddress));
-            dispatch(loginUser(trans, allAddress));
+            dispatch(ADDIT_USER(trans));
+            dispatch(loginUser(trans));
             e.preventDefault();
           }}
         >
@@ -139,9 +137,9 @@ const Mypage = () => {
             placeholder={user.password}
             onChange={onChange}
           />
-          <DaumPostcodeEmbed setAllAddress={setAllAddress} />
           <button>회원정보 수정</button>
         </Inputs>
+        <DaumPostcodeEmbed />
       </UsetInfo>
 
       {/* 주문/배송조회 form  */}

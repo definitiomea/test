@@ -33,9 +33,19 @@ export const signupSlice = createSlice({
         }
       });
     },
+
+    ADDIT_ADDRESS: (state, action) => {
+      state.userlist = state.userlist.map((user) => {
+        if (action.payload.id === user.id) {
+          return action.payload;
+        } else {
+          return user;
+        }
+      });
+    },
   },
 });
 
-export const { SIGN_UP, ADDIT_USER } = signupSlice.actions;
+export const { SIGN_UP, ADDIT_USER, ADDIT_ADDRESS } = signupSlice.actions;
 
 export default signupSlice.reducer;
