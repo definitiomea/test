@@ -16,38 +16,43 @@ import { useState } from "react";
 
 const CartItem = (props) => {
   const { cartItem, productlist, dispatch } = props; // Cart.jsx
-  const [product, setProduct] = useState({});
   const [totalPay, setTotalPay] = useState(cartItem.totalPay);
+  // 상품리스트에서 장바구니에 담긴 아이템들의 상품정보 찾기
+  const product = productlist.find(
+    (productItem) => productItem.productID == cartItem.productID
+  );
+  const price = parseInt(product.price.replace(",", ""));
+  // 구매수량이 바뀔 때마다 반영하기 위한 ref
   const inputRef = useRef();
 
   // 구매 수량 변경 : +1 , -1, 직접입력
-  const handleDecrease = () => {
+  const onDecrease = () => {
     dispatch(
       quantityDecrease({
         cartID: cartItem.cartID,
-        productPrice: parseInt(product.price.replace(",", "")),
+        productPrice: price,
       })
     );
   };
-  const handleIncrease = () => {
+  const onIncrease = () => {
     dispatch(
       quantityIncrease({
         cartID: cartItem.cartID,
-        productPrice: parseInt(product.price.replace(",", "")),
+        productPrice: price,
       })
     );
   };
-  const handleInput = (e) => {
+  const onInput = (e) => {
     dispatch(
       quantityInput({
         cartID: cartItem.cartID,
-        productPrice: parseInt(product.price.replace(",", "")),
+        productPrice: price,
         value: e.target.value,
       })
     );
   };
 
-  // 장바구니 아이템의 ImgArr(사용자 도안 배열)을 print: front - back 순으로 바꾸기
+  // 장바구니 아이템의 ImgArr(사용자 도안 배열)을 print: front - back 순으로 정렬
   const newImgArr = () => {
     if (cartItem.imgArray.length == 2) {
       return cartItem.imgArray[0].print == "back"
@@ -58,15 +63,7 @@ const CartItem = (props) => {
     }
   };
 
-  // 상품리스트에서 장바구니에 담긴 아이템들의 상품정보 찾기
-  useEffect(() => {
-    const item = productlist.find(
-      (productItem) => productItem.productID == cartItem.productID
-    );
-    setProduct(item);
-  }, []);
-
-  // 구매 수량이 바뀔 때마다 input과 price에 반영하기 위함
+  // 구매 수량이 바뀔 때마다 input과 totalPay에 반영하기 위함
   useEffect(() => {
     inputRef.current.value = cartItem.quantity;
     setTotalPay(cartItem.totalPay);
@@ -75,28 +72,18 @@ const CartItem = (props) => {
   return (
     <li>
       <ProductWrap>
-        {/* 
-          이제 적절한 데이터 호출 부분 
-          1) 만약 장바구니에 들어가는 아이템이 이미지를 하나만 가져서, imgArray의 길이가 0이라고 한다면 이미지 한 개만 보여주고
-          
-          ※ 한개만 들어가도 배열안에 있던데 맞는건지 확인할 것
-
-          {cartItem.img && cartItem.imgArray.length == 0 ? <img src={cartItem.img} alt="" /> : ""}
-          2) 만약 장바구니에 들어가는 아이템이 이미지를 최대 2개 가지기 때문에 imgArray의 길이가 0을 넘긴다고 한다면 해당 imgArray를 쭉 보여주도록 설정했어요
-          {cartItem.imgArray && cartItem.imgArray.length > 0 ? cartItem.imgArray.map((pic) => (<img src={pic.imageUrl}></img>)) : ""}
-        */}
         {newImgArr().map((item, i) => (
           <img src={item.imageUrl} key={i} />
         ))}
         <div>
-          <div>{product.category}</div>
-          <div>{`${product.productName} (${cartItem.color})`}</div>
+          <div>
+            {product.category} {product.productName}
+          </div>
+          <div>
+            color :<span>{cartItem.color}</span>
+          </div>
           <div>
             print :
-            {/*
-            이쪽도 조건부에 따라 필요한 만큼만 나오도록 각 아이템의 imgArray 배열의 길이를 따져서 렌더링해서 끝
-            {cartItem.imgArray && cartItem.imgArray.length > 0 ? cartItem.imgArray.map((print) => (` ${print.print} `)) : ""}
-             */}
             {newImgArr().length == 2 ? (
               <span>
                 {newImgArr()[0].print} / {newImgArr()[1].print}
@@ -112,7 +99,7 @@ const CartItem = (props) => {
         <IconButton
           sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
           aria-label="remove"
-          onClick={handleDecrease}
+          onClick={onDecrease}
         >
           <RemoveIcon />
         </IconButton>
@@ -120,12 +107,12 @@ const CartItem = (props) => {
           type="number"
           defaultValue={cartItem.quantity}
           ref={inputRef}
-          onChange={handleInput}
+          onChange={onInput}
         />
         <IconButton
           sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
           aria-label="add"
-          onClick={handleIncrease}
+          onClick={onIncrease}
         >
           <AddIcon />
         </IconButton>
@@ -153,8 +140,8 @@ const ProductWrap = styled.div`
   > div {
     margin-left: 1rem;
     > div {
-      &:last-child {
-        padding-top: 1rem;
+      &:first-child {
+        padding-bottom: 1rem;
       }
     }
     span {

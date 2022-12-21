@@ -1,14 +1,27 @@
 /* 웹 버전 */
+* {
+  margin: 0;
+}
+
 nav {
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   width: 100%;
   position: fixed;
-  top: 0; /* fixed를 쓰고 위치 지정을 할 것, 장바구니에서 네브 위 공간 생김 해결 */
-  padding: 2rem 3rem;
+  top: 0;
+  padding: 1.2rem 3rem;
   align-items: center;
   z-index: 1;
+}
+
+.main-nav {
+  background-color: none;
+}
+
+.page-nav {
+  background-color: white;
+  box-shadow: 0px 0px 30px 0px rgb(231, 231, 231) ;
 }
 
 /* 로고 */
@@ -19,11 +32,19 @@ nav {
   font-family: "logo";
 }
 
+.white-logo:hover {
+  color: white;
+}
+
 .dark-logo {
   text-decoration: none;
   font-size: 3rem;
   color: black;
   font-family: "logo";
+}
+
+.dark-logo:hover {
+  color: black;
 }
 
 /* 네브메뉴 */
@@ -49,10 +70,16 @@ ul * {
   font-family: "nav";
 }
 
+.white-nav:hover {
+  color: white;
+}
 .dark-nav {
   text-decoration: none;
   color: black;
   font-family: "nav";
+}
+.dark-nav:hover {
+  color: black;
 }
 
 /* 드롭다운 메뉴 - 마이페이지, 로그아웃 */
@@ -68,6 +95,7 @@ ul * {
   z-index: 1;
   padding: 10px 10px;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.146);
+  background-color: white;
 }
 
 .dropdown-menu *:hover {
@@ -87,7 +115,7 @@ ul * {
 }
 
 .white-dropdown {
-  color: white;
+  color: rgb(121, 121, 121);
   text-decoration: none;
 }
 
@@ -167,7 +195,7 @@ button {
 
     background-color: black;
     color: white;
-    margin-top: 0; /* 다른 사람 수치 확인 */
+    /* margin-top: ; */
   }
 
   .mobile-nav * {

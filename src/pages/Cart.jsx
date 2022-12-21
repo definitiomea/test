@@ -19,7 +19,7 @@ const Cart = () => {
   const userID = useSelector((state) => state.user.id);
   const dispatch = useDispatch();
   const [dataloading, setDataloading] = useState(false);
-  const [productlist, setProductlist] = useState("");
+  const [productlist, setProductlist] = useState(null);
   const [deliveryPay, setDeliveryPay] = useState(3000);
   const navigate = useNavigate();
 

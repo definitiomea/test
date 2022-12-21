@@ -29,40 +29,45 @@ const initialState = {
         {print: "front", imgUrl: ""},
         {print: "back", imgUrl: ""}
       ],
-      // 이미지 : 도안이 들어간 사진으로 보일것인지
-      // thumbnail: "short-slim-black-front.jpg",
+      thumbnail: "short-slim-black-front.jpg",
       delivery: "상품준비"
     },
-    // {
-    //   user: "",
-    //   orderID: 2,
-    //   orderDate: "",
-    //   category: "short",
-    //   productID: 2,
-    //   productName: "스탠다드 핏",
-    //   color: "blue",
-    //   size: "M",
-    //   print: "back",
-    //   quantity: 2,
-    //   price: "19,000",
-    //   thumbnail: "short-stnadard-blue-front.jpg",
-    //   delivery: "상품준비"
-    // },
-    // {
-    //   user: "",
-    //   orderID: 3,
-    //   orderDate: "",
-    //   category: "short",
-    //   productID: 3,
-    //   productName: "릴렉스 핏",
-    //   color: "beige",
-    //   size: "L",
-    //   print: "front / back",
-    //   quantity: 3,
-    //   price: "28,500",
-    //   thumbnail: "short-relax-beige-front.jpg",
-    //   delivery: "상품준비"
-    // },
+    {
+      user: "",
+      orderID: 2,
+      orderDate: "2022.12.20",
+      category: "short",
+      productID: 2,
+      productName: "스탠다드 핏",
+      color: "blue",
+      size: "M",
+      quantity: 2,
+      price: "19,000",
+      imgArray: [
+        {print: "front", imgUrl: ""},
+        {print: "back", imgUrl: ""}
+      ],
+      thumbnail: "short-stnadard-blue-front.jpg",
+      delivery: "상품준비"
+    },
+    {
+      user: "",
+      orderID: 3,
+      orderDate: "2022.12.21",
+      category: "short",
+      productID: 3,
+      productName: "릴렉스 핏",
+      color: "beige",
+      size: "L",
+      quantity: 3,
+      price: "28,500",
+      imgArray: [
+        {print: "front", imgUrl: ""},
+        {print: "back", imgUrl: ""}
+      ],
+      thumbnail: "short-relax-beige-front.jpg",
+      delivery: "상품준비"
+    },
   ],
 };
 
@@ -75,7 +80,7 @@ const orderSlice = createSlice({
       const copyCartlist = JSON.parse(JSON.stringify(action.payload.cartlist));
       const copyProduct = JSON.parse(JSON.stringify(action.payload.product));
 
-      // category, productName, thumbnail (인덱스 활용)
+      // category, productName, thumbnail (short-relax-beige-front.jpg)
       
 
       const newOrder = copyCartlist;

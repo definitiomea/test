@@ -1,14 +1,25 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../style/Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../redux/reducers/userReducer";
+import { logout } from "../redux/reducers/user";
+
+import Modal from "../components/Modal";
 
 const Navbar = (props) => {
   // 모바일 버전 시 네브 토글바
   const [toggleOpen, setToggleOpen] = useState(false);
+
+  // modal login form
+  const [modalOpen, setModalOpen] = useState(false);
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   // 로그인
   const [login, setLogin] = useState(false);
@@ -18,26 +29,28 @@ const Navbar = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setLogin(user ? true : false);
+    setLogin(user.isLoggedIn ? true : false);
   }, [user]);
 
   const logOut = () => {
     setLogin(false);
-    dispatch(setUser(null));
-    navigate("/");
+    // dispatch(setUser(null));
+    dispatch(logout());
+    navigate("");
   };
 
+  // main페이지와 다른 페이지의 css 차별을 위해 메인위치 지정해줌
   const location = useLocation();
+  const main = location.pathname === "/";
 
-  // 메인이 아닐 때 네브바 배경색이 필요해보임 (스크롤을 내리는 경우 글자 겹침이 보임)
   return (
     <header>
-      <nav>
+      <nav className={main ? "main-nav" : "page-nav"}>
         <div>
           <NavLink
             to="/"
             // 메인이 아닐 때 nav의 폰트색상 black
-            className={location.pathname === "/" ? "white-logo" : "dark-logo"}
+            className={main ? "white-logo" : "dark-logo"}
             // 로고 클릭시 상단으로 부드럽게 이동
             onClick={() => {
               window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -73,47 +86,41 @@ const Navbar = (props) => {
         <ul>
           {/* 네브바 리스트 */}
           <li>
-            <NavLink
-              to="shop"
-              className={location.pathname === "/" ? "white-nav" : "dark-nav"}
-            >
+            <NavLink to="shop" className={main ? "white-nav" : "dark-nav"}>
               SHOP
             </NavLink>
           </li>
 
           <li>
-            <NavLink
-              to="cart"
-              className={location.pathname === "/" ? "white-nav" : "dark-nav"}
-              v
-            >
+            <NavLink to="cart" className={main ? "white-nav" : "dark-nav"}>
               CART
             </NavLink>
           </li>
+
+          {/* <li>
+            <NavLink
+              to="login"
+              className={location.pathname === "/" ? "white-nav" : "dark-nav"}
+              v
+            >
+              LOG IN
+            </NavLink>
+          </li> */}
+
           {login ? (
             <li className="dropdown">
-              <div
-                className={location.pathname === "/" ? "white-nav" : "dark-nav"}
-              >
+              <div className={main ? "white-nav" : "dark-nav"}>
                 {user.name}님
               </div>
               <div className="dropdown-menu">
                 <NavLink
                   to="mypage"
-                  className={
-                    location.pathname === "/"
-                      ? "white-dropdown"
-                      : "dark-dropdown"
-                  }
+                  className={main ? "white-dropdown" : "dark-dropdown"}
                 >
                   MYPAGE
                 </NavLink>
                 <button
-                  className={
-                    location.pathname === "/"
-                      ? "white-dropdown"
-                      : "dark-dropdown"
-                  }
+                  className={main ? "white-dropdown" : "dark-dropdown"}
                   onClick={logOut}
                 >
                   LOGOUT
@@ -121,14 +128,20 @@ const Navbar = (props) => {
               </div>
             </li>
           ) : (
-            <button
-              className={location.pathname === "/" ? "white-nav" : "dark-nav"}
-              onClick={() => {
-                navigate("/login");
-              }}
-            >
-              LOGIN
-            </button>
+            <div>
+              <button
+                className={main ? "white-nav" : "dark-nav"}
+                onClick={
+                  openModal
+                  //   () => {
+                  //   navigate("/login");
+                  // }
+                }
+              >
+                LOGIN
+              </button>
+              <Modal open={modalOpen} close={closeModal} />
+            </div>
           )}
         </ul>
         {/* 모바일 화면 - 햄버거 메뉴 */}
