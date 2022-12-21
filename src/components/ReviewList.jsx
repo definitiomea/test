@@ -17,7 +17,9 @@ const ReviewList = (props) => {
       {reviewList.map((review) =>
         review.category == compare.category && review.productName == compare.productName ? (
           <div key={review.id}>
+            <img src="" alt="" />
             <p>{review.userID}</p>
+            <p>별점존</p>
             <p>{review.category}</p>
             <p>{review.productName}</p>
             <p>{review.size}</p>

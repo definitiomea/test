@@ -1,5 +1,8 @@
 import styled from "@emotion/styled";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { addReview } from "../redux/reducers/reviewInputReducer";
 
 import ReviewStar from "../components/ReviewStar";
 import { Modal } from "@mui/material";
@@ -7,13 +10,12 @@ import { useState } from "react";
 import { Box } from "@mui/system";
 
 const ReaviewAdd = () => {
-  // 사진첨부 모달창
-  const [open, setOpen] = useState(false);
-  // 파일을 미리 볼 url을 저장해줄 state
-  const [fileImg, setFileImg] = useState([]);
-  // 모달창에서 사진추가후 리뷰페이지로 전달
-  const [sendImg, setSendImg] = useState(false);
+  const [open, setOpen] = useState(false); // 모달창 열기
+  const [fileImg, setFileImg] = useState([]); // 파일을 미리 볼 url을 저장해줄 state
+  const [sendImg, setSendImg] = useState(false); // 모달창에서 사진추가후 리뷰페이지로 전달
+  const [fileArray, setFileArray] = useState([]);
 
+  const dispatch = useDispatch();
   // Link를 통해 이동할 때는 useLocation()을 사용해야함
   const location = useLocation();
   const data = location.state.orderDone;
@@ -27,39 +29,45 @@ const ReaviewAdd = () => {
   // 사진첨부 모달창 취소/등록
   const modalClose = () => {
     handleClose();
-    setFileImg(null);
+    setFileImg([]);
   };
 
   // 파일저장하기
   const saveFileImg = (e) => {
+    // e.target.files 첨부한 여러개의 파일이 배열로 담김
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onload = (e) => {
       const imgObj = new Image();
       imgObj.src = e.target.result;
 
+      // onload 안에서 스프레드 연산자로 넣어줌
       setFileImg((prev) => [...prev, reader.result]);
       console.log(e.target.result);
     };
 
     reader.readAsDataURL(file);
   };
-
-  // 파일 내보내기
-  const exportFile = async () => {};
-
-  // // 파일저장
-  // // URL.createObjectURL() : 등록한 파일을 화면에서 미리 보여즘
-  // // 반환된 값을 state에 저장
-  // const saveFileImg = (e) => {
-  //   setFileImg(URL.createObjectURL(e.target.files[0]));
-  // };
   // // 파일 삭제
   // const deleteFileImg = () => {
   //   // URL.revokeObjectURL() : URL.createObjectURL() 호출로부터 생성된 object URL을 해제하는 역할
   //   URL.revokeObjectURL(fileImg);
   //   setFileImg("");
   // };
+
+  // reviewInputReducer.js로 연결하기
+  const exportFile = async () => {
+    if (fileArray.length == 0) {
+      alert("추가된 사진이 없습니다.");
+      return;
+    } else {
+      dispatch(addReview({ imgArray: fileArray }));
+      setFileArray([]);
+      alert("사진추가됨");
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL();
+  };
 
   // 취소버튼 누르면 이전페이지인 마이페이지로 이동
   const navigate = useNavigate();
@@ -76,16 +84,10 @@ const ReaviewAdd = () => {
         </header>
 
         {/* 구매 상품정보 section */}
-        <section
-          style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}
-        >
+        <section style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}>
           {/* 상품이미지 box*/}
           <div>
-            <img
-              src={require(`.././img/shirts-img/short/short-relax-beige-front.jpg`)}
-              alt=""
-              style={{ width: "100px", height: "100px" }}
-            />
+            <img src={require(`.././img/shirts-img/short/short-relax-beige-front.jpg`)} alt="" style={{ width: "100px", height: "100px" }} />
           </div>
 
           {/* 상품옵션 box */}
@@ -104,9 +106,7 @@ const ReaviewAdd = () => {
           </div>
         </section>
         {/* 리뷰 작성 section */}
-        <section
-          style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}
-        >
+        <section style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}>
           {/* 별점 box */}
           <div>
             <p>
@@ -148,11 +148,7 @@ const ReaviewAdd = () => {
                     sendImg(e.target.value);
                   }}
                 >
-                  <img
-                    src={sendImg}
-                    alt=""
-                    style={{ width: "120px", heigth: "120px" }}
-                  />
+                  {sendImg && sendImg.map((file) => <img src={file} alt="" style={{ width: "120px", heigth: "120px" }} />)}
                 </div>
               </div>
             </div>
@@ -166,12 +162,7 @@ const ReaviewAdd = () => {
 
             {/* 사진첨부 모달창*/}
             <ReviewColum>
-              <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
+              <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                 <Box sx={style}>
                   <div>
                     <input
@@ -188,15 +179,7 @@ const ReaviewAdd = () => {
                     />
                     {/* URL.createObjectURL()에서 반환된 값을 img의 src에 넘겨줌 */}
                     <div style={{ height: "15rem" }}>
-                      {fileImg ? (
-                        <img
-                          src={fileImg}
-                          alt="sample"
-                          style={{ width: "120px", heigth: "120px" }}
-                        />
-                      ) : (
-                        ""
-                      )}
+                      {fileImg.length > 0 ? fileImg.map((file) => <img src={file} alt="sample" style={{ width: "120px", heigth: "120px" }} />) : ""}
                     </div>
                     {/* 사진업로드 */}
                     {/* input은 display:none으로 숨기고 label과 id값을 같게 하여 대체함 */}
@@ -217,7 +200,7 @@ const ReaviewAdd = () => {
                     <button
                       onClick={() => {
                         setSendImg(fileImg);
-                        setFileImg(null);
+                        setFileImg([]);
                         handleClose();
                       }}
                     >
@@ -230,9 +213,7 @@ const ReaviewAdd = () => {
           </div>
         </section>
         {/* 취소 or 등록 section */}
-        <section
-          style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}
-        >
+        <section style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}>
           <ReviewBtn>
             <button
               onClick={() => {
@@ -243,7 +224,13 @@ const ReaviewAdd = () => {
             </button>
           </ReviewBtn>
           <ReviewBtn>
-            <button>등록</button>
+            <button
+              onClick={() => {
+                exportFile();
+              }}
+            >
+              등록
+            </button>
           </ReviewBtn>
         </section>
       </div>

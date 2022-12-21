@@ -27,7 +27,7 @@ const Home = () => {
   }
 
   useEffect(() => {
-    window.addEventListener("wheel", scroll, true);
+    window.addEventListener("wheel", scroll, false);
   }, []);
 
   // 세번째스크린 구독서비스

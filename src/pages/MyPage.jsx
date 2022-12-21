@@ -21,6 +21,7 @@ const Mypage = () => {
     setOpen(false);
     setResult(true);
   };
+
   const changeCarrierId = (e) => {
     setCarrierId(e.target.value);
   };
@@ -79,7 +80,7 @@ const Mypage = () => {
       <UsetInfo>
         <Labels className="labels">
           <label>이름</label>
-          <label>휴대폰 번호</label>
+          <label>휴대폰SDFSDF 번호</label>
           <label>아이디</label>
           <label>비밀번호 변경</label>
           <label>비밀번호 확인</label>
