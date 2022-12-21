@@ -1,10 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
-import { fabric } from "fabric";
-import domtoimage from "dom-to-image";
-import { saveAs } from "file-saver";
 
 import FabricSettings from "../modules/FabricSettings";
 import { initCanvas, handleImage, addText, setTextColor, exportImg, customSave, customErase } from "../modules/CanvasHandling";
