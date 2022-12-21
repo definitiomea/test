@@ -100,7 +100,7 @@ const ProductDetail = (props) => {
       canvas.getActiveObject().set({ fill: event.target.value });
       canvas.renderAll();
     } else {
-      console.log("not yet or not a text");
+      // console.log("not yet or not a text");
     }
   };
 
@@ -215,7 +215,7 @@ const ProductDetail = (props) => {
   };
 
   const ImageTest = ({ path }) => {
-    console.log(path);
+    // console.log(path);
     return (
       <div>
         {path
@@ -250,7 +250,7 @@ const ProductDetail = (props) => {
     console.log(path);
   }, [path]); */
 
-  console.log(productList);
+  // console.log(productList);
 
   return (
     <div className="product-area">

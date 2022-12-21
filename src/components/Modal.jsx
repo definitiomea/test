@@ -41,6 +41,7 @@ const Modal = (props) => {
     const findUser = signup.userlist.find(
       (user) => user.id === id && user.password === password
     );
+    console.log(findUser);
 
     if (!findUser) {
       alert("로그인 실패");

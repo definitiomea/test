@@ -9,7 +9,7 @@ import Cart from "./pages/Cart";
 import MyPage from "./pages/MyPage";
 import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
-import ReaviewAdd from "./components/ReviewAdd";
+import ReaviewAdd from "./pages/ReviewAdd";
 import OrderConfirmation from "./pages/OrderConfirmation";
 
 function App() {

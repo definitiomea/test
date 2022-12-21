@@ -92,7 +92,7 @@ const Navbar = (props) => {
           </li>
 
           <li>
-            <NavLink to="cart" className={main ? "white-nav" : "dark-nav"} v>
+            <NavLink to="cart" className={main ? "white-nav" : "dark-nav"}>
               CART
             </NavLink>
           </li>
@@ -128,14 +128,20 @@ const Navbar = (props) => {
               </div>
             </li>
           ) : (
-            <button
-              className={main ? "white-nav" : "dark-nav"}
-              onClick={() => {
-                navigate("/login");
-              }}
-            >
-              LOGIN
-            </button>
+            <div>
+              <button
+                className={main ? "white-nav" : "dark-nav"}
+                onClick={
+                  openModal
+                  //   () => {
+                  //   navigate("/login");
+                  // }
+                }
+              >
+                LOGIN
+              </button>
+              <Modal open={modalOpen} close={closeModal} />
+            </div>
           )}
         </ul>
         {/* 모바일 화면 - 햄버거 메뉴 */}
