@@ -93,7 +93,6 @@ const ProductDetail = () => {
         >
           앞/뒤 뒤집기
         </Button>
-        {/* <Button variant="contained" color="success" onClick={() => {add()}}>도형 생성</Button> */}
         <input
           type="file"
           accept="image/*"
@@ -101,7 +100,6 @@ const ProductDetail = () => {
             handleImage({canvas, event});
           }}
         />
-        {/* <Button variant="contained" color="success" onClick={() => {}}>사진 삭제</Button> */}
         <Button
           variant="contained"
           color="success"
@@ -112,7 +110,6 @@ const ProductDetail = () => {
           텍스트 추가하기
         </Button>
         <input type="color" onChange={(event) => setTextColor({canvas, event})}></input>
-        {/* <Button variant="contained" color="success">이미지 편집</Button> */}
         <Button
           variant="contained"
           color="success"
@@ -140,7 +137,6 @@ const ProductDetail = () => {
         >
           이미지, 편집 전체 삭제
         </Button>
-        {/* <Button onClick={() => {download()}}>시험용 다운로드</Button> */}
         <Button
           onClick={() => {
             exportImg({productList, editArray, setEditArray, dispatch, inputCart, color, quantitySelect, sizeSelect, productPrice});
