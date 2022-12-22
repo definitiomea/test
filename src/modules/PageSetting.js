@@ -31,7 +31,7 @@ export const flipShirts = ({productList, img, setImg, setPrint}) => {
 /* for문 대신 map 써보기 */
 /* export const flipShirtsTest = ({productList, img, setImg, setPrint}) => {
   productList.productImg.map((anyPic, index) => {
-    if(img == productList.productImg[index] && index % 2 == 0) {
+    if(img == anyPic && index % 2 == 0) {
       setImg(productList.productImg[index + 1]);
       setPrint("back");
     } else if (img == productList.productImg[index] && index % 2 == 1) {
