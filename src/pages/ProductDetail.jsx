@@ -135,7 +135,9 @@ const ProductDetail = () => {
         </Button>
       </div>
 
+      
       <div className="product-detail" ref={editZone}>
+        {/* 제품 이미지를 보낼 때의 짜투리는 img-box의 마진 때문으로 파악 */}
         <div className="img-box">
           {productList?.category == "short" && img != null ? (
             <img

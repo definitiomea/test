@@ -76,7 +76,7 @@ html, ul, li {
 .product-card {
   width: 200px;
   height: 200px;
-  background-color: grey;
+  background-color: transparent;
   margin: 20px;
   cursor: pointer;
 }
@@ -116,7 +116,7 @@ html, ul, li {
 .img-box {
   width: 350px;
   height: auto;
-  margin: 10px;
+  margin: 0px;
   cursor: pointer;
   position: relative;
 }
