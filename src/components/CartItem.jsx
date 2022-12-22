@@ -70,7 +70,7 @@ const CartItem = (props) => {
   }, [cartItem.quantity]);
 
   return (
-    <div>
+    <>
       <ProductWrap>
         {newImgArr().map((item, i) => (
           <img src={item.imageUrl} key={i} />
@@ -127,7 +127,7 @@ const CartItem = (props) => {
       >
         <DeleteIcon />
       </IconButton>
-    </div>
+    </>
   );
 };
 
@@ -149,7 +149,7 @@ const ProductWrap = styled.div`
     }
   }
   // 미디어쿼리 - 작은 화면에서는 이미지 안 보이게
-  ${"img"} {
+  img {
     width: 120px;
     min-width: 120px;
     min-height: 120px;

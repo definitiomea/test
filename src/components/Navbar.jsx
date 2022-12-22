@@ -11,7 +11,7 @@ import Modal from "../components/Modal";
 const Navbar = (props) => {
   // 리덕스 user 가져옴
   const userName = useSelector((state) => state.user);
-  console.log(userName);
+  // console.log(userName);
 
   // 모바일 버전 시 네브 토글바
   const [toggleOpen, setToggleOpen] = useState(false);

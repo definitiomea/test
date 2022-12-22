@@ -11,64 +11,8 @@ const getDate = () => {
 
 // 초기값
 const initialState = {
-  orderID: 1, // 테스트용 데이터 지우고 0으로 초기화할 것
-  orderlist: [
-    // 테스트용 데이터
-    {
-      user: "", // 누구의 구매내역인지 알아야하므로 유저 추가
-      orderID: 1,
-      orderDate: "2022.12.19",
-      category: "short",
-      productID: 1,
-      productName: "슬림 핏",
-      color: "black",
-      size: "S",
-      quantity: 5,
-      price: "47,500",
-      imgArray: [
-        {print: "front", imgUrl: ""},
-        {print: "back", imgUrl: ""}
-      ],
-      thumbnail: "short-slim-black-front.jpg",
-      delivery: "상품준비"
-    },
-    {
-      user: "",
-      orderID: 2,
-      orderDate: "2022.12.20",
-      category: "short",
-      productID: 2,
-      productName: "스탠다드 핏",
-      color: "blue",
-      size: "M",
-      quantity: 2,
-      price: "19,000",
-      imgArray: [
-        {print: "front", imgUrl: ""},
-        {print: "back", imgUrl: ""}
-      ],
-      thumbnail: "short-stnadard-blue-front.jpg",
-      delivery: "상품준비"
-    },
-    {
-      user: "",
-      orderID: 3,
-      orderDate: "2022.12.21",
-      category: "short",
-      productID: 3,
-      productName: "릴렉스 핏",
-      color: "beige",
-      size: "L",
-      quantity: 3,
-      price: "28,500",
-      imgArray: [
-        {print: "front", imgUrl: ""},
-        {print: "back", imgUrl: ""}
-      ],
-      thumbnail: "short-relax-beige-front.jpg",
-      delivery: "상품준비"
-    },
-  ],
+  orderID: 0,
+  orderlist: [],
 };
 
 const orderSlice = createSlice({
@@ -77,28 +21,16 @@ const orderSlice = createSlice({
   reducers: {
     // 구매내역에 담기
     inputOrder: (state, action) => {
-      const copyCartlist = JSON.parse(JSON.stringify(action.payload.cartlist));
-      const copyProduct = JSON.parse(JSON.stringify(action.payload.product));
-
-      // category, productName, thumbnail (short-relax-beige-front.jpg)
-      
-
-      const newOrder = copyCartlist;
-      for (let i = 0; i < newOrder.length; i++) {
-        newOrder[i].user = action.payload.user;
-        newOrder[i].orderID = ++state.orderID;
-        newOrder[i].orderDate = getDate();
-        newOrder[i].category = copyProduct[i].category;
-        newOrder[i].productName = copyProduct[i].productName;
-        newOrder[i].price = copyCartlist[i].totalPay.toLocaleString("ko-KR");
-        newOrder[i].delivery = "상품준비"
-        delete copyCartlist[i].totalPay;
-        delete copyCartlist[i].cartID;
+      const cartlist = action.payload.cartlist;
+      for (let i = 0; i <cartlist.length; i++) {
+        cartlist[i].user = action.payload.user;
+        cartlist[i].orderID = ++state.orderID;
+        cartlist[i].orderDate = getDate();
+        cartlist[i].delivery = "상품준비"
       }
-
-      const newOrderlist = state.orderlist.concat(newOrder);
+      const newOrderlist = state.orderlist.concat(cartlist);
       state.orderlist = newOrderlist;
-      console.log(state.orderlist)
+      console.log(state.orderlist);
     },
   },
 });

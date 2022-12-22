@@ -9,7 +9,7 @@ import MyButton from "../style/Button";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CartItem from "../components/CartItem";
-import Loading from "../components/Loding";
+import Loading from "../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/reducers/cart";
 import { inputOrder } from "../redux/reducers/order";
@@ -34,17 +34,32 @@ const Cart = () => {
     return subtotal;
   };
 
-  // productlist에서 cartlist에 아이템이 담긴 순서로 상품(product) 정보 골라내기
-  const findProduct = () => {
-    const productArr = [];
-    for (let i = 0; i < cartlist.length; i++) {
-      productArr.push(
-        productlist.find(
-          (product) => product.productID == cartlist[i].productID
-        )
+  // cartlist의 각 아이템에 해당되는 상품 정보 넣기
+  const copyCartlist = () => {
+    const copyCartlist = JSON.parse(JSON.stringify(cartlist));
+    for (let i = 0; i < copyCartlist.length; i++) {
+      const product = productlist.find(
+        (product) => product.productID == copyCartlist[i].productID
       );
-    } // [ {product3}, {1}, {2} ]
-    return productArr;
+      let name = "";
+      switch (product.productName) {
+        case "슬림 핏":
+          name = "slim";
+          break;
+        case "스탠다드 핏":
+          name = "standard";
+          break;
+        case "릴렉스 핏":
+          name = "relax";
+          break;
+      }
+      copyCartlist[i].category = product.category;
+      copyCartlist[i].productName = product.productName;
+      copyCartlist[i].thumbnail = 
+        `${product.category}-${name}-${copyCartlist[i].color}-front.jpg`;
+      delete copyCartlist[i].cartID;
+    }
+    return copyCartlist;
   };
 
   // 주문하기
@@ -53,20 +68,18 @@ const Cart = () => {
       alert("장바구니가 비어있습니다.");
       return;
     }
-    // if (user.id == "") {
-    //   alert("로그인 후 이용해주세요");
-    //   return;
-    // }
+    if (userID == "") {
+      alert("로그인 후 이용해주세요");
+      return;
+    }
     dispatch(
       inputOrder({
         user: userID,
-        cartlist: cartlist,
-        product: findProduct(),
+        cartlist: copyCartlist(),
       })
     );
-    // 장바구니 목록 삭제 (clear cart)
-    // dispatch(clearCart());
-    // navigate("/orderconfirm");
+    dispatch(clearCart());
+    navigate("/orderconfirm");
   };
 
   // 상품리스트 데이터 들고오기 (db.json)
@@ -118,7 +131,7 @@ const Cart = () => {
             {cartlist.length == 0 ? (
               <div className="item-empty">Empty</div>
             ) : (
-              <>
+              <div>
                 {cartlist.map((cartItem) => (
                   <CartItem
                     key={cartItem.cartID}
@@ -127,10 +140,10 @@ const Cart = () => {
                     dispatch={dispatch}
                   />
                 ))}
-              </>
+              </div>
             )}
           </List>
-          <Wrap>
+          <MyContainter>
             <div className="delivery-info">
               <h3>Delivery Information</h3>
               배송지 직접 입력하는 공간 <br />
@@ -155,7 +168,7 @@ const Cart = () => {
               </div>
               <MyButton onClick={order}>주문하기</MyButton>
             </div>
-          </Wrap>
+          </MyContainter>
         </StyledContainer>
       ) : (
         <Loading />
@@ -174,23 +187,22 @@ const StyledContainer = styled(Container)`
 `;
 
 const Title = styled.div`
-  margin: 2rem 0;
+  padding: 2rem 0;
   h2 {
     display: inline-block;
+    margin: 0 0 0 1rem;
     font-family: "nav";
     font-size: 1.5rem;
     font-weight: bold;
-    margin: 0;
-    margin-left: 1rem;
   }
   svg {
     font-size: 1.3rem;
   }
 `;
 
-const Wrap = styled.div`
+const MyContainter = styled.div`
   display: flex;
-  margin: 3rem 0;
+  padding: 3rem 0;
   ${"div"} {
     width: 100%;
   }
