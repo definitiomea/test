@@ -12,6 +12,7 @@ nav {
   padding: 2rem 3rem;
   align-items: center;
   z-index: 1;
+  top: 0;
 }
 
 /* 로고 */

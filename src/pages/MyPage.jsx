@@ -76,7 +76,7 @@ const Mypage = () => {
   };
 
   return (
-    <div>
+    <Body>
       {/* 회원정보 수정 form */}
       <h4>회원정보 수정</h4>
 
@@ -247,11 +247,15 @@ const Mypage = () => {
           </div>
         </Slider>
       </div>
-    </div>
+    </Body>
   );
 };
 
 export default Mypage;
+
+const Body = styled.div`
+  padding-top: 135px;
+`;
 
 const UsetInfo = styled.div`
   display: grid;

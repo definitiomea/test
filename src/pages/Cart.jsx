@@ -51,7 +51,7 @@ const Cart = () => {
   };
 
   return (
-    <Container maxWidth="lg">
+    <Container style={{paddingTop:'100px'}} maxWidth="lg">
       {productlist ? (
         <>
           <Title>
