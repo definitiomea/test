@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import FabricSettings from "../modules/FabricSettings";
 import { initCanvas, handleImage, addText, setTextColor, exportImg, customSave, customErase } from "../modules/CanvasHandling";
-import { QuantityOption } from "../modules/PageSetting";
+import { QuantityOption, SizeOption, flipShirts, changeShirtColor } from "../modules/PageSetting";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
@@ -13,14 +13,14 @@ import Button from "@mui/material/Button";
 import { inputCart } from "../redux/reducers/cart";
 
 const ProductDetail = () => {
+  const { id } = useParams(); // id : productList {id}
+
   const [productList, setProductList] = useState(null);
   const [img, setImg] = useState(null);
   const [canvas, setCanvas] = useState(null);
   const [color, setColor] = useState(null);
   const [print, setPrint] = useState("front");
   const [editArray, setEditArray] = useState([]);
-
-  const { id } = useParams(); // id : productList {id}
 
   const editZone = useRef(null);
   const sizeSelect = useRef(null);
@@ -41,27 +41,6 @@ const ProductDetail = () => {
 
   /* 제품의 가격 */
   const productPrice = parseInt(productList?.price.replace(",", ""));
-
-  /* 셔츠 뒤집기 */
-  const flipShirts = () => {
-    for (let i = 0; i < productList.productImg.length; i++) {
-      if (img == productList.productImg[i] && i % 2 == 0) {
-        setImg(productList.productImg[i + 1]);
-        setPrint("back");
-      } else if (img == productList.productImg[i] && i % 2 == 1) {
-        setImg(productList.productImg[i - 1]);
-        setPrint("front");
-      }
-    }
-  };
-
-  /* 셔츠 색상 바꾸기 */
-  const changeShirtColor = (index) => {
-    setImg(productList.productImg[index * 2]);
-    setColor(productList.colorName[index]);
-    setPrint("front");
-    setEditArray([]);
-  };
 
   /* 페이지가 로딩되면 제품 정보를 받고, 캔버스를 정해주면 되므로 */
   useEffect(() => {
@@ -84,7 +63,7 @@ const ProductDetail = () => {
           variant="contained"
           color="success"
           onClick={() => {
-            flipShirts();
+            flipShirts({productList, img, setImg, setPrint});
           }}
         >
           앞/뒤 뒤집기
@@ -204,7 +183,7 @@ const ProductDetail = () => {
                     backgroundColor: color,
                   }}
                   onClick={() => {
-                    changeShirtColor(index);
+                    changeShirtColor({productList, setImg, setColor, setPrint, setEditArray, index});
                   }}
                   key={index}
                 ></div>
@@ -213,9 +192,7 @@ const ProductDetail = () => {
         </div>
 
         <select style={{ width: "100px" }} ref={sizeSelect}>
-          {productList?.size.map((size, index) => (
-            <option key={index}>{size}</option>
-          ))}
+          <SizeOption productList={productList}></SizeOption>
         </select>
 
         <select name="" id="" ref={quantitySelect}>
