@@ -29,9 +29,13 @@ export const userSlice = createSlice({
       state.isLoggedIn = initialState.isLoggedIn;
       state.isLoggedIn = initialState.isLoggedIn;
     },
+    updateAddress: (state, action) => {
+      state.zoneCode = action.payload.zoneCode;
+      state.address = action.payload.address;
+    },
   },
 });
 
-export const { loginUser, logout } = userSlice.actions;
+export const { loginUser, logout, updateAddress } = userSlice.actions;
 
 export default userSlice.reducer;

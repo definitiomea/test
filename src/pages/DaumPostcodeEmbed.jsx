@@ -2,8 +2,9 @@ import DaumPostcode from "react-daum-postcode";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
-import { ADDIT_ADDRESS } from "../redux/reducers/signup";
+import { ADDIT_USER } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
+import { updateAddress } from "../redux/reducers/user";
 
 const Postcode = (props) => {
   const handleComplete = (data) => {
@@ -34,8 +35,6 @@ const Postcode = (props) => {
 };
 
 function BasicModal() {
-  const addressList = useSelector((state) => state.signup.userlist);
-
   const [address, setAddress] = useState("");
   const [zoneCode, setZoneCode] = useState("");
   const [allAddress, setAllAddress] = useState("");
@@ -43,18 +42,29 @@ function BasicModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const addressList = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  const userInfo = {
+    id: addressList.id,
+    name: addressList.name,
+    password: addressList.password,
+    email: addressList.email,
+    address: addressList.address,
+    zoneCode: addressList.zoneCode,
+    detailAddress: addressList.detailAddress,
+    reference: addressList.reference,
+  };
 
   const onChange = (e) => {
     const additAddress = {
-      ...allAddress,
+      ...userInfo,
       [e.target.name]: e.target.value,
     };
     setAllAddress(additAddress);
   };
 
   const changeAddress = (e) => {
-    onChange(e);
     setAddress(e.target.value);
   };
   const adressValue = (value) => {
@@ -62,7 +72,6 @@ function BasicModal() {
     handleClose();
   };
   const changeZoneCode = (e) => {
-    onChange(e);
     setZoneCode(e.target.value);
   };
   const zoneCodeValue = (value) => {
@@ -77,27 +86,27 @@ function BasicModal() {
     e.preventDefault();
     Postcode();
     dispatch(
-      ADDIT_ADDRESS({
-        ...allAddress,
-        zoneCode: zoneCode,
-        address: address,
+      ADDIT_USER({
+        ...userInfo,
+        zoneCode,
+        address,
       })
     );
-    console.log(
-      ADDIT_ADDRESS({
-        ...allAddress,
-        zoneCode: zoneCode,
-        address: address,
+    dispatch(
+      updateAddress({
+        zoneCode,
+        address,
       })
     );
   };
 
+  // 모달이 꺼지면서 zoneCode와 address값을 받아옴
   const save = () => {
     handleClose();
     setAllAddress({
       ...allAddress,
-      zoneCode: zoneCode,
-      address: address,
+      zoneCode,
+      address,
     });
   };
 
@@ -129,8 +138,7 @@ function BasicModal() {
         <input
           type="text"
           id="sample6_postcode"
-          placeholder="우편번호"
-          name="zonsCode"
+          placeholder={addressList.zonecode}
           onChange={changeZoneCode}
           value={zoneCode.split(" ")[0]}
         />
@@ -138,8 +146,7 @@ function BasicModal() {
         <input
           type="text"
           id="sample6_address"
-          placeholder="주소"
-          name="address"
+          placeholder={addressList.address}
           onChange={changeAddress}
           value={address}
         />
@@ -150,6 +157,7 @@ function BasicModal() {
           placeholder="상세주소"
           name="detailAddress"
           onChange={onChange}
+          value={addressList.detailAddress}
         />
         <input
           type="text"
@@ -157,6 +165,7 @@ function BasicModal() {
           placeholder="참고항목"
           name="reference"
           onChange={onChange}
+          value={addressList.reference}
         />
         <input type="button" defaultValue="우편번호 찾기" onClick={submit} />
         <button>배송지 변경</button>

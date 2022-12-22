@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  userID: 0,
   userlist: [],
 };
 
@@ -10,8 +11,8 @@ export const signupSlice = createSlice({
   reducers: {
     SIGN_UP: (state, action) => {
       const newUser = {
-        name: action.payload.name,
         id: action.payload.id,
+        name: action.payload.name,
         password: action.payload.password,
         email: action.payload.email,
         address: action.payload.address,
@@ -21,26 +22,11 @@ export const signupSlice = createSlice({
       };
       const newUserlist = state.userlist.concat(newUser);
       state.userlist = newUserlist;
-      console.log(state.userlist);
     },
 
     ADDIT_USER: (state, action) => {
       state.userlist = state.userlist.map((user) => {
-        if (action.payload.id === user.id) {
-          return action.payload;
-        } else {
-          return user;
-        }
-      });
-    },
-
-    ADDIT_ADDRESS: (state, action) => {
-      state.userlist = state.userlist.map((user) => {
-        if (action.payload.id === user.id) {
-          return action.payload;
-        } else {
-          return user;
-        }
+        return action.payload.id === user.id ? action.payload : user;
       });
     },
   },

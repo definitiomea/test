@@ -95,7 +95,7 @@ const Mypage = () => {
         <Labels className="labels">
           <label>id</label>
           <label>email</label>
-          <label>address</label>
+          <label>password</label>
           <label>password</label>
           {/* <label>비밀번호 확인</label> */}
         </Labels>
@@ -119,12 +119,7 @@ const Mypage = () => {
             defaultValue={user.email}
             onChange={onChange}
           />
-          <input
-            type="text"
-            name="address"
-            defaultValue={user.address}
-            onChange={onChange}
-          />
+
           <input
             type="password"
             name="password"
