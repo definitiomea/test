@@ -3,7 +3,7 @@ import Button from '@mui/material/Button'
 
 /*  */
 
-const ProductButton = () => {
+const ProductButton = ({}) => {
   return (
     <div className='product-button'>
       <Button>앞/뒤 뒤집기</Button>
