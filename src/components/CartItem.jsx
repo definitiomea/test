@@ -70,7 +70,7 @@ const CartItem = (props) => {
   }, [cartItem.quantity]);
 
   return (
-    <li>
+    <div>
       <ProductWrap>
         {newImgArr().map((item, i) => (
           <img src={item.imageUrl} key={i} />
@@ -127,7 +127,7 @@ const CartItem = (props) => {
       >
         <DeleteIcon />
       </IconButton>
-    </li>
+    </div>
   );
 };
 

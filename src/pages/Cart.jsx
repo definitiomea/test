@@ -34,7 +34,7 @@ const Cart = () => {
     return subtotal;
   };
 
-  // productlist에서 cartlist에 담긴 상품 정보 골라내기
+  // productlist에서 cartlist에 아이템이 담긴 순서로 상품(product) 정보 골라내기
   const findProduct = () => {
     const productArr = [];
     for (let i = 0; i < cartlist.length; i++) {
@@ -46,26 +46,6 @@ const Cart = () => {
     } // [ {product3}, {1}, {2} ]
     return productArr;
   };
-
-  // 상품리스트 데이터 들고오기 (db.json)
-  useEffect(() => {
-    const getData = async () => {
-      const response = await fetch(
-        "https://my-json-server.typicode.com/hans-4303/test/productList"
-      );
-      const data = await response.json();
-      setProductlist(data);
-      if (!productlist) {
-        setDataloading(true);
-      }
-    };
-    getData();
-  }, [dataloading]);
-
-  // 장바구니 아이템이 없으면 배송비를 0으로 출력
-  useEffect(() => {
-    cartlist.length == 0 ? setDeliveryPay(0) : setDeliveryPay(3000);
-  }, [cartlist]);
 
   // 주문하기
   const order = () => {
@@ -89,16 +69,36 @@ const Cart = () => {
     // navigate("/orderconfirm");
   };
 
+  // 상품리스트 데이터 들고오기 (db.json)
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch(
+        "https://my-json-server.typicode.com/hans-4303/test/productList"
+      );
+      const data = await response.json();
+      setProductlist(data);
+      if (!productlist) {
+        setDataloading(true);
+      }
+    };
+    getData();
+  }, [dataloading]);
+
+  // 장바구니 아이템이 없으면 배송비를 0으로 출력
+  useEffect(() => {
+    cartlist.length == 0 ? setDeliveryPay(0) : setDeliveryPay(3000);
+  }, [cartlist]);
+
   return (
-    <StyledContainer maxWidth="lg">
+    <>
       {productlist ? (
-        <>
+        <StyledContainer maxWidth="lg">
           <Title>
             <FontAwesomeIcon icon={faCartShopping} />
             <h2>My Cart</h2>
           </Title>
           <List>
-            <li className="label">
+            <div className="label">
               <div>Product Name</div>
               <div>Size</div>
               <div>Quantity</div>
@@ -114,9 +114,9 @@ const Cart = () => {
                   Clear All
                 </Button>
               </div>
-            </li>
+            </div>
             {cartlist.length == 0 ? (
-              <li className="product-empty">Empty</li>
+              <div className="item-empty">Empty</div>
             ) : (
               <>
                 {cartlist.map((cartItem) => (
@@ -156,17 +156,18 @@ const Cart = () => {
               <MyButton onClick={order}>주문하기</MyButton>
             </div>
           </Wrap>
-        </>
+        </StyledContainer>
       ) : (
         <Loading />
       )}
-    </StyledContainer>
+    </>
   );
 };
 
 export default Cart;
 
 const StyledContainer = styled(Container)`
+  min-height: calc(100vh - 236px);
   &.MuiContainer-root {
     padding: 0 48px;
   }
@@ -174,7 +175,7 @@ const StyledContainer = styled(Container)`
 
 const Title = styled.div`
   margin: 2rem 0;
-  ${"h2"} {
+  h2 {
     display: inline-block;
     font-family: "nav";
     font-size: 1.5rem;
@@ -182,7 +183,7 @@ const Title = styled.div`
     margin: 0;
     margin-left: 1rem;
   }
-  &:first-child {
+  svg {
     font-size: 1.3rem;
   }
 `;
