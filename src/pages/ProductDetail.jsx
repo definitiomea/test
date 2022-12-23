@@ -58,7 +58,7 @@ const ProductDetail = () => {
   }, [productList]);
 
   return (
-    <div className="product-area">
+    <ProductArea>
       <div className="product-button">
         <Button
           variant="contained"
@@ -213,7 +213,7 @@ const ProductDetail = () => {
           <Button>구매하기</Button>
         </div>
       </div>
-    </div>
+    </ProductArea>
   );
 };
 
@@ -229,5 +229,15 @@ const DrawingArea = styled.div`
   /* &:hover와 같이 CSS 이벤트 가능 */
   &:hover {
     outline: 1px dashed black;
+  }
+`;
+
+const ProductArea = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
   }
 `;
