@@ -9,7 +9,7 @@ import Cart from "./pages/Cart";
 import MyPage from "./pages/MyPage";
 import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
-import ReaviewAdd from "./components/ReviewAdd";
+import ReaviewAdd from "./pages/ReviewAdd";
 import OrderConfirm from "./pages/OrderConfirm";
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
           <Route path="cart" element={<Cart />} />
           <Route path="orderconfirm" element={<OrderConfirm />} />
           <Route path="mypage" element={<MyPage />} />
-          <Route path="mypage/review" element={<ReaviewAdd />}></Route>
+          <Route path="mypage/review" element={<ReaviewAdd />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
