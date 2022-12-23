@@ -13,9 +13,10 @@ nav {
   align-items: center;
   z-index: 1;
   top: 0;
-  /*  마이페이지 테스트용
-      box-shadow: 1px 1px 5px gray; 
-      background-color: white;
+  /*  
+    마이페이지 테스트용
+    box-shadow: 1px 1px 5px gray; 
+    background-color: white;
   */
 }
 
