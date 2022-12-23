@@ -25,9 +25,11 @@ const Home = () => {
 
     e.wheelDelta > 0 ? slider.current.slickPrev() : slider.current.slickNext();
   }
-
   useEffect(() => {
     window.addEventListener("wheel", scroll, true);
+    return () => {
+      window.removeEventListener("wheel", scroll, true);
+    };
   }, []);
 
   // 세번째스크린 구독서비스
