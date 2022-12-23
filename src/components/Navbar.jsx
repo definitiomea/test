@@ -59,7 +59,11 @@ const Navbar = (props) => {
             MOTI
           </NavLink>
         </div>
-        <button className="toggle-button" onClick={() => setToggleOpen(!toggleOpen)} style={{ fontSize: "25px" }}>
+        <button
+          className="toggle-button"
+          onClick={() => setToggleOpen(!toggleOpen)}
+          style={{ fontSize: "25px" }}
+        >
           {/* 토글버튼 열리면 햄버거아이콘, 닫히면 x아이콘 */}
           {/*
           {toggleOpen ? (
@@ -105,12 +109,20 @@ const Navbar = (props) => {
 
           {login ? (
             <li className="dropdown">
-              <div className={main ? "white-nav" : "dark-nav"}>{user.name}님</div>
+              <div className={main ? "white-nav" : "dark-nav"}>
+                {user.name}님
+              </div>
               <div className="dropdown-menu">
-                <NavLink to="mypage" className={main ? "white-dropdown" : "dark-dropdown"}>
+                <NavLink
+                  to="mypage"
+                  className={main ? "white-dropdown" : "dark-dropdown"}
+                >
                   MYPAGE
                 </NavLink>
-                <button className={main ? "white-dropdown" : "dark-dropdown"} onClick={logOut}>
+                <button
+                  className={main ? "white-dropdown" : "dark-dropdown"}
+                  onClick={logOut}
+                >
                   LOGOUT
                 </button>
               </div>
