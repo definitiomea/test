@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal";
 import { useState } from "react";
 import { ADDIT_USER } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, updateAddress } from "../redux/reducers/user";
+import { updateAddress } from "../redux/reducers/user";
 
 const Postcode = (props) => {
   const handleComplete = (data) => {
@@ -34,7 +34,7 @@ const Postcode = (props) => {
   return <DaumPostcode onComplete={handleComplete} {...props} />;
 };
 
-function DeliveryList() {
+function BasicModal() {
   const [address, setAddress] = useState("");
   const [zoneCode, setZoneCode] = useState("");
   const [allAddress, setAllAddress] = useState("");
@@ -43,12 +43,22 @@ function DeliveryList() {
   const handleClose = () => setOpen(false);
 
   const addressList = useSelector((state) => state.user);
-
   const dispatch = useDispatch();
+
+  const userInfo = {
+    id: addressList.id,
+    name: addressList.name,
+    password: addressList.password,
+    email: addressList.email,
+    address: addressList.address,
+    zoneCode: addressList.zoneCode,
+    detailAddress: addressList.detailAddress,
+    reference: addressList.reference,
+  };
 
   const onChange = (e) => {
     const additAddress = {
-      ...addressList,
+      ...userInfo,
       [e.target.name]: e.target.value,
     };
     setAllAddress(additAddress);
@@ -77,26 +87,24 @@ function DeliveryList() {
     Postcode();
     dispatch(
       ADDIT_USER({
-        ...allAddress,
+        ...userInfo,
         zoneCode,
         address,
       })
     );
     dispatch(
-      loginUser({
-        ...allAddress,
+      updateAddress({
         zoneCode,
         address,
       })
     );
-    console.log(allAddress);
   };
 
   // 모달이 꺼지면서 zoneCode와 address값을 받아옴
   const save = () => {
     handleClose();
     setAllAddress({
-      ...addressList,
+      ...allAddress,
       zoneCode,
       address,
     });
@@ -166,4 +174,4 @@ function DeliveryList() {
   );
 }
 
-export default DeliveryList;
+export default BasicModal;

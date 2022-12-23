@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DaumPostcodeEmbed from "./DaumPostcodeEmbed";
 import Slider from "react-slick";
 import { useEffect, useState } from "react";
