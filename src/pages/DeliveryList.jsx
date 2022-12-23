@@ -43,7 +43,6 @@ function DeliveryList() {
   const handleClose = () => setOpen(false);
 
   const addressList = useSelector((state) => state.user);
-
   const dispatch = useDispatch();
 
   const onChange = (e) => {
@@ -83,20 +82,18 @@ function DeliveryList() {
       })
     );
     dispatch(
-      loginUser({
+      updateAddress({
         ...allAddress,
         zoneCode,
         address,
       })
     );
-    console.log(allAddress);
   };
 
   // 모달이 꺼지면서 zoneCode와 address값을 받아옴
   const save = () => {
     handleClose();
     setAllAddress({
-      ...addressList,
       zoneCode,
       address,
     });
@@ -130,15 +127,15 @@ function DeliveryList() {
         <input
           type="text"
           id="sample6_postcode"
-          placeholder={addressList.zonecode}
           onChange={changeZoneCode}
+          name="zoneCode"
           value={zoneCode.split(" ")[0]}
         />
         <br />
         <input
           type="text"
           id="sample6_address"
-          placeholder={addressList.address}
+          name="address"
           onChange={changeAddress}
           value={address}
         />
@@ -146,7 +143,6 @@ function DeliveryList() {
         <input
           type="text"
           id="sample6_detailAddress"
-          placeholder="상세주소"
           name="detailAddress"
           onChange={onChange}
           value={addressList.detailAddress}
@@ -154,7 +150,6 @@ function DeliveryList() {
         <input
           type="text"
           id="sample6_extraAddress"
-          placeholder="참고항목"
           name="reference"
           onChange={onChange}
           value={addressList.reference}
