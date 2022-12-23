@@ -56,8 +56,9 @@ const Cart = () => {
       }
       copyCartlist[i].category = product.category;
       copyCartlist[i].productName = product.productName;
-      copyCartlist[i].thumbnail = 
-        `${product.category}-${name}-${copyCartlist[i].color}-front.jpg`;
+      copyCartlist[
+        i
+      ].thumbnail = `${product.category}-${name}-${copyCartlist[i].color}-front.jpg`;
     }
     return copyCartlist;
   };
