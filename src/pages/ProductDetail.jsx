@@ -158,10 +158,10 @@ const ProductDetail = () => {
           <div
             style={{
               position: "absolute",
-              top: "0%",
-              left: "0%",
-              width: "350px",
-              height: "420px",
+              top: "20%",
+              left: "25%",
+              width: "180px",
+              outline: "1px dashed black" 
             }}
           >
             <canvas id="canvas"></canvas>

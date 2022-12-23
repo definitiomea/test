@@ -4,8 +4,8 @@ import domtoimage from "dom-to-image";
 /* 캔버스 초기화 */
 export function initCanvas() {
   return new fabric.Canvas("canvas", {
-    width: 350,
-    height: 420,
+    width: 180,
+    height: 260,
     backgroundColor: "transparent",
   });
 }
