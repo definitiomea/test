@@ -97,6 +97,7 @@ ul * {
 .dropdown-menu {
   position: absolute;
   display: none;
+  left: -250%;
   z-index: 1;
   padding: 10px 10px;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.146);
