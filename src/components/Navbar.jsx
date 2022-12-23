@@ -39,7 +39,7 @@ const Navbar = (props) => {
     navigate("");
   };
 
-  // main페이지와 다른 페이지의 css 차별을 위해 메인위치 지정해줌
+  // 메인페이지와 다른 페이지의 css 차별을 위해 메인위치 지정해줌
   const location = useLocation();
   const main = location.pathname === "/";
 
@@ -119,6 +119,7 @@ const Navbar = (props) => {
                 >
                   MYPAGE
                 </NavLink>
+                <br />
                 <button
                   className={main ? "white-dropdown" : "dark-dropdown"}
                   onClick={logOut}
