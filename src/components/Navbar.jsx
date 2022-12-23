@@ -9,6 +9,9 @@ import { logout } from "../redux/reducers/user";
 import Modal from "../components/Modal";
 
 const Navbar = (props) => {
+  // 리덕스 user 가져옴
+  const userName = useSelector((state) => state.user);
+
   // 모바일 버전 시 네브 토글바
   const [toggleOpen, setToggleOpen] = useState(false);
 
@@ -110,7 +113,7 @@ const Navbar = (props) => {
           {login ? (
             <li className="dropdown">
               <div className={main ? "white-nav" : "dark-nav"}>
-                {user.name}님
+                {userName.name}님 {/** 이름 수정 */}
               </div>
               <div className="dropdown-menu">
                 <NavLink

@@ -13,7 +13,7 @@ const initialState = {
       zoneCode: null,
       detailAddress: null,
       reference: null,
-    }
+    },
   ],
 };
 
