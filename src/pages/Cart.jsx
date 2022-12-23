@@ -13,7 +13,6 @@ import Loading from "../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/reducers/cart";
 import { inputOrder } from "../redux/reducers/order";
-import DaumPostcodeEmbed from "./DeliveryList";
 
 const Cart = () => {
   const cartlist = useSelector((state) => state.cartlist.cartlist);
@@ -56,9 +55,9 @@ const Cart = () => {
       }
       copyCartlist[i].category = product.category;
       copyCartlist[i].productName = product.productName;
-      copyCartlist[
-        i
-      ].thumbnail = `${product.category}-${name}-${copyCartlist[i].color}-front.jpg`;
+      copyCartlist[i].thumbnail = 
+        `${product.category}-${name}-${copyCartlist[i].color}-front.jpg`;
+      delete copyCartlist[i].cartID;
     }
     return copyCartlist;
   };
@@ -106,7 +105,7 @@ const Cart = () => {
   return (
     <>
       {productlist ? (
-        <StyledContainer style={{paddingTop:'100px'}} maxWidth="lg">
+        <StyledContainer maxWidth="lg">
           <Title>
             <FontAwesomeIcon icon={faCartShopping} />
             <h2>My Cart</h2>
@@ -147,7 +146,10 @@ const Cart = () => {
           <MyContainter>
             <div className="delivery-info">
               <h3>Delivery Information</h3>
-              <DaumPostcodeEmbed />
+              배송지 직접 입력하는 공간 <br />
+              저장된 배송지 정보 불러오는 버튼 <br />
+              저장된 배송지가 있다면 자동으로 채워준다(컴포넌트로 빼기) <br />
+              유저가 로그인 된 상태라면 저장된 배송지~
             </div>
             <div className="summary">
               <div>
@@ -211,7 +213,6 @@ const MyContainter = styled.div`
     flex: 1;
     padding: 2rem;
     background-color: #e9ecef;
-    height: fit-content;
     > div {
       display: flex;
       margin-bottom: 2rem;
@@ -230,9 +231,6 @@ const MyContainter = styled.div`
     }
     ${"div"} {
       padding: 0.2rem 0;
-    }
-    button {
-      width: 100%;
     }
   }
 `;

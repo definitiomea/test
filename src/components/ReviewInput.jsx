@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addReview, deleteReview } from "../redux/reducers/reviewInputReducer";
+import { inputOrder } from "../redux/reducers/order";
+import {
+  ADD_IMG,
+  ADD_STAR,
+  ADD_CONTENT,
+} from "../redux/reducers/reviewInputReducer";
 
 const ReviewInput = () => {
   const dispatch = useDispatch();
@@ -14,29 +19,25 @@ const ReviewInput = () => {
   const month = ("0" + (date.getMonth() + 1)).slice(-2);
   const day = ("0" + date.getDate()).slice(-2);
   const dateStr = year + "-" + month + "-" + day;
-  console.log(typeof dateStr);
+
   return (
     <div>
       <div>
-        {/* reviewInputReducer.js에서 가져옴 */}
         <img src="" alt="" />
       </div>
 
       <div>
-        {/* user.js에서 가져옴 */}
-        <p props={() => dispatch(addReview({ userID: userID }))}>{userID}</p>
-        {/* reviewInputReducer.js에서 가져옴 */}
+        <p>{dispatch(userID)}</p>
         <p>별점존</p>
-        {/* order.js에서 가져옴 */}
-        <p props={() => dispatch(addReview({ category: reviewProduct.category }))}>{reviewProduct.category}</p>
-        <p>{reviewProduct.productName}</p>
-        <p>{reviewProduct.size}</p>
+        <p>{dispatch(reviewProduct.category)}</p>
+        <p>{dispatch(reviewProduct.productName)}</p>
+        <p>{dispatch(reviewProduct.size)}</p>
         <p>comment</p>
       </div>
       <div>
         <span>{dateStr}</span>
         <button>수정</button>
-        <button onClick={() => dispatch(deleteReview())}>삭제</button>
+        <button>삭제</button>
       </div>
     </div>
   );

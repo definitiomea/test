@@ -4,8 +4,21 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import FabricSettings from "../modules/FabricSettings";
-import { initCanvas, handleImage, addText, setTextColor, exportImg, customSave, customErase } from "../modules/CanvasHandling";
-import { QuantityOption, SizeOption, flipShirts, changeShirtColor } from "../modules/PageSetting";
+import {
+  initCanvas,
+  handleImage,
+  addText,
+  setTextColor,
+  exportImg,
+  customSave,
+  customErase,
+} from "../modules/CanvasHandling";
+import {
+  QuantityOption,
+  SizeOption,
+  flipShirts,
+  changeShirtColor,
+} from "../modules/PageSetting";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
@@ -64,7 +77,7 @@ const ProductDetail = () => {
           variant="contained"
           color="success"
           onClick={() => {
-            flipShirts({productList, img, setImg, setPrint});
+            flipShirts({ productList, img, setImg, setPrint });
           }}
         >
           앞/뒤 뒤집기
@@ -73,19 +86,22 @@ const ProductDetail = () => {
           type="file"
           accept="image/*"
           onChange={(event) => {
-            handleImage({canvas, event});
+            handleImage({ canvas, event });
           }}
         />
         <Button
           variant="contained"
           color="success"
           onClick={() => {
-            addText({canvas});
+            addText({ canvas });
           }}
         >
           텍스트 추가하기
         </Button>
-        <input type="color" onChange={(event) => setTextColor({canvas, event})}></input>
+        <input
+          type="color"
+          onChange={(event) => setTextColor({ canvas, event })}
+        ></input>
         <Button
           variant="contained"
           color="success"
@@ -115,28 +131,46 @@ const ProductDetail = () => {
         </Button>
         <Button
           onClick={() => {
-            exportImg({productList, editArray, setEditArray, dispatch, inputCart, color, quantitySelect, sizeSelect, productPrice});
+            exportImg({
+              productList,
+              editArray,
+              setEditArray,
+              dispatch,
+              inputCart,
+              color,
+              quantitySelect,
+              sizeSelect,
+              productPrice,
+            });
           }}
         >
           이미지 내보내기(dispatch)
         </Button>
         <Button
           onClick={() => {
-            customSave({editZone, editArray, setEditArray, img, setImg, print, setPrint, productList});
+            customSave({
+              editZone,
+              editArray,
+              setEditArray,
+              img,
+              setImg,
+              print,
+              setPrint,
+              productList,
+            });
           }}
         >
           편집한 면의 이미지 저장
         </Button>
         <Button
           onClick={() => {
-            customErase({setEditArray});
+            customErase({ setEditArray });
           }}
         >
           앞, 혹은 뒷면 이미지 편집 내역 지우기
         </Button>
       </div>
 
-      
       <div className="product-detail" ref={editZone}>
         {/* 제품 이미지를 보낼 때의 짜투리는 img-box의 마진 때문으로 파악 */}
         <div className="img-box">
@@ -190,7 +224,14 @@ const ProductDetail = () => {
                     backgroundColor: color,
                   }}
                   onClick={() => {
-                    changeShirtColor({productList, setImg, setColor, setPrint, setEditArray, index});
+                    changeShirtColor({
+                      productList,
+                      setImg,
+                      setColor,
+                      setPrint,
+                      setEditArray,
+                      index,
+                    });
                   }}
                   key={index}
                 ></div>

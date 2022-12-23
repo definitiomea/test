@@ -134,7 +134,7 @@ const SignUpPage = () => {
             onChange={onChangeEmail}
           />
         </div>
-        {/* <div>
+        <div>
           <label>Address</label>
           <br />
           <input
@@ -144,7 +144,7 @@ const SignUpPage = () => {
             required
             onChange={onChangeAddress}
           />
-        </div> */}
+        </div>
         <MyButton type="submit">Sign up</MyButton>
       </form>
     </div>

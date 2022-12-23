@@ -1,11 +1,13 @@
 import styled from "@emotion/styled";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import DaumPostcodeEmbed from "./DeliveryList";
-import Slider from "react-slick";
 import { useEffect, useState } from "react";
 import { Modal } from "@mui/material";
 import { Box } from "@mui/system";
 import Delivery from "./Delivery";
+import { useDispatch, useSelector } from "react-redux";
+import { ADDIT_USER } from "../redux/reducers/signup";
+import { loginUser } from "../redux/reducers/user";
 
 const Mypage = () => {
   // 택배사 목록 state
@@ -14,13 +16,21 @@ const Mypage = () => {
   const [trackId, setTrackId] = useState("");
   const [carrierId, setCarrierId] = useState("");
   const [result, setResult] = useState(true);
+  const [trans, setTrans] = useState(null);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     setResult(true);
   };
-  const navigate = useNavigate();
+
+  const onChange = (e) => {
+    const additUser = {
+      ...user,
+      [e.target.name]: e.target.value,
+    };
+    setTrans(additUser);
+  };
 
   const changeCarrierId = (e) => {
     setCarrierId(e.target.value);
@@ -56,13 +66,10 @@ const Mypage = () => {
     getCarriers();
   }, []);
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
+  const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -75,35 +82,63 @@ const Mypage = () => {
     p: 4,
   };
 
-  return (
-    <Body>
-      {/* 회원정보 수정 form */}
-      <H4>회원정보 수정</H4>
+  // 주문완료 섹션 출력 함수
+  const orderDone = useSelector((state) => state.orderlist.orderlist);
 
-      <UserInfo>
+  return (
+    <div>
+      {/* 회원정보 수정 form */}
+      <h4>회원정보 수정</h4>
+
+      <UsetInfo>
         <Labels className="labels">
-          <label>이름</label>
-          <label>휴대폰 번호</label>
-          <label>아이디</label>
-          <label>비밀번호 변경</label>
-          <label>비밀번호 확인</label>
+          <label>id</label>
+          <label>email</label>
+          <label>password</label>
+          <label>password</label>
+          {/* <label>비밀번호 확인</label> */}
         </Labels>
 
-        <Inputs>
-          <input type="text" defaultValue="홍길동" />
-          <input type="text" defaultValue="010-****-1234" />
-          <input type="text" defaultValue="roadBronze" />
-          <input type="password" placeholder="비밀번호를 입력하세요" />
-          <input type="password" placeholder="비밀번호를 입력하세요" />
-        </Inputs>
+        <Inputs
+          onSubmit={(e) => {
+            dispatch(ADDIT_USER(trans));
+            dispatch(loginUser(trans));
+            e.preventDefault();
+          }}
+        >
+          <input
+            type="text"
+            name="id"
+            defaultValue={user.id}
+            onChange={onChange}
+          />
+          <input
+            type="text"
+            name="email"
+            defaultValue={user.email}
+            onChange={onChange}
+          />
 
+          <input
+            type="password"
+            name="password"
+            defaultValue={user.password}
+            onChange={onChange}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder={user.password}
+            onChange={onChange}
+          />
+          <button>회원정보 수정</button>
+        </Inputs>
         <DaumPostcodeEmbed />
-      </UserInfo>
-      <button>회원정보 수정</button>
+      </UsetInfo>
 
       {/* 주문/배송조회 form  */}
       <MypageOrder>
-        <H4>주문/배송 조회</H4>
+        <h4>주문/배송 조회</h4>
         <MypageHead>
           <div>상품정보</div>
           <div>주문일자</div>
@@ -204,73 +239,74 @@ const Mypage = () => {
         </MypageBody>
       </MypageOrder>
 
-      {/* 이벤트 배너 form  */}
-      <MypageEvent>
-        <H4>이벤트</H4>
-      </MypageEvent>
-      <div
-        style={{ width: "100%", height: "200px", backgroundColor: "skyblue" }}
-      >
-        <Slider {...settings}>
-          <div>
-            <img
-              src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-              alt=""
-              onClick={() => navigate("/event")}
-              style={{
-                width: "100%",
-                height: "50px",
-              }}
-            />
-          </div>
-          <div>
-            <img
-              src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-              alt=""
-              onClick={() => navigate("/event")}
-              style={{
-                width: "100%",
-                height: "50px",
-              }}
-            />
-          </div>
-          <div>
-            <img
-              src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-              alt=""
-              onClick={() => navigate("/event")}
-              style={{
-                width: "100%",
-                height: "50px",
-              }}
-            />
-          </div>
-        </Slider>
-      </div>
-    </Body>
+      <h4>주문완료</h4>
+      <MypageHead>
+        <div>상품정보</div>
+        <div>주문일자</div>
+        <div>주문금액(수량)</div>
+        <div>주문상태</div>
+      </MypageHead>
+
+      {/* 주문완료 섹션 */}
+      {orderDone.map((re) =>
+        re.orderID == 3 ? (
+          <MypageBody>
+            <MypagePd>
+              <div>
+                <img
+                  className="img"
+                  src={require(`.././img/shirts-img/short/short-relax-beige-front.jpg`)}
+                  alt="#"
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                  }}
+                />
+              </div>
+              <MypageInfo>
+                {/* 상품 정보 */}
+                <div>
+                  <span>{re.category} </span>
+                  <span>{re.productName} </span>
+                  <span> ({re.color}) </span>
+                </div>
+
+                {/* 사이즈 정보 */}
+                <div>
+                  <span>size : </span>
+                  <span>{re.size}</span>
+                </div>
+              </MypageInfo>
+            </MypagePd>
+
+            <div></div>
+
+            <MypageColum>
+              <div>{re.price}</div>
+              <div>{re.quantity}개</div> {/* 연한 회색 처리 */}
+            </MypageColum>
+
+            <MypageColum>
+              <div>
+                <Link to="/mypage/review" state={{ orderDone: orderDone[2] }}>
+                  후기작성
+                </Link>
+              </div>
+            </MypageColum>
+          </MypageBody>
+        ) : (
+          ""
+        )
+      )}
+    </div>
   );
 };
 
 export default Mypage;
 
-const H4 = styled.h4`
-  border-bottom: 2px solid black;
-  margin-bottom: 15px;
-  padding-bottom: 15px;
-  font-weight: 700;
-`;
-
-const Body = styled.div`
-  min-height: calc(100vh - 236px);
-  max-width: 1280px;
-  margin: auto;
-  padding: 48px;
-`;
-
-const UserInfo = styled.div`
+const UsetInfo = styled.div`
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-gap: 20px;
 `;
 
 const Labels = styled.div`
@@ -292,8 +328,8 @@ const MypageHead = styled.div`
   grid-template-columns: 2fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
-  border: solid 1px lightgrey;
-  padding: 20px;
+  border: solid 1px;
+  padding: 20px 0;
 `;
 
 const MypageBody = styled.div`
@@ -302,9 +338,8 @@ const MypageBody = styled.div`
   grid-template-columns: 2fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
-  border: solid 1px lightgrey;
-  border-top: 0;
-  padding: 20px;
+  border: solid 1px;
+  padding: 20px 0;
 `;
 
 const MypagePd = styled.div`
@@ -319,8 +354,4 @@ const MypageInfo = styled.div`
 
 const MypageColum = styled.div`
   text-align: center;
-`;
-
-const MypageEvent = styled.div`
-  margin-top: 50px;
 `;

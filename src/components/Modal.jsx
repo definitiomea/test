@@ -48,7 +48,6 @@ const Modal = (props) => {
     } else {
       dispatch(
         loginUser({
-          name: findUser.name,
           id: findUser.id,
           email: findUser.email,
           address: findUser.address,
