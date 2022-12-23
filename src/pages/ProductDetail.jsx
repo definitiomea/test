@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import styled from "styled-components";
 
 import FabricSettings from "../modules/FabricSettings";
 import { initCanvas, handleImage, addText, setTextColor, exportImg, customSave, customErase } from "../modules/CanvasHandling";
@@ -155,17 +156,21 @@ const ProductDetail = () => {
           ) : (
             ""
           )}
-          <div
+          {/* <div
             style={{
               position: "absolute",
               top: "20%",
               left: "25%",
               width: "180px",
+              height: "260px",
               outline: "1px dashed black" 
             }}
           >
             <canvas id="canvas"></canvas>
-          </div>
+          </div> */}
+          <DrawingArea>
+            <canvas id="canvas"></canvas>
+          </DrawingArea>
         </div>
       </div>
 
@@ -213,3 +218,16 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
+
+const DrawingArea = styled.div`
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  z-index: 10;
+  width: 180px;
+  height: 260px;
+  /* &:hover와 같이 CSS 이벤트 가능 */
+  &:hover {
+    outline: 1px dashed black;
+  }
+`;
