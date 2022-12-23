@@ -4,8 +4,7 @@ import Modal from "@mui/material/Modal";
 import { useState } from "react";
 import { ADDIT_USER } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
-import user, { loginUser, updateAddress } from "../redux/reducers/user";
-import { useRef } from "react";
+import { loginUser, updateAddress } from "../redux/reducers/user";
 
 const Postcode = (props) => {
   const handleComplete = (data) => {
@@ -36,43 +35,19 @@ const Postcode = (props) => {
 };
 
 function DeliveryList() {
-  const [address, setAddress] = useState("");
-  const [zoneCode, setZoneCode] = useState("");
-  // 우편주소, 주소, 상세주소, 참고사항
-  const [allAddress, setAllAddress] = useState({
-    zoneCode: "",
-    address: "",
-    detailAddress: "",
-    reference: "",
-  });
+  // user 정보
+  const user = useSelector((state) => state.user);
+
+  const [address, setAddress] = useState(user.address);
+  const [zoneCode, setZoneCode] = useState(user.zoneCode);
+  const [detailAddress, setDetailAddress] = useState(user.detailAddress);
+  const [reference, setReference] = useState(user.reference);
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const addressList = useSelector((state) => state.user);
-
   const dispatch = useDispatch();
-
-  const onChange = (e) => {
-    const additAddress = {
-      ...allAddress,
-      // zoneCode: zoneCodeRef.current.value,
-      // address: addressRef.current.value,
-      [e.target.name]: e.target.value, // 상세주소, 참고사항
-    };
-    setAllAddress(additAddress);
-  };
-  // console.log(allAddress);
-
-  // 모달이 꺼지면서 zoneCode와 address값을 받아옴 - 우편주소, 주소
-  const save = () => {
-    handleClose();
-    setAllAddress({
-      zoneCode: zoneCode,
-      address: address,
-    });
-    console.log(allAddress);
-  };
 
   const changeAddress = (e) => {
     setAddress(e.target.value);
@@ -92,25 +67,31 @@ function DeliveryList() {
   const submit = () => {
     handleOpen();
   };
-
   const relay = (e) => {
     e.preventDefault();
     Postcode();
     dispatch(
       ADDIT_USER({
-        ...allAddress,
+        ...user,
+        detailAddress,
+        reference,
         zoneCode,
         address,
       })
     );
     dispatch(
-      loginUser({
-        ...allAddress,
+      updateAddress({
+        detailAddress,
+        reference,
         zoneCode,
         address,
       })
     );
-    console.log(allAddress);
+  };
+
+  // 모달이 꺼지면서 zoneCode와 address값을 받아옴
+  const save = () => {
+    handleClose();
   };
 
   const style = {
@@ -158,20 +139,22 @@ function DeliveryList() {
           type="text"
           id="sample6_detailAddress"
           name="detailAddress"
-          onChange={onChange}
-          value={addressList.detailAddress}
+          onChange={(e) => {
+            setDetailAddress(e.target.value);
+          }}
+          value={detailAddress}
         />
         <input
           type="text"
           id="sample6_extraAddress"
           name="reference"
-          onChange={onChange}
-          value={addressList.reference}
+          onChange={(e) => {
+            setReference(e.target.value);
+          }}
+          value={reference}
         />
         <input type="button" defaultValue="우편번호 찾기" onClick={submit} />
         <button>배송지 변경</button>
-        {/** submit을 위해 버튼을 input type="submit"으로 */}
-        {/* <input type="submit" value="배송지 수정" /> */}
       </form>
     </div>
   );
