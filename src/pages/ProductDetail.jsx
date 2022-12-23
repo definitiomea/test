@@ -1,170 +1,243 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { fabric } from 'fabric';
-import 'fabric-history';
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
-import Button from '@mui/material/Button';
+import FabricSettings from "../modules/FabricSettings";
+import { initCanvas, handleImage, addText, setTextColor, exportImg, customSave, customErase } from "../modules/CanvasHandling";
+import { QuantityOption, SizeOption, flipShirts, changeShirtColor } from "../modules/PageSetting";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import Button from "@mui/material/Button";
+
+import { inputCart } from "../redux/reducers/cart";
 
 const ProductDetail = () => {
+  const { id } = useParams(); // id : productList {id}
+
   const [productList, setProductList] = useState(null);
   const [img, setImg] = useState(null);
   const [canvas, setCanvas] = useState(null);
+  const [color, setColor] = useState(null);
+  const [print, setPrint] = useState("front");
+  const [editArray, setEditArray] = useState([]);
 
-  const { id } = useParams(); // id : productList {id}
+  const editZone = useRef(null);
+  const sizeSelect = useRef(null);
+  const quantitySelect = useRef(null);
 
+  const dispatch = useDispatch();
+
+  /* 셋팅 불러오기 */
+  FabricSettings();
+
+  /* 각각의 티셔츠 받아오기 */
   const getProduct = async () => {
     let url = `https://my-json-server.typicode.com/hans-4303/test/productList/${id}`;
     let response = await fetch(url);
     let data = await response.json();
     setProductList(data);
-  }
+  };
 
-  let deleteIcon = "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='595.275px' height='595.275px' viewBox='200 215 230 470' xml:space='preserve'%3E%3Ccircle style='fill:%23F44336;' cx='299.76' cy='439.067' r='218.516'/%3E%3Cg%3E%3Crect x='267.162' y='307.978' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -222.6202 340.6915)' style='fill:white;' width='65.545' height='262.18'/%3E%3Crect x='266.988' y='308.153' transform='matrix(0.7071 0.7071 -0.7071 0.7071 398.3889 -83.3116)' style='fill:white;' width='65.544' height='262.179'/%3E%3C/g%3E%3C/svg%3E";
-  let delImg = new Image();
-  delImg.src = deleteIcon;
+  /* 제품의 가격 */
+  const productPrice = parseInt(productList?.price.replace(",", ""));
 
-  fabric.Object.prototype.transparentCorners = false;
-  fabric.Object.prototype.cornerColor = "blue";
-  fabric.Object.prototype.cornerStyle = "circle";
-
-  fabric.Object.prototype.controls.deleteControl = new fabric.Control({
-    x: 0.5,
-    y: -0.5,
-    offsetY: 16,
-    cursorStyle: "pointer",
-    mouseUpHandler: deleteObject,
-    render: renderIcon,
-    cornerSize: 24,
-  });
-
-  function deleteObject (eventData, transform) {
-    let target = transform.target;
-    let canvas = target.canvas;
-    canvas.remove(target);
-    canvas.requestRenderAll();
-  }
-
-  function renderIcon (ctx, left, top, styleOverride, fabricObject) {
-    let size = this.cornerSize;
-    ctx.save();
-    ctx.translate(left, top);
-    ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle));
-    ctx.drawImage(delImg, -size / 2, -size / 2, size, size);
-    ctx.restore();
-  }
-
-  const flipShirts = () => {
-    for(let i = 0; i < productList.productImg.length; i++) {
-      if(img == productList.productImg[i] && i % 2 == 0) {
-        setImg(productList.productImg[i + 1]);
-      }
-      else if(img == productList.productImg[i] && i % 2 == 1) {
-        setImg(productList.productImg[i - 1]);
-      }
-    }
-  }
-
-  const add = () => {
-    let rect = new fabric.Rect({
-      left: 60,
-      top: 50,
-      fill: "yellow",
-      width: 100,
-      height: 100,
-      objectCaching: false,
-      stroke: "lightgreen",
-      strokeWidth: 4,
-    });
-    
-    canvas.add(rect);
-    canvas.setActiveObject(rect);
-  }
-
-  let test = "https://www.princeton.edu/sites/default/files/styles/scale_1440/public/images/2022/02/KOA_Nassau_2697x1517.jpg?itok=lA8UuoHt";
-  let backImg = new Image();
-  backImg.src = test;
-
-  const initCanvas = () => {
-    return new fabric.Canvas('canvas', {
-      width: 400,
-      height: 400,
-      backgroundColor: "transparent",
-      backgroundImage: new fabric.Image(backImg)
-    })
-  }
-
-  useEffect(() => {
-    setCanvas(initCanvas());
-  }, [])
-
+  /* 페이지가 로딩되면 제품 정보를 받고, 캔버스를 정해주면 되므로 */
   useEffect(() => {
     getProduct();
+    setCanvas(initCanvas());
   }, [id]);
 
-  useEffect(()=>{
-    if(productList != null) {
-      setImg(productList.productImg[0])
+  /* 제품 정보가 로딩되면 기본 이미지와 기본 색상 정보가 있어야 하므로 */
+  useEffect(() => {
+    if (productList != null) {
+      setImg(productList.productImg[0]);
+      setColor(productList.colorName[0]);
     }
-  }, [productList])
-
-  console.log(canvas);
+  }, [productList]);
 
   return (
-    <div className="product-area">
-
+    <ProductArea>
       <div className="product-button">
-        <Button variant="contained" color="success" onClick={() => {flipShirts()}}>앞/뒤</Button>
-        <Button variant="contained" color="success" onClick={() => {add()}}>사진 업로드</Button>
-        <Button variant="contained" color="success" onClick={() => {}}>사진 삭제</Button>
-        <Button variant="contained" color="success">텍스트</Button>
-        <Button variant="contained" color="success">이미지 편집</Button>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => {
+            flipShirts({productList, img, setImg, setPrint});
+          }}
+        >
+          앞/뒤 뒤집기
+        </Button>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(event) => {
+            handleImage({canvas, event});
+          }}
+        />
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => {
+            addText({canvas});
+          }}
+        >
+          텍스트 추가하기
+        </Button>
+        <input type="color" onChange={(event) => setTextColor({canvas, event})}></input>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => {
+            canvas.undo();
+          }}
+        >
+          편집 되돌리기
+        </Button>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => {
+            canvas.redo();
+          }}
+        >
+          편집 되돌리기 취소
+        </Button>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => {
+            canvas.clear();
+          }}
+        >
+          이미지, 편집 전체 삭제
+        </Button>
+        <Button
+          onClick={() => {
+            exportImg({productList, editArray, setEditArray, dispatch, inputCart, color, quantitySelect, sizeSelect, productPrice});
+          }}
+        >
+          이미지 내보내기(dispatch)
+        </Button>
+        <Button
+          onClick={() => {
+            customSave({editZone, editArray, setEditArray, img, setImg, print, setPrint, productList});
+          }}
+        >
+          편집한 면의 이미지 저장
+        </Button>
+        <Button
+          onClick={() => {
+            customErase({setEditArray});
+          }}
+        >
+          앞, 혹은 뒷면 이미지 편집 내역 지우기
+        </Button>
       </div>
 
-      <div className="product-detail">
-        {productList?.category == "short" && img != null ?
-          <div className="img-box">
-            <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img>
-          </div> : 
-        ""}
-        {productList?.category == "long" && img != null ?
-          <div className="img-box">
-            <img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img>
-          </div> : 
-        ""}
-      </div>
-
-      {/* <canvas id="canvas"></canvas> */}
-        
-      <div className="product-info">
-          {productList ? <p>{productList.id}</p> : ""}
-          {productList ? <p>{productList.productName}</p> : ""}
-          {productList ? <p>{productList.price}</p> : ""}
-          <div style={{display: "flex"}}>
-            {productList ? productList.color.map((color, index) => 
-              <div style={{width: "15px", height: "15px", border: "1px solid transparent", borderRadius: "50%", backgroundColor: color}} onClick={() => {setImg(productList.productImg[index * 2])}} key={index}></div>) :
-            ""}
-          </div>
-
-          <select style={{width: "100px"}}>
-            {productList?.size.map((size, index) => <option key={index}>{size}</option>)}
-          </select>
-
-          <div>
-            <Button><FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon></Button>
-            <Button>구매하기</Button>
-          </div>
-            {/* 원하는 객체가 있는지 삼항 연산자, 콘솔로 찍어봤을 때
-            거짓 경우(객체 로딩 중) -> 참 경우(객체 로딩 완료)로 넘어가면서
-            둘 다가 찍힌다.
-            
-            그래서, 로딩 되기 전의 거짓 경우와 로딩 되었을 때의 참 경우 둘 다가 필요하고,
-            객체가 있는지를 "?"를 통해 한번 더 체크해야 한다. */}
+      
+      <div className="product-detail" ref={editZone}>
+        {/* 제품 이미지를 보낼 때의 짜투리는 img-box의 마진 때문으로 파악 */}
+        <div className="img-box">
+          {productList?.category == "short" && img != null ? (
+            <img
+              className="product-img"
+              src={require(`../img/shirts-img/short/${img}`)}
+            ></img>
+          ) : (
+            ""
+          )}
+          {productList?.category == "long" && img != null ? (
+            <img
+              className="product-img"
+              src={require(`../img/shirts-img/long/${img}`)}
+            ></img>
+          ) : (
+            ""
+          )}
+          {/* <div
+            style={{
+              position: "absolute",
+              top: "20%",
+              left: "25%",
+              width: "180px",
+              height: "260px",
+              outline: "1px dashed black" 
+            }}
+          >
+            <canvas id="canvas"></canvas>
+          </div> */}
+          <DrawingArea>
+            <canvas id="canvas"></canvas>
+          </DrawingArea>
         </div>
-    </div>
+      </div>
+
+      <div className="product-info">
+        {productList ? <p>{productList.id}</p> : ""}
+        {productList ? <p>{productList.productName}</p> : ""}
+        {productList ? <p>{productList.price}</p> : ""}
+        <div style={{ display: "flex" }}>
+          {productList
+            ? productList.color.map((color, index) => (
+                <div
+                  style={{
+                    width: "15px",
+                    height: "15px",
+                    border: "1px solid transparent",
+                    borderRadius: "50%",
+                    backgroundColor: color,
+                  }}
+                  onClick={() => {
+                    changeShirtColor({productList, setImg, setColor, setPrint, setEditArray, index});
+                  }}
+                  key={index}
+                ></div>
+              ))
+            : ""}
+        </div>
+
+        <select style={{ width: "100px" }} ref={sizeSelect}>
+          <SizeOption productList={productList}></SizeOption>
+        </select>
+
+        <select name="" id="" ref={quantitySelect}>
+          <QuantityOption></QuantityOption>
+        </select>
+
+        <div>
+          <Button>
+            <FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon>
+          </Button>
+          <Button>구매하기</Button>
+        </div>
+      </div>
+    </ProductArea>
   );
-}
- 
+};
+
 export default ProductDetail;
+
+const DrawingArea = styled.div`
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  z-index: 10;
+  width: 180px;
+  height: 260px;
+  /* &:hover와 같이 CSS 이벤트 가능 */
+  &:hover {
+    outline: 1px dashed black;
+  }
+`;
+
+const ProductArea = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+`;

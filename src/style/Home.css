@@ -1,0 +1,142 @@
+/* <첫번째 스크린> */
+.section-video {
+  width: 100%;
+  height: 100vh;
+}
+
+/* 첫번째 스크린 비디오 */
+.section-video video {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  object-fit: cover;
+  filter: brightness(80%);
+}
+
+/* 첫번째스크린 문구 */
+.first-content {
+  position: absolute;
+  top: 10%;
+  left: 60%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.first-content p {
+  font-size: 3rem;
+}
+
+/* 첫번째스크린 view 버튼 */
+.toGoShop {
+  color: white;
+  border: 3px solid white;
+  width: 100px;
+  padding: 10px 5px;
+  margin-top: 1rem;
+  text-decoration: none;
+}
+
+.toGoShop:hover {
+  color: white;
+  background-color: none;
+  filter: brightness(80%);
+}
+
+/* <두번째 스크린> */
+.section-img {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 두번째 이미지 */
+.second-screen img {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  object-fit: cover;
+  filter: brightness(70%);
+}
+
+.second-content {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.second-content section {
+  border: 2px solid;
+  margin: 20px;
+}
+
+/* <세번째 스크린> */
+.last-screen {
+  position: static;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+}
+
+/* 세번째 스크린 문구 */
+.last-content {
+  position: absolute;
+  top: 50%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  background-color: transparent;
+  /* color: white; */
+  border-width: 0 0 3px 0;
+  width: 300px;
+  height: 30px;
+}
+
+.submit-button {
+  width: 300px;
+  background-color: transparent;
+  color: white;
+  padding: 10px 0;
+  border: 2px solid white;
+  cursor: pointer;
+}
+
+.last-content div {
+  color: white;
+  display: flex;
+}
+
+.last-content div a {
+  color: white;
+  text-decoration: none;
+}
+
+/* 타블렛 버전 */
+@media screen and (max-width: 768px) {
+  .first-content p {
+    font-size: 2.3rem;
+  }
+}
+
+/* 모바일 버전 */
+@media screen and (max-width: 500px) {
+  .first-content p {
+    font-size: 2rem;
+  }
+}

@@ -1,15 +1,10 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 import ProductCard from "../components/ProductCard";
 
 const Shop = () => {
-  // 상품 상제 페이지 이동 확인을 위한 임시 데이터
-  /* const [productlist, setProductlist] = useState([
-    { id: 1, name: "상품 1", price: 10000 },
-    { id: 2, name: "상품 2", price: 15000 },
-    { id: 3, name: "상품 3", price: 20000 },
-  ]); */
-
   const [thumbNailList, setThumbNailList] = useState(null);
+  const [category, setCategory] = useState('short');
 
   const getThumbNailList = async () => {
     let url = `https://my-json-server.typicode.com/hans-4303/test/productList`;
@@ -20,21 +15,43 @@ const Shop = () => {
 
   useEffect(() => {
     getThumbNailList()
-  }, [thumbNailList]);
+  }, [/* thumbNailList, 이렇게 되면 state에 따라 무한 렌더링된다. */]);
 
   return (
     <div className="wrap">
       <h1>상품리스트</h1>
+      <button onClick={() => {setCategory('short')}}>Short</button>
+      <button onClick={() => {setCategory('long')}}>Long</button>
       <p>클릭하면 각 상품 상세 페이지로 이동</p>
-      <div className="product-container">
-        {thumbNailList?.map((thumbNail) => (
+      <ProductContainer>
+        {/* {thumbNailList?.map((thumbNail) => (
           <div key={thumbNail.id}>
             <ProductCard thumbNail={thumbNail} />
           </div>
-        ))}
-      </div>
+        ))} */}
+        {category === 'short' ? thumbNailList?.filter(thumbNail => thumbNail.id < 4).map((thumbNail, index) => (
+          <div key={thumbNail.id}>
+            <ProductCard thumbNail={thumbNail} />
+          </div>
+        )) : ""}
+        {category === 'long' ? thumbNailList?.filter(thumbNail => thumbNail.id >= 4).map((thumbNail, index) => (
+          <div key={thumbNail.id}>
+            <ProductCard thumbNail={thumbNail} />
+          </div>
+        )) : ""}
+      </ProductContainer>
     </div>
   );
 };
 
 export default Shop;
+
+const ProductContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
