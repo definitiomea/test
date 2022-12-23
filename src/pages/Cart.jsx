@@ -13,6 +13,7 @@ import Loading from "../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/reducers/cart";
 import { inputOrder } from "../redux/reducers/order";
+import DaumPostcodeEmbed from "react-daum-postcode";
 
 const Cart = () => {
   const cartlist = useSelector((state) => state.cartlist.cartlist);
@@ -57,7 +58,6 @@ const Cart = () => {
       copyCartlist[i].productName = product.productName;
       copyCartlist[i].thumbnail = 
         `${product.category}-${name}-${copyCartlist[i].color}-front.jpg`;
-      delete copyCartlist[i].cartID;
     }
     return copyCartlist;
   };
@@ -146,10 +146,11 @@ const Cart = () => {
           <MyContainter>
             <div className="delivery-info">
               <h3>Delivery Information</h3>
-              배송지 직접 입력하는 공간 <br />
-              저장된 배송지 정보 불러오는 버튼 <br />
-              저장된 배송지가 있다면 자동으로 채워준다(컴포넌트로 빼기) <br />
-              유저가 로그인 된 상태라면 저장된 배송지~
+              {/* <TextField label="우편번호" variant="filled" size="small"/>
+              <TextField label="주소" variant="filled" size="small"/>
+              <TextField label="상세주소" variant="filled" size="small"/>
+              <TextField label="배송요청사항" variant="filled" size="small"/> */}
+              {/* <DaumPostcodeEmbed /> */}
             </div>
             <div className="summary">
               <div>
@@ -213,6 +214,7 @@ const MyContainter = styled.div`
     flex: 1;
     padding: 2rem;
     background-color: #e9ecef;
+    height: fit-content;
     > div {
       display: flex;
       margin-bottom: 2rem;
@@ -231,6 +233,9 @@ const MyContainter = styled.div`
     }
     ${"div"} {
       padding: 0.2rem 0;
+    }
+    button {
+      width: 100%;
     }
   }
 `;
