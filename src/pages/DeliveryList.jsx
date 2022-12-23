@@ -56,8 +56,8 @@ function DeliveryList() {
   const onChange = (e) => {
     const additAddress = {
       ...allAddress,
-      zoneCode: zoneCodeRef.current.value,
-      address: addressRef.current.value,
+      // zoneCode: zoneCodeRef.current.value,
+      // address: addressRef.current.value,
       [e.target.name]: e.target.value, // 상세주소, 참고사항
     };
     setAllAddress(additAddress);
