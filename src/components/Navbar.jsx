@@ -10,8 +10,7 @@ import Modal from "../components/Modal";
 
 const Navbar = (props) => {
   // 리덕스 user 가져옴
-  const userName = useSelector((state) => state.user);
-  // console.log(userName);
+  const userName = useSelector((state) => state.user.name);
 
   // 모바일 버전 시 네브 토글바
   const [toggleOpen, setToggleOpen] = useState(false);
@@ -43,16 +42,18 @@ const Navbar = (props) => {
     navigate("");
   };
 
+  // main페이지와 다른 페이지의 css 차별을 위해 메인위치 지정해줌
   const location = useLocation();
+  const main = location.pathname === "/";
 
   return (
     <header>
-      <nav>
+      <nav className={main ? "main-nav" : "page-nav"}>
         <div>
           <NavLink
             to="/"
             // 메인이 아닐 때 nav의 폰트색상 black
-            className={location.pathname === "/" ? "white-logo" : "dark-logo"}
+            className={main ? "white-logo" : "dark-logo"}
             // 로고 클릭시 상단으로 부드럽게 이동
             onClick={() => {
               window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -88,20 +89,13 @@ const Navbar = (props) => {
         <ul>
           {/* 네브바 리스트 */}
           <li>
-            <NavLink
-              to="shop"
-              className={location.pathname === "/" ? "white-nav" : "dark-nav"}
-            >
+            <NavLink to="shop" className={main ? "white-nav" : "dark-nav"}>
               SHOP
             </NavLink>
           </li>
 
           <li>
-            <NavLink
-              to="cart"
-              className={location.pathname === "/" ? "white-nav" : "dark-nav"}
-              v
-            >
+            <NavLink to="cart" className={main ? "white-nav" : "dark-nav"}>
               CART
             </NavLink>
           </li>
@@ -121,25 +115,17 @@ const Navbar = (props) => {
               <div
                 className={location.pathname === "/" ? "white-nav" : "dark-nav"}
               >
-                {userName.id}님 {/** 이름 수정 */}
+                {userName}님
               </div>
               <div className="dropdown-menu">
                 <NavLink
                   to="mypage"
-                  className={
-                    location.pathname === "/"
-                      ? "white-dropdown"
-                      : "dark-dropdown"
-                  }
+                  className={main ? "white-dropdown" : "dark-dropdown"}
                 >
                   MYPAGE
                 </NavLink>
                 <button
-                  className={
-                    location.pathname === "/"
-                      ? "white-dropdown"
-                      : "dark-dropdown"
-                  }
+                  className={main ? "white-dropdown" : "dark-dropdown"}
                   onClick={logOut}
                 >
                   LOGOUT
@@ -149,7 +135,7 @@ const Navbar = (props) => {
           ) : (
             <div>
               <button
-                className={location.pathname === "/" ? "white-nav" : "dark-nav"}
+                className={main ? "white-nav" : "dark-nav"}
                 onClick={
                   openModal
                   //   () => {

@@ -47,15 +47,17 @@ const Home = () => {
 
       <Slider {...settings} ref={slider}>
         <section className="first-screen">
-          <div className="section-video">
-            {/* 자동재생 무음 반복 */}
-            <video src={video} autoPlay muted loop />
-          </div>
-          <div className="first-content">
-            <p>Create your own t-shirts</p>
-            <Link to="shop" className="toGoShop">
-              VIEW
-            </Link>
+          <div>
+            <div className="section-video">
+              {/* 자동재생 무음 반복 */}
+              <video src={video} autoPlay muted loop />
+            </div>
+            <div className="first-content">
+              <p>Create your own t-shirts</p>
+              <Link to="shop" className="toGoShop">
+                VIEW
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -91,7 +93,7 @@ const Home = () => {
               {/* 가시성을 위해 아이콘으로 변경하기 */}
               <a href="https://www.instagram.com/">Instagram</a>
               <a href="https://www.facebook.com/">Facebook</a>
-              <a href="">Kakaotalk</a>
+              <a href="">Github</a>
             </div>
             <div>
               <p>Copyright © 2022 Team MOTI</p>

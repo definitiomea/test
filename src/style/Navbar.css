@@ -21,7 +21,7 @@ nav {
 
 .page-nav {
   background-color: white;
-  box-shadow: 0px 0px 30px 0px rgb(231, 231, 231) ;
+  box-shadow: 0px 0px 30px 0px rgb(207, 207, 207);
 }
 
 /* 로고 */
@@ -95,7 +95,7 @@ ul * {
   z-index: 1;
   padding: 10px 10px;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.146);
-  background-color: transparent;
+  background-color: white;
 }
 
 .dropdown-menu *:hover {

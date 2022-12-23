@@ -1,16 +1,21 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const CommentList = () => {
+const ReviewList = (props) => {
   // reviewReducer에서 initialState값 가져옴
   const reviewList = useSelector((state) => state.review.reviewList);
 
-  console.log(reviewList);
+  // console.log(reviewList);
+
+  // productDetail에서 props 받음
+  const { compare } = props;
+  // console.log(compare);
 
   return (
     <div>
+      {/* 상품 category와 productName을 대조하여 댓글 출력함*/}
       {reviewList.map((review) =>
-        review.category == "short" ? (
+        review.category == compare.category && review.productName == compare.productName ? (
           <div key={review.id}>
             <p>{review.userID}</p>
             <p>{review.category}</p>
@@ -20,11 +25,11 @@ const CommentList = () => {
             <p>{review.date}</p>
           </div>
         ) : (
-          "d"
+          ""
         )
       )}
     </div>
   );
 };
 
-export default CommentList;
+export default ReviewList;
