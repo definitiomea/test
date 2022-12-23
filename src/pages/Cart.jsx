@@ -13,6 +13,7 @@ import Loading from "../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/reducers/cart";
 import { inputOrder } from "../redux/reducers/order";
+import DeliveryList from "./DeliveryList";
 
 const Cart = () => {
   const cartlist = useSelector((state) => state.cartlist.cartlist);
@@ -146,10 +147,7 @@ const Cart = () => {
           <MyContainter>
             <div className="delivery-info">
               <h3>Delivery Information</h3>
-              배송지 직접 입력하는 공간 <br />
-              저장된 배송지 정보 불러오는 버튼 <br />
-              저장된 배송지가 있다면 자동으로 채워준다(컴포넌트로 빼기) <br />
-              유저가 로그인 된 상태라면 저장된 배송지~
+              <DeliveryList />
             </div>
             <div className="summary">
               <div>
