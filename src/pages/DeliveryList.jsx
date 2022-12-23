@@ -34,7 +34,7 @@ const Postcode = (props) => {
   return <DaumPostcode onComplete={handleComplete} {...props} />;
 };
 
-function BasicModal() {
+function DeliveryList() {
   const [address, setAddress] = useState("");
   const [zoneCode, setZoneCode] = useState("");
   const [allAddress, setAllAddress] = useState("");
@@ -166,4 +166,4 @@ function BasicModal() {
   );
 }
 
-export default BasicModal;
+export default DeliveryList;
