@@ -1,22 +1,20 @@
-import CircularProgress from "@mui/material/CircularProgress";
 import styled from "styled-components";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Loading = () => {
   return (
-    <LoadingWrap>
-      <div>
-        <CircularProgress color="inherit" size={50} />
-      </div>
-    </LoadingWrap>
+    <Wrap>
+      <CircularProgress color="inherit" size={50} />
+    </Wrap>
   );
 };
 
 export default Loading;
 
-const LoadingWrap = styled.div`
-  min-height: calc(100vh - 160px); // 160px : 푸터 높이 + 네브 높이
+const Wrap = styled.div`
+  min-height: calc(100vh - 236px); // 236px = 푸터 높이 + 네브 높이
   display: flex;
-  > div {
-    margin: auto;
-  }
+  justify-content: center;
+  align-items: center;
 `;
+

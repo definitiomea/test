@@ -1,13 +1,11 @@
 import styled from "styled-components";
 
-const StyledList = styled.ul`
-  padding: 0;
-  margin: 1rem 0;
+const StyledList = styled.div`
   border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
-  ${"li"} {
+  > div {
     display: grid;
-    grid-template-columns: 4fr repeat(4, 2fr); // 본인거에 맞춰서 조절
+    grid-template-columns: 4fr repeat(4, 2fr);
     gap: 1.5rem;
     align-items: center;
     justify-items: center;
@@ -16,12 +14,13 @@ const StyledList = styled.ul`
       font-weight: bold;
       border-bottom: 1px solid lightgray;
     }
-    &.product-empty {
-      min-height: 240px;
+    &.item-empty {
+      min-height: 180px;
       grid-template-columns: 1fr;
       color: lightgray;
     }
   }
+  // 미디어쿼리 추가할 것
 `;
 
 function List({ children, ...rest }) {
@@ -29,14 +28,3 @@ function List({ children, ...rest }) {
 }
 
 export default List;
-
-// 1. 쓰고자하는 컴포넌트에서 임포트
-// import List from "../style/StyledList"
-// 2. 태그로 감싸서 사용
-// <List>...</List>
-
-// 스타일 수정 > () 안에 컴포넌트 이름
-// const NewList = styled(List)`
-//   border-top: none;
-//   ...
-// `;

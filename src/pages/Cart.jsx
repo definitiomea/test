@@ -6,20 +6,70 @@ import { Button } from "@mui/material";
 import List from "../style/List";
 import MyButton from "../style/Button";
 
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CartItem from "../components/CartItem";
+import Loading from "../components/Loding";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/reducers/cart";
-import Loading from "../components/Loding";
+import { inputOrder } from "../redux/reducers/order";
 
 const Cart = () => {
   const cartlist = useSelector((state) => state.cartlist.cartlist);
+  const userID = useSelector((state) => state.user.id);
   const dispatch = useDispatch();
   const [dataloading, setDataloading] = useState(false);
-  const [productlist, setProductlist] = useState("");
+  const [productlist, setProductlist] = useState(null);
   const [deliveryPay, setDeliveryPay] = useState(3000);
+  const navigate = useNavigate();
 
-  // 상품리스트 데이터 들고오기
+  // 배송비 제외 총 금액
+  const getSubtotal = () => {
+    // prev: 이전값 > 현재까지 누적된 값
+    // cur : 현재값
+    // 0 : 초기값, 안쓰면 배열의 첫번째 요소가 들어감
+    const subtotal = cartlist.reduce((prev, cur) => {
+      return (prev += cur.totalPay);
+    }, 0);
+    return subtotal;
+  };
+
+  // productlist에서 cartlist에 아이템이 담긴 순서로 상품(product) 정보 골라내기
+  const findProduct = () => {
+    const productArr = [];
+    for (let i = 0; i < cartlist.length; i++) {
+      productArr.push(
+        productlist.find(
+          (product) => product.productID == cartlist[i].productID
+        )
+      );
+    } // [ {product3}, {1}, {2} ]
+    return productArr;
+  };
+
+  // 주문하기
+  const order = () => {
+    if (cartlist.length == 0) {
+      alert("장바구니가 비어있습니다.");
+      return;
+    }
+    // if (user.id == "") {
+    //   alert("로그인 후 이용해주세요");
+    //   return;
+    // }
+    dispatch(
+      inputOrder({
+        user: userID,
+        cartlist: cartlist,
+        product: findProduct(),
+      })
+    );
+    // 장바구니 목록 삭제 (clear cart)
+    // dispatch(clearCart());
+    // navigate("/orderconfirm");
+  };
+
+  // 상품리스트 데이터 들고오기 (db.json)
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(
@@ -39,27 +89,16 @@ const Cart = () => {
     cartlist.length == 0 ? setDeliveryPay(0) : setDeliveryPay(3000);
   }, [cartlist]);
 
-  // 배송비 제외 총 금액
-  const getSubtotal = () => {
-    // prev: 이전값 > 현재까지 누적된 값
-    // cur : 현재값
-    // 0 : 초기값, 안쓰면 배열의 첫번째 요소가 들어감
-    const subtotal = cartlist.reduce((prev, cur) => {
-      return (prev += cur.totalPay);
-    }, 0);
-    return subtotal;
-  };
-
   return (
-    <Container style={{paddingTop:'100px'}} maxWidth="lg">
+    <>
       {productlist ? (
-        <>
+        <StyledContainer maxWidth="lg">
           <Title>
             <FontAwesomeIcon icon={faCartShopping} />
             <h2>My Cart</h2>
           </Title>
           <List>
-            <li className="label">
+            <div className="label">
               <div>Product Name</div>
               <div>Size</div>
               <div>Quantity</div>
@@ -75,9 +114,9 @@ const Cart = () => {
                   Clear All
                 </Button>
               </div>
-            </li>
+            </div>
             {cartlist.length == 0 ? (
-              <li className="product-empty">Empty</li>
+              <div className="item-empty">Empty</div>
             ) : (
               <>
                 {cartlist.map((cartItem) => (
@@ -96,7 +135,8 @@ const Cart = () => {
               <h3>Delivery Information</h3>
               배송지 직접 입력하는 공간 <br />
               저장된 배송지 정보 불러오는 버튼 <br />
-              저장된 배송지가 있다면 자동으로 채워준다(컴포넌트로 빼기)
+              저장된 배송지가 있다면 자동으로 채워준다(컴포넌트로 빼기) <br />
+              유저가 로그인 된 상태라면 저장된 배송지~
             </div>
             <div className="summary">
               <div>
@@ -113,35 +153,38 @@ const Cart = () => {
                   </div>
                 </div>
               </div>
-              <MyButton>주문하기</MyButton>
+              <MyButton onClick={order}>주문하기</MyButton>
             </div>
           </Wrap>
-        </>
+        </StyledContainer>
       ) : (
         <Loading />
       )}
-    </Container>
+    </>
   );
 };
 
-// 주문하기 버튼을 누르면 모달창으로 주문완료 띄우기, 데이터는
-// orderlist로 이동
-// 주문완료 모달창에는 홈으로 가기/주문내역 확인하기 버튼
-// 홈은 홈으로, 주문내역은 마이페이지로 이동
-
 export default Cart;
 
+const StyledContainer = styled(Container)`
+  min-height: calc(100vh - 236px);
+  &.MuiContainer-root {
+    padding: 0 48px;
+  }
+`;
+
 const Title = styled.div`
-  margin-top: 3rem;
-  margin-bottom: 2rem;
-  ${"h2"} {
+  margin: 2rem 0;
+  h2 {
     display: inline-block;
+    font-family: "nav";
+    font-size: 1.5rem;
     font-weight: bold;
-    margin: 0; // GlobalStyles?
+    margin: 0;
     margin-left: 1rem;
   }
-  &:first-child {
-    font-size: 1.8rem;
+  svg {
+    font-size: 1.3rem;
   }
 `;
 
@@ -153,7 +196,6 @@ const Wrap = styled.div`
   }
   .delivery-info {
     flex: 2;
-    padding: 0rem 1.2rem;
   }
   .summary {
     flex: 1;

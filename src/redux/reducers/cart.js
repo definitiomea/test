@@ -3,37 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // 초기값
 const initialState = {
-  cartID: 0, // 장바구니 아이템 삭제를 위해 겹치는 일이 없도록 (고유값)
-  cartlist: [
-    // 테스트용 데이터
-    {
-      cartID: 1,
-      productID: 1,
-      color: "black",
-      size: "S",
-      print: "front",
-      quantity: 5,
-      totalPay: 47500, // 문자열 > 숫자형으로
-    },
-    {
-      cartID: 2,
-      productID: 2,
-      color: "blue",
-      size: "M",
-      print: "back",
-      quantity: 2,
-      totalPay: 19000,
-    },
-    {
-      cartID: 3,
-      productID: 3,
-      color: "beige",
-      size: "L",
-      print: "front / back",
-      quantity: 3,
-      totalPay: 28500,
-    },
-  ],
+  cartID: 0,
+  cartlist: [],
 };
 
 const cartSlice = createSlice({
@@ -43,15 +14,13 @@ const cartSlice = createSlice({
     // 장바구니에 담기
     inputCart: (state, action) => {
       const newCartitem = {
-        cartID: 4,
-        productID: 1,
-        color: "black",
-        size: "S",
-        print: "front", // 배열이나 문자열이나
-        quantity: 5, // amount에서 quantity로 수정
-        totalPay: 47500, // 상품별 금액 * 구매수량 (금액 계산을 여러번하기 때문에 숫자형으로)
-        // 이미지
-        img : "",
+        cartID: state.cartID++,
+        productID: action.payload.id,
+        color: action.payload.color,
+        size: action.payload.size,
+        quantity: action.payload.quantity,
+        totalPay: action.payload.quantity * action.payload.productPrice,
+        imgArray: action.payload.imgArray,
       };
       const newCartlist = state.cartlist.concat(newCartitem);
       state.cartlist = newCartlist;
@@ -63,6 +32,7 @@ const cartSlice = createSlice({
           return {
             ...item,
             quantity: item.quantity - 1,
+            totalPay: action.payload.productPrice * (item.quantity - 1),
           };
         } else {
           return item;
@@ -77,6 +47,7 @@ const cartSlice = createSlice({
           return {
             ...item,
             quantity: item.quantity + 1,
+            totalPay: action.payload.productPrice * (item.quantity + 1),
           };
         } else {
           return item;
@@ -100,6 +71,7 @@ const cartSlice = createSlice({
           return {
             ...item,
             quantity: newQuantity(),
+            totalPay: action.payload.productPrice * newQuantity(),
           };
         } else {
           return item;
@@ -109,9 +81,10 @@ const cartSlice = createSlice({
     },
     // 장바구니 아이템 개별 삭제
     deleteItem: (state, action) => {
-      state.cartlist = state.cartlist.filter(
+      const newCartlist = state.cartlist.filter(
         (item) => item.cartID != action.payload
       );
+      state.cartlist = newCartlist;
     },
     // 장바구니 아이템 모두 삭제
     clearCart: (state) => {

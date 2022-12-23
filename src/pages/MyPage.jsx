@@ -78,9 +78,9 @@ const Mypage = () => {
   return (
     <Body>
       {/* 회원정보 수정 form */}
-      <h4>회원정보 수정</h4>
+      <H4>회원정보 수정</H4>
 
-      <UsetInfo>
+      <UserInfo>
         <Labels className="labels">
           <label>이름</label>
           <label>휴대폰 번호</label>
@@ -98,12 +98,12 @@ const Mypage = () => {
         </Inputs>
 
         <DaumPostcodeEmbed />
-      </UsetInfo>
+      </UserInfo>
       <button>회원정보 수정</button>
 
       {/* 주문/배송조회 form  */}
       <MypageOrder>
-        <h4>주문/배송 조회</h4>
+        <H4>주문/배송 조회</H4>
         <MypageHead>
           <div>상품정보</div>
           <div>주문일자</div>
@@ -206,7 +206,7 @@ const Mypage = () => {
 
       {/* 이벤트 배너 form  */}
       <MypageEvent>
-        <h4>이벤트</h4>
+        <H4>이벤트</H4>
       </MypageEvent>
       <div
         style={{ width: "100%", height: "200px", backgroundColor: "skyblue" }}
@@ -253,13 +253,24 @@ const Mypage = () => {
 
 export default Mypage;
 
-const Body = styled.div`
-  padding-top: 135px;
+const H4 = styled.h4`
+  border-bottom: 2px solid black;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  font-weight: 700;
 `;
 
-const UsetInfo = styled.div`
+const Body = styled.div`
+  min-height: calc(100vh - 236px);
+  max-width: 1280px;
+  margin: auto;
+  padding: 48px;
+`;
+
+const UserInfo = styled.div`
   display: grid;
   grid-template-columns: auto 1fr;
+  grid-gap: 20px;
 `;
 
 const Labels = styled.div`
@@ -281,8 +292,8 @@ const MypageHead = styled.div`
   grid-template-columns: 2fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
-  border: solid 1px;
-  padding: 20px 0;
+  border: solid 1px lightgrey;
+  padding: 20px;
 `;
 
 const MypageBody = styled.div`
@@ -291,8 +302,9 @@ const MypageBody = styled.div`
   grid-template-columns: 2fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
-  border: solid 1px;
-  padding: 20px 0;
+  border: solid 1px lightgrey;
+  border-top: 0;
+  padding: 20px;
 `;
 
 const MypagePd = styled.div`

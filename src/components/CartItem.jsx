@@ -12,81 +12,94 @@ import {
 } from "../redux/reducers/cart";
 import { useRef } from "react";
 import { useEffect } from "react";
+import { useState } from "react";
 
 const CartItem = (props) => {
   const { cartItem, productlist, dispatch } = props; // Cart.jsx
+  const [totalPay, setTotalPay] = useState(cartItem.totalPay);
+  // 상품리스트에서 장바구니에 담긴 아이템들의 상품정보 찾기
+  const product = productlist.find(
+    (productItem) => productItem.productID == cartItem.productID
+  );
+  const price = parseInt(product.price.replace(",", ""));
+  // 구매수량이 바뀔 때마다 반영하기 위한 ref
   const inputRef = useRef();
 
-  // 상품리스트에서 cartlist의 상품정보 찾기
-  const findProduct = (cartItem) =>
-    productlist.find(
-      (productItem) => productItem.productID == cartItem.productID
+  // 구매 수량 변경 : +1 , -1, 직접입력
+  const onDecrease = () => {
+    dispatch(
+      quantityDecrease({
+        cartID: cartItem.cartID,
+        productPrice: price,
+      })
     );
+  };
+  const onIncrease = () => {
+    dispatch(
+      quantityIncrease({
+        cartID: cartItem.cartID,
+        productPrice: price,
+      })
+    );
+  };
+  const onInput = (e) => {
+    dispatch(
+      quantityInput({
+        cartID: cartItem.cartID,
+        productPrice: price,
+        value: e.target.value,
+      })
+    );
+  };
 
-  // 상품별 총 금액
-  const totalPay = (price, quantity) => {
-    const pay = parseInt(price.replace(",", ""));
-    const totalPay = pay * quantity;
-    return totalPay.toLocaleString("ko-KR"); 
-  }
-
-  // 상품이미지 가져오기 >> 사용자가 도안을 편집한 이미지로 대체할 것
-  const getImage = (cartItem) => {
-    switch (cartItem.category) {
-      case "short":
-        return (
-          <img
-            src={require(`../img/shirts-img/short/${
-              findProduct(cartItem).thumbnail[0]
-            }`)}
-            alt="No Image"
-          />
-        );
-      case "long":
-        return (
-          <img
-            src={require(`../img/shirts-img/long/${
-              findProduct(cartItem).thumbnail[0]
-            }`)}
-            alt="No Image"
-          />
-        );
-      default:
-        return <div>No Image</div>;
+  // 장바구니 아이템의 ImgArr(사용자 도안 배열)을 print: front - back 순으로 정렬
+  const newImgArr = () => {
+    if (cartItem.imgArray.length == 2) {
+      return cartItem.imgArray[0].print == "back"
+        ? cartItem.imgArray.slice(0).reverse()
+        : cartItem.imgArray;
+    } else {
+      return cartItem.imgArray;
     }
   };
-  
-  // 구매 수량이 바뀔 때마다 input에 반영하기 위함
+
+  // 구매 수량이 바뀔 때마다 input과 totalPay에 반영하기 위함
   useEffect(() => {
     inputRef.current.value = cartItem.quantity;
+    setTotalPay(cartItem.totalPay);
   }, [cartItem.quantity]);
 
   return (
-    <li>
-      <StyledProduct>
-        {getImage(findProduct(cartItem))}
+    <div>
+      <ProductWrap>
+        {newImgArr().map((item, i) => (
+          <img src={item.imageUrl} key={i} />
+        ))}
         <div>
-          <div>{findProduct(cartItem).category}</div>
           <div>
-            {`${findProduct(cartItem).productName} (${cartItem.color})`}
+            {product.category} {product.productName}
           </div>
-          {/** print는 데이터 형태 확인할 것(수정 가능성 있음) */}
-          <div>print : {cartItem.print}</div>
+          <div>
+            color :<span>{cartItem.color}</span>
+          </div>
+          <div>
+            print :
+            {newImgArr().length == 2 ? (
+              <span>
+                {newImgArr()[0].print} / {newImgArr()[1].print}
+              </span>
+            ) : (
+              <span>{newImgArr()[0].print}</span>
+            )}
+          </div>
         </div>
-      </StyledProduct>
+      </ProductWrap>
       <div>{cartItem.size}</div>
-      <ButtonWrap>
+      <QuantityWrap>
         <IconButton
           sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
           aria-label="remove"
-          onClick={() => {
-            dispatch(
-              quantityDecrease({
-                cartID: cartItem.cartID,
-                productPrice: findProduct(cartItem).price,
-              })
-            );
-          }}
+          onClick={onDecrease}
         >
           <RemoveIcon />
         </IconButton>
@@ -94,34 +107,17 @@ const CartItem = (props) => {
           type="number"
           defaultValue={cartItem.quantity}
           ref={inputRef}
-          onChange={(e) => {
-            dispatch(
-              quantityInput({
-                cartID: cartItem.cartID,
-                productPrice: findProduct(cartItem).price,
-                value: e.target.value,
-              })
-            );
-          }}
+          onChange={onInput}
         />
         <IconButton
           sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
           aria-label="add"
-          onClick={() => {
-            dispatch(
-              quantityIncrease({
-                cartID: cartItem.cartID,
-                productPrice: findProduct(cartItem).price,
-              })
-            );
-          }}
+          onClick={onIncrease}
         >
           <AddIcon />
         </IconButton>
-      </ButtonWrap>
-      <div>{
-      totalPay(findProduct(cartItem).price, cartItem.quantity)
-      }</div>
+      </QuantityWrap>
+      <div>{totalPay.toLocaleString("ko-KR")}</div>
       <IconButton
         sx={{ "&:hover": { color: "#dc3545" } }}
         aria-label="delete"
@@ -131,40 +127,52 @@ const CartItem = (props) => {
       >
         <DeleteIcon />
       </IconButton>
-    </li>
+    </div>
   );
 };
 
-// 상품 이미지 클릭하면 해당 상품으로 이동
-
 export default CartItem;
 
-const StyledProduct = styled.div`
+const ProductWrap = styled.div`
   display: flex;
-  align-self: center;
   justify-self: left;
-  ${"div"} {
-    &:last-child {
-      padding-top: 1rem;
+  align-items: center;
+  > div {
+    margin-left: 1rem;
+    > div {
+      &:first-child {
+        padding-bottom: 1rem;
+      }
+    }
+    span {
+      margin-left: 0.5rem;
     }
   }
   // 미디어쿼리 - 작은 화면에서는 이미지 안 보이게
   ${"img"} {
     width: 120px;
+    min-width: 120px;
     min-height: 120px;
-    margin-right: 1.5rem;
+    margin-right: 0.5rem;
     background-color: #dee2e6;
+
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
   }
 `;
 
-const ButtonWrap = styled.div`
+const QuantityWrap = styled.div`
   display: flex;
   background-color: #f8f9fa;
-  ${"input"} {
-    max-width: 4rem;
+  input {
+    height: auto;
+    max-width: 3.5rem;
+    min-height: 32px;
     text-align: center;
     border: none;
     background-color: #f8f9fa;
+    color: black;
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
@@ -176,6 +184,11 @@ const ButtonWrap = styled.div`
     &:focus {
       outline: none;
       box-shadow: 0 0 1px 1px #dee2e6 inset;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    button {
+      display: none;
     }
   }
 `;

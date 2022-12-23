@@ -10,7 +10,7 @@ import MyPage from "./pages/MyPage";
 import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 import ReaviewAdd from "./components/ReviewAdd";
-import OrderConfirmation from "./pages/OrderConfirmation";
+import OrderConfirm from "./pages/OrderConfirm";
 
 function App() {
   return (
@@ -20,10 +20,9 @@ function App() {
           <Route index element={<Home />} />
           <Route path="shop" element={<Shop />} />
           <Route path="shop/:id" element={<ProductDetail />} />
-
           <Route path="signup" element={<SignUp />} />
           <Route path="cart" element={<Cart />} />
-          <Route path="orderconfirmation" element={<OrderConfirmation />} />
+          <Route path="orderconfirm" element={<OrderConfirm />} />
           <Route path="mypage" element={<MyPage />} />
           <Route path="mypage/review" element={<ReaviewAdd />}></Route>
           <Route path="*" element={<NotFound />} />
