@@ -92,6 +92,7 @@ ul * {
 .dropdown-menu {
   position: absolute;
   display: none;
+  left: -250%;
   z-index: 1;
   padding: 10px 10px;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.146);
@@ -155,50 +156,5 @@ button {
 
   .mobile-nav {
     display: none;
-  }
-}
-
-/* 모바일 버전 */
-@media screen and (max-width: 500px) {
-  nav {
-    background-color: black;
-    width: 100%;
-    height: 40px;
-    padding: 1.8rem 2rem;
-  }
-
-  ul {
-    display: none;
-  }
-
-  .white-logo {
-    font-size: 1.5rem;
-  }
-
-  .dark-logo {
-    color: white;
-    font-size: 1.5rem;
-  }
-
-  /* 모바일-햄버거메뉴 */
-  .toggle-button {
-    display: block;
-    color: white;
-    float: right;
-  }
-
-  .mobile-nav {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-
-    background-color: black;
-    color: white;
-    /* margin-top: ; */
-  }
-
-  .mobile-nav * {
-    color: white;
   }
 }
