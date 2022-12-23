@@ -106,7 +106,7 @@ const Cart = () => {
   return (
     <>
       {productlist ? (
-        <StyledContainer maxWidth="lg">
+        <StyledContainer style={{paddingTop:'100px'}} maxWidth="lg">
           <Title>
             <FontAwesomeIcon icon={faCartShopping} />
             <h2>My Cart</h2>

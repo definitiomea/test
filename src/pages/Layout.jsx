@@ -7,11 +7,10 @@ import "../style/Layout.css";
 const Layout = () => {
   const location = useLocation();
 
-  // 푸터 하단 고정을 위해 추가한 클래스와 div
   return (
-    <div id="wrapper">
+    <div>
       <Navbar />
-      <Outlet />
+      <Outlet className="outlet" />
       {/* 메인위치에서는 푸터 숨김 */}
       {location.pathname !== "/" && <Footer />}
     </div>
