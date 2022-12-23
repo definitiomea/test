@@ -27,7 +27,6 @@ const orderSlice = createSlice({
         cartlist[i].orderID = ++state.orderID;
         cartlist[i].orderDate = getDate();
         cartlist[i].delivery = "상품준비"
-        delete cartlist[i].cartID;
       }
       const newOrderlist = state.orderlist.concat(cartlist);
       state.orderlist = newOrderlist;

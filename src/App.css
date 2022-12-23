@@ -40,7 +40,7 @@
 .product-card {
   width: 200px;
   height: 200px;
-  background-color: transparent;
+  background-color: grey;
   margin: 20px;
   cursor: pointer;
 }
@@ -62,7 +62,7 @@
 .img-box {
   width: 350px;
   height: auto;
-  margin: 0px;
+  margin: 10px;
   cursor: pointer;
   position: relative;
 }

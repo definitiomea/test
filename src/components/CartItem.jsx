@@ -186,7 +186,6 @@ const QuantityWrap = styled.div`
       box-shadow: 0 0 1px 1px #dee2e6 inset;
     }
   }
-  // 
   @media screen and (max-width: 768px) {
     button {
       display: none;

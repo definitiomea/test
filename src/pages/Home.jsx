@@ -28,7 +28,7 @@ const Home = () => {
     // 휠이 정지해있을 떄가 0이다. 휠을 올리면 wheelDelta값은 양수단위로 올라가고, 휠을 내리면 음수단위로 내려간다
     // wheelDelta값이 양수이면 다음 슬라이더로, 양수이면 이전 슬라이더 넘어간다
     e.wheelDelta > 0 ? slider.current.slickPrev() : slider.current.slickNext();
-  }
+  };
 
   useEffect(() => {
     // addEventListener의 세번째 인자인 boolean의  false는 bubbling, true는 capturing이라고 칭한다

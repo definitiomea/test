@@ -1,4 +1,4 @@
-import { fabric } from 'fabric'
+import { fabric } from "fabric";
 import domtoimage from "dom-to-image";
 
 /* 캔버스 초기화 */
@@ -11,7 +11,7 @@ export function initCanvas() {
 }
 
 /* 이미지 업로드 */
-export const handleImage = ({canvas, event}) => {
+export const handleImage = ({ canvas, event }) => {
   if (!event) {
     canvas.clear();
   }
@@ -37,7 +37,7 @@ export const handleImage = ({canvas, event}) => {
 };
 
 /* 텍스트 추가 */
-export const addText = ({canvas}) => {
+export const addText = ({ canvas }) => {
   canvas.add(
     new fabric.IText("Tap and Type", {
       left: 0,
@@ -51,7 +51,7 @@ export const addText = ({canvas}) => {
 };
 
 /* 선택한 텍스트 색상 바꾸기 */
-export const setTextColor = ({canvas, event}) => {
+export const setTextColor = ({ canvas, event }) => {
   if (
     canvas.getActiveObject() !== undefined &&
     canvas.getActiveObject().text !== undefined
@@ -64,7 +64,17 @@ export const setTextColor = ({canvas, event}) => {
 };
 
 /* 이미지 내보내기 */
-export const exportImg = async ({productList, editArray, setEditArray, dispatch, inputCart, color, quantitySelect, sizeSelect, productPrice}) => {
+export const exportImg = async ({
+  productList,
+  editArray,
+  setEditArray,
+  dispatch,
+  inputCart,
+  color,
+  quantitySelect,
+  sizeSelect,
+  productPrice,
+}) => {
   if (editArray.length == 0) {
     alert("편집한 이미지가 없습니다.");
     return;
@@ -85,7 +95,16 @@ export const exportImg = async ({productList, editArray, setEditArray, dispatch,
 };
 
 /* 편집한 이미지 저장하기, 이미지 반대로 돌리기 포함 */
-export const customSave = async ({editZone, editArray, setEditArray, img, setImg, print, setPrint, productList}) => {
+export const customSave = async ({
+  editZone,
+  editArray,
+  setEditArray,
+  img,
+  setImg,
+  print,
+  setPrint,
+  productList,
+}) => {
   const dataUrl = await domtoimage.toBlob(editZone.current);
   const reader = new FileReader();
   reader.readAsDataURL(dataUrl);
@@ -127,7 +146,7 @@ export const customSave = async ({editZone, editArray, setEditArray, img, setImg
 };
 
 /* 앞, 뒷면 이미지 편집 내역 삭제 */
-export const customErase = ({setEditArray}) => {
+export const customErase = ({ setEditArray }) => {
   const choice = window.confirm(
     "편집했던 내역을 삭제하시겠습니까? 확인을 누르시면 삭제, 취소를 누르시면 보존됩니다."
   );

@@ -124,7 +124,7 @@ function DeliveryList() {
           id="sample6_postcode"
           onChange={changeZoneCode}
           name="zoneCode"
-          value={zoneCode.split(" ")[0]}
+          value={zoneCode ? zoneCode.split(" ")[0] : ""}
         />
         <br />
         <input

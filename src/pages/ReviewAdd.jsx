@@ -84,10 +84,16 @@ const ReaviewAdd = () => {
         </header>
 
         {/* 구매 상품정보 section */}
-        <section style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}>
+        <section
+          style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}
+        >
           {/* 상품이미지 box*/}
           <div>
-            <img src={require(`.././img/shirts-img/short/short-relax-beige-front.jpg`)} alt="" style={{ width: "100px", height: "100px" }} />
+            <img
+              src={require(`.././img/shirts-img/short/short-relax-beige-front.jpg`)}
+              alt=""
+              style={{ width: "100px", height: "100px" }}
+            />
           </div>
 
           {/* 상품옵션 box */}
@@ -106,7 +112,9 @@ const ReaviewAdd = () => {
           </div>
         </section>
         {/* 리뷰 작성 section */}
-        <section style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}>
+        <section
+          style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}
+        >
           {/* 별점 box */}
           <div>
             <p>
@@ -148,7 +156,14 @@ const ReaviewAdd = () => {
                     sendImg(e.target.value);
                   }}
                 >
-                  {sendImg && sendImg.map((file) => <img src={file} alt="" style={{ width: "120px", heigth: "120px" }} />)}
+                  {sendImg &&
+                    sendImg.map((file) => (
+                      <img
+                        src={file}
+                        alt=""
+                        style={{ width: "120px", heigth: "120px" }}
+                      />
+                    ))}
                 </div>
               </div>
             </div>
@@ -162,7 +177,12 @@ const ReaviewAdd = () => {
 
             {/* 사진첨부 모달창*/}
             <ReviewColum>
-              <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
                 <Box sx={style}>
                   <div>
                     <input
@@ -179,7 +199,15 @@ const ReaviewAdd = () => {
                     />
                     {/* URL.createObjectURL()에서 반환된 값을 img의 src에 넘겨줌 */}
                     <div style={{ height: "15rem" }}>
-                      {fileImg.length > 0 ? fileImg.map((file) => <img src={file} alt="sample" style={{ width: "120px", heigth: "120px" }} />) : ""}
+                      {fileImg.length > 0
+                        ? fileImg.map((file) => (
+                            <img
+                              src={file}
+                              alt="sample"
+                              style={{ width: "120px", heigth: "120px" }}
+                            />
+                          ))
+                        : ""}
                     </div>
                     {/* 사진업로드 */}
                     {/* input은 display:none으로 숨기고 label과 id값을 같게 하여 대체함 */}
@@ -213,7 +241,9 @@ const ReaviewAdd = () => {
           </div>
         </section>
         {/* 취소 or 등록 section */}
-        <section style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}>
+        <section
+          style={{ backgroundColor: "lightyellow", marginBottom: "10px" }}
+        >
           <ReviewBtn>
             <button
               onClick={() => {
