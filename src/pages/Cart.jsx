@@ -13,7 +13,7 @@ import Loading from "../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/reducers/cart";
 import { inputOrder } from "../redux/reducers/order";
-import DaumPostcodeEmbed from "react-daum-postcode";
+import DaumPostcodeEmbed from "./DaumPostcodeEmbed";
 
 const Cart = () => {
   const cartlist = useSelector((state) => state.cartlist.cartlist);
@@ -146,11 +146,7 @@ const Cart = () => {
           <MyContainter>
             <div className="delivery-info">
               <h3>Delivery Information</h3>
-              {/* <TextField label="우편번호" variant="filled" size="small"/>
-              <TextField label="주소" variant="filled" size="small"/>
-              <TextField label="상세주소" variant="filled" size="small"/>
-              <TextField label="배송요청사항" variant="filled" size="small"/> */}
-              {/* <DaumPostcodeEmbed /> */}
+              <DaumPostcodeEmbed />
             </div>
             <div className="summary">
               <div>

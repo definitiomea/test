@@ -1,11 +1,13 @@
 import { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import video from "../img/main/main-video.mp4";
 import "../style/Home.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 
 const Home = () => {
+  const location = useLocation();
+
   // 메인 슬라이더 세팅
   const settings = {
     infinite: false,
@@ -18,16 +20,16 @@ const Home = () => {
   };
 
   // 휠 스크롤로 변경
-  const slider = useRef(null);
-  
-  function scroll(e) {
-    if (slider === null) return 0;
+  const slider = useRef();
 
+  function scroll(e) {
     e.wheelDelta > 0 ? slider.current.slickPrev() : slider.current.slickNext();
   }
 
   useEffect(() => {
-    window.addEventListener("wheel", scroll, true);
+    if (location.pathname == "/") {
+      window.addEventListener("wheel", scroll, true);
+    }
   }, []);
 
   // 세번째스크린 구독서비스

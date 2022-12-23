@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal";
 import { useState } from "react";
 import { ADDIT_USER } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
-import { updateAddress } from "../redux/reducers/user";
+import { loginUser, updateAddress } from "../redux/reducers/user";
 
 const Postcode = (props) => {
   const handleComplete = (data) => {
@@ -34,7 +34,7 @@ const Postcode = (props) => {
   return <DaumPostcode onComplete={handleComplete} {...props} />;
 };
 
-function BasicModal() {
+function DeliveryList() {
   const [address, setAddress] = useState("");
   const [zoneCode, setZoneCode] = useState("");
   const [allAddress, setAllAddress] = useState("");
@@ -43,22 +43,12 @@ function BasicModal() {
   const handleClose = () => setOpen(false);
 
   const addressList = useSelector((state) => state.user);
-  const dispatch = useDispatch();
 
-  const userInfo = {
-    id: addressList.id,
-    name: addressList.name,
-    password: addressList.password,
-    email: addressList.email,
-    address: addressList.address,
-    zoneCode: addressList.zoneCode,
-    detailAddress: addressList.detailAddress,
-    reference: addressList.reference,
-  };
+  const dispatch = useDispatch();
 
   const onChange = (e) => {
     const additAddress = {
-      ...userInfo,
+      ...addressList,
       [e.target.name]: e.target.value,
     };
     setAllAddress(additAddress);
@@ -87,24 +77,26 @@ function BasicModal() {
     Postcode();
     dispatch(
       ADDIT_USER({
-        ...userInfo,
+        ...allAddress,
         zoneCode,
         address,
       })
     );
     dispatch(
-      updateAddress({
+      loginUser({
+        ...allAddress,
         zoneCode,
         address,
       })
     );
+    console.log(allAddress);
   };
 
   // 모달이 꺼지면서 zoneCode와 address값을 받아옴
   const save = () => {
     handleClose();
     setAllAddress({
-      ...allAddress,
+      ...addressList,
       zoneCode,
       address,
     });
@@ -174,4 +166,4 @@ function BasicModal() {
   );
 }
 
-export default BasicModal;
+export default DeliveryList;

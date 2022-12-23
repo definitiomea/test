@@ -48,6 +48,7 @@ const Modal = (props) => {
     } else {
       dispatch(
         loginUser({
+          name: findUser.name, // name 누락되어서 추가 작성
           id: findUser.id,
           email: findUser.email,
           address: findUser.address,
