@@ -31,6 +31,7 @@ const orderSlice = createSlice({
       }
       const newOrderlist = state.orderlist.concat(cartlist);
       state.orderlist = newOrderlist;
+      console.log(state.orderlist);
     },
   },
 });

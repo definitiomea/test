@@ -6,8 +6,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 
 const Home = () => {
-  const location = useLocation();
-
   // 메인 슬라이더 세팅
   const settings = {
     infinite: false,
@@ -17,19 +15,29 @@ const Home = () => {
     arrows: false,
     vertical: true, // 상하 슬라이드로 변경
     draggable: false,
+    initialSlide: 0,
   };
 
   // 휠 스크롤로 변경
-  const slider = useRef();
+  const slider = useRef(null);
+  const location = useLocation();
+  const main = location.pathname === "index";
 
-  function scroll(e) {
+  const scroll = (e) => {
+    if (slider === null) return 0;
+    // 휠이 정지해있을 떄가 0이다. 휠을 올리면 wheelDelta값은 양수단위로 올라가고, 휠을 내리면 음수단위로 내려간다
+    // wheelDelta값이 양수이면 다음 슬라이더로, 양수이면 이전 슬라이더 넘어간다
     e.wheelDelta > 0 ? slider.current.slickPrev() : slider.current.slickNext();
-  }
+  };
 
   useEffect(() => {
-    if (location.pathname == "/") {
-      window.addEventListener("wheel", scroll, true);
-    }
+    // addEventListener의 세번째 인자인 boolean의  false는 bubbling, true는 capturing이라고 칭한다
+    // 버블링은 자식노드부터 이벤트가 발생하여 부모로 이벤트가 전파됨
+    // 캡쳐링은 부모노드에서 자식노트로 이벤트가 전파됨
+    window.addEventListener("wheel", scroll, true);
+    return () => {
+      window.removeEventListener("wheel", scroll, true);
+    };
   }, []);
 
   // 세번째스크린 구독서비스
