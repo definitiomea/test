@@ -30,11 +30,7 @@ export const userSlice = createSlice({
       state.isLoggedIn = initialState.isLoggedIn;
     },
     updateAddress: (state, action) => {
-      state.name = action.payload.name;
-      state.id = action.payload.id;
-      state.email = action.payload.email;
       state.address = action.payload.address;
-      state.password = action.payload.password;
       state.zoneCode = action.payload.zoneCode;
       state.detailAddress = action.payload.detailAddress;
       state.reference = action.payload.reference;

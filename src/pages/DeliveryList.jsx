@@ -35,23 +35,19 @@ const Postcode = (props) => {
 };
 
 function DeliveryList() {
-  const [address, setAddress] = useState("");
-  const [zoneCode, setZoneCode] = useState("");
-  const [allAddress, setAllAddress] = useState("");
+  // user 정보
+  const user = useSelector((state) => state.user);
+
+  const [address, setAddress] = useState(user.address);
+  const [zoneCode, setZoneCode] = useState(user.zoneCode);
+  const [detailAddress, setDetailAddress] = useState(user.detailAddress);
+  const [reference, setReference] = useState(user.reference);
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const addressList = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
-  const onChange = (e) => {
-    const additAddress = {
-      ...addressList,
-      [e.target.name]: e.target.value,
-    };
-    setAllAddress(additAddress);
-  };
 
   const changeAddress = (e) => {
     setAddress(e.target.value);
@@ -76,14 +72,17 @@ function DeliveryList() {
     Postcode();
     dispatch(
       ADDIT_USER({
-        ...allAddress,
+        ...user,
+        detailAddress,
+        reference,
         zoneCode,
         address,
       })
     );
     dispatch(
       updateAddress({
-        ...allAddress,
+        detailAddress,
+        reference,
         zoneCode,
         address,
       })
@@ -93,10 +92,6 @@ function DeliveryList() {
   // 모달이 꺼지면서 zoneCode와 address값을 받아옴
   const save = () => {
     handleClose();
-    setAllAddress({
-      zoneCode,
-      address,
-    });
   };
 
   const style = {
@@ -144,15 +139,19 @@ function DeliveryList() {
           type="text"
           id="sample6_detailAddress"
           name="detailAddress"
-          onChange={onChange}
-          value={addressList.detailAddress}
+          onChange={(e) => {
+            setDetailAddress(e.target.value);
+          }}
+          value={detailAddress}
         />
         <input
           type="text"
           id="sample6_extraAddress"
           name="reference"
-          onChange={onChange}
-          value={addressList.reference}
+          onChange={(e) => {
+            setReference(e.target.value);
+          }}
+          value={reference}
         />
         <input type="button" defaultValue="우편번호 찾기" onClick={submit} />
         <button>배송지 변경</button>
