@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 import ProductCard from "../components/ProductCard";
 
 const Shop = () => {
@@ -22,7 +23,7 @@ const Shop = () => {
       <button onClick={() => {setCategory('short')}}>Short</button>
       <button onClick={() => {setCategory('long')}}>Long</button>
       <p>클릭하면 각 상품 상세 페이지로 이동</p>
-      <div className="product-container">
+      <ProductContainer>
         {/* {thumbNailList?.map((thumbNail) => (
           <div key={thumbNail.id}>
             <ProductCard thumbNail={thumbNail} />
@@ -38,9 +39,19 @@ const Shop = () => {
             <ProductCard thumbNail={thumbNail} />
           </div>
         )) : ""}
-      </div>
+      </ProductContainer>
     </div>
   );
 };
 
 export default Shop;
+
+const ProductContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
