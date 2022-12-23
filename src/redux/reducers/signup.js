@@ -2,7 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userID: 0,
-  userlist: [],
+  userlist: [
+    {
+      id: "abc123",
+      name: "아바라",
+      password: "12345",
+      email: "123@123",
+      address: null,
+      zoneCode: null,
+      detailAddress: null,
+      reference: null,
+    }
+  ],
 };
 
 export const signupSlice = createSlice({

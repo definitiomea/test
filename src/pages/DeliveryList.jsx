@@ -4,7 +4,8 @@ import Modal from "@mui/material/Modal";
 import { useState } from "react";
 import { ADDIT_USER } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
-import { updateAddress } from "../redux/reducers/user";
+import user, { loginUser, updateAddress } from "../redux/reducers/user";
+import { useRef } from "react";
 
 const Postcode = (props) => {
   const handleComplete = (data) => {
@@ -34,34 +35,43 @@ const Postcode = (props) => {
   return <DaumPostcode onComplete={handleComplete} {...props} />;
 };
 
-function BasicModal() {
+function DeliveryList() {
   const [address, setAddress] = useState("");
   const [zoneCode, setZoneCode] = useState("");
-  const [allAddress, setAllAddress] = useState("");
+  // 우편주소, 주소, 상세주소, 참고사항
+  const [allAddress, setAllAddress] = useState({
+    zoneCode: "",
+    address: "",
+    detailAddress: "",
+    reference: "",
+  });
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const addressList = useSelector((state) => state.user);
-  const dispatch = useDispatch();
 
-  const userInfo = {
-    id: addressList.id,
-    name: addressList.name,
-    password: addressList.password,
-    email: addressList.email,
-    address: addressList.address,
-    zoneCode: addressList.zoneCode,
-    detailAddress: addressList.detailAddress,
-    reference: addressList.reference,
-  };
+  const dispatch = useDispatch();
 
   const onChange = (e) => {
     const additAddress = {
-      ...userInfo,
-      [e.target.name]: e.target.value,
+      ...allAddress,
+      zoneCode: zoneCodeRef.current.value,
+      address: addressRef.current.value,
+      [e.target.name]: e.target.value, // 상세주소, 참고사항
     };
     setAllAddress(additAddress);
+  };
+  // console.log(allAddress);
+
+  // 모달이 꺼지면서 zoneCode와 address값을 받아옴 - 우편주소, 주소
+  const save = () => {
+    handleClose();
+    setAllAddress({
+      zoneCode: zoneCode,
+      address: address,
+    });
+    console.log(allAddress);
   };
 
   const changeAddress = (e) => {
@@ -82,32 +92,25 @@ function BasicModal() {
   const submit = () => {
     handleOpen();
   };
+
   const relay = (e) => {
     e.preventDefault();
     Postcode();
     dispatch(
       ADDIT_USER({
-        ...userInfo,
+        ...allAddress,
         zoneCode,
         address,
       })
     );
     dispatch(
-      updateAddress({
+      loginUser({
+        ...allAddress,
         zoneCode,
         address,
       })
     );
-  };
-
-  // 모달이 꺼지면서 zoneCode와 address값을 받아옴
-  const save = () => {
-    handleClose();
-    setAllAddress({
-      ...allAddress,
-      zoneCode,
-      address,
-    });
+    console.log(allAddress);
   };
 
   const style = {
@@ -138,15 +141,15 @@ function BasicModal() {
         <input
           type="text"
           id="sample6_postcode"
-          placeholder={addressList.zonecode}
           onChange={changeZoneCode}
+          name="zoneCode"
           value={zoneCode.split(" ")[0]}
         />
         <br />
         <input
           type="text"
           id="sample6_address"
-          placeholder={addressList.address}
+          name="address"
           onChange={changeAddress}
           value={address}
         />
@@ -154,7 +157,6 @@ function BasicModal() {
         <input
           type="text"
           id="sample6_detailAddress"
-          placeholder="상세주소"
           name="detailAddress"
           onChange={onChange}
           value={addressList.detailAddress}
@@ -162,16 +164,17 @@ function BasicModal() {
         <input
           type="text"
           id="sample6_extraAddress"
-          placeholder="참고항목"
           name="reference"
           onChange={onChange}
           value={addressList.reference}
         />
         <input type="button" defaultValue="우편번호 찾기" onClick={submit} />
         <button>배송지 변경</button>
+        {/** submit을 위해 버튼을 input type="submit"으로 */}
+        {/* <input type="submit" value="배송지 수정" /> */}
       </form>
     </div>
   );
 }
 
-export default BasicModal;
+export default DeliveryList;

@@ -13,7 +13,7 @@ import Loading from "../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/reducers/cart";
 import { inputOrder } from "../redux/reducers/order";
-import DaumPostcodeEmbed from "./DaumPostcodeEmbed";
+import DaumPostcodeEmbed from "./DeliveryList";
 
 const Cart = () => {
   const cartlist = useSelector((state) => state.cartlist.cartlist);

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Link, useNavigate } from "react-router-dom";
-import DaumPostcodeEmbed from "./DaumPostcodeEmbed";
+import DaumPostcodeEmbed from "./DeliveryList";
 import Slider from "react-slick";
 import { useEffect, useState } from "react";
 import { Modal } from "@mui/material";
