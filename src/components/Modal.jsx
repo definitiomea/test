@@ -51,6 +51,9 @@ const Modal = (props) => {
           id: findUser.id,
           email: findUser.email,
           address: findUser.address,
+          zoneCode: findUser.zoneCode,
+          detailAddress: findUser.detailAddress,
+          reference: findUser.reference,
           isLoggedIn: true,
         })
       );
