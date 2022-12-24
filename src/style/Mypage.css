@@ -16,7 +16,7 @@
   grid-template-columns: 2fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
-background-color: rgba(169, 169, 169, 0.211);
+  background-color: rgba(169, 169, 169, 0.211);
   padding: 20px 0;
 }
 

@@ -11,8 +11,63 @@ const getDate = () => {
 
 // 초기값
 const initialState = {
-  orderID: 0,
-  orderlist: [],
+  orderID: 2,
+  orderlist: [
+    {
+      user: "abc123",
+      orderID: 1,
+      orderDate: "2022.12.24",
+      productID: 2,
+      category: "short",
+      productName: "스탠다드 핏",
+      color: "orange",
+      size: "S",
+      quantity: 4,
+      imgArray: [
+        {print: "front", imggUrl: ""},
+        {print: "back", imggUrl: ""},
+      ],
+      thumbnail: "short-standard-orange-front.jpg",
+      totalPay: 38000,
+      delivery: "상품준비",
+    },
+    {
+      user: "abc123",
+      orderID: 2,
+      orderDate: "2022.12.24",
+      productID: 2,
+      category: "short",
+      productName: "스탠다드 핏",
+      color: "orange",
+      size: "S",
+      quantity: 4,
+      imgArray: [
+        {print: "front", imggUrl: ""},
+        {print: "back", imggUrl: ""},
+      ],
+      thumbnail: "short-standard-orange-front.jpg",
+      totalPay: 38000,
+      delivery: "상품준비",
+    },
+    {
+      user: "abc123",
+      orderID: 3,
+      orderDate: "2022.12.24",
+      productID: 2,
+      category: "short",
+      productName: "스탠다드 핏",
+      color: "orange",
+      size: "S",
+      quantity: 4,
+      imgArray: [
+        {print: "front", imggUrl: ""},
+        {print: "back", imggUrl: ""},
+      ],
+      thumbnail: "short-standard-orange-front.jpg",
+      totalPay: 38000,
+      delivery: "상품준비",
+    },
+  ],
 };
 
 const orderSlice = createSlice({
@@ -22,11 +77,11 @@ const orderSlice = createSlice({
     // 구매내역에 담기
     inputOrder: (state, action) => {
       const cartlist = action.payload.cartlist;
-      for (let i = 0; i <cartlist.length; i++) {
+      for (let i = 0; i < cartlist.length; i++) {
         cartlist[i].user = action.payload.user;
         cartlist[i].orderID = ++state.orderID;
         cartlist[i].orderDate = getDate();
-        cartlist[i].delivery = "상품준비"
+        cartlist[i].delivery = "상품준비";
       }
       const newOrderlist = state.orderlist.concat(cartlist);
       state.orderlist = newOrderlist;
