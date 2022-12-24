@@ -117,7 +117,7 @@ const Home = () => {
                   <FontAwesomeIcon icon={faFacebook} />
                 </a>
                 <a href="">
-                  <FontAwesomeIcon icon={faGithub} b />
+                  <FontAwesomeIcon icon={faGithub} />
                 </a>
               </div>
             </div>
