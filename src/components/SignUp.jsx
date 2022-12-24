@@ -41,7 +41,9 @@ const SignUpPage = () => {
     address,
   };
 
-  const findUser = signup.userlist.find((signup) => signup.id === id || signup.email === email);
+  const findUser = signup.userlist.find(
+    (signup) => signup.id === id || signup.email === email
+  );
 
   const onSubmitForm = (e) => {
     e.preventDefault();
@@ -72,37 +74,76 @@ const SignUpPage = () => {
         justifyContent: "center",
       }}
     >
-      <form style={{ border: "2px solid black", padding: "15px" }} onSubmit={onSubmitForm}>
+      <form
+        style={{ border: "2px solid black", padding: "15px" }}
+        onSubmit={onSubmitForm}
+      >
         <div>
           <label>Name</label>
           <br />
-          <input type="text" name="user-name" value={name} required onChange={onChangeName} />
+          <input
+            type="text"
+            name="user-name"
+            value={name}
+            required
+            onChange={onChangeName}
+          />
         </div>
         <div>
           <label>ID</label>
           <br />
-          <input type="text" name="user-id" value={id} required onChange={onChangeId} />
+          <input
+            type="text"
+            name="user-id"
+            value={id}
+            required
+            onChange={onChangeId}
+          />
         </div>
         <div>
           <label>Password</label>
           <br />
-          <input type="password" name="user-password" value={password} required onChange={onChangePassword} />
+          <input
+            type="password"
+            name="user-password"
+            value={password}
+            required
+            onChange={onChangePassword}
+          />
         </div>
         <div>
           <label htmlFor="user-password-check">Password check</label>
           <br />
-          <input name="user-password-check" type="password" value={passwordCheck} required onChange={onChangePasswordCheck} />
+          <input
+            name="user-password-check"
+            type="password"
+            value={passwordCheck}
+            required
+            onChange={onChangePasswordCheck}
+          />
           {passwordError && <p>Password가 일치하지 않습니다.</p>}
         </div>
         <div>
           <label>E-mail</label>
           <br />
-          <input type="email" name="user-email" value={email} required onChange={onChangeEmail} />
+          <input
+            type="email"
+            name="user-email"
+            value={email}
+            required
+            onChange={onChangeEmail}
+          />
         </div>
         <div>
           <label>Address</label>
           <br />
-          <input type="text" name="user-address" value={address} required onChange={onChangeAddress} />
+          <input
+            type="text"
+            name="user-address"
+            value={address}
+            required
+            onChange={onChangeAddress}
+          />
         </div>
         <MyButton type="submit">Sign up</MyButton>
       </form>

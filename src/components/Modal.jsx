@@ -1,4 +1,4 @@
-import "../css/modal.css";
+import "../style/modal.css";
 import useInput from "../hooks/useInput";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,7 +38,9 @@ const Modal = (props) => {
     //   }
     // };
 
-    const findUser = signup.userlist.find((user) => user.id === id && user.password === password);
+    const findUser = signup.userlist.find(
+      (user) => user.id === id && user.password === password
+    );
 
     if (!findUser) {
       alert("로그인 실패");
@@ -75,12 +77,24 @@ const Modal = (props) => {
             <div>
               <label>ID</label>
               <br />
-              <input type="text" name="user-id" value={id} onChange={onChangeId} required />
+              <input
+                type="text"
+                name="user-id"
+                value={id}
+                onChange={onChangeId}
+                required
+              />
             </div>
             <div>
               <label>Password</label>
               <br />
-              <input type="password" name="user-password" value={password} onChange={onChangePassword} required />
+              <input
+                type="password"
+                name="user-password"
+                value={password}
+                onChange={onChangePassword}
+                required
+              />
             </div>
             <button className="login-btn" type="submit">
               Log in

@@ -19,7 +19,7 @@ const ProductCard = (props) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    customPaging: i => (
+    customPaging: (i) => (
       <div
         style={{
           width: "10px",
@@ -28,68 +28,106 @@ const ProductCard = (props) => {
           border: `1px solid transparent`,
           borderRadius: "50%",
           backgroundColor: color[i],
-          zIndex: 1
+          zIndex: 1,
         }}
       >
         {/* {i + 1} */}
       </div>
-    )
+    ),
   };
 
   return (
-    <div
-      className="product-card"
-    >
+    <div className="product-card">
       <Slider {...settings}>
-        <p onClick={() => {navigate("/shop/" + thumbNail.id)}}>
+        {/* thumbNail.thumbnail.map() */}
+        <div
+          onClick={() => {
+            navigate("/shop/" + thumbNail.id);
+          }}
+        >
           {/* {thumbNail.category == "short" ? "short" : "long"} */}
-          <br />
-          {thumbNail.category == "short" ?
-          <img src={require(`../img/shirts-img/short/${thumbNail.thumbnail[0]}`)} style={{maxWidth: "80%"}}></img> : 
-          <img src={require(`../img/shirts-img/long/${thumbNail.thumbnail[0]}`)} style={{maxWidth: "80%"}}></img>}
-          <br />
-          {thumbNail.productName}
-          <br />
-          {thumbNail.price}
-
-          
-        </p>
-
-
-
-        <p onClick={() => {navigate("/shop/" + thumbNail.id)}}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            {thumbNail.category == "short" ? (
+              <img
+                src={require(`../img/shirts-img/short/${thumbNail.thumbnail[0]}`)}
+                style={{ maxWidth: "80%" }}
+              ></img>
+            ) : (
+              <img
+                src={require(`../img/shirts-img/long/${thumbNail.thumbnail[0]}`)}
+                style={{ maxWidth: "80%" }}
+              ></img>
+            )}
+          </div>
+          <p>{thumbNail.productName}</p>
+          <p>{thumbNail.price}</p>
+        </div>
+        <div
+          onClick={() => {
+            navigate("/shop/" + thumbNail.id);
+          }}
+        >
           {/* {thumbNail.category == "short" ? "short" : "long"} */}
-          <br />
-          {thumbNail.category == "short" ?
-          <img src={require(`../img/shirts-img/short/${thumbNail.thumbnail[1]}`)} style={{maxWidth: "80%"}}></img> : 
-          <img src={require(`../img/shirts-img/long/${thumbNail.thumbnail[1]}`)} style={{maxWidth: "80%"}}></img>}
-          <br />
-          {thumbNail.productName}
-          <br />
-          {thumbNail.price}
-        </p>
-        <p onClick={() => {navigate("/shop/" + thumbNail.id)}}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            {thumbNail.category == "short" ? (
+              <img
+                src={require(`../img/shirts-img/short/${thumbNail.thumbnail[1]}`)}
+                style={{ maxWidth: "80%" }}
+              ></img>
+            ) : (
+              <img
+                src={require(`../img/shirts-img/long/${thumbNail.thumbnail[1]}`)}
+                style={{ maxWidth: "80%" }}
+              ></img>
+            )}
+          </div>
+          <p>{thumbNail.productName}</p>
+          <p>{thumbNail.price}</p>
+        </div>
+        <div
+          onClick={() => {
+            navigate("/shop/" + thumbNail.id);
+          }}
+        >
           {/* {thumbNail.category == "short" ? "short" : "long"} */}
-          <br />
-          {thumbNail.category == "short" ?
-          <img src={require(`../img/shirts-img/short/${thumbNail.thumbnail[2]}`)} style={{maxWidth: "80%"}}></img> : 
-          <img src={require(`../img/shirts-img/long/${thumbNail.thumbnail[2]}`)} style={{maxWidth: "80%"}}></img>}
-          <br />
-          {thumbNail.productName}
-          <br />
-          {thumbNail.price}
-        </p>
-        <p onClick={() => {navigate("/shop/" + thumbNail.id)}}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            {thumbNail.category == "short" ? (
+              <img
+                src={require(`../img/shirts-img/short/${thumbNail.thumbnail[2]}`)}
+                style={{ maxWidth: "80%" }}
+              ></img>
+            ) : (
+              <img
+                src={require(`../img/shirts-img/long/${thumbNail.thumbnail[2]}`)}
+                style={{ maxWidth: "80%" }}
+              ></img>
+            )}
+          </div>
+          <p>{thumbNail.productName}</p>
+          <p>{thumbNail.price}</p>
+        </div>
+        <div
+          onClick={() => {
+            navigate("/shop/" + thumbNail.id);
+          }}
+        >
           {/* {thumbNail.category == "short" ? "short" : "long"} */}
-          <br />
-          {thumbNail.category == "short" ?
-          <img src={require(`../img/shirts-img/short/${thumbNail.thumbnail[3]}`)} style={{maxWidth: "80%"}}></img> : 
-          <img src={require(`../img/shirts-img/long/${thumbNail.thumbnail[3]}`)} style={{maxWidth: "80%"}}></img>}
-          <br />
-          {thumbNail.productName}
-          <br />
-          {thumbNail.price}
-        </p>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            {thumbNail.category == "short" ? (
+              <img
+                src={require(`../img/shirts-img/short/${thumbNail.thumbnail[3]}`)}
+                style={{ maxWidth: "80%" }}
+              ></img>
+            ) : (
+              <img
+                src={require(`../img/shirts-img/long/${thumbNail.thumbnail[3]}`)}
+                style={{ maxWidth: "80%" }}
+              ></img>
+            )}
+          </div>
+          <p>{thumbNail.productName}</p>
+          <p>{thumbNail.price}</p>
+        </div>
       </Slider>
     </div>
   );
