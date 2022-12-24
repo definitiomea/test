@@ -1,0 +1,120 @@
+/* 장바구니 페이지 */
+.box {
+  min-height: calc(100vh - 236px);
+  max-width: 1280px; /* 마이페이지와 통일할 것 */
+  padding: 0 48px;
+  margin: 0 auto;
+}
+
+.title {
+  padding: 2rem 0;
+}
+.title > h2 {
+  display: inline-block;
+  margin: 0 0 0 1rem;
+  font-family: "nav";
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.title > svg {
+  font-size: 1.3rem;
+}
+
+/* 배송지 정보, 예상 금액 */
+/* 배송지 정보 css에 따라 예상 금액 부분 수정할 것*/
+.container {
+  display: flex;
+  padding: 3rem 0;
+}
+.container div {
+  width: 100%;
+}
+
+.delivery-info {
+  flex: 2;
+}
+
+.summary {
+  flex: 1;
+  padding: 2rem;
+  background-color: #e9ecef;
+  height: fit-content;
+}
+.summary > div {
+  display: flex;
+}
+.summary > div div {
+  padding-bottom: 1rem;
+}
+.summary > div > div:first-child {
+  text-align: left;
+}
+.summary > div > div:last-child {
+  text-align: right;
+}
+.total {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.summary button {
+  margin-top: 1rem;
+}
+
+/* 장바구니 아이템 - 상품정보 */
+.product {
+  display: flex;
+  justify-self: left;
+  align-items: center;
+}
+.product > div {
+  margin-left: 1rem;
+}
+.product > div > div:first-child {
+  padding-bottom: 1rem;
+}
+.product span {
+  margin-left: 0.4rem;
+}
+.product img {
+  width: 120px;
+  min-width: 120px;
+  min-height: 120px;
+  margin-right: 0.5rem;
+  background-color: #dee2e6;
+}
+
+/* 장바구니 아이템 - 구매수량 */
+.quantity {
+  display: flex;
+  background-color: #f8f9fa;
+}
+.quantity input {
+  height: auto;
+  max-width: 3.5rem;
+  min-height: 32px;
+  text-align: center;
+  border: none;
+  background-color: #f8f9fa;
+  color: black;
+}
+.quantity input::-webkit-outer-spin-button,
+.quantity input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.quantity input:active {
+  background-color: #e9ecef;
+}
+.quantity input:focus {
+  outline: none;
+  box-shadow: 0 0 1px 1px #dee2e6 inset;
+}
+
+@media screen and (max-width: 768px) {
+  .product img {
+    display: none; /* 상품 이미지가 보이지 않게 */
+  }
+  .quantity button {
+    display: none; /* 구매수량의 버튼이 보이지 않게 */
+  }
+}

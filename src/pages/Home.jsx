@@ -54,7 +54,6 @@ const Home = () => {
   return (
     <div className="main-container">
       {/* 첫번째 스크린 */}
-
       <Slider {...settings} ref={slider}>
         <section className="first-screen">
           <div>
@@ -90,12 +89,7 @@ const Home = () => {
               <input
                 type="email"
                 placeholder="이메일을 입력해주세요"
-                onChange={
-                  ((e) => {
-                    setEmail(e.target.value);
-                  },
-                  [])
-                }
+                onChange={(e) => {setEmail(e.target.value)}}
               />
               <button className="submit-button">구독</button>
             </form>
@@ -116,3 +110,5 @@ const Home = () => {
 };
 
 export default Home;
+
+// <button onClick={() => {slider.current.slickGoTo(0)}}>테스트</button>

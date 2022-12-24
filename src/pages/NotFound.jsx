@@ -42,7 +42,7 @@ const Wrap = styled.div`
     width: 11rem;
     height: 11rem;
     color: #ced4da;
-    margin-right: 2rem;
+    margin-right: 3rem;
   }
   div {
     &:first-child {
