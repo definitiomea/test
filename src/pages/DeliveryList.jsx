@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal";
 import { useState } from "react";
 import { ADDIT_USER } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, updateAddress } from "../redux/reducers/user";
+import { updateAddress } from "../redux/reducers/user";
 
 const Postcode = (props) => {
   const handleComplete = (data) => {
@@ -60,7 +60,7 @@ function DeliveryList() {
     setZoneCode(e.target.value);
   };
   const zoneCodeValue = (value) => {
-    setZoneCode(value);
+    setZoneCode(value.split(" ")[0]);
     handleClose();
   };
 
@@ -124,7 +124,7 @@ function DeliveryList() {
           id="sample6_postcode"
           onChange={changeZoneCode}
           name="zoneCode"
-          value={zoneCode ? zoneCode.split(" ")[0] : ""}
+          value={zoneCode}
         />
         <br />
         <input

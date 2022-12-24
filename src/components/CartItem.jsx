@@ -3,6 +3,9 @@ import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import styles from "../css/cart.module.css";
 
 import {
   quantityIncrease,
@@ -53,7 +56,7 @@ const CartItem = (props) => {
   };
 
   // 장바구니 아이템의 ImgArr(사용자 도안 배열)을 print: front - back 순으로 정렬
-  const newImgArr = () => {
+  const setNewImgArr = () => {
     if (cartItem.imgArray.length == 2) {
       return cartItem.imgArray[0].print == "back"
         ? cartItem.imgArray.slice(0).reverse()
@@ -71,8 +74,8 @@ const CartItem = (props) => {
 
   return (
     <>
-      <ProductWrap>
-        {newImgArr().map((item, i) => (
+      <div className={styles.product}>
+        {setNewImgArr().map((item, i) => (
           <img src={item.imageUrl} key={i} />
         ))}
         <div>
@@ -84,21 +87,20 @@ const CartItem = (props) => {
           </div>
           <div>
             print :
-            {newImgArr().length == 2 ? (
+            {setNewImgArr().length == 2 ? (
               <span>
-                {newImgArr()[0].print} / {newImgArr()[1].print}
+                {setNewImgArr()[0].print} / {setNewImgArr()[1].print}
               </span>
             ) : (
-              <span>{newImgArr()[0].print}</span>
+              <span>{setNewImgArr()[0].print}</span>
             )}
           </div>
         </div>
-      </ProductWrap>
+      </div>
       <div>{cartItem.size}</div>
-      <QuantityWrap>
+      <div className={styles.quantity}>
         <IconButton
           sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
-          aria-label="remove"
           onClick={onDecrease}
         >
           <RemoveIcon />
@@ -111,16 +113,14 @@ const CartItem = (props) => {
         />
         <IconButton
           sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
-          aria-label="add"
           onClick={onIncrease}
         >
           <AddIcon />
         </IconButton>
-      </QuantityWrap>
+      </div>
       <div>{totalPay.toLocaleString("ko-KR")}</div>
       <IconButton
         sx={{ "&:hover": { color: "#dc3545" } }}
-        aria-label="delete"
         onClick={() => {
           dispatch(deleteItem(cartItem.cartID));
         }}

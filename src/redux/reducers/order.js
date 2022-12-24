@@ -1,6 +1,7 @@
 // 주문 내역
 import { createSlice } from "@reduxjs/toolkit";
 
+// 주문 날짜
 const getDate = () => {
   const date = new Date();
   const year = date.getFullYear();
@@ -85,7 +86,6 @@ const orderSlice = createSlice({
       }
       const newOrderlist = state.orderlist.concat(cartlist);
       state.orderlist = newOrderlist;
-      console.log(state.orderlist);
     },
   },
 });

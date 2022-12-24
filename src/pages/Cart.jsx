@@ -5,6 +5,8 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
 import List from "../style/List";
 import MyButton from "../style/Button";
+// css module
+import styles from "../css/cart.module.css";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -17,7 +19,7 @@ import DeliveryList from "./DeliveryList";
 
 const Cart = () => {
   const cartlist = useSelector((state) => state.cartlist.cartlist);
-  const userID = useSelector((state) => state.user.id);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [dataloading, setDataloading] = useState(false);
   const [productlist, setProductlist] = useState(null);
@@ -69,13 +71,13 @@ const Cart = () => {
       alert("장바구니가 비어있습니다.");
       return;
     }
-    if (userID == "") {
+    if (JSON.stringify(user) === "{}") {
       alert("로그인 후 이용해주세요");
       return;
     }
     dispatch(
       inputOrder({
-        user: userID,
+        user: user.id,
         cartlist: copyCartlist(),
       })
     );
@@ -106,11 +108,12 @@ const Cart = () => {
   return (
     <>
       {productlist ? (
-        <StyledContainer maxWidth="lg">
-          <Title>
+        // <StyledContainer maxWidth="lg">
+        <div className={styles.box}>
+          <div className={styles.title}>
             <FontAwesomeIcon icon={faCartShopping} />
             <h2>My Cart</h2>
-          </Title>
+          </div>
           <List>
             <div className="label">
               <div>Product Name</div>
@@ -144,30 +147,31 @@ const Cart = () => {
               </div>
             )}
           </List>
-          <MyContainter>
-            <div className="delivery-info">
+          <div className={styles.container}>
+            <div className={styles["delivery-info"]}>
               <h3>Delivery Information</h3>
               <DeliveryList />
             </div>
-            <div className="summary">
+            <div className={styles["summary"]}>
               <div>
                 <div>
                   <div>Subtotal</div>
                   <div>Delivery</div>
-                  <div className="total">Total Price</div>
+                  <div className={styles.total}>Total Price</div>
                 </div>
                 <div>
                   <div>{getSubtotal().toLocaleString("ko-KR")}</div>
                   <div>{deliveryPay.toLocaleString("ko-KR")}</div>
-                  <div className="total">
+                  <div className={styles.total}>
                     {(getSubtotal() + deliveryPay).toLocaleString("ko-KR")}
                   </div>
                 </div>
               </div>
               <MyButton onClick={order}>주문하기</MyButton>
             </div>
-          </MyContainter>
-        </StyledContainer>
+          </div>
+        </div>
+        // </StyledContainer>
       ) : (
         <Loading />
       )}

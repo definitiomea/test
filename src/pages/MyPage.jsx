@@ -67,6 +67,8 @@ const Mypage = () => {
   }, []);
 
   const user = useSelector((state) => state.user);
+  const signup = useSelector((state) => state.signup);
+  const findUser = signup.userlist.find((userId) => userId.id === user.id);
 
   const dispatch = useDispatch();
 
@@ -122,13 +124,13 @@ const Mypage = () => {
           <input
             type="password"
             name="password"
-            defaultValue={user.password}
+            defaultValue={findUser ? findUser.password : ""}
             onChange={onChange}
           />
           <input
             type="password"
             name="password"
-            placeholder={user.password}
+            defaultValue={findUser ? findUser.password : ""}
             onChange={onChange}
           />
           <button>회원정보 수정</button>
