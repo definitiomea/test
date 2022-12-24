@@ -65,7 +65,7 @@ const initialState = {
       ],
       thumbnail: "short-standard-orange-front.jpg",
       totalPay: 38000,
-      delivery: "상품준비",
+      delivery: "배송완료",
     },
   ],
 };
