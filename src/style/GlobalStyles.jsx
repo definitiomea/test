@@ -34,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
   }
   // 메인(home) 페이지에서는 네브바가 겹쳐야하므로 제외
   .main-container {
-    width: 100%; // 메인 페이지 스크롤 해결
+    width: 100%;
     position: absolute;
     top: -136px; // 네브바 높이
   }
