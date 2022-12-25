@@ -1,0 +1,15 @@
+/* 배송지 변경 input, button */
+.post-form_btn {
+  /* margin: 23px 0; */
+  border: 2px solid;
+  width: 40%;
+}
+.post-form_input {
+  margin-bottom: 20px;
+}
+
+/* 우편번호 input */
+#sample6_postcode {
+  float: left;
+  width: 60%;
+}

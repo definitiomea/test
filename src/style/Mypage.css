@@ -1,14 +1,38 @@
-#wrap {
-  max-width: 1000px;
-  margin: 0 auto; /* 화면 가운데로 */
-  height: 100%;
-  box-sizing: border-box;
-  font-family: "oncothic";
+.mypage-container {
+  min-height: calc(100vh - 236px);
+  width: 90%;
+  /* max-width: 1280px; */
+  margin: auto;
+  padding: 48px;
+}
+
+.section-title {
+  border-bottom: 2px solid black;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  font-weight: 700;
 }
 
 /* 회원정보 */
+.user-info {
+  /* grid에서 flex로 교체 */
+  display: flex;
+  margin: 30px 0 100px 0;
+  padding: 0 30px;
+}
 
-/* 주문베송 조회 */
+/* 분리 되어있던 label과 input을 뭉치고 className 새로 부여 */
+.user-info_form {
+  margin-right: 50px;
+}
+.user-info_label {
+  font-weight: bolder;
+}
+.user-info_input {
+  margin-bottom: 15px;
+}
+
+/* 주문배송 조회 */
 
 .mypage-head {
   width: 100%;
@@ -16,8 +40,8 @@
   grid-template-columns: 2fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
-  background-color: rgba(169, 169, 169, 0.211);
-  padding: 20px 0;
+  border: solid 1px lightgrey;
+  padding: 20px;
 }
 
 .mypage-body {
@@ -26,11 +50,9 @@
   grid-template-columns: 2fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
-  padding: 20px 0;
-}
-
-.img {
-  width: 150px;
+  border: solid 1px lightgrey;
+  border-top: 0;
+  padding: 20px;
 }
 
 .mypage-pd {
@@ -47,7 +69,7 @@
   text-align: center;
 }
 
-.delivery-button {
+/* .delivery-button {
   float: right;
   background-color: black;
   padding: 2px 5px;
@@ -63,4 +85,4 @@
   margin-top: 50px;
   padding: 20px;
   text-align: left;
-}
+} */
