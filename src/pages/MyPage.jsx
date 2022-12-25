@@ -42,7 +42,7 @@ const Mypage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // map https://apis.tracker.delivery/carriers/:carrier_id/tracks/:track_id 패치값 가져와서 배송지 조회기능 구현
+    // 택배사 목록값 가져와서 배송지 조회기능 구현
     const getDelivery = async () => {
       const json = await (
         await fetch(
@@ -66,6 +66,7 @@ const Mypage = () => {
     getCarriers();
   }, []);
 
+  // 로그인 유저, 회원가입된 유저
   const user = useSelector((state) => state.user);
   const signup = useSelector((state) => state.signup);
   const findUser = signup.userlist.find((userId) => userId.id === user.id);
@@ -97,10 +98,10 @@ const Mypage = () => {
           <label>id</label>
           <label>email</label>
           <label>password</label>
-          <label>password</label>
-          {/* <label>비밀번호 확인</label> */}
+          <label>password check</label>
         </Labels>
 
+        {/*  */}
         <Inputs
           onSubmit={(e) => {
             dispatch(ADDIT_USER(trans));
@@ -149,101 +150,55 @@ const Mypage = () => {
         </MypageHead>
 
         {/* 장바구니 상품 목록 */}
-        <MypageBody>
-          <MypagePd>
-            <div>
-              <img
-                className="img"
-                src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-                alt=""
-                style={{
-                  width: "200px",
-                  height: "100px",
-                }}
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            {result ? (
+              <form onSubmit={onSubmit}>
+                <select onChange={changeCarrierId} value={carrierId}>
+                  <option value="">-택배사를 선택해주세요-</option>
+                  {/* 택배사 목록 map로 option설정 */}
+                  {carriers.map((array) => {
+                    return (
+                      <option value={array.id} key={array.id}>
+                        {array.name}
+                      </option>
+                    );
+                  })}
+                </select>
+                <input
+                  type="number"
+                  placeholder="운송장번호"
+                  onChange={changeTrackId}
+                  defaultValue={trackId}
+                />
+                <button>조회</button>
+              </form>
+            ) : !delivery?.message ? (
+              <Delivery
+                stateText={delivery?.state.text}
+                toName={delivery?.to.name}
+                carrierName={delivery?.carrier.name}
+                carrierTel={delivery?.carrier.tel}
+                carrierId={delivery?.carrier.id}
+                message={delivery?.message}
               />
-            </div>
-            <MypageInfo>
-              {/* 상품 정보 */}
+            ) : (
               <div>
-                <span>short sleeve t-shirt</span>
-                <span>standard fit</span>
-                <span> (navy) </span>
+                <p>{delivery?.message}</p>
               </div>
-
-              {/* 프린팅 면 정보*/}
-              <div>
-                <span>print : </span>
-                <span>front</span>
-              </div>
-
-              {/* 사이즈 정보 */}
-              <div>
-                <span>size : </span>
-                <span>S</span>
-              </div>
-            </MypageInfo>
-          </MypagePd>
-
-          <div>2022.11.11</div>
-
-          <MypageColum>
-            <div>9,500원</div>
-            <div>1개</div> {/* 연한 회색 처리 */}
-          </MypageColum>
-
-          <MypageColum>
-            <div>배송중</div>
-            <button onClick={handleOpen}>배송조회</button>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                {result ? (
-                  <form onSubmit={onSubmit}>
-                    <select onChange={changeCarrierId} value={carrierId}>
-                      {/* 택배사 목록 map로 option설정 */}
-                      {carriers.map((array) => {
-                        return (
-                          <option value={array.id} key={array.id}>
-                            {array.name}
-                          </option>
-                        );
-                      })}
-                    </select>
-                    <input
-                      type="number"
-                      placeholder="운송장번호"
-                      onChange={changeTrackId}
-                      defaultValue={trackId}
-                    />
-                    <button>조회</button>
-                  </form>
-                ) : !delivery?.message ? (
-                  <Delivery
-                    stateText={delivery?.state.text}
-                    toName={delivery?.to.name}
-                    carrierName={delivery?.carrier.name}
-                    carrierTel={delivery?.carrier.tel}
-                    carrierId={delivery?.carrier.id}
-                    message={delivery?.message}
-                  />
-                ) : (
-                  <div>
-                    <p>{delivery?.message}</p>
-                  </div>
-                )}
-              </Box>
-            </Modal>
-          </MypageColum>
-        </MypageBody>
+            )}
+          </Box>
+        </Modal>
       </MypageOrder>
 
       {/* 주문완료 섹션 */}
       {orderDone.map((re) =>
-        re.orderID == 3 ? (
+        re.orderID ? (
           <MypageBody>
             <MypagePd>
               <div>
@@ -261,19 +216,20 @@ const Mypage = () => {
                 {/* 상품 정보 */}
                 <div>
                   <span>{re.category} </span>
-                  <span>{re.productName} </span>
-                  <span> ({re.color}) </span>
+                  <br />
+                  <span>
+                    {re.productName} ({re.color})
+                  </span>
                 </div>
 
                 {/* 사이즈 정보 */}
                 <div>
-                  <span>size : </span>
-                  <span>{re.size}</span>
+                  <span>size : {re.size}</span>
                 </div>
               </MypageInfo>
             </MypagePd>
 
-            <div></div>
+            <div>{re.orderDate}</div>
 
             <MypageColum>
               <div>{re.price}</div>
@@ -282,9 +238,13 @@ const Mypage = () => {
 
             <MypageColum>
               <div>
-                <Link to="/mypage/review" state={{ orderDone: orderDone[2] }}>
-                  후기작성
-                </Link>
+                {re.delivery === "상품준비" ? (
+                  <button onClick={handleOpen}>배송조회</button>
+                ) : (
+                  <Link to="/mypage/review" state={{ orderDone: orderDone[2] }}>
+                    후기작성
+                  </Link>
+                )}
               </div>
             </MypageColum>
           </MypageBody>
