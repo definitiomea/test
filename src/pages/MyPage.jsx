@@ -101,7 +101,7 @@ const Mypage = () => {
           <label>password check</label>
         </Labels>
 
-        {/*  */}
+        {/* 회원가입, 로그인 유저값에 변환된 값 보내주기 */}
         <Inputs
           onSubmit={(e) => {
             dispatch(ADDIT_USER(trans));
@@ -125,6 +125,7 @@ const Mypage = () => {
           <input
             type="password"
             name="password"
+            // 로그인 상태 유저 id 와 회원가입시 유저 아이디 비교 후 패스워드 표출
             defaultValue={findUser ? findUser.password : ""}
             onChange={onChange}
           />
@@ -238,6 +239,7 @@ const Mypage = () => {
 
             <MypageColum>
               <div>
+                {/* 상품준비 상태일 경우 배송조회 가능하게 */}
                 {re.delivery === "상품준비" ? (
                   <button onClick={handleOpen}>배송조회</button>
                 ) : (
