@@ -11,6 +11,7 @@ import { loginUser } from "../redux/reducers/user";
 
 import "../style/Mypage.css";
 import "../style/Button";
+import "../style/List";
 import MyButton from "../style/Button";
 
 const Mypage = () => {
@@ -249,10 +250,10 @@ const Mypage = () => {
         </div>
       </div>
 
-      {/* 주문완료 섹션 */}
+      {/* 배송완료 섹션 */}
       {orderDone.map((re) =>
         re.orderID == 3 ? (
-          <div className="mypage-body">
+          <div className="delivery-finish">
             <div className="mypage-pd">
               <div>
                 <img

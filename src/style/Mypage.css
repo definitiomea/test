@@ -41,6 +41,9 @@
   justify-items: center;
   align-items: center;
   border: solid 1px lightgrey;
+  /* list border 제거 */
+  border-left: none;
+  border-right: none;
   padding: 20px;
 }
 
@@ -51,7 +54,25 @@
   justify-items: center;
   align-items: center;
   border: solid 1px lightgrey;
-  border-top: 0;
+  /* list border 제거 */
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  padding: 20px;
+}
+/* 배송완료 section의 mypage-body  */
+.delivery-finish {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  border: solid 1px lightgrey;
+  /* list border 제거 */
+  /* border-top: none; */
+  border-left: none;
+  border-right: none;
+  margin-top: 2px;
   padding: 20px;
 }
 
