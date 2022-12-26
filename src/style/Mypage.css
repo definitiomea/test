@@ -25,7 +25,7 @@
 .user-info_form {
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 300px;
   margin-right: 50px;
 }
 .user-info_label {
@@ -35,6 +35,10 @@
   border: none;
   border-bottom: 2px solid black;
   margin-bottom: 15px;
+}
+
+.user-info_input:focus {
+  outline: none;
 }
 
 /* 주문배송 조회 */

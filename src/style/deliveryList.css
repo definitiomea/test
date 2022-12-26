@@ -13,6 +13,9 @@
   border-bottom: 2px solid black;
   margin-bottom: 20px;
 }
+.post-form_input:focus {
+  outline: none;
+}
 
 /* 우편번호 input */
 #sample6_postcode {

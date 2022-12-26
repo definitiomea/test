@@ -4,6 +4,9 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/reducers/user";
 
+import "../style/Button";
+import MyButton from "../style/Button";
+
 const Modal = (props) => {
   const { open, close } = props;
   const signup = useSelector((state) => state.signup);
@@ -79,9 +82,8 @@ const Modal = (props) => {
           <form className="login-form" onSubmit={onSubmitForm}>
             <div>
               <label>ID</label>
-              <br />
               <input
-                className="login-input"
+                className="login-form_input"
                 type="text"
                 name="user-id"
                 value={id}
@@ -91,9 +93,8 @@ const Modal = (props) => {
             </div>
             <div>
               <label>Password</label>
-              <br />
               <input
-                className="login-input"
+                className="login-form_input"
                 type="password"
                 name="user-password"
                 value={password}
@@ -101,13 +102,13 @@ const Modal = (props) => {
                 required
               />
             </div>
-            <button className="login-btn" type="submit">
+            <MyButton className="login-form_btn" type="submit">
               Log in
-            </button>
+            </MyButton>
+            <MyButton className="login-form_btn" onClick={onClickSignup}>
+              Sign up
+            </MyButton>
           </form>
-          <button className="signup-btn" onClick={onClickSignup}>
-            Sign up
-          </button>
           <div className="social">
             <button type="button">kakao</button>
             <button type="button">naver</button>
