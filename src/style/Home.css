@@ -1,3 +1,12 @@
+/* 슬라이드간 간격 삭제 */
+.slick-slide {
+  border: none;
+}
+
+.main-container .slick-slide {
+  height: 100vh;
+}
+
 /* <첫번째 스크린> */
 .section-video {
   width: 100%;
@@ -17,23 +26,29 @@
 /* 첫번째스크린 문구 */
 .first-content {
   position: absolute;
+  width: 100%;
   top: 10%;
-  left: 60%;
   color: white;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
 }
 
 .first-content p {
+  position: relative;
+  left: 25%;
+  width: 30%;
   font-size: 3rem;
 }
 
 /* 첫번째스크린 view 버튼 */
 .toGoShop {
-  color: white;
-  border: 3px solid white;
+  position: relative;
+  left: 25%;
+  text-align: center;
   width: 100px;
+  border: 3px solid white;
+  color: white;
   padding: 10px 5px;
   margin-top: 1rem;
   text-decoration: none;
@@ -72,6 +87,7 @@
 .second-content section {
   border: 2px solid;
   margin: 20px;
+  block-size: fit-content;
 }
 
 /* <세번째 스크린> */

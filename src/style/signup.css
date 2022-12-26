@@ -1,0 +1,31 @@
+.signup-title-box {
+  width: 80%;
+  border-bottom: 3px solid black;
+  margin: auto;
+}
+.signup-title {
+  display: inline-block;
+  font-weight: bolder;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  /* border: 2px solid black; */
+  margin: 50px auto;
+  padding: 15px;
+}
+
+.signup-label {
+  font-weight: bolder;
+}
+.signup-input {
+  margin-bottom: 25px;
+  border: none;
+  border-bottom: 2px solid black;
+}
+
+.signup-btn {
+  width: 100%;
+}

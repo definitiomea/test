@@ -11,14 +11,15 @@
 
 .content-box {
   position: relative;
-  width: 90%;
+  /* width: 40%; */
   max-width: 450px;
+  /* max-height: 700px; */
   margin: 0 auto;
   border-radius: 0.3rem;
   background-color: #fff;
   overflow: hidden;
-  height: 300px;
   animation: modal-show 0.3s;
+  padding: 40px;
 }
 
 .close {
@@ -37,18 +38,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 50px;
-  /* margin-bottom: 15px; */
+  padding: 0;
 }
-
-.login-form input {
-  margin-bottom: 10px;
+.login-form_input {
+  border: none;
+  border-bottom: 2px solid black;
+  margin-bottom: 20px;
 }
-
-.signup-btn {
-  display: block;
-  margin: auto;
-  margin-top: 5px;
+.login-form_input:focus {
+  outline: none;
+}
+.login-form_btn {
+  width: 90%;
 }
 
 .social {

@@ -25,8 +25,8 @@ const initialState = {
       size: "S",
       quantity: 4,
       imgArray: [
-        {print: "front", imggUrl: ""},
-        {print: "back", imggUrl: ""},
+        { print: "front", imggUrl: "" },
+        { print: "back", imggUrl: "" },
       ],
       thumbnail: "short-standard-orange-front.jpg",
       totalPay: 38000,
@@ -43,8 +43,8 @@ const initialState = {
       size: "S",
       quantity: 4,
       imgArray: [
-        {print: "front", imggUrl: ""},
-        {print: "back", imggUrl: ""},
+        { print: "front", imggUrl: "" },
+        { print: "back", imggUrl: "" },
       ],
       thumbnail: "short-standard-orange-front.jpg",
       totalPay: 38000,
@@ -61,8 +61,8 @@ const initialState = {
       size: "S",
       quantity: 4,
       imgArray: [
-        {print: "front", imggUrl: ""},
-        {print: "back", imggUrl: ""},
+        { print: "front", imggUrl: "" },
+        { print: "back", imggUrl: "" },
       ],
       thumbnail: "short-standard-orange-front.jpg",
       totalPay: 38000,

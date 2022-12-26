@@ -1,0 +1,24 @@
+.post-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 배송지 변경 input, button */
+.post-form_btn {
+  border: 1px solid;
+  width: 40%;
+}
+.post-form_input {
+  border: none;
+  border-bottom: 2px solid black;
+  margin-bottom: 20px;
+}
+.post-form_input:focus {
+  outline: none;
+}
+
+/* 우편번호 input */
+#sample6_postcode {
+  float: left;
+  width: 60%;
+}

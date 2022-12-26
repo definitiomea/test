@@ -9,10 +9,10 @@ import { Modal } from "@mui/material";
 import { useState } from "react";
 import { Box } from "@mui/system";
 
-const ReaviewAdd = () => {
+const ReviewAdd = () => {
   const [open, setOpen] = useState(false); // 모달창 열기
   const [fileImg, setFileImg] = useState([]); // 파일을 미리 볼 url을 저장해줄 state
-  const [sendImg, setSendImg] = useState(false); // 모달창에서 사진추가후 리뷰페이지로 전달
+  const [sendImg, setSendImg] = useState(false); // 모달창에서 사진추가 후 ReviewAdd로 전달
   const [fileArray, setFileArray] = useState([]);
 
   const dispatch = useDispatch();
@@ -32,22 +32,34 @@ const ReaviewAdd = () => {
     setFileImg([]);
   };
 
-  // 파일저장하기
+  const [att, setAtt] = useState();
+  // 파일 저장하기
   const saveFileImg = (e) => {
-    // e.target.files 첨부한 여러개의 파일이 배열로 담김
-    const file = e.target.files[0];
+    const {
+      target: { files },
+    } = e;
+    const thefile = files[0];
+    //  FileRedader 불러오기
     const reader = new FileReader();
-    reader.onload = (e) => {
-      const imgObj = new Image();
-      imgObj.src = e.target.result;
+    reader.onloadend = (finishedEvent) => {};
+    // Filereader로 파일 읽기
+    reader.readAsDataURL(thefile);
 
-      // onload 안에서 스프레드 연산자로 넣어줌
-      setFileImg((prev) => [...prev, reader.result]);
-      console.log(e.target.result);
-    };
+    // e.target.files 첨부한 여러개의 파일이 배열로 담김
+    // const file = e.target.files[0];
+    // const reader = new FileReader();
+    // reader.onload = (e) => {
+    //   const imgObj = new Image();
+    //   imgObj.src = e.target.result;
 
-    reader.readAsDataURL(file);
+    //   // onload 안에서 스프레드 연산자로 넣어줌
+    //   setFileImg((prev) => [...prev, reader.result]);
+    //   console.log(e.target.result);
+    // };
+
+    // reader.readAsDataURL(file);
   };
+
   // // 파일 삭제
   // const deleteFileImg = () => {
   //   // URL.revokeObjectURL() : URL.createObjectURL() 호출로부터 생성된 object URL을 해제하는 역할
@@ -56,18 +68,17 @@ const ReaviewAdd = () => {
   // };
 
   // reviewInputReducer.js로 연결하기
-  const exportFile = async () => {
-    if (fileArray.length == 0) {
-      alert("추가된 사진이 없습니다.");
-      return;
-    } else {
-      dispatch(addReview({ imgArray: fileArray }));
-      setFileArray([]);
-      alert("사진추가됨");
-    }
-    const reader = new FileReader();
-    reader.readAsDataURL();
-  };
+  // const exportFile = async () => {
+  //   if (fileArray.length == 0) {
+  //     alert("추가된 사진이 없습니다.");
+  //   } else {
+  //     dispatch(addReview({ imgArray: fileArray }));
+  //     setFileArray([]);
+  //     alert("사진추가됨");
+  //   }
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL();
+  // };
 
   // 취소버튼 누르면 이전페이지인 마이페이지로 이동
   const navigate = useNavigate();
@@ -232,7 +243,7 @@ const ReaviewAdd = () => {
                         handleClose();
                       }}
                     >
-                      등록
+                      확인
                     </button>
                   </ReviewBtn>
                 </Box>
@@ -255,9 +266,9 @@ const ReaviewAdd = () => {
           </ReviewBtn>
           <ReviewBtn>
             <button
-              onClick={() => {
-                exportFile();
-              }}
+            // onClick={() => {
+            //   exportFile();
+            // }}
             >
               등록
             </button>
@@ -268,7 +279,7 @@ const ReaviewAdd = () => {
   );
 };
 
-export default ReaviewAdd;
+export default ReviewAdd;
 
 // 사진첨부 모달창 style
 const style = {
