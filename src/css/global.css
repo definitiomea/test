@@ -1,0 +1,34 @@
+* {
+  box-sizing: border-box;
+  font-family: "ongothic";
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+#wrapper {
+  height: auto;
+  min-height: 100%;
+}
+.footer {
+  height: 100px;
+  width: 100%;
+  background-color: black;
+  color: #f8f9fa;
+}
+.hidden {
+  display: none;
+}
+/* 네브 제외 콘텐츠, 네브바 아래 위치하게 */
+.body-container {
+  width: 100%;
+  position: relative;
+  top: 136px; 
+}
+/* 메인(home) 페이지에서는 네브바가 겹쳐야하므로 제외 */
+.main-container {
+  width: 100%;
+  position: absolute;
+  top: -136px;
+}
