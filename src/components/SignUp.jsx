@@ -134,17 +134,7 @@ const SignUpPage = () => {
             onChange={onChangeEmail}
           />
         </div>
-        <div>
-          <label>Address</label>
-          <br />
-          <input
-            type="text"
-            name="user-address"
-            value={address}
-            required
-            onChange={onChangeAddress}
-          />
-        </div>
+
         <MyButton type="submit">Sign up</MyButton>
       </form>
     </div>
