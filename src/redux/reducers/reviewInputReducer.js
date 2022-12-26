@@ -1,17 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  reviewID: 0,
-  reviewInput: {
-    userID: "",
-    img: "",
-    category: "",
-    productName: "",
-    size: "",
-    comment: "",
-    date: "",
+const initialState = [
+  {
+    reviewID: 0,
+    reviewInput: {
+      userID: "",
+      img: [{ imgUrl: "" }],
+      category: "",
+      productName: "",
+      size: "",
+      comment: "",
+      date: "",
+    },
   },
-};
+];
 
 const reviewSlice = createSlice({
   name: "reviewInput",

@@ -1,3 +1,12 @@
+/* 슬라이드간 간격 삭제 */
+.slick-slide {
+  border: none;
+}
+
+.main-container .slick-slide {
+  height: 100vh;
+}
+
 /* <첫번째 스크린> */
 .section-video {
   width: 100%;
@@ -78,6 +87,7 @@
 .second-content section {
   border: 2px solid;
   margin: 20px;
+  block-size: fit-content;
 }
 
 /* <세번째 스크린> */
