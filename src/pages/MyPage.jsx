@@ -215,6 +215,7 @@ const Mypage = () => {
                 {result ? (
                   <form onSubmit={onSubmit}>
                     <select onChange={changeCarrierId} value={carrierId}>
+                      <option value="">-택배사를 선택해주세요-</option>
                       {/* 택배사 목록 map로 option설정 */}
                       {carriers.map((array) => {
                         return (
