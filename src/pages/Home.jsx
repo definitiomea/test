@@ -26,8 +26,6 @@ const Home = () => {
 
   // 휠 스크롤로 변경
   const slider = useRef(null);
-  const location = useLocation();
-  const main = location.pathname === "index";
 
   const scroll = (e) => {
     if (slider === null) return 0;

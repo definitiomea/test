@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  userID: 0,
   userlist: [
     // 임시데이터
     {
@@ -44,6 +43,6 @@ export const signupSlice = createSlice({
   },
 });
 
-export const { SIGN_UP, ADDIT_USER, ADDIT_ADDRESS } = signupSlice.actions;
+export const { SIGN_UP, ADDIT_USER } = signupSlice.actions;
 
 export default signupSlice.reducer;
