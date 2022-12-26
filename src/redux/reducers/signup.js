@@ -8,10 +8,10 @@ const initialState = {
       name: "아바라",
       password: "12345",
       email: "dddd@dddd",
-      address: "",
-      zoneCode: "",
-      detailAddress: "",
-      reference: "",
+      address: null,
+      zoneCode: null,
+      detailAddress: null,
+      reference: null,
     },
   ],
 };
@@ -43,6 +43,6 @@ export const signupSlice = createSlice({
   },
 });
 
-export const { SIGN_UP, ADDIT_USER, ADDIT_ADDRESS } = signupSlice.actions;
+export const { SIGN_UP, ADDIT_USER } = signupSlice.actions;
 
 export default signupSlice.reducer;

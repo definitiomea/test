@@ -15,7 +15,7 @@ import Loading from "../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/reducers/cart";
 import { inputOrder } from "../redux/reducers/order";
-import DeliveryList from "./DeliveryList";
+import AddDeliveryList from "../components/AddDeliveryList";
 
 const Cart = () => {
   const cartlist = useSelector((state) => state.cartlist.cartlist);
@@ -58,8 +58,9 @@ const Cart = () => {
       }
       copyCartlist[i].category = product.category;
       copyCartlist[i].productName = product.productName;
-      copyCartlist[i].thumbnail = 
-        `${product.category}-${name}-${copyCartlist[i].color}-front.jpg`;
+      copyCartlist[
+        i
+      ].thumbnail = `${product.category}-${name}-${copyCartlist[i].color}-front.jpg`;
       delete copyCartlist[i].cartID;
     }
     return copyCartlist;
@@ -150,7 +151,7 @@ const Cart = () => {
           <div className={styles.container}>
             <div className={styles["delivery-info"]}>
               <h3>Delivery Information</h3>
-              <DeliveryList />
+              <AddDeliveryList />
             </div>
             <div className={styles["summary"]}>
               <div>
@@ -171,8 +172,8 @@ const Cart = () => {
             </div>
           </div>
         </div>
-        // </StyledContainer>
       ) : (
+        // </StyledContainer>
         <Loading />
       )}
     </>

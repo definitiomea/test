@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
-import DaumPostcodeEmbed from "./DeliveryList";
+import AdditDeliveryList from "../components/AdditDeliveryList";
 import { useEffect, useState } from "react";
 import { Modal } from "@mui/material";
 import { Box } from "@mui/system";
-import Delivery from "./Delivery";
+import Delivery from "../components/Delivery";
 import { useDispatch, useSelector } from "react-redux";
 import { ADDIT_USER } from "../redux/reducers/signup";
 import { loginUser } from "../redux/reducers/user";
@@ -137,7 +137,7 @@ const Mypage = () => {
           />
           <button>회원정보 수정</button>
         </Inputs>
-        <DaumPostcodeEmbed />
+        <AdditDeliveryList />
       </UserInfo>
 
       {/* 주문/배송조회 form  */}
@@ -243,7 +243,7 @@ const Mypage = () => {
                 {re.delivery === "상품준비" ? (
                   <button onClick={handleOpen}>배송조회</button>
                 ) : (
-                  <Link to="/mypage/review" state={{ orderDone: orderDone[2] }}>
+                  <Link to="/mypage/review" state={{ orderDone: orderDone }}>
                     후기작성
                   </Link>
                 )}

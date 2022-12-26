@@ -2,7 +2,7 @@ import DaumPostcode from "react-daum-postcode";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
-import { ADDIT_USER } from "../redux/reducers/signup";
+import { SIGN_UP } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAddress } from "../redux/reducers/user";
 
@@ -73,7 +73,7 @@ function DeliveryList() {
     e.preventDefault();
     Postcode();
     dispatch(
-      ADDIT_USER({
+      SIGN_UP({
         ...findUser,
         address,
         zoneCode,
@@ -92,11 +92,6 @@ function DeliveryList() {
     );
   };
 
-  // 모달이 꺼지면서 zoneCode와 address값을 받아옴
-  const save = () => {
-    handleClose();
-  };
-
   const style = {
     position: "absolute",
     top: "50%",
@@ -113,7 +108,7 @@ function DeliveryList() {
     <div>
       <Modal
         open={open}
-        onClose={save}
+        onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -157,7 +152,7 @@ function DeliveryList() {
           value={reference}
         />
         <input type="button" defaultValue="우편번호 찾기" onClick={submit} />
-        <button>배송지 변경</button>
+        <button>배송지 등록</button>
       </form>
     </div>
   );
