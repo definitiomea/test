@@ -1,6 +1,6 @@
 /* 슬라이드간 간격 삭제 */
 .slick-slide {
-  border: none;
+  border: none !important;
 }
 
 .main-container .slick-slide {
