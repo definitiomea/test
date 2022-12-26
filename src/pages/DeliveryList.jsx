@@ -4,7 +4,11 @@ import Modal from "@mui/material/Modal";
 import { useState } from "react";
 import { ADDIT_USER } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
-import { updateAddress } from "../redux/reducers/user";
+import { loginUser, updateAddress } from "../redux/reducers/user";
+
+import "../style/deliveryList.css";
+import "../style/Button";
+import MyButton from "../style/Button";
 
 const Postcode = (props) => {
   const handleComplete = (data) => {
@@ -107,7 +111,8 @@ function DeliveryList() {
   };
 
   return (
-    <div>
+    // inline style 추가(배송지form 위치)
+    <div style={{ marginTop: "76px" }}>
       <Modal
         open={open}
         onClose={save}
@@ -118,34 +123,55 @@ function DeliveryList() {
           <Postcode adressValue={adressValue} zoneCodeValue={zoneCodeValue} />
         </Box>
       </Modal>
-      <form onSubmit={relay}>
+      <form className="post-form" onSubmit={relay}>
+        {/* <input
+          className="post-form_btn"
+          type="button"
+          defaultValue="우편번호 찾기"
+          onClick={submit}
+        /> */}
+
+        {/*float: left로 위치 조정 */}
+        <div>
+          <input
+            type="text"
+            className="post-form_input"
+            id="sample6_postcode"
+            onChange={changeZoneCode}
+            name="zoneCode"
+            placeholder="우편번호"
+            value={zoneCode ? zoneCode.split(" ")[0] : ""}
+          />
+          {/* input type:button -> button tag로 변경 */}
+          <button className="post-form_btn" onClick={submit}>
+            우편번호 찾기
+          </button>
+        </div>
+
         <input
           type="text"
-          id="sample6_postcode"
-          onChange={changeZoneCode}
-          name="zoneCode"
-          value={zoneCode}
-        />
-        <br />
-        <input
-          type="text"
+          className="post-form_input"
           id="sample6_address"
           name="address"
           onChange={changeAddress}
+          placeholder="주소"
           value={address}
         />
-        <br />
+
         <input
           type="text"
+          className="post-form_input"
           id="sample6_detailAddress"
           name="detailAddress"
           onChange={(e) => {
             setDetailAddress(e.target.value);
           }}
+          placeholder="상세주소"
           value={detailAddress}
         />
         <input
           type="text"
+          className="post-form_input"
           id="sample6_extraAddress"
           name="reference"
           onChange={(e) => {
@@ -153,8 +179,8 @@ function DeliveryList() {
           }}
           value={reference}
         />
-        <input type="button" defaultValue="우편번호 찾기" onClick={submit} />
-        <button>배송지 변경</button>
+        {/* button component적용 */}
+        <MyButton>배송지 변경</MyButton>
       </form>
     </div>
   );
