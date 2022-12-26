@@ -81,6 +81,7 @@ const Modal = (props) => {
               <label>ID</label>
               <br />
               <input
+                className="login-input"
                 type="text"
                 name="user-id"
                 value={id}
@@ -92,6 +93,7 @@ const Modal = (props) => {
               <label>Password</label>
               <br />
               <input
+                className="login-input"
                 type="password"
                 name="user-password"
                 value={password}
