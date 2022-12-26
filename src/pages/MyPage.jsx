@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+// import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import DaumPostcodeEmbed from "./DeliveryList";
 import { useEffect, useState } from "react";
@@ -8,6 +8,11 @@ import Delivery from "./Delivery";
 import { useDispatch, useSelector } from "react-redux";
 import { ADDIT_USER } from "../redux/reducers/signup";
 import { loginUser } from "../redux/reducers/user";
+
+import "../style/Mypage.css";
+import "../style/Button";
+import "../style/List";
+import MyButton from "../style/Button";
 
 const Mypage = () => {
   // 택배사 목록 state
@@ -88,69 +93,75 @@ const Mypage = () => {
   const orderDone = useSelector((state) => state.orderlist.orderlist);
 
   return (
-    <Body>
+    <div className="mypage-container">
       {/* 회원정보 수정 form */}
-      <H4>회원정보 수정</H4>
+      <h4 className="section-title">회원정보 수정</h4>
 
-      <UserInfo>
-        <Labels className="labels">
-          <label>id</label>
-          <label>email</label>
-          <label>password</label>
-          <label>password</label>
-          {/* <label>비밀번호 확인</label> */}
-        </Labels>
+      <div className="user-info">
+        {/* <div className="labels">
+        </div> */}
 
-        <Inputs
+        <form
+          className="user-info_form"
           onSubmit={(e) => {
             dispatch(ADDIT_USER(trans));
             dispatch(loginUser(trans));
             e.preventDefault();
           }}
         >
+          <label className="user-info_label">ID</label>
           <input
+            className="user-info_input"
             type="text"
             name="id"
             defaultValue={user.id}
             onChange={onChange}
           />
+          <label className="user-info_label">E-mail</label>
           <input
+            className="user-info_input"
             type="text"
             name="email"
             defaultValue={user.email}
             onChange={onChange}
           />
-
+          <label className="user-info_label">Password</label>
           <input
+            className="user-info_input"
             type="password"
             name="password"
             defaultValue={findUser ? findUser.password : ""}
             onChange={onChange}
           />
+          <label className="user-info_label">Password check</label>
+          {/* <label>비밀번호 확인</label> */}
           <input
+            className="user-info_input"
             type="password"
-            name="password"
-            defaultValue={findUser ? findUser.password : ""}
+            name="password-check"
+            placeholder={user.password}
             onChange={onChange}
           />
-          <button>회원정보 수정</button>
-        </Inputs>
+          {/* button component적용 */}
+          <MyButton>회원정보 수정</MyButton>
+        </form>
         <DaumPostcodeEmbed />
-      </UserInfo>
+      </div>
 
       {/* 주문/배송조회 form  */}
-      <MypageOrder>
-        <H4>주문/배송 조회</H4>
-        <MypageHead>
+      <h4 className="section-title">주문/배송 조회</h4>
+
+      <div>
+        <div className="mypage-head">
           <div>상품정보</div>
           <div>주문일자</div>
           <div>주문금액(수량)</div>
           <div>주문상태</div>
-        </MypageHead>
+        </div>
 
         {/* 장바구니 상품 목록 */}
-        <MypageBody>
-          <MypagePd>
+        <div className="mypage-body">
+          <div className="mypage-pd">
             <div>
               <img
                 className="img"
@@ -162,7 +173,7 @@ const Mypage = () => {
                 }}
               />
             </div>
-            <MypageInfo>
+            <div className="mypage-info">
               {/* 상품 정보 */}
               <div>
                 <span>short sleeve t-shirt</span>
@@ -181,17 +192,17 @@ const Mypage = () => {
                 <span>size : </span>
                 <span>S</span>
               </div>
-            </MypageInfo>
-          </MypagePd>
+            </div>
+          </div>
 
           <div>2022.11.11</div>
 
-          <MypageColum>
+          <div className="mypage-column">
             <div>9,500원</div>
             <div>1개</div> {/* 연한 회색 처리 */}
-          </MypageColum>
+          </div>
 
-          <MypageColum>
+          <div className="mypage-column">
             <div>배송중</div>
             <button onClick={handleOpen}>배송조회</button>
             <Modal
@@ -237,15 +248,15 @@ const Mypage = () => {
                 )}
               </Box>
             </Modal>
-          </MypageColum>
-        </MypageBody>
-      </MypageOrder>
+          </div>
+        </div>
+      </div>
 
-      {/* 주문완료 섹션 */}
+      {/* 배송완료 섹션 */}
       {orderDone.map((re) =>
         re.orderID == 3 ? (
-          <MypageBody>
-            <MypagePd>
+          <div className="delivery-finish">
+            <div className="mypage-pd">
               <div>
                 <img
                   className="img"
@@ -257,7 +268,7 @@ const Mypage = () => {
                   }}
                 />
               </div>
-              <MypageInfo>
+              <div className="mypage-info">
                 {/* 상품 정보 */}
                 <div>
                   <span>{re.category} </span>
@@ -270,102 +281,116 @@ const Mypage = () => {
                   <span>size : </span>
                   <span>{re.size}</span>
                 </div>
-              </MypageInfo>
-            </MypagePd>
+              </div>
+            </div>
 
             <div></div>
 
-            <MypageColum>
+            <div className="mypage-column">
               <div>{re.price}</div>
               <div>{re.quantity}개</div> {/* 연한 회색 처리 */}
-            </MypageColum>
+            </div>
 
-            <MypageColum>
+            <div className="mypage-column">
               <div>
+                {/* 주문상태 추가 */}
+                <div>배송완료</div>
                 <Link to="/mypage/review" state={{ orderDone: orderDone[2] }}>
                   후기작성
                 </Link>
               </div>
-            </MypageColum>
-          </MypageBody>
+            </div>
+          </div>
         ) : (
           ""
         )
       )}
-    </Body>
+    </div>
   );
 };
 
 export default Mypage;
 
-const H4 = styled.h4`
-  border-bottom: 2px solid black;
-  margin-bottom: 15px;
-  padding-bottom: 15px;
-  font-weight: 700;
-`;
+// css - section-title
+// const H4 = styled.h4`
+//   border-bottom: 2px solid black;
+//   margin-bottom: 15px;
+//   padding-bottom: 15px;
+//   font-weight: 700;
+// `;
 
-const Body = styled.div`
-  min-height: calc(100vh - 236px);
-  max-width: 1280px;
-  margin: auto;
-  padding: 48px;
-`;
+// css - mypage-container
+// const Body = styled.div`
+//   min-height: calc(100vh - 236px);
+//   max-width: 1280px;
+//   margin: auto;
+//   padding: 48px;
+// `;
 
-const UserInfo = styled.div`
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-gap: 20px;
-`;
+// css - user-info
+// const UserInfo = styled.div`
+//   display: grid;
+//   grid-template-columns: auto 1fr;
+//   grid-gap: 20px;
+// `;
 
-const Labels = styled.div`
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-`;
+// css - labels
+// const Labels = styled.div`
+//   display: grid;
+//   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+// `;
 
-const Inputs = styled.form`
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-`;
+// css - inputs
+// const Inputs = styled.form`
+//   display: grid;
+//   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+// `;
 
-const MypageOrder = styled.div`
-  margin-top: 50px;
-`;
+// 삭제
+// const MypageOrder = styled.div`
+//   // margin-top: 50px;
+// `;
 
-const MypageHead = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  justify-items: center;
-  align-items: center;
-  border: solid 1px lightgrey;
-  padding: 20px;
-`;
+// css - mypage-head
+// const MypageHead = styled.div`
+//   display: grid;
+//   grid-template-columns: 2fr 1fr 1fr 1fr;
+//   justify-items: center;
+//   align-items: center;
+//   border: solid 1px lightgrey;
+//   padding: 20px;
+// `;
 
-const MypageBody = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  justify-items: center;
-  align-items: center;
-  border: solid 1px lightgrey;
-  border-top: 0;
-  padding: 20px;
-`;
+// css - mypage-body
+// const MypageBody = styled.div`
+//   width: 100%;
+//   display: grid;
+//   grid-template-columns: 2fr 1fr 1fr 1fr;
+//   justify-items: center;
+//   align-items: center;
+//   border: solid 1px lightgrey;
+//   border-top: 0;
+//   padding: 20px;
+// `;
 
-const MypagePd = styled.div`
-  display: flex;
-  align-items: center;
-`;
+// css - mypage-pd
+// const MypagePd = styled.div`
+//   display: flex;
+//   align-items: center;
+// `;
 
-const MypageInfo = styled.div`
-  flex-direction: column;
-  margin-left: 10px;
-`;
+// css - mypage-info
+// const MypageInfo = styled.div`
+//   flex-direction: column;
+//   margin-left: 10px;
+// `;
 
-const MypageColum = styled.div`
-  text-align: center;
-`;
+// css - mypage-column
+// const MypageColum = styled.div`
+//   text-align: center;
+// `;
 
-const MypageEvent = styled.div`
-  margin-top: 50px;
-`;
+// 삭제
+// const MypageEvent = styled.div`
+//   margin-top: 50px;
+// `;
