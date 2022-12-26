@@ -37,6 +37,8 @@ const Postcode = (props) => {
 function DeliveryList() {
   // user 정보
   const user = useSelector((state) => state.user);
+  const signup = useSelector((state) => state.signup);
+  const findUser = signup.userlist.find((userId) => userId.id === user.id);
 
   const [address, setAddress] = useState(user.address);
   const [zoneCode, setZoneCode] = useState(user.zoneCode);
@@ -72,19 +74,20 @@ function DeliveryList() {
     Postcode();
     dispatch(
       ADDIT_USER({
-        ...user,
+        ...findUser,
+        address,
+        zoneCode,
         detailAddress,
         reference,
-        zoneCode,
-        address,
       })
     );
     dispatch(
       updateAddress({
+        ...user,
+        address,
+        zoneCode,
         detailAddress,
         reference,
-        zoneCode,
-        address,
       })
     );
   };

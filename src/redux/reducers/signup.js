@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  userID: 0,
   userlist: [
     // 임시데이터
     {
@@ -9,10 +8,10 @@ const initialState = {
       name: "아바라",
       password: "12345",
       email: "dddd@dddd",
-      address: null,
-      zoneCode: null,
-      detailAddress: null,
-      reference: null,
+      address: "",
+      zoneCode: "",
+      detailAddress: "",
+      reference: "",
     },
   ],
 };
