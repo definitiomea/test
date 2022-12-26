@@ -3,8 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useInput from "../hooks/useInput";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+
 import { SIGN_UP } from "../redux/reducers/signup";
 
+import "../style/signup.css";
 import MyButton from "../style/Button";
 
 const SignUpPage = () => {
@@ -38,7 +42,8 @@ const SignUpPage = () => {
     id,
     password,
     email,
-    address,
+    // 주소지 등록 / 수정 component를 따로 분리하여 삭제
+    // address,
   };
 
   const findUser = signup.userlist.find(
@@ -52,6 +57,7 @@ const SignUpPage = () => {
       dispatch(SIGN_UP(user));
       navigate("/");
     }
+    // 이미 가입된 id / email이 있다면 회원가입 실패
     // if (id === findUser.id) {
     //   alert("사용중인 아이디");
     // }
@@ -62,80 +68,94 @@ const SignUpPage = () => {
     if (password !== passwordCheck) {
       alert("비밀번호 불일치");
       return setPasswordError(true);
-    } // else if(이미 가입된 아이디가 있다면 회원가입 실패)
+    }
   };
 
   return (
-    <div
-      className="signup-form"
-      style={{
-        padding: "150px 15px 15px 15px",
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
-      <form
-        style={{ border: "2px solid black", padding: "15px" }}
-        onSubmit={onSubmitForm}
-      >
-        <div>
-          <label>Name</label>
-          <br />
-          <input
-            type="text"
-            name="user-name"
-            value={name}
-            required
-            onChange={onChangeName}
-          />
-        </div>
-        <div>
-          <label>ID</label>
-          <br />
-          <input
-            type="text"
-            name="user-id"
-            value={id}
-            required
-            onChange={onChangeId}
-          />
-        </div>
-        <div>
-          <label>Password</label>
-          <br />
-          <input
-            type="password"
-            name="user-password"
-            value={password}
-            required
-            onChange={onChangePassword}
-          />
-        </div>
-        <div>
-          <label htmlFor="user-password-check">Password check</label>
-          <br />
-          <input
-            name="user-password-check"
-            type="password"
-            value={passwordCheck}
-            required
-            onChange={onChangePasswordCheck}
-          />
-          {passwordError && <p>Password가 일치하지 않습니다.</p>}
-        </div>
-        <div>
-          <label>E-mail</label>
-          <br />
-          <input
-            type="email"
-            name="user-email"
-            value={email}
-            required
-            onChange={onChangeEmail}
-          />
-        </div>
+    <div className="signup-container">
+      <div className="signup-title-box">
+        <FontAwesomeIcon
+          style={{ fontSize: "30px", paddingLeft: "15px" }}
+          icon={faUserPlus}
+        />
+        &nbsp;&nbsp;&nbsp;
+        <h1 className="signup-title">Sign up</h1>
+      </div>
+      <form className="signup-form" onSubmit={onSubmitForm}>
+        <label className="signup-label">Name</label>
 
-        <MyButton type="submit">Sign up</MyButton>
+        <input
+          className="signup-input"
+          type="text"
+          name="user-name"
+          value={name}
+          required
+          onChange={onChangeName}
+        />
+
+        <label className="signup-label">ID</label>
+
+        <input
+          className="signup-input"
+          type="text"
+          name="user-id"
+          value={id}
+          required
+          onChange={onChangeId}
+        />
+
+        <label className="signup-label">Password</label>
+
+        <input
+          className="signup-input"
+          type="password"
+          name="user-password"
+          value={password}
+          required
+          onChange={onChangePassword}
+        />
+
+        <label className="signup-label" htmlFor="user-password-check">
+          Password check
+        </label>
+
+        <input
+          className="signup-input"
+          name="user-password-check"
+          type="password"
+          value={passwordCheck}
+          required
+          onChange={onChangePasswordCheck}
+        />
+        {passwordError && <p>Password가 일치하지 않습니다.</p>}
+
+        <label className="signup-label">E-mail</label>
+
+        <input
+          className="signup-input"
+          type="email"
+          name="user-email"
+          value={email}
+          required
+          onChange={onChangeEmail}
+        />
+
+        {/* 주소지 등록 / 수정 component를 따로 분리하여 삭제 */}
+        {/* <div>
+          <label>Address</label>
+          <br />
+          <input
+            type="text"
+            name="user-address"
+            value={address}
+            required
+            onChange={onChangeAddress}
+          />
+        </div> */}
+
+        <MyButton className="signup-btn" type="submit">
+          Sign up
+        </MyButton>
       </form>
     </div>
   );
