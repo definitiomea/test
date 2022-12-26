@@ -9,10 +9,10 @@ import { Modal } from "@mui/material";
 import { useState } from "react";
 import { Box } from "@mui/system";
 
-const ReaviewAdd = () => {
+const ReviewAdd = () => {
   const [open, setOpen] = useState(false); // 모달창 열기
   const [fileImg, setFileImg] = useState([]); // 파일을 미리 볼 url을 저장해줄 state
-  const [sendImg, setSendImg] = useState(false); // 모달창에서 사진추가후 리뷰페이지로 전달
+  const [sendImg, setSendImg] = useState(false); // 모달창에서 사진추가 후 ReviewAdd로 전달
   const [fileArray, setFileArray] = useState([]);
 
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const ReaviewAdd = () => {
     setFileImg([]);
   };
 
-  // 파일저장하기
+  // 파일 저장하기
   const saveFileImg = (e) => {
     // e.target.files 첨부한 여러개의 파일이 배열로 담김
     const file = e.target.files[0];
@@ -48,6 +48,8 @@ const ReaviewAdd = () => {
 
     reader.readAsDataURL(file);
   };
+
+  
   // // 파일 삭제
   // const deleteFileImg = () => {
   //   // URL.revokeObjectURL() : URL.createObjectURL() 호출로부터 생성된 object URL을 해제하는 역할
@@ -268,7 +270,7 @@ const ReaviewAdd = () => {
   );
 };
 
-export default ReaviewAdd;
+export default ReviewAdd;
 
 // 사진첨부 모달창 style
 const style = {
