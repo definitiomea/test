@@ -261,7 +261,7 @@ const Mypage = () => {
               <div>
                 <img
                   className="img"
-                  src={require(`.././img/shirts-img/short/short-relax-beige-front.jpg`)}
+                  // src={require(`../img/shirts-img/short/`+`{re.thumbnail}`)}
                   alt="#"
                   style={{
                     width: "100px",
@@ -285,10 +285,10 @@ const Mypage = () => {
               </div>
             </div>
 
-            <div></div>
+            <div>{re.orderDate}</div>
 
             <div className="mypage-column">
-              <div>{re.price}</div>
+              <div>{re.totalPay}원</div>
               <div>{re.quantity}개</div> {/* 연한 회색 처리 */}
             </div>
 

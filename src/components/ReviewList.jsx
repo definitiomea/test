@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const ReviewList = (props) => {
   // reviewReducer에서 initialState값 가져옴
@@ -14,12 +13,10 @@ const ReviewList = (props) => {
   return (
     <div>
       {/* 상품 category와 productName을 대조하여 댓글 출력함*/}
-      {reviewList.map((review) =>
-        review.category == compare.category &&
-        review.productName == compare.productName ? (
+      {reviewList.map((review) => {
+        return review.category == compare.category &&
+          review.productName == compare.productName ? (
           <div key={review.id}>
-            <img src="" alt="" />
-            <p>{review.userID}</p>
             <p>별점존</p>
             <p>{review.category}</p>
             <p>{review.productName}</p>
@@ -29,8 +26,8 @@ const ReviewList = (props) => {
           </div>
         ) : (
           ""
-        )
-      )}
+        );
+      })}
     </div>
   );
 };

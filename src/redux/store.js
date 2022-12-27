@@ -26,7 +26,7 @@ const persistConfig = {
   storage,
   // storage에 저장할 redux module 나열
   // blacklist : 저장하지 않을 redux module 나열
-  whitelist: ["signup", "user", "cartlist", "orderlist"],
+  whitelist: ["signup", "user", "cartlist", "orderlist", "review"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -1,12 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// 테스트 데이터
-// 아이디
-// 상품명
-// 옵션(핏)
-// 색상
-// 사이즈
-// 날짜
 const initialState = {
   reviewList: [
     {
@@ -17,7 +10,8 @@ const initialState = {
       size: "S",
       rating: 5,
       comment: "핏이 정말 예뻐요",
-      image: { src: "" },
+      image: "short-slim-red-front.jpg",
+      color: "red",
       date: "2022-11-19",
     },
     {
@@ -28,7 +22,8 @@ const initialState = {
       size: "M",
       rating: 4,
       comment: "색감이 너무 좋습니다!",
-      image: { src: "" },
+      image: "short-slim-white-front.jpg",
+      color: "white",
       date: "2022-11-20",
     },
     {
@@ -39,7 +34,8 @@ const initialState = {
       size: "L",
       rating: 5,
       comment: "품질이 좋습니다",
-      image: { src: "" },
+      image: "short-stnadard-gray-front.jpg",
+      color: "gray",
       date: "2022-11-18",
     },
     {
@@ -50,7 +46,8 @@ const initialState = {
       size: "M",
       rating: 4,
       comment: "다른 색도 사고 싶어요",
-      image: { src: "" },
+      image: "short-stnadard-beige-front.jpg",
+      color: "beige",
       date: "2022-11-20",
     },
     {
@@ -61,7 +58,8 @@ const initialState = {
       size: "S",
       rating: 3,
       comment: "조금 커요",
-      image: { src: "" },
+      image: "long-standard-white-front.jpg",
+      color: "white",
       date: "2022-11-23",
     },
     {
@@ -72,7 +70,8 @@ const initialState = {
       size: "L",
       rating: 5,
       comment: "요즘 매일 입어요",
-      image: { src: "" },
+      image: "long-standard-black-front.jpg",
+      color: "black",
       date: "2022-12-01",
     },
     {
@@ -83,7 +82,8 @@ const initialState = {
       size: "S",
       rating: 5,
       comment: "선물용으로도 좋아요",
-      image: { src: "" },
+      image: "long-standard-blue-front.jpg",
+      color: "blue",
       date: "2022-12-02",
     },
     {
@@ -94,7 +94,8 @@ const initialState = {
       size: "L",
       rating: 4,
       comment: "맘에 들어요~",
-      image: { src: "" },
+      image: "long-standard-khaki-front.jpg",
+      color: "khaki",
       date: "2022-12-05",
     },
   ],
