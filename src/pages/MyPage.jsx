@@ -191,50 +191,7 @@ const Mypage = () => {
 
         {/* 장바구니 상품 목록 */}
         <div className="mypage-body">
-          <div className="mypage-pd">
-            <div>
-              <img
-                className="img"
-                src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-                alt=""
-                style={{
-                  width: "200px",
-                  height: "100px",
-                }}
-              />
-            </div>
-            <div className="mypage-info">
-              {/* 상품 정보 */}
-              <div>
-                <span>short sleeve t-shirt</span>
-                <span>standard fit</span>
-                <span> (navy) </span>
-              </div>
-
-              {/* 프린팅 면 정보*/}
-              <div>
-                <span>print : </span>
-                <span>front</span>
-              </div>
-
-              {/* 사이즈 정보 */}
-              <div>
-                <span>size : </span>
-                <span>S</span>
-              </div>
-            </div>
-          </div>
-
-          <div>2022.11.11</div>
-
           <div className="mypage-column">
-            <div>9,500원</div>
-            <div>1개</div> {/* 연한 회색 처리 */}
-          </div>
-
-          <div className="mypage-column">
-            <div>배송중</div>
-            <button onClick={handleOpen}>배송조회</button>
             <Modal
               open={open}
               onClose={handleClose}
@@ -284,12 +241,12 @@ const Mypage = () => {
       </div>
 
       {/* 배송완료 섹션 */}
-      {orderDone.map((re) =>
-          <div className="delivery-finish">
-            <div className="mypage-pd">
-              <div>
-                {getImgPath(re)}
-                {/* <img
+      {orderDone.map((re) => (
+        <div className="delivery-finish">
+          <div className="mypage-pd">
+            <div>
+              {getImgPath(re)}
+              {/* <img
                   className="img"
                   src={require(`../img/shirts-img/short/short-relax-beige-front.jpg`)}
                   alt="#"
@@ -298,41 +255,49 @@ const Mypage = () => {
                     height: "100px",
                   }}
                 /> */}
-              </div>
-              <div className="mypage-info">
-                {/* 상품 정보 */}
-                <div>
-                  <span>{re.category} </span>
-                  <span>{re.productName} </span>
-                  <span> ({re.color}) </span>
-                </div>
-
-                {/* 사이즈 정보 */}
-                <div>
-                  <span>size : </span>
-                  <span>{re.size}</span>
-                </div>
-              </div>
             </div>
-
-            <div></div>
-
-            <div className="mypage-column">
-              <div>{re.price}</div>
-              <div>{re.quantity}개</div> {/* 연한 회색 처리 */}
-            </div>
-
-            <div className="mypage-column">
+            <div className="mypage-info">
+              {/* 상품 정보 */}
               <div>
-                {/* 주문상태 추가 */}
-                <div>배송완료</div>
-                <Link to="/mypage/review" state={{ orderDone: orderDone }}>
-                  후기작성
-                </Link>
+                <span>{re.category} </span>
+                <span>{re.productName} </span>
+                <span> ({re.color}) </span>
+              </div>
+
+              {/* 사이즈 정보 */}
+              <div>
+                <span>size : {re.size}</span>
               </div>
             </div>
           </div>
-      )}
+
+          <div></div>
+
+          <div className="mypage-column">
+            <div>{re.price}</div>
+            <div>{re.quantity}개</div> {/* 연한 회색 처리 */}
+          </div>
+
+          <div className="mypage-column">
+            <div>
+              {/* 주문상태 추가 */}
+              {re.delivery === "상품준비" ? (
+                <div>
+                  <div>상품준비</div>
+                  <button onClick={handleOpen}>배송조회</button>
+                </div>
+              ) : (
+                <div>
+                  <div>배송완료</div>
+                  <Link to="/mypage/review" state={{ orderDone: orderDone }}>
+                    후기작성
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
