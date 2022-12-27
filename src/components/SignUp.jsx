@@ -8,7 +8,7 @@ import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { SIGN_UP } from "../redux/reducers/signup";
 
-import "../style/signup.css";
+import "../css/signup.css";
 import MyButton from "../style/Button";
 
 const SignUpPage = () => {

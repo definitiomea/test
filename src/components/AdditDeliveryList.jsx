@@ -6,7 +6,7 @@ import { ADDIT_USER } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAddress } from "../redux/reducers/user";
 
-import "../style/deliveryList.css";
+import "../css/deliveryList.css";
 import "../style/Button";
 import MyButton from "../style/Button";
 

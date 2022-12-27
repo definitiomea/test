@@ -3,6 +3,12 @@
   margin: 0;
 }
 
+ul {
+  /* navbar menu margin 제거
+   중앙 배치  */
+  margin: 0;
+}
+
 nav {
   box-sizing: border-box;
   display: flex;

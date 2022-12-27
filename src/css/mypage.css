@@ -49,6 +49,7 @@
   grid-template-columns: 2fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
+  font-weight: bolder;
   border: solid 1px lightgrey;
   /* list border 제거 */
   border-left: none;
