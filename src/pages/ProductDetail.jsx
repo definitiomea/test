@@ -21,7 +21,17 @@ import {
 } from "../modules/PageSetting";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCloudArrowUp,
+  faRepeat,
+  faFont,
+  faRotateLeft,
+  faRotateRight,
+  faEraser,
+  faFloppyDisk,
+  faCircleMinus,
+  faCartPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import Button from "@mui/material/Button";
 
 import { inputCart } from "../redux/reducers/cart";
@@ -73,6 +83,7 @@ const ProductDetail = () => {
   return (
     <ProductArea>
       <div className="product-button">
+        <FontAwesomeIcon icon={faRepeat} style={{width: '30px', height: '30px'}}></FontAwesomeIcon>
         <Button
           variant="contained"
           color="success"
@@ -82,6 +93,7 @@ const ProductDetail = () => {
         >
           앞/뒤 뒤집기
         </Button>
+        <FontAwesomeIcon icon={faCloudArrowUp} style={{width: '30px', height: '30px'}}></FontAwesomeIcon>
         <input
           type="file"
           accept="image/*"
@@ -89,19 +101,23 @@ const ProductDetail = () => {
             handleImage({ canvas, event });
           }}
         />
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => {
-            addText({ canvas });
-          }}
-        >
-          텍스트 추가하기
-        </Button>
-        <input
-          type="color"
-          onChange={(event) => setTextColor({ canvas, event })}
-        ></input>
+        <FontAwesomeIcon icon={faFont} style={{width: '30px', height: '30px'}}></FontAwesomeIcon>
+        <div>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => {
+              addText({ canvas });
+            }}
+          >
+            텍스트 추가하기
+          </Button>
+          <input
+            type="color"
+            onChange={(event) => setTextColor({ canvas, event })}
+          ></input>
+        </div>
+        <FontAwesomeIcon icon={faRotateLeft} style={{width: '30px', height: '30px'}}></FontAwesomeIcon>
         <Button
           variant="contained"
           color="success"
@@ -111,6 +127,7 @@ const ProductDetail = () => {
         >
           편집 되돌리기
         </Button>
+        <FontAwesomeIcon icon={faRotateRight} style={{width: '30px', height: '30px'}}></FontAwesomeIcon>
         <Button
           variant="contained"
           color="success"
@@ -120,6 +137,7 @@ const ProductDetail = () => {
         >
           편집 되돌리기 취소
         </Button>
+        <FontAwesomeIcon icon={faEraser} style={{width: '30px', height: '30px'}}></FontAwesomeIcon>
         <Button
           variant="contained"
           color="success"
@@ -129,7 +147,7 @@ const ProductDetail = () => {
         >
           이미지, 편집 전체 삭제
         </Button>
-        <Button
+        {/* <Button
           onClick={() => {
             exportImg({
               productList,
@@ -145,7 +163,8 @@ const ProductDetail = () => {
           }}
         >
           이미지 내보내기(dispatch)
-        </Button>
+        </Button> */}
+        <FontAwesomeIcon icon={faFloppyDisk} style={{width: '30px', height: '30px'}}></FontAwesomeIcon>
         <Button
           onClick={() => {
             customSave({
@@ -162,6 +181,7 @@ const ProductDetail = () => {
         >
           편집한 면의 이미지 저장
         </Button>
+        <FontAwesomeIcon icon={faCircleMinus} style={{width: '30px', height: '30px'}}></FontAwesomeIcon>
         <Button
           onClick={() => {
             customErase({ setEditArray });
@@ -248,8 +268,22 @@ const ProductDetail = () => {
         </select>
 
         <div>
-          <Button>
-            <FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon>
+          <Button
+            onClick={() => {
+              exportImg({
+                productList,
+                editArray,
+                setEditArray,
+                dispatch,
+                inputCart,
+                color,
+                quantitySelect,
+                sizeSelect,
+                productPrice,
+              });
+            }}
+          >
+            <FontAwesomeIcon icon={faCartPlus} style={{width: '30px', height: '30px'}}></FontAwesomeIcon>
           </Button>
           <Button>구매하기</Button>
         </div>
