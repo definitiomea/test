@@ -86,6 +86,9 @@
   margin-right: 0.5rem;
   background-color: #dee2e6;
 }
+.product-container {
+  width: 100px;
+}
 
 /* 장바구니 아이템 - 구매수량 */
 .quantity-container {
@@ -122,3 +125,5 @@
     display: none; /* 구매수량의 버튼이 보이지 않게 */
   }
 }
+
+/* 장바구니 모달 */

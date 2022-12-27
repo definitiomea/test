@@ -5,7 +5,7 @@ const StyledList = styled.div`
   border-bottom: 1px solid lightgray;
   > div {
     display: grid;
-    grid-template-columns: 4fr repeat(4, 2fr);
+    grid-template-columns: 5fr 1fr repeat(3, 2fr);
     gap: 1.5rem;
     align-items: center;
     justify-items: center;

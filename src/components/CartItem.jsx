@@ -4,6 +4,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import Button from '@mui/material/Button';
 import "../css/cart.css";
 
 import {
@@ -33,9 +34,13 @@ const UserDesignModal = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  // getNewImgArr().map((item, i) => (
+  //   <img src={item.imageUrl} key={i} />
+  // ))
+
   return (
     <div>
-      <button onClick={handleOpen}>도안확인</button>
+      <Button variant="outlined" color="inherit" onClick={handleOpen}>도안확인</Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <div>test</div>
@@ -94,25 +99,15 @@ const CartItem = (props) => {
     }
   };
 
-  const getProductImg = () => {
+  const getImgPath = () => {
     const findIndex = product.colorName.findIndex(
       (item) => item === cartItem.color
     );
     switch (product.category) {
       case "short":
-        return (
-          <img
-            src={require(`../img/shirts-img/short/${product.thumbnail[findIndex]}`)}
-            alt="short"
-          />
-        );
+        return require(`../img/shirts-img/short/${product.thumbnail[findIndex]}`);
       case "long":
-        return (
-          <img
-            src={require(`../img/shirts-img/long/${product.thumbnail[findIndex]}`)}
-            alt="long"
-          />
-        );
+        return require(`../img/shirts-img/long/${product.thumbnail[findIndex]}`);
       default:
         return <div>No Image</div>;
     }
@@ -127,16 +122,10 @@ const CartItem = (props) => {
   return (
     <>
       <div className="product-container">
-        {getProductImg()}
-        {/* {getNewImgArr().map((item, i) => (
-          <img src={item.imageUrl} key={i} />
-        ))} */}
+        <img src={getImgPath()} alt="No Image" />
         <div>
           <div>
-            {product.category} {product.productName}
-          </div>
-          <div>
-            color :<span>{cartItem.color}</span>
+            {product.category} {product.productName} ({cartItem.color})
           </div>
           <div>
             print :
