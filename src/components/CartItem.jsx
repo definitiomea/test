@@ -13,9 +13,7 @@ import {
   quantityInput,
   deleteItem,
 } from "../redux/reducers/cart";
-import { useRef } from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useRef, useEffect, useState } from "react";
 
 const style = {
   position: "absolute",
@@ -101,6 +99,7 @@ const CartItem = (props) => {
     }
   };
 
+  // 상품 이미지 경로
   const getImgPath = () => {
     const findIndex = product.colorName.findIndex(
       (item) => item === cartItem.color
@@ -115,7 +114,7 @@ const CartItem = (props) => {
     }
   };
 
-  // 구매 수량이 바뀔 때마다 input과 totalPay에 반영하기 위함
+  // 구매 수량이 바뀔 때마다 input과 totalPay에 반영
   useEffect(() => {
     inputRef.current.value = cartItem.quantity;
     setTotalPay(cartItem.totalPay);
@@ -123,7 +122,7 @@ const CartItem = (props) => {
 
   return (
     <>
-      <div className="product-container">
+      <td className="product-container">
         <img src={getImgPath()} alt="No Image" />
         <div>
           <div>
@@ -141,13 +140,10 @@ const CartItem = (props) => {
           </div>
           <UserDesignModal />
         </div>
-      </div>
-      <div>{cartItem.size}</div>
-      <div className="quantity-container">
-        <IconButton
-          sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
-          onClick={onDecrease}
-        >
+      </td>
+      <td>{cartItem.size}</td>
+      <td className="quantity-container">
+        <IconButton onClick={onDecrease}>
           <RemoveIcon />
         </IconButton>
         <input
@@ -156,22 +152,20 @@ const CartItem = (props) => {
           ref={inputRef}
           onChange={onInput}
         />
-        <IconButton
-          sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
-          onClick={onIncrease}
-        >
+        <IconButton onClick={onIncrease}>
           <AddIcon />
         </IconButton>
-      </div>
-      <div>{totalPay.toLocaleString("ko-KR")}</div>
-      <IconButton
-        sx={{ "&:hover": { color: "#dc3545" } }}
-        onClick={() => {
-          dispatch(deleteItem(cartItem.cartID));
-        }}
-      >
-        <DeleteIcon />
-      </IconButton>
+      </td>
+      <td>{totalPay.toLocaleString("ko-KR")}</td>
+      <td>
+        <IconButton
+          onClick={() => {
+            dispatch(deleteItem(cartItem.cartID));
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </td>
     </>
   );
 };

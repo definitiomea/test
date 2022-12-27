@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faTruck } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
-import List from "../style/List";
 import MyButton from "../style/Button";
+import MyTable from "../style/Table";
 import "../css/cart.css";
 
 import { useNavigate } from "react-router-dom";
@@ -55,8 +55,9 @@ const Cart = () => {
       }
       copyCartlist[i].category = fintProduct.category;
       copyCartlist[i].productName = fintProduct.productName;
-      copyCartlist[i].thumbnail = 
-        `${fintProduct.category}-${name}-${copyCartlist[i].color}-front.jpg`;
+      copyCartlist[
+        i
+      ].thumbnail = `${fintProduct.category}-${name}-${copyCartlist[i].color}-front.jpg`;
     }
     return copyCartlist;
   };
@@ -109,42 +110,52 @@ const Cart = () => {
             <FontAwesomeIcon icon={faCartShopping} />
             <h2>My Cart</h2>
           </div>
-          <List>
-            <div className="label">
-              <div>Product Name</div>
-              <div>Size</div>
-              <div>Quantity</div>
-              <div>Price</div>
-              <div>
-                <Button
-                  variant="outlined"
-                  color="error"
-                  onClick={() => {
-                    dispatch(clearCart());
-                  }}
-                >
-                  Clear All
-                </Button>
-              </div>
-            </div>
-            {cartlist.length == 0 ? (
-              <div className="item-empty">Empty</div>
-            ) : (
-              <div>
-                {cartlist.map((cartItem) => (
-                  <CartItem
-                    key={cartItem.cartID}
-                    cartItem={cartItem}
-                    productlist={productlist}
-                    dispatch={dispatch}
-                  />
-                ))}
-              </div>
-            )}
-          </List>
+          <MyTable>
+            <thead>
+              <tr>
+                <th>상품정보</th>
+                <th>사이즈</th>
+                <th>수량</th>
+                <th>금액</th>
+                <th>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => {
+                      dispatch(clearCart());
+                    }}
+                  >
+                    Clear All
+                  </Button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartlist.length == 0 ? (
+                <tr className="item-empty">
+                  <td>Empty</td>
+                </tr>
+              ) : (
+                <>
+                  {cartlist.map((cartItem) => (
+                    <tr key={cartItem.cartID}>
+                      <CartItem
+                        cartItem={cartItem}
+                        productlist={productlist}
+                        dispatch={dispatch}
+                      />
+                    </tr>
+                  ))}
+                </>
+              )}
+            </tbody>
+          </MyTable>
           <div className="delivery-summary-container">
             <div className="delivery-info">
-              <h3>Delivery Information</h3>
+              <div className="cart-title">
+                <FontAwesomeIcon icon={faTruck} />
+                <h2>delivery Info</h2>
+              </div>
               <AddDeliveryList />
             </div>
             <div className="summary">

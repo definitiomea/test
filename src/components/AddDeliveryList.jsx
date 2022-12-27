@@ -1,6 +1,8 @@
 import DaumPostcode from "react-daum-postcode";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import Button from '@mui/material/Button';
+import "../css/cart.css";
 import { useState } from "react";
 import { SIGN_UP } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
@@ -116,43 +118,53 @@ function DeliveryList() {
           <Postcode adressValue={adressValue} zoneCodeValue={zoneCodeValue} />
         </Box>
       </Modal>
-      <form onSubmit={relay}>
-        <input
-          type="text"
-          id="sample6_postcode"
-          onChange={changeZoneCode}
-          name="zoneCode"
-          value={zoneCode}
-        />
-        <br />
-        <input
-          type="text"
-          id="sample6_address"
-          name="address"
-          onChange={changeAddress}
-          value={address}
-        />
-        <br />
-        <input
-          type="text"
-          id="sample6_detailAddress"
-          name="detailAddress"
-          onChange={(e) => {
-            setDetailAddress(e.target.value);
-          }}
-          value={detailAddress}
-        />
-        <input
-          type="text"
-          id="sample6_extraAddress"
-          name="reference"
-          onChange={(e) => {
-            setReference(e.target.value);
-          }}
-          value={reference}
-        />
-        <input type="button" defaultValue="우편번호 찾기" onClick={submit} />
-        <button>배송지 등록</button>
+      <form onSubmit={relay} className="cart-post-form">
+        <div>
+          <label>우편번호</label>
+          <input
+            type="text"
+            id="sample6_postcode"
+            onChange={changeZoneCode}
+            name="zoneCode"
+            value={zoneCode}
+          />
+          <input type="button" defaultValue="우편번호 찾기" onClick={submit} />
+        </div>
+        <div>
+          <label>주소</label>
+          <input
+            type="text"
+            id="sample6_address"
+            name="address"
+            onChange={changeAddress}
+            value={address}
+          />
+        </div>
+        <div>
+          <label>상세주소</label>
+          <input
+            type="text"
+            id="sample6_detailAddress"
+            name="detailAddress"
+            onChange={(e) => {
+              setDetailAddress(e.target.value);
+            }}
+            value={detailAddress}
+          />
+        </div>
+        <div>
+          <label>배송 메모</label>
+          <input
+            type="text"
+            id="sample6_extraAddress"
+            name="reference"
+            onChange={(e) => {
+              setReference(e.target.value);
+            }}
+            value={reference}
+          />
+        </div>
+        <Button variant="text" color="primary">배송지 저장</Button>
       </form>
     </div>
   );
