@@ -2,13 +2,9 @@ import DaumPostcode from "react-daum-postcode";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
-import { ADDIT_USER } from "../redux/reducers/signup";
+import { SIGN_UP } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, updateAddress } from "../redux/reducers/user";
-
-import "../style/deliveryList.css";
-import "../style/Button";
-import MyButton from "../style/Button";
+import { updateAddress } from "../redux/reducers/user";
 
 const Postcode = (props) => {
   const handleComplete = (data) => {
@@ -41,6 +37,8 @@ const Postcode = (props) => {
 function DeliveryList() {
   // user 정보
   const user = useSelector((state) => state.user);
+  const signup = useSelector((state) => state.signup);
+  const findUser = signup.userlist.find((userId) => userId.id === user.id);
 
   const [address, setAddress] = useState(user.address);
   const [zoneCode, setZoneCode] = useState(user.zoneCode);
@@ -75,27 +73,23 @@ function DeliveryList() {
     e.preventDefault();
     Postcode();
     dispatch(
-      ADDIT_USER({
-        ...user,
+      SIGN_UP({
+        ...findUser,
+        address,
+        zoneCode,
         detailAddress,
         reference,
-        zoneCode,
-        address,
       })
     );
     dispatch(
       updateAddress({
+        ...user,
+        address,
+        zoneCode,
         detailAddress,
         reference,
-        zoneCode,
-        address,
       })
     );
-  };
-
-  // 모달이 꺼지면서 zoneCode와 address값을 받아옴
-  const save = () => {
-    handleClose();
   };
 
   const style = {
@@ -111,11 +105,10 @@ function DeliveryList() {
   };
 
   return (
-    // inline style 추가(배송지form 위치)
-    <div style={{ marginTop: "76px" }}>
+    <div>
       <Modal
         open={open}
-        onClose={save}
+        onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -123,55 +116,34 @@ function DeliveryList() {
           <Postcode adressValue={adressValue} zoneCodeValue={zoneCodeValue} />
         </Box>
       </Modal>
-      <form className="post-form" onSubmit={relay}>
-        {/* <input
-          className="post-form_btn"
-          type="button"
-          defaultValue="우편번호 찾기"
-          onClick={submit}
-        /> */}
-
-        {/*float: left로 위치 조정 */}
-        <div>
-          <input
-            type="text"
-            className="post-form_input"
-            id="sample6_postcode"
-            onChange={changeZoneCode}
-            name="zoneCode"
-            placeholder="우편번호"
-            value={zoneCode ? zoneCode.split(" ")[0] : ""}
-          />
-          {/* input type:button -> button tag로 변경 */}
-          <button className="post-form_btn" onClick={submit}>
-            우편번호 찾기
-          </button>
-        </div>
-
+      <form onSubmit={relay}>
         <input
           type="text"
-          className="post-form_input"
+          id="sample6_postcode"
+          onChange={changeZoneCode}
+          name="zoneCode"
+          value={zoneCode}
+        />
+        <br />
+        <input
+          type="text"
           id="sample6_address"
           name="address"
           onChange={changeAddress}
-          placeholder="주소"
           value={address}
         />
-
+        <br />
         <input
           type="text"
-          className="post-form_input"
           id="sample6_detailAddress"
           name="detailAddress"
           onChange={(e) => {
             setDetailAddress(e.target.value);
           }}
-          placeholder="상세주소"
           value={detailAddress}
         />
         <input
           type="text"
-          className="post-form_input"
           id="sample6_extraAddress"
           name="reference"
           onChange={(e) => {
@@ -179,8 +151,8 @@ function DeliveryList() {
           }}
           value={reference}
         />
-        {/* button component적용 */}
-        <MyButton>배송지 변경</MyButton>
+        <input type="button" defaultValue="우편번호 찾기" onClick={submit} />
+        <button>배송지 등록</button>
       </form>
     </div>
   );

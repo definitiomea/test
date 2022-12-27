@@ -1,10 +1,10 @@
 // import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
-import DaumPostcodeEmbed from "./DeliveryList";
+import AdditDeliveryList from "../components/AdditDeliveryList";
 import { useEffect, useState } from "react";
 import { Modal } from "@mui/material";
 import { Box } from "@mui/system";
-import Delivery from "./Delivery";
+import Delivery from "../components/Delivery";
 import { useDispatch, useSelector } from "react-redux";
 import { ADDIT_USER } from "../redux/reducers/signup";
 import { loginUser } from "../redux/reducers/user";
@@ -145,7 +145,7 @@ const Mypage = () => {
           {/* button component적용 */}
           <MyButton>회원정보 수정</MyButton>
         </form>
-        <DaumPostcodeEmbed />
+        <AdditDeliveryList />
       </div>
 
       {/* 주문/배송조회 form  */}
@@ -215,6 +215,7 @@ const Mypage = () => {
                 {result ? (
                   <form onSubmit={onSubmit}>
                     <select onChange={changeCarrierId} value={carrierId}>
+                      <option value="">-택배사를 선택해주세요-</option>
                       {/* 택배사 목록 map로 option설정 */}
                       {carriers.map((array) => {
                         return (
@@ -295,7 +296,7 @@ const Mypage = () => {
               <div>
                 {/* 주문상태 추가 */}
                 <div>배송완료</div>
-                <Link to="/mypage/review" state={{ orderDone: orderDone[2] }}>
+                <Link to="/mypage/review" state={{ orderDone: orderDone }}>
                   후기작성
                 </Link>
               </div>
