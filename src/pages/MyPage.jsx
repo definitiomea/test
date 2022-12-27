@@ -92,6 +92,36 @@ const Mypage = () => {
   // 주문완료 섹션 출력 함수
   const orderDone = useSelector((state) => state.orderlist.orderlist);
 
+  // test
+  const getImgPath = (item) => {
+    switch (item.category) {
+      case "short":
+        return (
+          <img
+            src={require(`../img/shirts-img/short/${item.thumbnail}`)}
+            alt="short"
+            style={{
+              width: "100px",
+              height: "100px",
+            }}
+          />
+        );
+      case "long":
+        return (
+          <img
+            src={require(`../img/shirts-img/long/${item.thumbnail}`)}
+            alt="long"
+            style={{
+              width: "100px",
+              height: "100px",
+            }}
+          />
+        );
+      default:
+        return <div>No Image</div>;
+    }
+  };
+
   return (
     <div className="mypage-container">
       {/* 회원정보 수정 form */}
@@ -212,19 +242,19 @@ const Mypage = () => {
 
       {/* 배송완료 섹션 */}
       {orderDone.map((re) =>
-        re.orderID == 3 ? (
           <div className="delivery-finish">
             <div className="mypage-pd">
               <div>
-                <img
+                {getImgPath(re)}
+                {/* <img
                   className="img"
-                  src={require(`.././img/shirts-img/short/short-relax-beige-front.jpg`)}
+                  src={require(`../img/shirts-img/short/short-relax-beige-front.jpg`)}
                   alt="#"
                   style={{
                     width: "100px",
                     height: "100px",
                   }}
-                />
+                /> */}
               </div>
               <div className="mypage-info">
                 {/* 상품 정보 */}
@@ -267,9 +297,6 @@ const Mypage = () => {
               </div>
             </div>
           </div>
-        ) : (
-          ""
-        )
       )}
     </div>
   );
