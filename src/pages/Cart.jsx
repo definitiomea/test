@@ -1,12 +1,9 @@
-import styled from "styled-components";
-import { Container } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
 import List from "../style/List";
 import MyButton from "../style/Button";
-// css module
-import styles from "../css/cart.module.css";
+import "../css/cart.css";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -41,11 +38,11 @@ const Cart = () => {
   const copyCartlist = () => {
     const copyCartlist = JSON.parse(JSON.stringify(cartlist));
     for (let i = 0; i < copyCartlist.length; i++) {
-      const product = productlist.find(
+      const fintProduct = productlist.find(
         (product) => product.productID == copyCartlist[i].productID
       );
       let name = "";
-      switch (product.productName) {
+      switch (fintProduct.productName) {
         case "슬림 핏":
           name = "slim";
           break;
@@ -56,19 +53,17 @@ const Cart = () => {
           name = "relax";
           break;
       }
-      copyCartlist[i].category = product.category;
-      copyCartlist[i].productName = product.productName;
-      copyCartlist[
-        i
-      ].thumbnail = `${product.category}-${name}-${copyCartlist[i].color}-front.jpg`;
-      delete copyCartlist[i].cartID;
+      copyCartlist[i].category = fintProduct.category;
+      copyCartlist[i].productName = fintProduct.productName;
+      copyCartlist[i].thumbnail = 
+        `${fintProduct.category}-${name}-${copyCartlist[i].color}-front.jpg`;
     }
     return copyCartlist;
   };
 
   // 주문하기
   const order = () => {
-    if (cartlist.length == 0) {
+    if (cartlist.length === 0) {
       alert("장바구니가 비어있습니다.");
       return;
     }
@@ -109,9 +104,8 @@ const Cart = () => {
   return (
     <>
       {productlist ? (
-        // <StyledContainer maxWidth="lg">
-        <div className={styles.box}>
-          <div className={styles.title}>
+        <div className="cart-box">
+          <div className="cart-title">
             <FontAwesomeIcon icon={faCartShopping} />
             <h2>My Cart</h2>
           </div>
@@ -148,22 +142,22 @@ const Cart = () => {
               </div>
             )}
           </List>
-          <div className={styles.container}>
-            <div className={styles["delivery-info"]}>
+          <div className="delivery-summary-container">
+            <div className="delivery-info">
               <h3>Delivery Information</h3>
               <AddDeliveryList />
             </div>
-            <div className={styles["summary"]}>
+            <div className="summary">
               <div>
                 <div>
                   <div>Subtotal</div>
                   <div>Delivery</div>
-                  <div className={styles.total}>Total Price</div>
+                  <div className="total">Total Price</div>
                 </div>
                 <div>
                   <div>{getSubtotal().toLocaleString("ko-KR")}</div>
                   <div>{deliveryPay.toLocaleString("ko-KR")}</div>
-                  <div className={styles.total}>
+                  <div className="total">
                     {(getSubtotal() + deliveryPay).toLocaleString("ko-KR")}
                   </div>
                 </div>
@@ -173,7 +167,6 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        // </StyledContainer>
         <Loading />
       )}
     </>
@@ -181,59 +174,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
-const StyledContainer = styled(Container)`
-  min-height: calc(100vh - 236px);
-  &.MuiContainer-root {
-    padding: 0 48px;
-  }
-`;
-
-const Title = styled.div`
-  padding: 2rem 0;
-  h2 {
-    display: inline-block;
-    margin: 0 0 0 1rem;
-    font-family: "nav";
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  svg {
-    font-size: 1.3rem;
-  }
-`;
-
-const MyContainter = styled.div`
-  display: flex;
-  padding: 3rem 0;
-  ${"div"} {
-    width: 100%;
-  }
-  .delivery-info {
-    flex: 2;
-  }
-  .summary {
-    flex: 1;
-    padding: 2rem;
-    background-color: #e9ecef;
-    > div {
-      display: flex;
-      margin-bottom: 2rem;
-      > div {
-        &:first-child {
-          text-align: left;
-        }
-        &:last-child {
-          text-align: right;
-        }
-      }
-    }
-    .total {
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-    ${"div"} {
-      padding: 0.2rem 0;
-    }
-  }
-`;

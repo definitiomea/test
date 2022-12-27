@@ -1,11 +1,10 @@
-import styled from "styled-components";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import styles from "../css/cart.module.css";
+import Box from "@mui/material/Box";
+import "../css/cart.css";
 
 import {
   quantityIncrease,
@@ -16,6 +15,35 @@ import {
 import { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+const UserDesignModal = () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <div>
+      <button onClick={handleOpen}>도안확인</button>
+      <Modal open={open} onClose={handleClose}>
+        <Box sx={style}>
+          <div>test</div>
+        </Box>
+      </Modal>
+    </div>
+  );
+};
 
 const CartItem = (props) => {
   const { cartItem, productlist, dispatch } = props; // Cart.jsx
@@ -56,13 +84,37 @@ const CartItem = (props) => {
   };
 
   // 장바구니 아이템의 ImgArr(사용자 도안 배열)을 print: front - back 순으로 정렬
-  const setNewImgArr = () => {
-    if (cartItem.imgArray.length == 2) {
+  const getNewImgArr = () => {
+    if (cartItem.imgArray.length === 2) {
       return cartItem.imgArray[0].print == "back"
         ? cartItem.imgArray.slice(0).reverse()
         : cartItem.imgArray;
     } else {
       return cartItem.imgArray;
+    }
+  };
+
+  const getProductImg = () => {
+    const findIndex = product.colorName.findIndex(
+      (item) => item === cartItem.color
+    );
+    switch (product.category) {
+      case "short":
+        return (
+          <img
+            src={require(`../img/shirts-img/short/${product.thumbnail[findIndex]}`)}
+            alt="short"
+          />
+        );
+      case "long":
+        return (
+          <img
+            src={require(`../img/shirts-img/long/${product.thumbnail[findIndex]}`)}
+            alt="long"
+          />
+        );
+      default:
+        return <div>No Image</div>;
     }
   };
 
@@ -74,10 +126,11 @@ const CartItem = (props) => {
 
   return (
     <>
-      <div className={styles.product}>
-        {setNewImgArr().map((item, i) => (
+      <div className="product-container">
+        {getProductImg()}
+        {/* {getNewImgArr().map((item, i) => (
           <img src={item.imageUrl} key={i} />
-        ))}
+        ))} */}
         <div>
           <div>
             {product.category} {product.productName}
@@ -87,18 +140,19 @@ const CartItem = (props) => {
           </div>
           <div>
             print :
-            {setNewImgArr().length == 2 ? (
+            {getNewImgArr().length === 2 ? (
               <span>
-                {setNewImgArr()[0].print} / {setNewImgArr()[1].print}
+                {getNewImgArr()[0].print} / {getNewImgArr()[1].print}
               </span>
             ) : (
-              <span>{setNewImgArr()[0].print}</span>
+              <span>{getNewImgArr()[0].print}</span>
             )}
           </div>
+          <UserDesignModal />
         </div>
       </div>
       <div>{cartItem.size}</div>
-      <div className={styles.quantity}>
+      <div className="quantity-container">
         <IconButton
           sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
           onClick={onDecrease}
@@ -132,63 +186,3 @@ const CartItem = (props) => {
 };
 
 export default CartItem;
-
-const ProductWrap = styled.div`
-  display: flex;
-  justify-self: left;
-  align-items: center;
-  > div {
-    margin-left: 1rem;
-    > div {
-      &:first-child {
-        padding-bottom: 1rem;
-      }
-    }
-    span {
-      margin-left: 0.5rem;
-    }
-  }
-  // 미디어쿼리 - 작은 화면에서는 이미지 안 보이게
-  img {
-    width: 120px;
-    min-width: 120px;
-    min-height: 120px;
-    margin-right: 0.5rem;
-    background-color: #dee2e6;
-
-    @media screen and (max-width: 768px) {
-      display: none;
-    }
-  }
-`;
-
-const QuantityWrap = styled.div`
-  display: flex;
-  background-color: #f8f9fa;
-  input {
-    height: auto;
-    max-width: 3.5rem;
-    min-height: 32px;
-    text-align: center;
-    border: none;
-    background-color: #f8f9fa;
-    color: black;
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-    &:active {
-      background-color: #e9ecef;
-    }
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 1px 1px #dee2e6 inset;
-    }
-  }
-  @media screen and (max-width: 768px) {
-    button {
-      display: none;
-    }
-  }
-`;

@@ -1,0 +1,45 @@
+.product-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .product-area {
+    flex-direction: column;
+  }
+}
+
+.product-button {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-detail {
+  width: 350px;
+  height: auto;
+}
+
+.img-box {
+  width: 350px;
+  height: auto;
+  /* 캔버스 요소에 마진이 생겨버리면 이미지를 내보낼 때 그대로 반영되므로 주의 */
+  cursor: pointer;
+  position: relative;
+}
+
+.drawing-area {
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  z-index: 10;
+  width: 180px;
+  height: 260px;
+}
+.drawing-area:hover {
+  outline: 1px dashed black;
+}
+
+.product-info {
+  padding: 20px;
+}
