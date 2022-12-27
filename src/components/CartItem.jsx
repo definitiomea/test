@@ -4,7 +4,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import "../css/cart.css";
 
 import {
@@ -39,8 +39,10 @@ const UserDesignModal = () => {
   // ))
 
   return (
-    <div>
-      <Button variant="outlined" color="inherit" onClick={handleOpen}>도안확인</Button>
+    <div className="cart-modal">
+      <Button variant="outlined" color="inherit" onClick={handleOpen}>
+        도안확인
+      </Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <div>test</div>
