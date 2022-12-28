@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/reducers/cart";
 import { inputOrder } from "../redux/reducers/order";
 import AddDeliveryList from "../components/AddDeliveryList";
+import { useRef } from "react";
 
 const Cart = () => {
   const cartlist = useSelector((state) => state.cartlist.cartlist);
@@ -21,6 +22,7 @@ const Cart = () => {
   const [dataloading, setDataloading] = useState(false);
   const [productlist, setProductlist] = useState(null);
   const [deliveryPay, setDeliveryPay] = useState(3000);
+  const [checkAddress, setCheckAddress] = useState("");
   const navigate = useNavigate();
 
   // 배송비 제외 총 금액
@@ -67,19 +69,22 @@ const Cart = () => {
     if (cartlist.length === 0) {
       alert("장바구니가 비어있습니다.");
       return;
-    }
-    if (JSON.stringify(user) === "{}") {
-      alert("로그인 후 이용해주세요");
+    } else if (JSON.stringify(user) === "{}") {
+      alert("로그인 후 이용해주세요.");
       return;
+    } else if (checkAddress.trim() == "") {
+      alert("배송지가 입력되었는지 확인해주세요. (상세주소 포함)");
+      return;
+    } else {
+      dispatch(
+        inputOrder({
+          user: user.id,
+          cartlist: copyCartlist(),
+        })
+      );
+      dispatch(clearCart());
+      navigate("/orderconfirm");
     }
-    dispatch(
-      inputOrder({
-        user: user.id,
-        cartlist: copyCartlist(),
-      })
-    );
-    dispatch(clearCart());
-    navigate("/orderconfirm");
   };
 
   // 상품리스트 데이터 들고오기 (db.json)
@@ -156,7 +161,7 @@ const Cart = () => {
                 <FontAwesomeIcon icon={faTruck} />
                 <h2>delivery Info</h2>
               </div>
-              <AddDeliveryList />
+              <AddDeliveryList setCheckAddress={setCheckAddress} />
             </div>
             <div className="summary">
               <div>
