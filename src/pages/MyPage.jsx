@@ -260,6 +260,7 @@ const Mypage = () => {
             <div className="mypage-info">
               {/* 상품 정보 */}
 
+
               <div>
                 <span>{re.category} </span>
                 <span>{re.productName} </span>
