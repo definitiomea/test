@@ -36,11 +36,13 @@
 
 .product-handling-buttons {
   padding: 1vw 1vh;
+  display: flex;
 }
 
 .product-handling-buttons svg {
   width: 2em;
   height: 2em;
+  cursor: pointer;
 }
 
 .product-create-area {
@@ -74,6 +76,14 @@
 .product-important-handling-button {
   display: flex;
   flex-direction: column;
+  padding: 2vw 2vh;
+}
+
+.product-important-handling-button svg {
+  width: 2em;
+  height: 2em;
+  cursor: pointer;
+  margin: 1em;
 }
 
 .product-info-area {
@@ -103,6 +113,7 @@
 .product-add-cart svg {
   width: 2em;
   height: 2em;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
