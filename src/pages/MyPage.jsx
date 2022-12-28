@@ -164,7 +164,7 @@ const Mypage = () => {
             onChange={onChange}
           />
           <label className="user-info_label">Password check</label>
-          {/* <label>비밀번호 확인</label> */}
+          {/* <label>>>비밀번호 확인</label> */}
           <input
             className="user-info_input"
             type="password"
@@ -256,8 +256,11 @@ const Mypage = () => {
                   }}
                 /> */}
             </div>
+
             <div className="mypage-info">
               {/* 상품 정보 */}
+
+
               <div>
                 <span>{re.category} </span>
                 <span>{re.productName} </span>
