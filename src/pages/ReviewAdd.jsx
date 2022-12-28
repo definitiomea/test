@@ -14,7 +14,8 @@ import { useRef } from "react";
 const ReviewAdd = () => {
   const [modalOpen, setModalOpen] = useState(false); // 모달창 열기
   const [bringImg, setBringImg] = useState();
-
+  const [sendImg, setSendImg] = useState(false); // 모달창에서 사진추가후 리뷰페이지로 전달
+  const [comment, setComment] = useState();
   const fileInput = useRef();
 
   const location = useLocation();
@@ -26,6 +27,10 @@ const ReviewAdd = () => {
     setModalOpen(false);
   };
 
+  const modalClose = () => {
+    handleClose();
+    setBringImg([]);
+  };
   // 취소버튼 누르면 이전페이지인 마이페이지로 이동
   const navigate = useNavigate();
   const prePage = () => {
@@ -72,117 +77,148 @@ const ReviewAdd = () => {
 
       {/* 구매 상품정보 section */}
 
-      <List>
-        <section>
-          {/* 상품이미지 box*/}
-          <div>
-            <img
-              src={require(`.././img/shirts-img/short/short-relax-beige-front.jpg`)}
-              alt="#"
-              style={{ width: "100px", height: "100px" }}
-            />
-          </div>
+      <form>
+        <List>
+          <section>
+            {/* 상품이미지 box*/}
+            <div>
+              <img
+                src={require(`.././img/shirts-img/short/short-relax-beige-front.jpg`)}
+                alt="#"
+                style={{ width: "100px", height: "100px" }}
+              />
+            </div>
 
-          {/* 상품옵션 box */}
+            {/* 상품옵션 box */}
+            <div>
+              <div>
+                <span>
+                  <strong>{data.category}</strong>
+                </span>
+                <span> {data.productName}</span>
+                <span> ({data.color})</span>
+              </div>
+              <div>
+                <span>size : {data.size}</span>
+              </div>
+            </div>
+          </section>
+        </List>
+        <br />
+
+        {/* 별점 섹션 */}
+        <section>
+          <span>
+            <strong>상품은 만족하셨나요?</strong>
+          </span>
+
+          <ReviewStar />
+
+          <span>선택하세요.</span>
+        </section>
+
+        {/* 리뷰 입력란 섹션 */}
+        <section>
+          <p>
+            <strong>어떤 점이 좋았나요?</strong>
+          </p>
           <div>
-            <div>
-              <span>
-                <strong>{data.category}</strong>
-              </span>
-              <span> {data.productName}</span>
-              <span> ({data.color})</span>
-            </div>
-            <div>
-              <span>size : </span>
-              <span>{data.size}</span>
-            </div>
+            <textarea
+              name=""
+              id="reviewInput"
+              cols="30"
+              rows="10"
+              minLength="10"
+              maxLength="5000"
+              placeholder="최소 10자 이상 작성해주세요."
+              style={{ width: "20rem", height: "10rem", resize: "none" }}
+            ></textarea>
+            <em>
+              <span>입력글자수</span>
+            </em>
           </div>
         </section>
-      </List>
-      <br />
 
-      {/* 별점 섹션 */}
-      <div>
-        <span>
-          <strong>상품은 만족하셨나요?</strong>
-        </span>
+        {/* 사진첨부 섹션 */}
+        <section>
+          <MyButton onClick={handleOpen}>사진 첨부하기</MyButton>
 
-        <ReviewStar />
+          {/* 미리보기 사진 전달공간 */}
+          <div
+            onChange={(e) => {
+              sendImg(e.target.value);
+            }}
+          >
+            {sendImg &&
+              sendImg.map((theImg) => (
+                <img
+                  src={theImg}
+                  alt="#"
+                  style={{ width: "120px", heigth: "120px" }}
+                />
+              ))}
+          </div>
+          {/* 사진첨부 모달창*/}
+          <Modal
+            open={modalOpen}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <div>
+                <MyButton>
+                  <label htmlFor="imageInput">사진추가</label>
+                </MyButton>
+                <br />
+                <input
+                  type="file"
+                  id="imageInput"
+                  accept="image/jpg,imge/png,image/jpeg,image/gif"
+                  required
+                  onChange={addImg}
+                  ref={fileInput}
+                  style={{ display: "none" }}
+                />
+                <img
+                  src={bringImg}
+                  style={{ width: "100px", height: "100px" }}
+                />
+                {/* 사진삭제 버튼 */}
+                <button
+                  onClick={deleteImg}
+                  style={{ backgroundColor: "gray", color: "white" }}
+                >
+                  x
+                </button>
 
-        <span>선택하세요.</span>
-      </div>
+                {/* 사진업로드 */}
+              </div>
 
-      {/* 리뷰 입력란 섹션 */}
-      <section>
-        <p>
-          <strong>어떤 점이 좋았나요?</strong>
-        </p>
-        <div>
-          <textarea
-            name=""
-            id="reviewInput"
-            cols="30"
-            rows="10"
-            minLength="10"
-            maxLength="5000"
-            placeholder="최소 10자 이상 작성해주세요."
-            style={{ width: "20rem", height: "10rem", resize: "none" }}
-          ></textarea>
-          <em>
-            <span>입력글자수</span>
-          </em>
-        </div>
-      </section>
-
-      {/* 사진첨부 섹션 */}
-      <section>
-        <MyButton onClick={handleOpen}>사진 첨부하기</MyButton>
-
-        {/* 미리보기 사진 전달공간 */}
-        <div></div>
-
-        {/* 사진첨부 모달창*/}
-        <Modal
-          open={modalOpen}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <div>
-              <MyButton>
-                <label htmlFor="imageInput">사진추가</label>
-              </MyButton>
-              <br />
-              <input
-                type="file"
-                id="imageInput"
-                accept="image/jpg,imge/png,image/jpeg,image/gif"
-                required
-                onChange={addImg}
-                ref={fileInput}
-                // style={{ display: "none" }}
-              />
-              <img src={bringImg} style={{ width: "100px", height: "100px" }} />
-              {/* 사진삭제 버튼 */}
-              <button
-                onClick={deleteImg}
-                style={{ backgroundColor: "gray", color: "white" }}
+              <MyButton onClick={modalClose}>취소</MyButton>
+              <MyButton
+                onClick={() => {
+                  setSendImg(bringImg);
+                  setBringImg([]);
+                  handleClose();
+                }}
               >
-                x
-              </button>
-
-              {/* 사진업로드 */}
-            </div>
-
-            <MyButton>취소</MyButton>
-            <MyButton>첨부완료</MyButton>
-          </Box>
-        </Modal>
-      </section>
+                첨부완료
+              </MyButton>
+            </Box>
+          </Modal>
+        </section>
+      </form>
       {/* 취소 or 등록 section */}
       <div>
-        <MyButton>취소</MyButton>
+        <MyButton
+          onClick={() => {
+            prePage();
+          }}
+        >
+          취소
+        </MyButton>
+        {/* 등록버튼 누르면 reviewinputReducer에 전달 */}
         <MyButton type="submit">등록</MyButton>
       </div>
     </div>

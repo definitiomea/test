@@ -6,11 +6,11 @@ import {
 import { loginUser } from "../redux/reducers/user";
 
 const ReviewInput = () => {
-  const dispatch = useDispatch();
   // 로그인 유저 아이디정보
   const userName = useSelector((state) => state.user);
   // 구매티셔츠 정보
   const reviewProduct = useSelector((state) => state.orderlist.orderlist[2]);
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -22,17 +22,20 @@ const ReviewInput = () => {
       <div>
         <h1>고객</h1>
         {/* user.js에서 가져옴 */}
-        <p>{userName.user}</p>
+        <span>
+          {userName.user}</span>
         {/* reviewInputReducer.js에서 가져옴 */}
-        <p>별점존</p>
+        <span>별점존</span>
         {/* order.js에서 가져옴 */}
-        <p>{reviewProduct.category}</p>
-        <p>{reviewProduct.productName}</p>
-        <p>{reviewProduct.size}</p>
-        <p>comment</p>
+        <span>{reviewProduct.category}</span>
+        <span>{reviewProduct.productName}</span>
+        <span>({reviewProduct.color})</span>
+        <span>{reviewProduct.size}</span>
+        <span>comment</span>
       </div>
+      
       <div>
-        {/* 히뷰 등록날짜 정보 */}
+        {/* 리뷰 등록날짜 정보 */}
         <span></span>
         <button>수정</button>
         <button onClick={() => dispatch(deleteReview())}>삭제</button>

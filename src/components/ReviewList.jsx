@@ -6,6 +6,8 @@ const ReviewList = (props) => {
   const reviewList = useSelector((state) => state.review.reviewList);
 
   // console.log(reviewList);
+  
+  
 
   // productDetail에서 props 받음
   const { compare } = props;
@@ -19,7 +21,29 @@ const ReviewList = (props) => {
         return review.category == compare.category &&
           review.productName == compare.productName ? (
           <div key={review.id}>
-            {/* {review.category == "short" ():()} */}
+            {/* 카테고리명 short와 long 구분 */}
+            {/* if (review.category == "short")
+            {
+              <img
+                src={require(`../img/shirts-img/short/${review.image}`)}
+                alt="short"
+                style={{
+                  width: "100px",
+                  height: "100px",
+                }}
+              />
+            }
+            else
+            {
+              <img
+                src={require(`../img/shirts-img/long/${review.image}`)}
+                alt="short"
+                style={{
+                  width: "100px",
+                  height: "100px",
+                }}
+              />
+            } */}
             <ReviewColumn>
               <div>
                 <img
@@ -41,7 +65,7 @@ const ReviewList = (props) => {
                   <span>{review.category}</span>
                   <span>{review.productName}</span>
                   <span>({review.color})</span>
-                  <sapn>size:{review.size}</sapn>
+                  <span>size:{review.size}</span>
                   <span>{review.comment}</span>
                 </div>
               </ReviewRow>
