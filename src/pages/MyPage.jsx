@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import AdditDeliveryList from "../components/AdditDeliveryList";
 import { useEffect, useState } from "react";
-import { Modal } from "@mui/material";
+import { Button, Modal } from "@mui/material";
 import { Box } from "@mui/system";
 import Delivery from "../components/Delivery";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,9 +10,8 @@ import { ADDIT_USER } from "../redux/reducers/signup";
 import { loginUser } from "../redux/reducers/user";
 
 import "../style/Mypage.css";
-import "../style/Button";
-import "../style/List";
 import MyButton from "../style/Button";
+import MyTable from "../style/Table";
 
 const Mypage = () => {
   // 택배사 목록 state
@@ -91,34 +90,24 @@ const Mypage = () => {
 
   // 주문완료 섹션 출력 함수
   const orderDone = useSelector((state) => state.orderlist.orderlist);
+  const [viewCount, setViewCount] = useState(3);
 
-  // test
   const getImgPath = (item) => {
     switch (item.category) {
       case "short":
-        return (
-          <img
-            src={require(`../img/shirts-img/short/${item.thumbnail}`)}
-            alt="short"
-            style={{
-              width: "100px",
-              height: "100px",
-            }}
-          />
-        );
+        return require(`../img/shirts-img/short/${item.thumbnail}`);
       case "long":
-        return (
-          <img
-            src={require(`../img/shirts-img/long/${item.thumbnail}`)}
-            alt="long"
-            style={{
-              width: "100px",
-              height: "100px",
-            }}
-          />
-        );
+        return require(`../img/shirts-img/long/${item.thumbnail}`);
       default:
-        return <div>No Image</div>;
+        return undefined;
+    }
+  };
+
+  const viewMoreHandle = (list) => {
+    if (list.length < viewCount + 3) {
+      setViewCount(orderDone.length);
+    } else {
+      setViewCount(viewCount + 3);
     }
   };
 
@@ -178,126 +167,143 @@ const Mypage = () => {
         <AdditDeliveryList />
       </div>
 
-      {/* 주문/배송조회 form  */}
+      {/* 주문/배송조회 form */}
       <h4 className="section-title">주문/배송 조회</h4>
-
-      <div>
-        <div className="mypage-head">
-          <div>상품정보</div>
-          <div>주문일자</div>
-          <div>주문금액(수량)</div>
-          <div>주문상태</div>
-        </div>
-
-        {/* 장바구니 상품 목록 */}
-        <div className="mypage-body">
-          <div className="mypage-column">
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                {result ? (
-                  <form onSubmit={onSubmit}>
-                    <select onChange={changeCarrierId} value={carrierId}>
-                      <option value="">-택배사를 선택해주세요-</option>
-                      {/* 택배사 목록 map로 option설정 */}
-                      {carriers.map((array) => {
-                        return (
-                          <option value={array.id} key={array.id}>
-                            {array.name}
-                          </option>
-                        );
-                      })}
-                    </select>
-                    <input
-                      type="number"
-                      placeholder="운송장번호"
-                      onChange={changeTrackId}
-                      defaultValue={trackId}
-                    />
-                    <button>조회</button>
-                  </form>
-                ) : !delivery?.message ? (
-                  <Delivery
-                    stateText={delivery?.state.text}
-                    toName={delivery?.to.name}
-                    carrierName={delivery?.carrier.name}
-                    carrierTel={delivery?.carrier.tel}
-                    carrierId={delivery?.carrier.id}
-                    message={delivery?.message}
-                  />
-                ) : (
-                  <div>
-                    <p>{delivery?.message}</p>
-                  </div>
+      <MyTable>
+        <thead>
+          <tr>
+            <th>상품정보</th>
+            <th>사이즈</th>
+            <th>수량/금액</th>
+            <th>주문일자</th>
+            <th>주문 상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orderDone.length === 0 ? (
+            <tr className="item-empty">
+              <td>Empty</td>
+            </tr>
+          ) : (
+            <>
+              {orderDone
+                .slice(0)
+                .reverse()
+                .map(
+                  (order) =>
+                    order.orderID > orderDone.length - viewCount && (
+                      <tr key={order.orderID}>
+                        <td className="table-product-container">
+                          <img src={getImgPath(order)} alt="No Image" />
+                          <div>
+                            <div>
+                              {order.category} {order.productName} (
+                              {order.color})
+                            </div>
+                            <div>
+                              print :
+                              {order.imgArray.length === 2 ? (
+                                <span>
+                                  {order.imgArray[0].print} / {order.imgArray[1].print}
+                                </span>
+                              ) : (
+                                <span>{order.imgArray[0].print}</span>
+                              )}
+                            </div>
+                          </div>
+                        </td>
+                        <td>{order.size}</td>
+                        <td>
+                          <div>{order.quantity}</div>
+                          <div>{order.totalPay.toLocaleString("ko-KR")}</div>
+                        </td>
+                        <td>{order.orderDate}</td>
+                        <td>
+                          <div>{order.delivery}</div>
+                          <div className="order-delivery-btn">
+                            {order.delivery === "배송완료" ? (
+                              <MyButton>
+                                <Link
+                                  to="/mypage/review"
+                                  state={{ orderDone: orderDone }}
+                                >
+                                  후기작성
+                                </Link>
+                              </MyButton>
+                            ) : (
+                              <MyButton onClick={handleOpen}>배송조회</MyButton>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    )
                 )}
-              </Box>
-            </Modal>
-          </div>
-        </div>
-      </div>
+              <tr className="view-more-container">
+                <td>
+                  1-{viewCount} of {orderDone.length}
+                </td>
+                <td>
+                  <Button
+                    variant="outlined"
+                    color="inherit"
+                    onClick={() => {
+                      viewMoreHandle(orderDone);
+                    }}
+                  >
+                    더보기
+                  </Button>
+                </td>
+              </tr>
+            </>
+          )}
+        </tbody>
+      </MyTable>
 
-      {/* 배송완료 섹션 */}
-      {orderDone.map((re) => (
-        <div className="delivery-finish">
-          <div className="mypage-pd">
+      {/** 배송조회 모달 */}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          {result ? (
+            <form onSubmit={onSubmit}>
+              <select onChange={changeCarrierId} value={carrierId}>
+                <option value="">-택배사를 선택해주세요-</option>
+                {/* 택배사 목록 map로 option설정 */}
+                {carriers.map((array) => {
+                  return (
+                    <option value={array.id} key={array.id}>
+                      {array.name}
+                    </option>
+                  );
+                })}
+              </select>
+              <input
+                type="number"
+                placeholder="운송장번호"
+                onChange={changeTrackId}
+                defaultValue={trackId}
+              />
+              <button>조회</button>
+            </form>
+          ) : !delivery?.message ? (
+            <Delivery
+              stateText={delivery?.state.text}
+              toName={delivery?.to.name}
+              carrierName={delivery?.carrier.name}
+              carrierTel={delivery?.carrier.tel}
+              carrierId={delivery?.carrier.id}
+              message={delivery?.message}
+            />
+          ) : (
             <div>
-              {getImgPath(re)}
-              {/* <img
-                  className="img"
-                  src={require(`../img/shirts-img/short/short-relax-beige-front.jpg`)}
-                  alt="#"
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                  }}
-                /> */}
+              <p>{delivery?.message}</p>
             </div>
-            <div className="mypage-info">
-              {/* 상품 정보 */}
-              <div>
-                <span>{re.category} </span>
-                <span>{re.productName} </span>
-                <span> ({re.color}) </span>
-              </div>
-
-              {/* 사이즈 정보 */}
-              <div>
-                <span>size : {re.size}</span>
-              </div>
-            </div>
-          </div>
-
-          <div></div>
-
-          <div className="mypage-column">
-            <div>{re.price}</div>
-            <div>{re.quantity}개</div> {/* 연한 회색 처리 */}
-          </div>
-
-          <div className="mypage-column">
-            <div>
-              {/* 주문상태 추가 */}
-              {re.delivery === "상품준비" ? (
-                <div>
-                  <div>상품준비</div>
-                  <button onClick={handleOpen}>배송조회</button>
-                </div>
-              ) : (
-                <div>
-                  <div>배송완료</div>
-                  <Link to="/mypage/review" state={{ orderDone: orderDone }}>
-                    후기작성
-                  </Link>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      ))}
+          )}
+        </Box>
+      </Modal>
     </div>
   );
 };

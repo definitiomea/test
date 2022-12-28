@@ -2,7 +2,8 @@ import DaumPostcode from "react-daum-postcode";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from '@mui/material/Button';
-import "../css/cart.css";
+import "../css/cart-style.css";
+
 import { useState } from "react";
 import { SIGN_UP } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
