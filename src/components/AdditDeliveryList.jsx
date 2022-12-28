@@ -178,7 +178,7 @@ function AdditDeliveryList() {
           value={reference}
         />
         {/* button component적용 */}
-        <MyButton>배송지 변경</MyButton>
+        <MyButton type="submit">배송지 변경</MyButton>
       </form>
     </div>
   );

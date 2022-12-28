@@ -1,7 +1,7 @@
 import DaumPostcode from "react-daum-postcode";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import "../css/cart-style.css";
 
 import { useState } from "react";
@@ -37,7 +37,7 @@ const Postcode = (props) => {
   return <DaumPostcode onComplete={handleComplete} {...props} />;
 };
 
-function DeliveryList() {
+function DeliveryList({ setCheckAddress }) {
   // user 정보
   const user = useSelector((state) => state.user);
   const signup = useSelector((state) => state.signup);
@@ -100,7 +100,8 @@ function DeliveryList() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 500,
+    maxWidth: "80%",
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -149,6 +150,7 @@ function DeliveryList() {
             name="detailAddress"
             onChange={(e) => {
               setDetailAddress(e.target.value);
+              setCheckAddress(detailAddress);
             }}
             value={detailAddress}
           />
@@ -165,7 +167,9 @@ function DeliveryList() {
             value={reference}
           />
         </div>
-        <Button variant="text" color="primary">배송지 저장</Button>
+        <Button variant="text" color="primary" type="submit">
+          배송지 저장
+        </Button>
       </form>
     </div>
   );
