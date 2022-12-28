@@ -6,8 +6,6 @@ const ReviewList = (props) => {
   const reviewList = useSelector((state) => state.review.reviewList);
 
   // console.log(reviewList);
-  
-  
 
   // productDetail에서 props 받음
   const { compare } = props;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import SmsFailedOutlinedIcon from '@mui/icons-material/SmsFailedOutlined';
+import SmsFailedOutlinedIcon from "@mui/icons-material/SmsFailedOutlined";
 import MyButton from "../style/Button";
 import { useNavigate } from "react-router-dom";
 
@@ -51,7 +51,7 @@ const Wrap = styled.div`
     }
   }
   button {
-    margin: 2rem 1rem 1rem 0; 
+    margin: 2rem 1rem 1rem 0;
     font-weight: bold;
   }
 `;

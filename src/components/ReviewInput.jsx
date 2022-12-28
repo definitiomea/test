@@ -22,8 +22,7 @@ const ReviewInput = () => {
       <div>
         <h1>고객</h1>
         {/* user.js에서 가져옴 */}
-        <span>
-          {userName.user}</span>
+        <span>{userName.user}</span>
         {/* reviewInputReducer.js에서 가져옴 */}
         <span>별점존</span>
         {/* order.js에서 가져옴 */}
@@ -33,7 +32,7 @@ const ReviewInput = () => {
         <span>{reviewProduct.size}</span>
         <span>comment</span>
       </div>
-      
+
       <div>
         {/* 리뷰 등록날짜 정보 */}
         <span></span>
