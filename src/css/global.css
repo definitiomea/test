@@ -23,6 +23,7 @@ body {
 }
 /* 네브 제외 콘텐츠, 네브바 아래 위치하게 */
 .body-container {
+  min-height: calc(100vh - 236px);
   width: 100%;
   position: relative;
   top: 136px;
