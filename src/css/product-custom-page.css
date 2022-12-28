@@ -43,6 +43,11 @@
   width: 2em;
   height: 2em;
   cursor: pointer;
+  margin: 1em;
+  color: lightgrey;
+}
+.product-handling-buttons svg:hover {
+  color: black;
 }
 
 .product-create-area {
@@ -84,6 +89,10 @@
   height: 2em;
   cursor: pointer;
   margin: 1em;
+  color: lightgrey;
+}
+.product-important-handling-button svg:hover {
+  color: black;
 }
 
 .product-info-area {
@@ -114,6 +123,10 @@
   width: 2em;
   height: 2em;
   cursor: pointer;
+  color: lightgrey;
+}
+.product-add-cart svg:hover {
+  color: black;
 }
 
 @media screen and (max-width: 768px) {

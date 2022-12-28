@@ -3,7 +3,7 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
 import List from "../style/List";
 import MyButton from "../style/Button";
-import "../css/cart.css";
+import "../css/cart-style.css";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
