@@ -46,7 +46,7 @@
 .cart-post-form label {
   min-width: 6rem;
 }
-.cart-post-form input[type=text] {
+.cart-post-form input[type="text"] {
   width: 100%;
   padding: 0.5rem;
   border: none;
@@ -55,7 +55,7 @@
 .cart-post-form input:focus {
   outline: none;
 }
-.cart-post-form input[type=button] {
+.cart-post-form input[type="button"] {
   width: 40%;
   padding: 0.5rem;
   margin-left: 0.5rem;
@@ -68,6 +68,7 @@
   font-family: "ongothic";
 }
 
+/* 예상금액 Cart.jsx */
 .summary {
   flex: 1;
   padding: 2rem;
@@ -134,10 +135,22 @@
 }
 
 /* 장바구니 아이템 - 사용자 디자인 모달 */
-/* .cart-modal .css-w7yvzl {
-
-} */
-
+.cart-modal-box {
+  display: flex;
+  gap: 3rem;
+  overflow-y: auto;
+}
+.cart-modal-box > div > div {
+  color: #f8f9fa;
+  background-color: #212529;
+  text-align: center;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+.cart-modal button {
+  margin-top: 1rem;
+  padding: 0 0.5rem;
+}
 
 /* 미디어쿼리 */
 @media screen and (max-width: 768px) {
@@ -147,4 +160,5 @@
   .quantity-container button {
     display: none; /* 구매수량의 버튼이 보이지 않게 */
   }
+  /* 사용자 디자인 모달 - 작은 화면에서 flex-direction을 columns으로 */
 }

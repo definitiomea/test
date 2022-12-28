@@ -17,7 +17,7 @@ const OrderConfirm = () => {
             navigate("/");
           }}
         >
-          홈으로 가기
+          메인으로 가기
         </MyButton>
         <MyButton
           onClick={() => {

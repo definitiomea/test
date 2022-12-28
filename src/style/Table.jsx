@@ -40,10 +40,16 @@ const StyledTable = styled.table`
     margin-left: 1rem;
   }
   .table-product-container > div > div:first-child {
-    padding-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  .table-product-container > div > div:nth-child(2),
+  .table-product-container > div > div:nth-child(3) {
+    color: #adb5bd;
   }
   .table-product-container span {
-    margin-left: 0.4rem;
+    color: #000000;
+    margin-left: 0.5rem;
   }
   .table-product-container img {
     width: 120px;
