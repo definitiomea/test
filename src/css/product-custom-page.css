@@ -73,7 +73,7 @@
 
 .product-important-handling-button {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .product-info-area {
