@@ -3,3 +3,25 @@
   gap: 100%;
   justify-content: center;
 }
+
+/* shop - 상품리스트 */
+.product-container {
+  display: flex;
+}
+.product-card {
+  /* 배경색상 삭제 */
+  cursor: pointer;
+}
+
+.product-card .slick-slider {
+  width: 25vw;
+}
+
+.shop-slick-dots {
+  position: absolute;
+  bottom: 70px;
+  left: 90px;
+}
+
+.slick-slide div div p {
+}

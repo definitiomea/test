@@ -21,6 +21,7 @@ const ProductCard = (props) => {
     slidesToScroll: 1,
     customPaging: (i) => (
       <div
+        className="shop-slick-dots"
         style={{
           width: "10px",
           height: "10px",
