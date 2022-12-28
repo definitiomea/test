@@ -1,3 +1,5 @@
+import "../css/product-custom-page.css";
+
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -21,7 +23,17 @@ import {
 } from "../modules/PageSetting";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCloudArrowUp,
+  faRepeat,
+  faFont,
+  faRotateLeft,
+  faRotateRight,
+  faEraser,
+  faFloppyDisk,
+  faCircleMinus,
+  faCartPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import Button from "@mui/material/Button";
 
 import { inputCart } from "../redux/reducers/cart";
@@ -71,190 +83,240 @@ const ProductDetail = () => {
   }, [productList]);
 
   return (
-    <ProductArea>
-      <div className="product-button">
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => {
-            flipShirts({ productList, img, setImg, setPrint });
-          }}
-        >
-          앞/뒤 뒤집기
-        </Button>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(event) => {
-            handleImage({ canvas, event });
-          }}
-        />
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => {
-            addText({ canvas });
-          }}
-        >
-          텍스트 추가하기
-        </Button>
-        <input
-          type="color"
-          onChange={(event) => setTextColor({ canvas, event })}
-        ></input>
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => {
-            canvas.undo();
-          }}
-        >
-          편집 되돌리기
-        </Button>
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => {
-            canvas.redo();
-          }}
-        >
-          편집 되돌리기 취소
-        </Button>
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => {
-            canvas.clear();
-          }}
-        >
-          이미지, 편집 전체 삭제
-        </Button>
-        <Button
-          onClick={() => {
-            exportImg({
-              productList,
-              editArray,
-              setEditArray,
-              dispatch,
-              inputCart,
-              color,
-              quantitySelect,
-              sizeSelect,
-              productPrice,
-            });
-          }}
-        >
-          이미지 내보내기(dispatch)
-        </Button>
-        <Button
-          onClick={() => {
-            customSave({
-              editZone,
-              editArray,
-              setEditArray,
-              img,
-              setImg,
-              print,
-              setPrint,
-              productList,
-            });
-          }}
-        >
-          편집한 면의 이미지 저장
-        </Button>
-        <Button
-          onClick={() => {
-            customErase({ setEditArray });
-          }}
-        >
-          앞, 혹은 뒷면 이미지 편집 내역 지우기
-        </Button>
-      </div>
-
-      <div className="product-detail" ref={editZone}>
-        {/* 제품 이미지를 보낼 때의 짜투리는 img-box의 마진 때문으로 파악 */}
-        <div className="img-box">
-          {productList?.category == "short" && img != null ? (
-            <img
-              className="product-img"
-              src={require(`../img/shirts-img/short/${img}`)}
-            ></img>
-          ) : (
-            ""
-          )}
-          {productList?.category == "long" && img != null ? (
-            <img
-              className="product-img"
-              src={require(`../img/shirts-img/long/${img}`)}
-            ></img>
-          ) : (
-            ""
-          )}
-          {/* <div
-            style={{
-              position: "absolute",
-              top: "20%",
-              left: "25%",
-              width: "180px",
-              height: "260px",
-              outline: "1px dashed black" 
-            }}
-          >
-            <canvas id="canvas"></canvas>
-          </div> */}
-          <DrawingArea>
-            <canvas id="canvas"></canvas>
-          </DrawingArea>
+    <>
+      <div className="product-shopping-area">
+        <div className="product-area">
+          <div className="product-handling-buttons">
+            <FontAwesomeIcon
+              icon={faRepeat}
+              onClick={() => {
+                flipShirts({ productList, img, setImg, setPrint });
+              }}
+            ></FontAwesomeIcon>
+            {/* <Button
+              variant="contained"
+              color="success"
+              onClick={() => {
+                flipShirts({ productList, img, setImg, setPrint });
+              }}
+            >
+              앞/뒤 뒤집기
+            </Button> */}
+            <FontAwesomeIcon icon={faCloudArrowUp}></FontAwesomeIcon>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(event) => {
+                handleImage({ canvas, event });
+              }}
+            />
+            <div>
+              <FontAwesomeIcon
+                icon={faFont}
+                onClick={() => {
+                  addText({ canvas });
+                }}
+              ></FontAwesomeIcon>
+              {/* <Button
+                variant="contained"
+                color="success"
+                onClick={() => {
+                  addText({ canvas });
+                }}
+              >
+                텍스트 추가하기
+              </Button> */}
+              <input
+                type="color"
+                onChange={(event) => setTextColor({ canvas, event })}
+              ></input>
+            </div>
+            <FontAwesomeIcon
+              icon={faRotateLeft}
+              onClick={() => {
+                canvas.undo();
+              }}
+            ></FontAwesomeIcon>
+            {/* <Button
+              variant="contained"
+              color="success"
+              onClick={() => {
+                canvas.undo();
+              }}
+            >
+              편집 되돌리기
+            </Button> */}
+            <FontAwesomeIcon
+              icon={faRotateRight}
+              onClick={() => {
+                canvas.redo();
+              }}
+            ></FontAwesomeIcon>
+            {/* <Button
+              variant="contained"
+              color="success"
+              onClick={() => {
+                canvas.redo();
+              }}
+            >
+              편집 되돌리기 취소
+            </Button> */}
+            <FontAwesomeIcon
+              icon={faEraser}
+              onClick={() => {
+                canvas.clear();
+              }}
+            ></FontAwesomeIcon>
+            {/* <Button
+              variant="contained"
+              color="success"
+              onClick={() => {
+                canvas.clear();
+              }}
+            >
+              이미지, 편집 전체 삭제
+            </Button> */}
+          </div>
+          <div className="product-create-area">
+            <div className="img-box" ref={editZone}>
+              {productList?.category == "short" && img != null ? (
+                <img
+                  className="product-img"
+                  src={require(`../img/shirts-img/short/${img}`)}
+                ></img>
+              ) : (
+                ""
+              )}
+              {productList?.category == "long" && img != null ? (
+                <img
+                  className="product-img"
+                  src={require(`../img/shirts-img/long/${img}`)}
+                ></img>
+              ) : (
+                ""
+              )}
+              <div className="drawing-area">
+                <canvas id="canvas"></canvas>
+              </div>
+            </div>
+            <div className="product-important-handling-button">
+              <FontAwesomeIcon
+                icon={faFloppyDisk}
+                onClick={() => {
+                  customSave({
+                    editZone,
+                    editArray,
+                    setEditArray,
+                    img,
+                    setImg,
+                    print,
+                    setPrint,
+                    productList,
+                  });
+                }}
+              ></FontAwesomeIcon>
+              {/* <Button
+                onClick={() => {
+                  customSave({
+                    editZone,
+                    editArray,
+                    setEditArray,
+                    img,
+                    setImg,
+                    print,
+                    setPrint,
+                    productList,
+                  });
+                }}
+              >
+                편집한 면의 이미지 저장
+              </Button> */}
+              <FontAwesomeIcon
+                icon={faCircleMinus}
+                onClick={() => {
+                  customErase({ setEditArray });
+                }}
+              ></FontAwesomeIcon>
+              {/* <Button
+                onClick={() => {
+                  customErase({ setEditArray });
+                }}
+              >
+                앞, 혹은 뒷면 이미지 편집 내역 지우기
+              </Button> */}
+            </div>
+          </div>
+        </div>
+        <div className="product-info-area">
+          <div className="product-info">
+            <div className="product-introduce">
+              {productList ? <p>{productList.id}</p> : ""}
+              {productList ? <p>{productList.productName}</p> : ""}
+              {productList ? <p>{productList.price}</p> : ""}
+            </div>
+            <div className="product-color-setter-area">
+              {productList
+                ? productList.color.map((color, index) => (
+                    /* 얘는 배열에서 color 요소를 바로 받아감, className X */
+                    <div
+                      style={{
+                        width: "15px",
+                        height: "15px",
+                        border: "1px solid transparent",
+                        borderRadius: "50%",
+                        backgroundColor: color,
+                        margin: "1vw 1vh",
+                      }}
+                      onClick={() => {
+                        changeShirtColor({
+                          productList,
+                          setImg,
+                          setColor,
+                          setPrint,
+                          setEditArray,
+                          index,
+                        });
+                      }}
+                      key={index}
+                    ></div>
+                  ))
+                : ""}
+            </div>
+            <select className="product-size-select" ref={sizeSelect}>
+              <SizeOption productList={productList}></SizeOption>
+            </select>
+            <select
+              className="product-quantity-select"
+              name=""
+              id=""
+              ref={quantitySelect}
+            >
+              <QuantityOption></QuantityOption>
+            </select>
+          </div>
+          <div className="product-add-cart">
+            <Button
+              onClick={() => {
+                exportImg({
+                  productList,
+                  editArray,
+                  setEditArray,
+                  dispatch,
+                  inputCart,
+                  color,
+                  quantitySelect,
+                  sizeSelect,
+                  productPrice,
+                });
+              }}
+            >
+              <FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon>
+            </Button>
+            <Button>구매하기</Button>
+          </div>
         </div>
       </div>
-
-      <div className="product-info">
-        {productList ? <p>{productList.id}</p> : ""}
-        {productList ? <p>{productList.productName}</p> : ""}
-        {productList ? <p>{productList.price}</p> : ""}
-        <div style={{ display: "flex" }}>
-          {productList
-            ? productList.color.map((color, index) => (
-                <div
-                  style={{
-                    width: "15px",
-                    height: "15px",
-                    border: "1px solid transparent",
-                    borderRadius: "50%",
-                    backgroundColor: color,
-                  }}
-                  onClick={() => {
-                    changeShirtColor({
-                      productList,
-                      setImg,
-                      setColor,
-                      setPrint,
-                      setEditArray,
-                      index,
-                    });
-                  }}
-                  key={index}
-                ></div>
-              ))
-            : ""}
-        </div>
-
-        <select style={{ width: "100px" }} ref={sizeSelect}>
-          <SizeOption productList={productList}></SizeOption>
-        </select>
-
-        <select name="" id="" ref={quantitySelect}>
-          <QuantityOption></QuantityOption>
-        </select>
-
-        <div>
-          <Button>
-            <FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon>
-          </Button>
-          <Button>구매하기</Button>
-        </div>
-      </div>
-    </ProductArea>
+    </>
   );
 };
 
