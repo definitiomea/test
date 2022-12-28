@@ -31,16 +31,6 @@ const ReviewStar = () => {
   // filter을 이용해 true값만 뽑아서 length를 이용해 개수를 확인 후 별점값을 내보냄
   const sendStar = () => {
     let score = clicked.filter(Boolean).length;
-    // fetch('http://52.78.63.175:8000/movie', {
-    //   method: 'POST',
-    //   Headers: {
-    //     Authroization: 'e7f59ef4b4900fe5aa839fcbe7c5ceb7',
-    //   },
-    //   body: JSON.stringify({
-    //     movie_id:1
-    //     star: score,
-    //   }),
-    // });
   };
 
   // 클릭하면 리뷰 제출
