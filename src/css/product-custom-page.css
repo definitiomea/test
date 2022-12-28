@@ -31,7 +31,7 @@
 }
 
 .product-area {
-  padding: 1vw 1vh;
+  box-sizing: border-box;
 }
 
 .product-handling-buttons {
@@ -46,6 +46,22 @@
   margin: 1em;
   color: lightgrey;
 }
+.product-handling-buttons input {
+  width: 10em;
+  cursor: pointer;
+  margin: 1em;
+}
+
+.product-handling-buttons div {
+  display: flex;
+}
+.product-handling-buttons div input {
+  width: 2em;
+  height: 2em;
+  cursor: pointer;
+  margin: 1em;
+  color: lightgrey;
+}
 .product-handling-buttons svg:hover {
   color: black;
 }
@@ -53,6 +69,7 @@
 .product-create-area {
   display: flex;
   padding: 2vw 2vh;
+  justify-content: center;
 }
 
 .img-box {
@@ -116,7 +133,7 @@
 }
 
 .product-quantity-select {
-  width: 2em;
+  width: 4em;
 }
 
 .product-add-cart svg {
@@ -131,6 +148,31 @@
 
 @media screen and (max-width: 768px) {
   .product-area {
+    display: flex;
     flex-direction: column;
+  }
+  .product-shopping-area {
+    flex-direction: column;
+  }
+  .product-info-area {
+    text-align: center;
+  }
+  .product-handling-buttons svg {
+    width: 1.5em;
+    height: 1.5em;
+  }
+  .product-handling-buttons input {
+    width: 1.5em;
+  }
+  .product-handling-buttons div input {
+    width: 1.5em;
+    height: 1.5em;
+  }
+  .product-important-handling-button svg {
+    width: 1.5em;
+    height: 1.5em;
+  }
+  .product-color-setter-area {
+    display: flex;
   }
 }

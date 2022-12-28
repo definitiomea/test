@@ -89,10 +89,12 @@ const ProductDetail = () => {
           <div className="product-handling-buttons">
             <FontAwesomeIcon
               icon={faRepeat}
+              title='앞/뒤 뒤집기'
               onClick={() => {
                 flipShirts({ productList, img, setImg, setPrint });
               }}
             ></FontAwesomeIcon>
+            {/* <label for='flip' style={{margin: '1em'}}>앞/뒤 뒤집기</label> */}
             {/* <Button
               variant="contained"
               color="success"
@@ -113,6 +115,7 @@ const ProductDetail = () => {
             <div>
               <FontAwesomeIcon
                 icon={faFont}
+                title='텍스트 추가'
                 onClick={() => {
                   addText({ canvas });
                 }}
@@ -128,11 +131,13 @@ const ProductDetail = () => {
               </Button> */}
               <input
                 type="color"
+                title="텍스트 색상 바꾸기"
                 onChange={(event) => setTextColor({ canvas, event })}
               ></input>
             </div>
             <FontAwesomeIcon
               icon={faRotateLeft}
+              title='편집 되돌리기'
               onClick={() => {
                 canvas.undo();
               }}
@@ -148,6 +153,7 @@ const ProductDetail = () => {
             </Button> */}
             <FontAwesomeIcon
               icon={faRotateRight}
+              title='편집 다시 실행'
               onClick={() => {
                 canvas.redo();
               }}
@@ -163,6 +169,7 @@ const ProductDetail = () => {
             </Button> */}
             <FontAwesomeIcon
               icon={faEraser}
+              title='편집 전체 지우기'
               onClick={() => {
                 canvas.clear();
               }}
@@ -202,6 +209,7 @@ const ProductDetail = () => {
             <div className="product-important-handling-button">
               <FontAwesomeIcon
                 icon={faFloppyDisk}
+                title='편집한 이미지 저장'
                 onClick={() => {
                   customSave({
                     editZone,
@@ -233,6 +241,7 @@ const ProductDetail = () => {
               </Button> */}
               <FontAwesomeIcon
                 icon={faCircleMinus}
+                title='이미지 저장 내역 지우기'
                 onClick={() => {
                   customErase({ setEditArray });
                 }}
