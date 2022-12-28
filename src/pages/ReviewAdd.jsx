@@ -16,6 +16,7 @@ const ReviewAdd = () => {
   const [bringImg, setBringImg] = useState();
   const [sendImg, setSendImg] = useState(false); // 모달창에서 사진추가후 리뷰페이지로 전달
   const [comment, setComment] = useState();
+  const [addImgValue, setAddImgValue] = useState();
   const fileInput = useRef();
 
   const location = useLocation();
@@ -64,6 +65,12 @@ const ReviewAdd = () => {
     // 첨부파일명 없애기
     fileInput.current.value = null;
   };
+
+  const imgSubmit = () => {
+    handleClose();
+    setAddImgValue(bringImg);
+  };
+  console.log(addImgValue);
 
   return (
     <div style={{ marginLeft: "50px" }}>
@@ -145,18 +152,15 @@ const ReviewAdd = () => {
 
           {/* 미리보기 사진 전달공간 */}
           <div
-            onChange={(e) => {
-              sendImg(e.target.value);
-            }}
+          // onChange={(e) => {
+          //   sendImg(e.target.value);
+          // }}
           >
-            {sendImg &&
-              sendImg.map((theImg) => (
-                <img
-                  src={theImg}
-                  alt="#"
-                  style={{ width: "120px", heigth: "120px" }}
-                />
-              ))}
+            <img
+              src={addImgValue}
+              alt=""
+              style={{ width: "120px", heigth: "120px" }}
+            />
           </div>
           {/* 사진첨부 모달창*/}
           <Modal
@@ -196,31 +200,24 @@ const ReviewAdd = () => {
               </div>
 
               <MyButton onClick={modalClose}>취소</MyButton>
-              <MyButton
-                onClick={() => {
-                  setSendImg(bringImg);
-                  setBringImg([]);
-                  handleClose();
-                }}
-              >
-                첨부완료
-              </MyButton>
+              <MyButton onClick={imgSubmit}>첨부완료</MyButton>
             </Box>
           </Modal>
         </section>
+
+        {/* 취소 or 등록 section */}
+        <div>
+          <MyButton
+            onClick={() => {
+              prePage();
+            }}
+          >
+            취소
+          </MyButton>
+          {/* 등록버튼 누르면 reviewinputReducer에 전달 */}
+          <MyButton type="submit">등록</MyButton>
+        </div>
       </form>
-      {/* 취소 or 등록 section */}
-      <div>
-        <MyButton
-          onClick={() => {
-            prePage();
-          }}
-        >
-          취소
-        </MyButton>
-        {/* 등록버튼 누르면 reviewinputReducer에 전달 */}
-        <MyButton type="submit">등록</MyButton>
-      </div>
     </div>
   );
 };

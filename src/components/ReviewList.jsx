@@ -20,30 +20,30 @@ const ReviewList = (props) => {
           review.productName == compare.productName ? (
           <div key={review.id}>
             {/* 카테고리명 short와 long 구분 */}
-            {/* if (review.category == "short")
-            {
-              <img
-                src={require(`../img/shirts-img/short/${review.image}`)}
-                alt="short"
-                style={{
-                  width: "100px",
-                  height: "100px",
-                }}
-              />
-            }
-            else
-            {
-              <img
-                src={require(`../img/shirts-img/long/${review.image}`)}
-                alt="short"
-                style={{
-                  width: "100px",
-                  height: "100px",
-                }}
-              />
-            } */}
             <ReviewColumn>
               <div>
+                {review.category == "short" ? (
+                  <img
+                    src={require(`../img/shirts-img/short/${review.image}`)}
+                    alt="short"
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={require(`../img/shirts-img/long/${review.image}`)}
+                    alt="short"
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                    }}
+                  />
+                )}
+              </div>
+
+              {/* <div>
                 <img
                   src={require(`../img/shirts-img/short/${review.image}`)}
                   alt="short"
@@ -52,7 +52,7 @@ const ReviewList = (props) => {
                     height: "100px",
                   }}
                 />
-              </div>
+              </div> */}
 
               <ReviewRow>
                 <div>
