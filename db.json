@@ -22,8 +22,8 @@
             "colorName": ["blue", "gray", "orange", "white"],
             "color": ["#3e5284", "#c5c9cc", "#d7a58a", "#e4e7ec"],
             "size": ["S", "M", "L"],
-            "productImg": ["short-stnadard-blue-front.jpg", "short-stnadard-blue-back.jpg", "short-stnadard-gray-front.jpg", "short-stnadard-gray-back.jpg", "short-stnadard-orange-front.jpg", "short-stnadard-orange-back.jpg", "short-stnadard-white-front.jpg", "short-stnadard-white-back.jpg"],
-            "thumbnail": ["short-stnadard-blue-front.jpg", "short-stnadard-gray-front.jpg", "short-stnadard-orange-front.jpg", "short-stnadard-white-front.jpg"],
+            "productImg": ["short-standard-blue-front.jpg", "short-standard-blue-back.jpg", "short-standard-gray-front.jpg", "short-standard-gray-back.jpg", "short-standard-orange-front.jpg", "short-standard-orange-back.jpg", "short-standard-white-front.jpg", "short-standard-white-back.jpg"],
+            "thumbnail": ["short-standard-blue-front.jpg", "short-standard-gray-front.jpg", "short-standard-orange-front.jpg", "short-standard-white-front.jpg"],
             "explane": []
         },
         {

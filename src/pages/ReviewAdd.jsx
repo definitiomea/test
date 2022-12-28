@@ -102,8 +102,15 @@ const ReviewAdd = () => {
       <br />
 
       {/* 별점 섹션 */}
+      <div>
+        <span>
+          <strong>상품은 만족하셨나요?</strong>
+        </span>
 
-      <ReviewStar />
+        <ReviewStar />
+
+        <span>선택하세요.</span>
+      </div>
 
       {/* 리뷰 입력란 섹션 */}
       <section>

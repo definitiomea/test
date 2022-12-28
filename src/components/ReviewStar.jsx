@@ -73,26 +73,17 @@ const ReviewStar = () => {
 
   return (
     <div>
-      <div>
-        <span>
-          <strong>상품은 만족하셨나요?</strong>
-        </span>
-
-        <RatingBox>
-          {array.map((star, index) => (
-            <FontAwesomeIcon
-              icon={faStar}
-              key={index}
-              size="lg"
-              onClick={() => handleStarClick(star)}
-              className={clicked[star] ? "yellowStar" : undefined}
-            />
-          ))}
-        </RatingBox>
-
-{}
-        <span>선택하세요.</span>
-      </div>
+      <RatingBox>
+        {array.map((star, index) => (
+          <FontAwesomeIcon
+            icon={faStar}
+            key={index}
+            size="lg"
+            onClick={() => handleStarClick(star)}
+            className={clicked[star] ? "yellowStar" : undefined}
+          />
+        ))}
+      </RatingBox>
     </div>
   );
 };

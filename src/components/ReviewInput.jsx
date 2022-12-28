@@ -12,7 +12,6 @@ const ReviewInput = () => {
   // 구매티셔츠 정보
   const reviewProduct = useSelector((state) => state.orderlist.orderlist[2]);
 
-
   return (
     <div>
       <div>
@@ -21,14 +20,13 @@ const ReviewInput = () => {
       </div>
 
       <div>
+        <h1>고객</h1>
         {/* user.js에서 가져옴 */}
         <p>{userName.user}</p>
         {/* reviewInputReducer.js에서 가져옴 */}
         <p>별점존</p>
         {/* order.js에서 가져옴 */}
-        <p>
-          {reviewProduct.category}
-        </p>
+        <p>{reviewProduct.category}</p>
         <p>{reviewProduct.productName}</p>
         <p>{reviewProduct.size}</p>
         <p>comment</p>
