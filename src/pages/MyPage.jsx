@@ -90,7 +90,8 @@ const Mypage = () => {
 
   // 주문완료 섹션 출력 함수
   const orderDone = useSelector((state) => state.orderlist.orderlist);
-  const [viewCount, setViewCount] = useState(3);
+  const PAGE_UNIT = 3;
+  const [viewCount, setViewCount] = useState(PAGE_UNIT);
 
   const getImgPath = (item) => {
     switch (item.category) {
@@ -104,10 +105,10 @@ const Mypage = () => {
   };
 
   const viewMoreHandle = (list) => {
-    if (list.length < viewCount + 3) {
+    if (list.length < viewCount + PAGE_UNIT) {
       setViewCount(orderDone.length);
     } else {
-      setViewCount(viewCount + 3);
+      setViewCount(viewCount + PAGE_UNIT);
     }
   };
 
@@ -197,8 +198,11 @@ const Mypage = () => {
                           <img src={getImgPath(order)} alt="No Image" />
                           <div>
                             <div>
-                              {order.category} {order.productName} (
-                              {order.color})
+                              {order.category} {order.productName}
+                            </div>
+                            <div>
+                              color
+                              <span>{order.color}</span>
                             </div>
                             <div>
                               print :
