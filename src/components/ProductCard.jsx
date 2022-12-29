@@ -19,6 +19,7 @@ const ProductCard = (props) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    arrows: false,
     customPaging: (i) => (
       <div
         className="shop-slick-dots"

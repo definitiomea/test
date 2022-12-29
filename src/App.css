@@ -8,18 +8,6 @@
   justify-content: center;
 }
 
-/* shop - 상품리스트 */
-.product-container {
-  display: flex;
-}
-.product-card {
-  width: 200px;
-  height: 200px;
-  /* 배경색상 삭제 */
-  margin: 20px;
-  cursor: pointer;
-}
-
 /* 회원가입 */
 .sign-up {
   width: 300px;
