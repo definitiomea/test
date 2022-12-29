@@ -55,8 +55,9 @@ const Cart = () => {
       }
       copyCartlist[i].category = fintProduct.category;
       copyCartlist[i].productName = fintProduct.productName;
-      copyCartlist[i].thumbnail = 
-        `${fintProduct.category}-${name}-${copyCartlist[i].color}-front.jpg`;
+      copyCartlist[
+        i
+      ].thumbnail = `${fintProduct.category}-${name}-${copyCartlist[i].color}-front.jpg`;
     }
     return copyCartlist;
   };

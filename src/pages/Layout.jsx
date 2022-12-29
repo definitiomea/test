@@ -15,8 +15,8 @@ const Layout = () => {
       <div className="body-container">
         <Outlet />
         {/* 메인위치에서는 푸터 숨김 */}
-        {location.pathname !== "/" && <Footer />}
       </div>
+      {location.pathname !== "/" && <Footer />}
     </div>
   );
 };

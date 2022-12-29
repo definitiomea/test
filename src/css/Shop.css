@@ -1,5 +1,9 @@
-.wrap .select-category {
+.shop-wrap .select-category {
   display: flex;
-  gap: 100%;
   justify-content: center;
+  height: 100vh;
+}
+
+.shop-head {
+  text-align: center;
 }

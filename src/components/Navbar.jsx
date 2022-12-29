@@ -2,18 +2,18 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 // import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../style/Navbar.css";
+import "../css/Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/reducers/user";
 
 import Modal from "../components/Modal";
 
-const Navbar = (props) => {
+const Navbar = () => {
   // 리덕스 user 가져옴
   const userName = useSelector((state) => state.user);
 
   // 모바일 버전 시 네브 토글바
-  const [toggleOpen, setToggleOpen] = useState(false);
+  const [toggleOpen, setToggleOpen] = useState(true);
 
   // modal login form
   const [modalOpen, setModalOpen] = useState(false);
@@ -62,29 +62,6 @@ const Navbar = (props) => {
             MOTI
           </NavLink>
         </div>
-        <button
-          className="toggle-button"
-          onClick={() => setToggleOpen(!toggleOpen)}
-          style={{ fontSize: "25px" }}
-        >
-          {/* 토글버튼 열리면 햄버거아이콘, 닫히면 x아이콘 */}
-          {/*
-          {toggleOpen ? (
-            <FontAwesomeIcon icon={faBars} />
-          ) : (
-            <FontAwesomeIcon icon={faXmark} />
-          )}
-          */}
-        </button>
-
-        {/* 모바일 버전 메뉴 */}
-        <ul className="mobile-nav">
-          <NavLink to="shop">SHOP</NavLink>
-          <NavLink to="cart">CART</NavLink>
-          <NavLink to="mypage">MYPAGE</NavLink>
-          <NavLink to="login">LOGIN</NavLink>
-          <NavLink to="">LOGOUT</NavLink>
-        </ul>
 
         <ul>
           {/* 네브바 리스트 */}
@@ -100,20 +77,10 @@ const Navbar = (props) => {
             </NavLink>
           </li>
 
-          {/* <li>
-            <NavLink
-              to="login"
-              className={location.pathname === "/" ? "white-nav" : "dark-nav"}
-              v
-            >
-              LOG IN
-            </NavLink>
-          </li> */}
-
           {login ? (
             <li className="dropdown">
               <div className={main ? "white-nav" : "dark-nav"}>
-                {userName.name}님 {/** 이름 수정 */}
+                {userName.name}님
               </div>
               <div className="dropdown-menu">
                 <NavLink
@@ -148,7 +115,6 @@ const Navbar = (props) => {
             </div>
           )}
         </ul>
-        {/* 모바일 화면 - 햄버거 메뉴 */}
       </nav>
     </header>
   );

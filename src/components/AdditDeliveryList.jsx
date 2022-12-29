@@ -109,8 +109,7 @@ function AdditDeliveryList() {
   };
 
   return (
-    // inline style 추가(배송지form 위치)
-    <div style={{ marginTop: "76px" }}>
+    <div>
       <Modal
         open={open}
         onClose={handleClose}
@@ -130,6 +129,7 @@ function AdditDeliveryList() {
         /> */}
 
         {/*float: left로 위치 조정 */}
+        <label className="post-form_label">우편번호</label>
         <div>
           <input
             type="text"
@@ -145,7 +145,7 @@ function AdditDeliveryList() {
             우편번호 찾기
           </button>
         </div>
-
+        <label className="post-form_label">주소</label>
         <input
           type="text"
           className="post-form_input"
@@ -155,7 +155,7 @@ function AdditDeliveryList() {
           placeholder="주소"
           value={address}
         />
-
+        <label className="post-form_label">상세주소</label>
         <input
           type="text"
           className="post-form_input"
@@ -167,6 +167,7 @@ function AdditDeliveryList() {
           placeholder="상세주소"
           value={detailAddress}
         />
+        <label className="post-form_label">기타</label>
         <input
           type="text"
           className="post-form_input"

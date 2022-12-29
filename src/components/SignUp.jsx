@@ -81,6 +81,7 @@ const SignUpPage = () => {
         &nbsp;&nbsp;&nbsp;
         <h1 className="signup-title">Sign up</h1>
       </div>
+
       <form className="signup-form" onSubmit={onSubmitForm}>
         <label className="signup-label">Name</label>
 
