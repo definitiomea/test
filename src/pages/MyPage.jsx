@@ -1,5 +1,5 @@
 // import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import AdditDeliveryList from "../components/AdditDeliveryList";
 import { useEffect, useState } from "react";
 import { Button, Modal } from "@mui/material";
@@ -69,6 +69,7 @@ const Mypage = () => {
   const findUser = signup.userlist.find((userId) => userId.id === user.id);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const style = {
     position: "absolute",
@@ -196,9 +197,13 @@ const Mypage = () => {
                           <div>{order.delivery}</div>
                           <div className="order-delivery-btn">
                             {order.delivery === "배송완료" ? (
-                              <Link to="/mypage/review" state={{ order: order }}>
+                              <MyButton
+                                onClick={() => {
+                                  navigate("/mypage/review", { state: order });
+                                }}
+                              >
                                 후기작성
-                              </Link>
+                              </MyButton>
                             ) : (
                               <MyButton onClick={handleOpen}>배송조회</MyButton>
                             )}

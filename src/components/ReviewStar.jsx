@@ -56,15 +56,6 @@ const ReviewStar = ({ star, setStar }) => {
       ) : (
         <span>선택하세요.</span>
       )}
-      {/* {array.map((num) => {
-        return clicked || hovered ? (
-          <HiddenText key={num} show={clicked == num || hovered == num}>
-            {starTextList[num - 1]}
-          </HiddenText>
-        ) : (
-          <span>선택하세요.</span>
-        );
-      })} */}
     </div>
   );
 };

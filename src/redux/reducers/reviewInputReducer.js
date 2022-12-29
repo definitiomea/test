@@ -1,14 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// 주문 날짜
-const getDate = () => {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const today = String(date.getDate()).padStart(2, "0");
-  return `${year}.${month}.${today}`;
-};
-
 const initialState = {
   reviewID: 0,
   reviewlist: [],
@@ -38,7 +29,7 @@ const reviewSlice = createSlice({
         // // 리뷰 작성내용 불러오기
         comment: action.payload.comment,
         // // 작성 날짜 불러오기
-        date: getDate(),
+        date: action.payload.getDate,
       };
       const newReviewlist = state.reviewlist.concat(newReview);
       state.reviewlist = newReviewlist;
@@ -49,6 +40,8 @@ const reviewSlice = createSlice({
       const newReviewlist = state.reviewInput.filter((review) => review.reviewID != action.payload);
       state.reviewlist = newReviewlist;
     },
+    // 리뷰 수정하기
+    // modifyReview: (state, action) => {},
   },
 });
 
