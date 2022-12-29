@@ -96,11 +96,11 @@ const ReviewAdd = () => {
 
   // 서밋 테스트
   const location = useLocation();
-  const [data, setData] = useState(location.state);
+  const [data, setData] = useState("");
   // 서밋 테스트
   const testSumbit = () => {
     const newReview = {
-      // user : 
+      // user :
       category: data.category,
       productName: data.productName,
       size: data.size,
@@ -110,9 +110,17 @@ const ReviewAdd = () => {
       comment,
     };
     dispatch(inputReview(newReview));
-    alert("리뷰가 등록되었습니다.")
-    navigate("/shop/"+data.productID);
+    alert("리뷰가 등록되었습니다.");
+    navigate("/shop/" + data.productID);
   };
+
+  useEffect(() => {
+    if (!location.state) {
+      navigate("*");
+    } else {
+      setData(location.state);
+    }
+  }, []);
 
   return (
     <div style={{ marginLeft: "50px" }}>
