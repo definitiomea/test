@@ -49,11 +49,7 @@ const Mypage = () => {
     e.preventDefault();
     // map https://apis.tracker.delivery/carriers/:carrier_id/tracks/:track_id 패치값 가져와서 배송지 조회기능 구현
     const getDelivery = async () => {
-      const json = await (
-        await fetch(
-          `https://apis.tracker.delivery/carriers/${carrierId}/tracks/${trackId}`
-        )
-      ).json();
+      const json = await (await fetch(`https://apis.tracker.delivery/carriers/${carrierId}/tracks/${trackId}`)).json();
       setDelivery(json);
     };
     getDelivery();
@@ -62,9 +58,7 @@ const Mypage = () => {
 
   // 택배사 목록 비동기로 가져오기
   const getCarriers = async () => {
-    const json = await (
-      await fetch(`https://apis.tracker.delivery/carriers`)
-    ).json();
+    const json = await (await fetch(`https://apis.tracker.delivery/carriers`)).json();
     setCarriers(json);
   };
   useEffect(() => {
@@ -140,38 +134,14 @@ const Mypage = () => {
           }}
         >
           <label className="user-info_label">ID</label>
-          <input
-            className="user-info_input"
-            type="text"
-            name="id"
-            defaultValue={user.id}
-            onChange={onChange}
-          />
+          <input className="user-info_input" type="text" name="id" defaultValue={user.id} onChange={onChange} />
           <label className="user-info_label">E-mail</label>
-          <input
-            className="user-info_input"
-            type="text"
-            name="email"
-            defaultValue={user.email}
-            onChange={onChange}
-          />
+          <input className="user-info_input" type="text" name="email" defaultValue={user.email} onChange={onChange} />
           <label className="user-info_label">Password</label>
-          <input
-            className="user-info_input"
-            type="password"
-            name="password"
-            defaultValue={findUser ? findUser.password : ""}
-            onChange={onChange}
-          />
+          <input className="user-info_input" type="password" name="password" defaultValue={findUser ? findUser.password : ""} onChange={onChange} />
           <label className="user-info_label">Password check</label>
           {/* <label>>>비밀번호 확인</label> */}
-          <input
-            className="user-info_input"
-            type="password"
-            name="password-check"
-            placeholder={user.password}
-            onChange={onChange}
-          />
+          <input className="user-info_input" type="password" name="password-check" placeholder={user.password} onChange={onChange} />
           {/* button component적용 */}
           <MyButton>회원정보 수정</MyButton>
         </form>
@@ -192,12 +162,7 @@ const Mypage = () => {
         {/* 장바구니 상품 목록 */}
         <div className="mypage-body">
           <div className="mypage-column">
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
+            <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
               <Box sx={style}>
                 {result ? (
                   <form onSubmit={onSubmit}>
@@ -212,12 +177,7 @@ const Mypage = () => {
                         );
                       })}
                     </select>
-                    <input
-                      type="number"
-                      placeholder="운송장번호"
-                      onChange={changeTrackId}
-                      defaultValue={trackId}
-                    />
+                    <input type="number" placeholder="운송장번호" onChange={changeTrackId} defaultValue={trackId} />
                     <button>조회</button>
                   </form>
                 ) : !delivery?.message ? (

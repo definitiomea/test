@@ -12,23 +12,17 @@ const ReviewStar = () => {
   const array = [1, 2, 3, 4, 5];
 
   // onClick시 노란색을 유지하게하고 reviewInputRecuder로 보냄
-  const handleClick = (e) => {
+  const handleClick = (id) => {
     // e.target.id 값 잘 받아오는지 확인
     // 잘 받아올 때도, 못받을 때도 있는 이유?
-    console.log(e.target.id, "점 선택");
+    console.log(id, "점 선택");
     // onclick시 노란색 유지하게 함
-    setClicked(e.target.id);
+    setClicked(id);
     // reviewInputRecuder로 보냄
   };
 
   // 별점에 따른 출력문구
-  const starTextList = [
-    "별로에요",
-    "그저 그래요",
-    "보통이에요",
-    "좋아요",
-    "최고예요",
-  ];
+  const starTextList = ["별로에요", "그저 그래요", "보통이에요", "좋아요", "최고예요"];
 
   return (
     <div>
@@ -37,31 +31,39 @@ const ReviewStar = () => {
           <FontAwesomeIcon
             icon={faStar}
             key={el} // 1,2,3,4,5
-            id={el}
             // 클릭하거나 호버했을 때 클래스네임은 yellow -> css로 노란별 출력
-            className={
-              clicked >= el || hovered >= el ? "yellowStar" : undefined
-            }
+            className={clicked >= el || hovered >= el ? "yellowStar" : undefined}
             onMouseEnter={() => setHovered(el)}
             onMouseLeave={() => setHovered(null)}
             // onClick시 노란색을 유지하게하고 reviewInputRecuder로 보냄
-            onClick={handleClick}
+            onClick={() => {
+              handleClick(el);
+            }}
           />
         ))}
       </RatingBox>
 
       {/* 클릭하거나 호버 시 별점에 따른 출력문구  */}
-      {array.map((num) => {
+      {clicked || hovered ? (
+        <div>
+          {array.map((num) => (
+            <HiddenText key={num} show={clicked == num || hovered == num}>
+              {starTextList[num - 1]}
+            </HiddenText>
+          ))}
+        </div>
+      ) : (
+        <span>선택하세요.</span>
+      )}
+      {/* {array.map((num) => {
         return clicked || hovered ? (
           <HiddenText key={num} show={clicked == num || hovered == num}>
-            {/* array와 map의 index 값이 1차이나므로 */}
             {starTextList[num - 1]}
           </HiddenText>
         ) : (
-          // 한번만 출력하려면?
           <span>선택하세요.</span>
         );
-      })}
+      })} */}
     </div>
   );
 };
