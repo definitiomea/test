@@ -3,7 +3,6 @@ import "../css/product-custom-page.css";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
 
 import FabricSettings from "../modules/FabricSettings";
 import {
@@ -87,102 +86,83 @@ const ProductDetail = () => {
       <div className="product-shopping-area">
         <div className="product-area">
           <div className="product-handling-buttons">
-            <FontAwesomeIcon
-              icon={faRepeat}
-              title='앞/뒤 뒤집기'
-              onClick={() => {
-                flipShirts({ productList, img, setImg, setPrint });
-              }}
-            ></FontAwesomeIcon>
-            {/* <label for='flip' style={{margin: '1em'}}>앞/뒤 뒤집기</label> */}
-            {/* <Button
-              variant="contained"
-              color="success"
-              onClick={() => {
-                flipShirts({ productList, img, setImg, setPrint });
-              }}
-            >
-              앞/뒤 뒤집기
-            </Button> */}
-            <FontAwesomeIcon icon={faCloudArrowUp}></FontAwesomeIcon>
+            <div className="product-handling-button-element">
+              <FontAwesomeIcon
+                icon={faRepeat}
+                title="앞/뒤 뒤집기"
+                onClick={() => {
+                  flipShirts({ productList, img, setImg, setPrint });
+                }}
+              ></FontAwesomeIcon>
+              <label className="handling-explane">앞/뒤 뒤집기</label>
+            </div>
+            <label for="input-file" className="product-handling-button-element">
+              <FontAwesomeIcon
+                icon={faCloudArrowUp}
+                style={{}}
+              ></FontAwesomeIcon>
+              <span className="handling-explane" style={{ fontSize: "0.75em" }}>업로드</span>
+            </label>
+            {/* </div> */}
             <input
               type="file"
               accept="image/*"
+              id="input-file"
+              style={{ display: "none" }}
               onChange={(event) => {
                 handleImage({ canvas, event });
               }}
             />
-            <div>
+            <div className="product-text-handling">
+              <div className="product-handling-button-element">
+                <FontAwesomeIcon
+                  icon={faFont}
+                  title="텍스트 추가"
+                  onClick={() => {
+                    addText({ canvas });
+                  }}
+                ></FontAwesomeIcon>
+                <label className="handling-explane">텍스트 추가</label>
+              </div>
+              <div className="product-handling-button-element">
+                <input
+                  type="color"
+                  title="텍스트 색상 바꾸기"
+                  onChange={(event) => setTextColor({ canvas, event })}
+                ></input>
+                <label className="handling-explane">텍스트 색상</label>
+              </div>
+            </div>
+            <div className="product-handling-button-element">
               <FontAwesomeIcon
-                icon={faFont}
-                title='텍스트 추가'
+                icon={faRotateLeft}
+                title="편집 취소"
                 onClick={() => {
-                  addText({ canvas });
+                  canvas.undo();
                 }}
               ></FontAwesomeIcon>
-              {/* <Button
-                variant="contained"
-                color="success"
-                onClick={() => {
-                  addText({ canvas });
-                }}
-              >
-                텍스트 추가하기
-              </Button> */}
-              <input
-                type="color"
-                title="텍스트 색상 바꾸기"
-                onChange={(event) => setTextColor({ canvas, event })}
-              ></input>
+              <label className="handling-explane">편집 취소</label>
             </div>
-            <FontAwesomeIcon
-              icon={faRotateLeft}
-              title='편집 되돌리기'
-              onClick={() => {
-                canvas.undo();
-              }}
-            ></FontAwesomeIcon>
-            {/* <Button
-              variant="contained"
-              color="success"
-              onClick={() => {
-                canvas.undo();
-              }}
-            >
-              편집 되돌리기
-            </Button> */}
-            <FontAwesomeIcon
-              icon={faRotateRight}
-              title='편집 다시 실행'
-              onClick={() => {
-                canvas.redo();
-              }}
-            ></FontAwesomeIcon>
-            {/* <Button
-              variant="contained"
-              color="success"
-              onClick={() => {
-                canvas.redo();
-              }}
-            >
-              편집 되돌리기 취소
-            </Button> */}
-            <FontAwesomeIcon
-              icon={faEraser}
-              title='편집 전체 지우기'
-              onClick={() => {
-                canvas.clear();
-              }}
-            ></FontAwesomeIcon>
-            {/* <Button
-              variant="contained"
-              color="success"
-              onClick={() => {
-                canvas.clear();
-              }}
-            >
-              이미지, 편집 전체 삭제
-            </Button> */}
+            <div className="product-handling-button-element">
+              <FontAwesomeIcon
+                icon={faRotateRight}
+                title="다시 실행"
+                onClick={() => {
+                  canvas.redo();
+                }}
+              ></FontAwesomeIcon>
+              <label className="handling-explane">다시 실행</label>
+            </div>
+            <div className="product-handling-button-element">
+              <FontAwesomeIcon
+                icon={faEraser}
+                title="편집 전체 지우기"
+                onClick={() => {
+                  canvas.clear();
+                }}
+              ></FontAwesomeIcon>
+              <label className="handling-explane">편집 초기화</label>
+            </div>
           </div>
           <div className="product-create-area">
             <div className="img-box" ref={editZone}>
@@ -207,52 +187,39 @@ const ProductDetail = () => {
               </div>
             </div>
             <div className="product-important-handling-button">
-              <FontAwesomeIcon
-                icon={faFloppyDisk}
-                title='편집한 이미지 저장'
-                onClick={() => {
-                  customSave({
-                    editZone,
-                    editArray,
-                    setEditArray,
-                    img,
-                    setImg,
-                    print,
-                    setPrint,
-                    productList,
-                  });
-                }}
-              ></FontAwesomeIcon>
-              {/* <Button
-                onClick={() => {
-                  customSave({
-                    editZone,
-                    editArray,
-                    setEditArray,
-                    img,
-                    setImg,
-                    print,
-                    setPrint,
-                    productList,
-                  });
-                }}
-              >
-                편집한 면의 이미지 저장
-              </Button> */}
-              <FontAwesomeIcon
-                icon={faCircleMinus}
-                title='이미지 저장 내역 지우기'
-                onClick={() => {
-                  customErase({ setEditArray });
-                }}
-              ></FontAwesomeIcon>
-              {/* <Button
-                onClick={() => {
-                  customErase({ setEditArray });
-                }}
-              >
-                앞, 혹은 뒷면 이미지 편집 내역 지우기
-              </Button> */}
+              <div className="product-handling-button-element">
+                <div style={{ margin: "0em auto" }}>
+                  <FontAwesomeIcon
+                    icon={faFloppyDisk}
+                    title="편집한 이미지 저장"
+                    onClick={() => {
+                      customSave({
+                        editZone,
+                        editArray,
+                        setEditArray,
+                        img,
+                        setImg,
+                        print,
+                        setPrint,
+                        productList,
+                      });
+                    }}
+                  ></FontAwesomeIcon>
+                </div>
+                <label className="handling-explane">편집 이미지 저장</label>
+              </div>
+              <div className="product-handling-button-element">
+                <div style={{ margin: "0em auto" }}>
+                  <FontAwesomeIcon
+                    icon={faCircleMinus}
+                    title="이미지 저장 내역 지우기"
+                    onClick={() => {
+                      customErase({ setEditArray });
+                    }}
+                  ></FontAwesomeIcon>
+                </div>
+                <label className="handling-explane">편집한 이미지 지우기</label>
+              </div>
             </div>
           </div>
         </div>
@@ -321,7 +288,7 @@ const ProductDetail = () => {
             >
               <FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon>
             </Button>
-            <Button>구매하기</Button>
+            <label className="handling-explane">장바구니 담기</label>
           </div>
         </div>
       </div>
@@ -330,26 +297,3 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
-
-const DrawingArea = styled.div`
-  position: absolute;
-  top: 20%;
-  left: 25%;
-  z-index: 10;
-  width: 180px;
-  height: 260px;
-  /* &:hover와 같이 CSS 이벤트 가능 */
-  &:hover {
-    outline: 1px dashed black;
-  }
-`;
-
-const ProductArea = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media screen and (max-width: 768px) {
-    flex-direction: column;
-  }
-`;

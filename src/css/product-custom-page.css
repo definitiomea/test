@@ -1,29 +1,3 @@
-/* .product-area {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@media screen and (max-width: 768px) {
-  .product-area {
-    flex-direction: column;
-  }
-}
-
-.product-button {
-  display: flex;
-  flex-direction: column;
-}
-
-.product-detail {
-  width: 350px;
-  height: auto;
-} */
-
-.product-info {
-  padding: 20px;
-}
-
 .product-shopping-area {
   display: flex;
   justify-content: center;
@@ -38,13 +12,23 @@
   padding: 1vw 1vh;
   display: flex;
 }
-
+.product-handling-button-element {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.handling-explane {
+  font-size: 0.75em;
+  color: dimgray;
+}
 .product-handling-buttons svg {
   width: 2em;
   height: 2em;
   cursor: pointer;
   margin: 1em;
+  margin-bottom: 0.5em;
   color: lightgrey;
+  transition: color 0.5s;
 }
 .product-handling-buttons input {
   width: 10em;
@@ -52,15 +36,17 @@
   margin: 1em;
 }
 
-.product-handling-buttons div {
+.product-handling-buttons .product-text-handling {
   display: flex;
 }
-.product-handling-buttons div input {
+.product-handling-buttons .product-text-handling input {
   width: 2em;
   height: 2em;
   cursor: pointer;
   margin: 1em;
-  color: lightgrey;
+  margin-bottom: 0.5em;
+  border: 1px solid transparent;
+  border-radius: 50%;
 }
 .product-handling-buttons svg:hover {
   color: black;
@@ -71,7 +57,6 @@
   padding: 2vw 2vh;
   justify-content: center;
 }
-
 .img-box {
   width: 350px;
   height: auto;
@@ -82,7 +67,6 @@
 .product-img {
   max-width: 100%;
 }
-
 .drawing-area {
   position: absolute;
   top: 20%;
@@ -100,47 +84,51 @@
   flex-direction: column;
   padding: 2vw 2vh;
 }
-
-.product-important-handling-button svg {
+.product-important-handling-button .product-handling-button-element svg {
   width: 2em;
   height: 2em;
   cursor: pointer;
   margin: 1em;
+  margin-bottom: 0.5em;
   color: lightgrey;
+  transition: color 0.5s;
 }
-.product-important-handling-button svg:hover {
+.product-important-handling-button .product-handling-button-element svg:hover {
   color: black;
 }
 
 .product-info-area {
   padding: 2vw 2vh;
 }
-
 .product-info {
   padding: 1vw 1vh;
 }
-
 .product-introduce {
   margin: 0px auto;
 }
-
 .product-color-setter-area {
   padding: 1vw;
+  display: flex;
 }
-
 .product-size-select {
   width: 100px;
 }
-
 .product-quantity-select {
   width: 4em;
 }
 
+.product-add-cart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
 .product-add-cart svg {
-  width: 2em;
-  height: 2em;
+  width: 3em;
+  height: 3em;
   cursor: pointer;
   color: lightgrey;
+  transition: color 0.5s;
 }
 .product-add-cart svg:hover {
   color: black;
@@ -168,11 +156,15 @@
     width: 1.5em;
     height: 1.5em;
   }
-  .product-important-handling-button svg {
+  .product-important-handling-button .product-handling-button-element div svg {
     width: 1.5em;
     height: 1.5em;
   }
-  .product-color-setter-area {
-    display: flex;
+  .product-handling-buttons .product-text-handling input {
+    width: 1.5em;
+    height: 1.5em;
+  }
+  .handling-explane {
+    display: none;
   }
 }
