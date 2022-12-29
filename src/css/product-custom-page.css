@@ -168,3 +168,19 @@
     display: none;
   }
 }
+
+.info-section {
+  font-size: 1.5em;
+}
+.info-detail {
+  padding: 2vh 2vw;
+}
+.info-detail td {
+  width: 5em;
+}
+
+@media screen and (max-width: 768px) {
+  .size-notice img {
+    max-width: 400px;
+  }
+}

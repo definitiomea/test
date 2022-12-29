@@ -3,7 +3,7 @@ import React from "react";
 const LongProductInfo = () => {
   return (
     <div className="product-info-component">
-      <p className="info-section">상품 정보</p>
+      <p className="info-section"><b>상품 정보</b></p>
       <div className="info-detail">
         <p>
           면 100% 코마사 16수 싱글 저지 원단을 사용해 편안한 착용감을 제공하는
@@ -17,24 +17,24 @@ const LongProductInfo = () => {
           <li>신축성: 신축성 약간 있음</li>
           <li>감촉: 부드러운 감촉</li>
         </ul>
-        <p className="info-notice">주의사항</p>
+        <p className="info-notice"><b>주의사항</b></p>
         <ul>
           <li>
             모델 컷의 경우 촬영장소의 환경, 혹은 보시는 모니터에 따라 실제
             색상과 상이할 수 있습니다.
           </li>
         </ul>
-        <p className="info-notice">세탁방법</p>
+        <p className="info-notice"><b>세탁방법</b></p>
         <ul>
           <li>단독 손세탁가능합니다.</li>
           <li>나염/프린트 제품 세탁시 뒤집어 찬물에 세탁하셔야 합니다.</li>
           <li>다리미 사용 시 천을 올린 후 다림질해 주십시오.</li>
         </ul>
-        <p className="info-notice">MODEL SIZE</p>
+        <p className="info-notice"><b>MODEL SIZE</b></p>
         <ul>
           <li>181, 70kg XL size</li>
         </ul>
-        <p className="info-notice">구매 시 주의사항</p>
+        <p className="info-notice"><b>구매 시 주의사항</b></p>
         <ul>
           <li>
             전자상거래 등에서의 소비자보호에 관한 법률에 의거하여 미성년자가
@@ -43,8 +43,8 @@ const LongProductInfo = () => {
           </li>
         </ul>
       </div>
-      <p className="info-section">사이즈 정보</p>
-      <div>
+      <p className="info-section"><b>사이즈 정보</b></p>
+      <div className="info-detail">
         <table>
           <thead>
             <tr>
