@@ -98,7 +98,7 @@ const ProductDetail = () => {
               ></FontAwesomeIcon>
               <label className="handling-explane">앞/뒤 뒤집기</label>
             </div>
-            <label for="input-file" className="product-handling-button-element">
+            <label htmlFor="input-file" className="product-handling-button-element">
               <FontAwesomeIcon
                 icon={faCloudArrowUp}
                 style={{}}

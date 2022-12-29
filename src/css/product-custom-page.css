@@ -178,9 +178,19 @@
 .info-detail td {
   width: 5em;
 }
+.size-notice {
+  display: flex;
+  flex-direction: column;
+}
+.size-container {
+  margin: 0em auto;
+}
+.size-container img {
+  max-width: 600px;
+}
 
 @media screen and (max-width: 768px) {
-  .size-notice img {
+  .size-container img {
     max-width: 400px;
   }
 }
