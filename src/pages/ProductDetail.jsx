@@ -288,7 +288,7 @@ const ProductDetail = () => {
             >
               <FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon>
             </Button>
-            <label className="handling-explane">장바구니 담기</label>
+            <label className="add-to-cart">장바구니 담기</label>
           </div>
         </div>
       </div>
