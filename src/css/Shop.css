@@ -3,11 +3,23 @@
   flex-direction: column;
   justify-content: center;
   min-height: calc(100vh - 236px);
+
+  /* align-items: center; */
+  width: fit-content;
+  margin: auto;
+}
+
+.shop-border-area {
+  width: 70vw;
+  border-top: 2px solid black;
 }
 
 .shop-thumNail-list {
+  position: relative;
+  bottom: 15px;
   display: flex;
   justify-content: center;
+  /* justify-content: center; */
 }
 
 .shop-product-card {
@@ -15,24 +27,38 @@
   margin: 20px;
 }
 
+/* 이미지 최소 넓이 추가 */
+.shop-product-card {
+  min-width: 300px; /* 임시 값이니 모바일 크기 고려해서 정하기*/
+}
+
 .shop-label {
   display: flex;
   flex-direction: column;
   text-align: center;
-  border: 2px solid black;
   width: fit-content;
+  margin-left: 100px;
 }
 
-.shop-slick-dots {
+/* slick dots */
+.shop-product-card .slick-dots {
+  bottom: -35px;
+  text-align: right;
+}
+/* .shop-slick-dots {
   position: absolute;
   left: 120px;
   top: 10px;
-}
+} */
 
 .shop-title {
+  position: relative;
+  background-color: white;
+  bottom: 25px;
   text-align: left;
   font-family: "nav";
   font-weight: bold;
+  padding: 0 10px;
 }
 
 .shop-select-category {
@@ -41,6 +67,36 @@
 }
 
 .shop-category {
+  position: relative;
+  bottom: 20px;
   font-family: "nav";
-  margin: 10px 20px 10px 0;
+  margin: 0 40px 0 0;
+  padding: 0 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.shop-category:hover {
+  transform: scale(1.2);
+}
+
+@media screen and (max-width: 768px) {
+  .shop-border-area {
+    border: none;
+  }
+  .shop-title {
+    margin-top: 30px;
+  }
+
+  .shop-label {
+    margin: auto;
+  }
+  .shop-category {
+    padding: auto;
+    margin: auto;
+  }
+
+  .shop-thumNail-list {
+    flex-direction: column;
+  }
 }
