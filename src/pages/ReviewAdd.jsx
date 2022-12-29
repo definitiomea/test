@@ -23,14 +23,9 @@ const ReviewAdd = () => {
   const [addImgValue, setAddImgValue] = useState();
   const [comment, setComment] = useState("");
 
-  // const location = useLocation();
-  // const [data, setData] = useState(location.state);
-
-  // const data = location.state.order;
-
   const fileInput = useRef();
   const dispatch = useDispatch();
-  const userID = useSelector((state) => state.user);
+  const userID = useSelector((state) => state.user.id);
 
   // 사진첨부 모달창
   const handleOpen = () => setModalOpen(true);
@@ -120,13 +115,14 @@ const ReviewAdd = () => {
   const testSumbit = (e) => {
     e.preventDefault();
     if (comment?.length < 10) {
-      alert("10자 이상 입력하세요.");
+      alert("리뷰를 10자 이상 입력하세요.");
       return;
     } else if (!star) {
       alert("별점을 체크해주세요.");
       return;
     }
     const newReview = {
+      productImg: data.img,
       addImgValue,
       userID,
       star,

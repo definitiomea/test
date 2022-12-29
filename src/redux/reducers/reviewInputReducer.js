@@ -14,8 +14,10 @@ const reviewSlice = createSlice({
         reviewID: 1,
         // 리뷰 첨부 이미지 불러오기
         img: action.payload.addImgValue,
+        // 이미지를 첨부하지 않았을 때 상품의 썸네일을 출력하기 위함
+        productImg: action.payload.productImg,
         // 고객 로그인 아이디 가져오기
-        // userID: action.payload.userID,
+        userID: action.payload.userID,
         // 리뷰 별점 가져오기
         star: action.payload.star,
         // 제품 종류 불러오기
@@ -37,7 +39,9 @@ const reviewSlice = createSlice({
     // 리뷰 삭제하기
     deleteReview: (state, action) => {
       // reviewInput배열에서 reiviewID가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듦
-      const newReviewlist = state.reviewInput.filter((review) => review.reviewID != action.payload);
+      const newReviewlist = state.reviewInput.filter(
+        (review) => review.reviewID != action.payload
+      );
       state.reviewlist = newReviewlist;
     },
     // 리뷰 수정하기

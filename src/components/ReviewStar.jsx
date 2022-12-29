@@ -23,7 +23,13 @@ const ReviewStar = ({ star, setStar }) => {
   };
 
   // 별점에 따른 출력문구
-  const starTextList = ["별로에요", "그저 그래요", "보통이에요", "좋아요", "최고예요"];
+  const starTextList = [
+    "별로에요",
+    "그저 그래요",
+    "보통이에요",
+    "좋아요",
+    "최고예요",
+  ];
 
   return (
     <div>
@@ -33,7 +39,9 @@ const ReviewStar = ({ star, setStar }) => {
             icon={faStar}
             key={el} // 1,2,3,4,5
             // 클릭하거나 호버했을 때 클래스네임은 yellow -> css로 노란별 출력
-            className={clicked >= el || hovered >= el ? "yellowStar" : undefined}
+            className={
+              clicked >= el || hovered >= el ? "yellowStar" : undefined
+            }
             onMouseEnter={() => setHovered(el)}
             onMouseLeave={() => setHovered(null)}
             // onClick시 노란색을 유지하게하고 reviewInputRecuder로 보냄

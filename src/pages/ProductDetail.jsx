@@ -39,6 +39,7 @@ import { inputCart } from "../redux/reducers/cart";
 import LongProductInfo from "../components/LongProductInfo";
 import ShortProductInfo from "../components/ShortProductInfo";
 import ReviewList from "../components/ReviewList";
+import ReviewInput from "../components/ReviewInput";
 
 const ProductDetail = () => {
   const { id } = useParams(); // id : productList {id}
@@ -309,7 +310,7 @@ const ProductDetail = () => {
          * 고객이 작성한 리뷰 출력
          * - 페이지 ReviewAdd에서 작성되고, 컴포넌트 ReviewInput에 출력 폼 있음
          */}
-        {/* <ReviewInput productID={id} /> */}
+        <ReviewInput />
       </div>
     </>
   );
