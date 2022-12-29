@@ -2,7 +2,8 @@
   box-sizing: border-box;
   font-family: "ongothic";
 }
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -14,7 +15,7 @@ html, body {
 .footer {
   height: 100px;
   width: 100%;
-  background-color: black;
+  background-color: #000000;
   color: #f8f9fa;
 }
 .hidden {
@@ -24,11 +25,11 @@ html, body {
 .body-container {
   width: 100%;
   position: relative;
-  top: 136px; 
+  top: 136px; /* 네브바 높이 + 푸터 높이 */
 }
 /* 메인(home) 페이지에서는 네브바가 겹쳐야하므로 제외 */
 .main-container {
   width: 100%;
   position: absolute;
-  top: -136px;
+  top: -136px; /* 네브바 높이 + 푸터 높이 */
 }

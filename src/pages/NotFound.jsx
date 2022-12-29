@@ -10,21 +10,25 @@ const NotFound = () => {
     <Wrap>
       <SmsFailedOutlinedIcon />
       <div>
-        <div>OOPS</div>
-        <div>We couldn't find the page your looking for.</div>
+        <div>404 ERROR</div>
+        <div>
+          페이지를 찾을 수 없습니다. <br />
+          존재하지 않는 주소를 입력하셨거나 <br />
+          요청하신 페이지의 주소가 변경, 삭제되어 찾을 수 없습니다.
+        </div>
         <MyButton
           onClick={() => {
             navigate("/");
           }}
         >
-          VISIT HOMEPAGE
+          메인으로 가기
         </MyButton>
         <MyButton
           onClick={() => {
             navigate(-1);
           }}
         >
-          GO BACK
+          뒤로가기
         </MyButton>
       </div>
     </Wrap>

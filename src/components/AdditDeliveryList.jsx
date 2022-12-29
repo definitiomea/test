@@ -23,10 +23,8 @@ const Postcode = (props) => {
         extraPostCode += data.bname;
       }
       if (data.buildingName !== "") {
-        extraAddress +=
-          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-        extraPostCode +=
-          extraPostCode !== "" ? `, ${data.buildingName}` : data.buildingName;
+        extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+        extraPostCode += extraPostCode !== "" ? `, ${data.buildingName}` : data.buildingName;
       }
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
       postCode += extraPostCode !== "" ? ` (${extraPostCode})` : "";
@@ -111,12 +109,7 @@ function AdditDeliveryList() {
   return (
     // inline style 추가(배송지form 위치)
     <div style={{ marginTop: "76px" }}>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={style}>
           <Postcode adressValue={adressValue} zoneCodeValue={zoneCodeValue} />
         </Box>
@@ -178,7 +171,7 @@ function AdditDeliveryList() {
           value={reference}
         />
         {/* button component적용 */}
-        <MyButton>배송지 변경</MyButton>
+        <MyButton type="submit">배송지 변경</MyButton>
       </form>
     </div>
   );

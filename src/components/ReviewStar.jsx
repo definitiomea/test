@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import styled from "@emotion/styled";
 
-const ReviewStar = () => {
+const ReviewStar = ({ star, setStar }) => {
   // 별점 기본값
   const [clicked, setClicked] = useState(null);
   const [hovered, setHovered] = useState(null);
@@ -19,6 +19,7 @@ const ReviewStar = () => {
     // onclick시 노란색 유지하게 함
     setClicked(id);
     // reviewInputRecuder로 보냄
+    setStar(id);
   };
 
   // 별점에 따른 출력문구

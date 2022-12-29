@@ -3,24 +3,28 @@ import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "@mui/material";
 import { Box } from "@mui/system";
 import MyButton from "../style/Button";
-import List from "../style/List";
 
 import ReviewStar from "../components/ReviewStar";
+import { inputReview, deleteReview } from "../redux/reducers/reviewInputReducer";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
+import { useDispatch } from "react-redux";
 
 const ReviewAdd = () => {
   const [modalOpen, setModalOpen] = useState(false); // 모달창 열기
+  const [star, setStar] = useState();
   const [bringImg, setBringImg] = useState();
-  const [comment, setComment] = useState();
   const [addImgValue, setAddImgValue] = useState();
+  const [comment, setComment] = useState();
 
   const fileInput = useRef();
+  const dispatch = useDispatch();
 
   const location = useLocation();
-  const data = location.state.orderDone;
+  const data = location.state.order;
+  console.log(data);
 
   // 사진첨부 모달창
   const handleOpen = () => setModalOpen(true);
@@ -31,6 +35,17 @@ const ReviewAdd = () => {
   const modalClose = () => {
     handleClose();
     setBringImg([]);
+  };
+
+  const getImgPath = (item) => {
+    switch (item.category) {
+      case "short":
+        return require(`../img/shirts-img/short/${item.thumbnail}`);
+      case "long":
+        return require(`../img/shirts-img/long/${item.thumbnail}`);
+      default:
+        return undefined;
+    }
   };
   // 취소버튼 누르면 이전페이지인 마이페이지로 이동
   const navigate = useNavigate();
@@ -66,11 +81,18 @@ const ReviewAdd = () => {
     fileInput.current.value = null;
   };
 
+  // 이미지 제출
   const imgSubmit = () => {
     handleClose();
     setAddImgValue(bringImg);
   };
   console.log(addImgValue);
+
+  // 후기 제출
+  const commentSubmit = (e) => {
+    setComment(e.target.value);
+  };
+  console.log(comment);
 
   return (
     <div style={{ marginLeft: "50px" }}>
@@ -84,29 +106,39 @@ const ReviewAdd = () => {
 
       {/* 구매 상품정보 section */}
 
-      <form>
-        <List>
+      <form
+        onSubmit={() =>
+          dispatch(
+            inputReview({
+              addImgValue,
+              star,
+              comment,
+            })
+          )
+        }
+      >
+        <div>
           <section>
             {/* 상품이미지 box*/}
             <div>
-              <img src={require(`.././img/shirts-img/short/short-relax-beige-front.jpg`)} alt="#" style={{ width: "100px", height: "100px" }} />
+              <img src={getImgPath(data)} alt="No Image" style={{ width: "100px", height: "100px" }} />
             </div>
 
             {/* 상품옵션 box */}
             <div>
               <div>
                 <span>
-                  <strong>{data.category}</strong>
+                  <strong>{data?.category}</strong>
                 </span>
-                <span> {data.productName}</span>
-                <span> ({data.color})</span>
+                <span> {data?.productName}</span>
+                <span> ({data?.color})</span>
               </div>
               <div>
-                <span>size : {data.size}</span>
+                <span>size : {data?.size}</span>
               </div>
             </div>
           </section>
-        </List>
+        </div>
         <br />
 
         {/* 별점 섹션 */}
@@ -114,7 +146,7 @@ const ReviewAdd = () => {
           <span>
             <strong>상품은 만족하셨나요?</strong>
           </span>
-          <ReviewStar />
+          <ReviewStar star={star} setStar={setStar} />
         </section>
 
         {/* 리뷰 입력란 섹션 */}
@@ -124,10 +156,11 @@ const ReviewAdd = () => {
           </p>
           <div>
             <textarea
-              name=""
               id="reviewInput"
               cols="30"
               rows="10"
+              onChange={commentSubmit}
+              value={comment}
               minLength="10"
               maxLength="5000"
               placeholder="최소 10자 이상 작성해주세요."

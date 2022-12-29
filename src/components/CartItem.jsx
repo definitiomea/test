@@ -4,41 +4,44 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import "../css/cart.css";
+import Button from "@mui/material/Button";
+import "../css/cart-style.css";
 
-import {
-  quantityIncrease,
-  quantityDecrease,
-  quantityInput,
-  deleteItem,
-} from "../redux/reducers/cart";
-import { useRef } from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { quantityIncrease, quantityDecrease, quantityInput, deleteItem } from "../redux/reducers/cart";
+import { useRef, useEffect, useState } from "react";
 
-const style = {
+const boxStyle = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: "fit-object",
+  maxWidth: "80%",
+  maxHeight: "80%",
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "1px solid #000",
   boxShadow: 24,
   p: 4,
 };
 
-const UserDesignModal = () => {
+const UserDesignModal = ({ userImg }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
-    <div>
-      <button onClick={handleOpen}>도안확인</button>
+    <div className="cart-modal">
+      <Button variant="outlined" color="inherit" onClick={handleOpen}>
+        도안확인
+      </Button>
       <Modal open={open} onClose={handleClose}>
-        <Box sx={style}>
-          <div>test</div>
+        <Box sx={boxStyle} className="cart-modal-box">
+          {userImg.map((item, i) => (
+            <div key={i}>
+              <div>{item.print}</div>
+              <img src={item.imageUrl} alt="No Image" />
+            </div>
+          ))}
         </Box>
       </Modal>
     </div>
@@ -49,10 +52,9 @@ const CartItem = (props) => {
   const { cartItem, productlist, dispatch } = props; // Cart.jsx
   const [totalPay, setTotalPay] = useState(cartItem.totalPay);
   // 상품리스트에서 장바구니에 담긴 아이템들의 상품정보 찾기
-  const product = productlist.find(
-    (productItem) => productItem.productID == cartItem.productID
-  );
+  const product = productlist.find((productItem) => productItem.productID == cartItem.productID);
   const price = parseInt(product.price.replace(",", ""));
+  const [userImg, setUserImg] = useState([]);
   // 구매수량이 바뀔 때마다 반영하기 위한 ref
   const inputRef = useRef();
 
@@ -83,42 +85,30 @@ const CartItem = (props) => {
     );
   };
 
-  // 장바구니 아이템의 ImgArr(사용자 도안 배열)을 print: front - back 순으로 정렬
-  const getNewImgArr = () => {
-    if (cartItem.imgArray.length === 2) {
-      return cartItem.imgArray[0].print == "back"
-        ? cartItem.imgArray.slice(0).reverse()
-        : cartItem.imgArray;
-    } else {
-      return cartItem.imgArray;
-    }
-  };
-
-  const getProductImg = () => {
-    const findIndex = product.colorName.findIndex(
-      (item) => item === cartItem.color
-    );
+  // 상품 이미지 경로
+  const getImgPath = () => {
+    const findIndex = product.colorName.findIndex((item) => item === cartItem.color);
     switch (product.category) {
       case "short":
-        return (
-          <img
-            src={require(`../img/shirts-img/short/${product.thumbnail[findIndex]}`)}
-            alt="short"
-          />
-        );
+        return require(`../img/shirts-img/short/${product.thumbnail[findIndex]}`);
       case "long":
-        return (
-          <img
-            src={require(`../img/shirts-img/long/${product.thumbnail[findIndex]}`)}
-            alt="long"
-          />
-        );
+        return require(`../img/shirts-img/long/${product.thumbnail[findIndex]}`);
       default:
-        return <div>No Image</div>;
+        return undefined;
     }
   };
 
-  // 구매 수량이 바뀔 때마다 input과 totalPay에 반영하기 위함
+  // 장바구니 아이템의 ImgArr(사용자 도안 배열)을 print: front - back 순으로 정렬
+  useEffect(() => {
+    if (cartItem.imgArray.length === 2) {
+      const newArr = cartItem.imgArray[0].print == "back" ? cartItem.imgArray.slice(0).reverse() : cartItem.imgArray;
+      setUserImg(newArr);
+    } else {
+      setUserImg(cartItem.imgArray);
+    }
+  }, []);
+
+  // 구매 수량이 바뀔 때마다 input과 totalPay에 반영
   useEffect(() => {
     inputRef.current.value = cartItem.quantity;
     setTotalPay(cartItem.totalPay);
@@ -126,61 +116,49 @@ const CartItem = (props) => {
 
   return (
     <>
-      <div className="product-container">
-        {getProductImg()}
-        {/* {getNewImgArr().map((item, i) => (
-          <img src={item.imageUrl} key={i} />
-        ))} */}
+      <td className="table-product-container">
+        <img src={getImgPath()} alt="No Image" />
         <div>
           <div>
             {product.category} {product.productName}
           </div>
           <div>
-            color :<span>{cartItem.color}</span>
+            color
+            <span>{cartItem.color}</span>
           </div>
           <div>
-            print :
-            {getNewImgArr().length === 2 ? (
+            print
+            {userImg?.length === 2 ? (
               <span>
-                {getNewImgArr()[0].print} / {getNewImgArr()[1].print}
+                {userImg[0]?.print} / {userImg[1]?.print}
               </span>
             ) : (
-              <span>{getNewImgArr()[0].print}</span>
+              <span>{userImg[0]?.print}</span>
             )}
           </div>
-          <UserDesignModal />
+          <UserDesignModal userImg={userImg} />
         </div>
-      </div>
-      <div>{cartItem.size}</div>
-      <div className="quantity-container">
-        <IconButton
-          sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
-          onClick={onDecrease}
-        >
+      </td>
+      <td>{cartItem.size}</td>
+      <td className="quantity-container">
+        <IconButton onClick={onDecrease}>
           <RemoveIcon />
         </IconButton>
-        <input
-          type="number"
-          defaultValue={cartItem.quantity}
-          ref={inputRef}
-          onChange={onInput}
-        />
-        <IconButton
-          sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
-          onClick={onIncrease}
-        >
+        <input type="number" defaultValue={cartItem.quantity} ref={inputRef} onChange={onInput} />
+        <IconButton onClick={onIncrease}>
           <AddIcon />
         </IconButton>
-      </div>
-      <div>{totalPay.toLocaleString("ko-KR")}</div>
-      <IconButton
-        sx={{ "&:hover": { color: "#dc3545" } }}
-        onClick={() => {
-          dispatch(deleteItem(cartItem.cartID));
-        }}
-      >
-        <DeleteIcon />
-      </IconButton>
+      </td>
+      <td>{totalPay.toLocaleString("ko-KR")}</td>
+      <td>
+        <IconButton
+          onClick={() => {
+            dispatch(deleteItem(cartItem.cartID));
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </td>
     </>
   );
 };

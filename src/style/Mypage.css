@@ -1,7 +1,7 @@
 .mypage-container {
   min-height: calc(100vh - 236px);
-  width: 90%;
-  /* max-width: 1280px; */
+  /* width: 90%; */
+  max-width: 1280px;
   margin: auto;
   padding: 48px;
 }
@@ -41,78 +41,24 @@
   outline: none;
 }
 
-/* 주문배송 조회 */
-
-.mypage-head {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  justify-items: center;
-  align-items: center;
-  border: solid 1px lightgrey;
-  /* list border 제거 */
-  border-left: none;
-  border-right: none;
-  padding: 20px;
+/* 주문/배송 조회 - 버튼 */
+.order-delivery-btn {
+  margin-top: 0.5rem;
 }
-
-.mypage-body {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  justify-items: center;
-  align-items: center;
-  border: solid 1px lightgrey;
-  /* list border 제거 */
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  padding: 20px;
+.order-delivery-btn button {
+  line-height: 1;
 }
-/* 배송완료 section의 mypage-body  */
-.delivery-finish {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  justify-items: center;
-  align-items: center;
-  border: solid 1px lightgrey;
-  /* list border 제거 */
-  /* border-top: none; */
-  border-left: none;
-  border-right: none;
-  margin-top: 2px;
-  padding: 20px;
+.order-delivery-btn a {
+  text-decoration: none;
+  color: #f8f9fa;
 }
-
-.mypage-pd {
-  display: flex;
-  align-items: center;
+.view-more-container {
+  border-top: 1px solid lightgray;
 }
-
-.mypage-info {
-  flex-direction: column;
-  margin-left: 10px;
+.view-more-container td:first-child {
+  grid-column: 4/5;
+  color: lightgray;
 }
-
-.mypage-column {
-  text-align: center;
+.view-more-container td:last-child {
+  grid-column: 5/6;
 }
-
-/* .delivery-button {
-  float: right;
-  background-color: black;
-  padding: 2px 5px;
-  color: white;
-  font-size: 13px;
-}
-
-.mypage-event {
-  margin-top: 50px;
-}
-
-.delivery-modal {
-  margin-top: 50px;
-  padding: 20px;
-  text-align: left;
-} */
