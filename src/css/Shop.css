@@ -1,27 +1,46 @@
-.wrap .select-category {
+.shop-wrap {
   display: flex;
-  gap: 100%;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - 236px);
+}
+
+.shop-thumNail-list {
+  display: flex;
   justify-content: center;
 }
 
-/* shop - 상품리스트 */
-.product-container {
-  display: flex;
-}
-.product-card {
-  /* 배경색상 삭제 */
-  cursor: pointer;
+.shop-product-card {
+  width: 18vw;
+  margin: 20px;
 }
 
-.product-card .slick-slider {
-  width: 25vw;
+.shop-label {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border: 2px solid black;
+  width: fit-content;
 }
 
 .shop-slick-dots {
   position: absolute;
-  bottom: 70px;
-  left: 90px;
+  left: 120px;
+  top: 10px;
 }
 
-.slick-slide div div p {
+.shop-title {
+  text-align: left;
+  font-family: "nav";
+  font-weight: bold;
+}
+
+.shop-select-category {
+  display: flex;
+  justify-content: left;
+}
+
+.shop-category {
+  font-family: "nav";
+  margin: 10px 20px 10px 0;
 }

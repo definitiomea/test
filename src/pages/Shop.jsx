@@ -1,6 +1,4 @@
-import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import ProductCard from "../components/ProductCard";
 import "../css/Shop.css";
 
@@ -25,25 +23,29 @@ const Shop = () => {
   );
 
   return (
-    <div className="wrap">
-      <h1>상품리스트</h1>
-      <div className="select-category">
-        <Button
-          onClick={() => {
-            setCategory("short");
-          }}
-        >
-          Short
-        </Button>
-        <Button
-          onClick={() => {
-            setCategory("long");
-          }}
-        >
-          Long
-        </Button>
+    <div className="shop-wrap">
+      <div className="shop-label">
+        <h1 className="shop-title">Product List</h1>
+        <div className="shop-select-category">
+          <div
+            className="shop-category"
+            onClick={() => {
+              setCategory("short");
+            }}
+          >
+            Short
+          </div>
+          <div
+            className="shop-category"
+            onClick={() => {
+              setCategory("long");
+            }}
+          >
+            Long
+          </div>
+        </div>
       </div>
-      <ProductContainer>
+      <div className="shop-thumNail-list">
         {/* {thumbNailList?.map((thumbNail) => (
           <div key={thumbNail.id}>
             <ProductCard thumbNail={thumbNail} />
@@ -53,33 +55,19 @@ const Shop = () => {
           ? thumbNailList
               ?.filter((thumbNail) => thumbNail.id < 4)
               .map((thumbNail, index) => (
-                <div key={thumbNail.id}>
-                  <ProductCard thumbNail={thumbNail} />
-                </div>
+                <ProductCard key={thumbNail.id} thumbNail={thumbNail} />
               ))
           : ""}
         {category === "long"
           ? thumbNailList
               ?.filter((thumbNail) => thumbNail.id >= 4)
               .map((thumbNail, index) => (
-                <div key={thumbNail.id}>
-                  <ProductCard thumbNail={thumbNail} />
-                </div>
+                <ProductCard key={thumbNail.id} thumbNail={thumbNail} />
               ))
           : ""}
-      </ProductContainer>
+      </div>
     </div>
   );
 };
 
 export default Shop;
-
-const ProductContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media screen and (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
