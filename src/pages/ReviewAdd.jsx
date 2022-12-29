@@ -13,7 +13,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const ReviewAdd = () => {
@@ -21,10 +21,16 @@ const ReviewAdd = () => {
   const [star, setStar] = useState();
   const [bringImg, setBringImg] = useState();
   const [addImgValue, setAddImgValue] = useState();
-  const [comment, setComment] = useState();
+  const [comment, setComment] = useState("");
+
+  // const location = useLocation();
+  // const [data, setData] = useState(location.state);
+
+  // const data = location.state.order;
 
   const fileInput = useRef();
   const dispatch = useDispatch();
+  const userID = useSelector((state) => state.user);
 
   // 사진첨부 모달창
   const handleOpen = () => setModalOpen(true);
@@ -51,6 +57,10 @@ const ReviewAdd = () => {
   const navigate = useNavigate();
   const prePage = () => {
     navigate("/mypage");
+  };
+  // 홈으로 이동
+  const gotoHome = () => {
+    navigate("index");
   };
 
   // 사진 첨부하기
@@ -86,28 +96,46 @@ const ReviewAdd = () => {
     handleClose();
     setAddImgValue(bringImg);
   };
-  // console.log(addImgValue);
+  console.log(addImgValue);
 
   // 후기 제출
   const commentSubmit = (e) => {
     setComment(e.target.value);
   };
-  // console.log(comment);
+  console.log(comment);
 
-  // 서밋 테스트
+  // 리뷰작성 날짜
+  const getDate = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const today = String(date.getDate()).padStart(2, "0");
+    return `${year}.${month}.${today}`;
+  };
+
   const location = useLocation();
   const [data, setData] = useState("");
-  // 서밋 테스트
-  const testSumbit = () => {
+
+  // 서브밋 함수
+  const testSumbit = (e) => {
+    e.preventDefault();
+    if (comment?.length < 10) {
+      alert("적다!");
+      return;
+    } else if (!star) {
+      alert("별점!");
+      return;
+    }
     const newReview = {
-      // user :
+      addImgValue,
+      userID,
+      star,
       category: data.category,
       productName: data.productName,
       size: data.size,
       color: data.color,
-      addImgValue,
-      star,
       comment,
+      getDate,
     };
     dispatch(inputReview(newReview));
     alert("리뷰가 등록되었습니다.");
@@ -116,7 +144,7 @@ const ReviewAdd = () => {
 
   useEffect(() => {
     if (!location.state) {
-      alert("잘못된 경로로 접근하였습니다.")
+      alert("잘못된 경로로 접근하였습니다.");
       navigate("/notfound");
     } else {
       setData(location.state);
@@ -253,7 +281,6 @@ const ReviewAdd = () => {
         {/* 취소 or 등록 section */}
         <div>
           <MyButton
-            type="button"
             onClick={() => {
               prePage();
             }}
