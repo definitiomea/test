@@ -116,7 +116,8 @@ const ReviewAdd = () => {
 
   useEffect(() => {
     if (!location.state) {
-      navigate("*");
+      alert("잘못된 경로로 접근하였습니다.")
+      navigate("/notfound");
     } else {
       setData(location.state);
     }

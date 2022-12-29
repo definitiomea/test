@@ -1,0 +1,60 @@
+.shop-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - 236px);
+
+  /* align-items: center; */
+  width: fit-content;
+  margin: auto;
+}
+
+.shop-thumNail-list {
+  display: flex;
+  /* justify-content: center; */
+}
+
+.shop-product-card {
+  width: 18vw;
+  margin: 20px;
+}
+
+/* 이미지 최소 넓이 추가 */
+.shop-product-card {
+  min-width: 300px; /* 임시 값이니 모바일 크기 고려해서 정하기*/
+}
+
+.shop-label {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border: 2px solid black;
+  width: fit-content;
+}
+
+/* slick dots */
+.shop-product-card .slick-dots {
+  bottom: -35px;
+  text-align: right;
+}
+/* .shop-slick-dots {
+  position: absolute;
+  left: 120px;
+  top: 10px;
+} */
+
+.shop-title {
+  text-align: left;
+  font-family: "nav";
+  font-weight: bold;
+}
+
+.shop-select-category {
+  display: flex;
+  justify-content: left;
+}
+
+.shop-category {
+  font-family: "nav";
+  margin: 10px 20px 10px 0;
+}
