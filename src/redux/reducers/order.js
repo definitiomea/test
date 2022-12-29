@@ -20,53 +20,32 @@ const initialState = {
       orderDate: "2022.12.24",
       productID: 2,
       category: "short",
-      productName: "스탠다드 핏",
-      color: "orange",
-      size: "S",
-      quantity: 4,
-      imgArray: [
-        { print: "front", imggUrl: "" },
-        { print: "back", imggUrl: "" },
-      ],
-      thumbnail: "short-standard-orange-front.jpg",
-      totalPay: 38000,
-      delivery: "상품준비",
+      productName: "릴렉스 핏",
+      color: "blue",
+      size: "L",
+      quantity: 8,
+      imgArray: [{ print: "front", imageUrl: "" }],
+      thumbnail: "short-standard-blue-front.jpg",
+      totalPay: 76000,
+      delivery: "배송완료",
     },
     {
       user: "abc123",
       orderID: 2,
-      orderDate: "2022.12.24",
+      orderDate: "2022.12.28",
       productID: 2,
-      category: "short",
+      category: "long",
       productName: "스탠다드 핏",
-      color: "orange",
+      color: "cream",
       size: "S",
       quantity: 4,
       imgArray: [
-        { print: "front", imggUrl: "" },
-        { print: "back", imggUrl: "" },
+        { print: "front", imageUrl: "" },
+        { print: "back", imageUrl: "" },
       ],
-      thumbnail: "short-standard-orange-front.jpg",
+      thumbnail: "long-standard-cream-front.jpg",
       totalPay: 38000,
-      delivery: "상품준비",
-    },
-    {
-      user: "abc123",
-      orderID: 3,
-      orderDate: "2022.12.24",
-      productID: 2,
-      category: "short",
-      productName: "스탠다드 핏",
-      color: "orange",
-      size: "S",
-      quantity: 4,
-      imgArray: [
-        { print: "front", imggUrl: "" },
-        { print: "back", imggUrl: "" },
-      ],
-      thumbnail: "short-standard-orange-front.jpg",
-      totalPay: 38000,
-      delivery: "배송완료",
+      delivery: "상품준비중",
     },
   ],
 };
@@ -83,6 +62,7 @@ const orderSlice = createSlice({
         cartlist[i].orderID = ++state.orderID;
         cartlist[i].orderDate = getDate();
         cartlist[i].delivery = "상품준비";
+        delete cartlist[i].cartID;
       }
       const newOrderlist = state.orderlist.concat(cartlist);
       state.orderlist = newOrderlist;

@@ -1,0 +1,164 @@
+/* 장바구니 페이지 Cart.jsx */
+.cart-box {
+  min-height: calc(100vh - 236px);
+  max-width: 1280px; /* 마이페이지와 통일할 것 */
+  padding: 0 48px;
+  margin: 0 auto;
+}
+
+.cart-title {
+  padding: 2rem 0;
+}
+.cart-title > h2 {
+  display: inline-block;
+  margin: 0 0 0 1rem;
+  font-family: "nav";
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.cart-title > svg {
+  font-size: 1.3rem;
+}
+
+/* 배송지 정보, 예상 금액 */
+.delivery-summary-container {
+  display: flex;
+  padding: 3rem 0;
+}
+.delivery-summary-container div {
+  width: 100%;
+}
+
+/* 배송지 Cart.jsx */
+.delivery-info {
+  flex: 2;
+  margin-right: 4rem;
+}
+.delivery-info .cart-title {
+  padding-top: 0;
+}
+/* 배송지 AddDeliveryList.jsx */
+.cart-post-form > div {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+.cart-post-form label {
+  min-width: 6rem;
+}
+.cart-post-form input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-bottom: 2px solid black;
+}
+.cart-post-form input:focus {
+  outline: none;
+}
+.cart-post-form input[type="button"] {
+  width: 40%;
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+  border: 1px solid black;
+  background-color: transparent;
+}
+.cart-post-form button {
+  margin-top: 1rem;
+  float: right;
+  font-family: "ongothic";
+}
+
+/* 예상금액 Cart.jsx */
+.summary {
+  flex: 1;
+  padding: 2rem;
+  background-color: #e9ecef;
+  display: flex;
+  flex-direction: column;
+}
+.summary > div {
+  display: flex;
+}
+.summary > div div {
+  padding-bottom: 1rem;
+}
+.summary > div > div:first-child {
+  text-align: left;
+}
+.summary > div > div:last-child {
+  text-align: right;
+}
+.summary .total {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.summary button {
+  margin-top: 1rem;
+  padding: 0.7rem;
+  width: 100%;
+  margin-top: auto;
+}
+
+/* CartItem.jsx */
+/* 장바구니 아이템 - 구매수량 */
+.quantity-container {
+  display: flex;
+  background-color: #f8f9fa;
+}
+.quantity-container input {
+  height: auto;
+  max-width: 3.5rem;
+  min-height: 32px;
+  text-align: center;
+  border: none;
+  background-color: #f8f9fa;
+  color: black;
+}
+.quantity-container input::-webkit-outer-spin-button,
+.quantity-container input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.quantity-container input:active {
+  background-color: #e9ecef;
+}
+.quantity-container input:focus {
+  outline: none;
+  box-shadow: 0 0 1px 1px #dee2e6 inset;
+}
+.quantity-container button {
+  border-radius: 0;
+}
+
+.cart-box .MuiIconButton-root:hover {
+  color: #dc3545;
+}
+
+/* 장바구니 아이템 - 사용자 디자인 모달 */
+.cart-modal-box {
+  display: flex;
+  gap: 3rem;
+  overflow-y: auto;
+}
+.cart-modal-box > div > div {
+  color: #f8f9fa;
+  background-color: #212529;
+  text-align: center;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+.cart-modal button {
+  margin-top: 1rem;
+  padding: 0 0.5rem;
+}
+
+/* 미디어쿼리 */
+@media screen and (max-width: 768px) {
+  .product-container img {
+    display: none; /* 상품 이미지가 보이지 않게 */
+  }
+  .quantity-container button {
+    display: none; /* 구매수량의 버튼이 보이지 않게 */
+  }
+  /* 사용자 디자인 모달 - 작은 화면에서 flex-direction을 columns으로 */
+}

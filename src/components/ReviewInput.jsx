@@ -1,20 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addReview, deleteReview } from "../redux/reducers/reviewInputReducer";
+import { inputReview, deleteReview } from "../redux/reducers/reviewInputReducer";
+import { loginUser } from "../redux/reducers/user";
 
 const ReviewInput = () => {
-  const dispatch = useDispatch();
   // 로그인 유저 아이디정보
-  const userID = useSelector((state) => state.user.id);
-  // 구매티셔츠 정보
-  const reviewProduct = useSelector((state) => state.orderlist.orderlist[2]);
+  const userName = useSelector((state) => state.user);
+  // 구매티셔츠 정보, 리뷰정보
+  const reviewFile = useSelector((state) => state.reviewlist);
+  const dispatch = useDispatch();
 
-  // 날짜정보
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = ("0" + (date.getMonth() + 1)).slice(-2);
-  const day = ("0" + date.getDate()).slice(-2);
-  const dateStr = year + "-" + month + "-" + day;
-  console.log(typeof dateStr);
   return (
     <div>
       <div>
@@ -23,18 +17,22 @@ const ReviewInput = () => {
       </div>
 
       <div>
+        <h1>고객</h1>
         {/* user.js에서 가져옴 */}
-        <p props={() => dispatch(addReview({ userID: userID }))}>{userID}</p>
+        <span>{userName.user}</span>
         {/* reviewInputReducer.js에서 가져옴 */}
-        <p>별점존</p>
+        <span>{reviewFile.star}</span>
         {/* order.js에서 가져옴 */}
-        <p props={() => dispatch(addReview({ category: reviewProduct.category }))}>{reviewProduct.category}</p>
-        <p>{reviewProduct.productName}</p>
-        <p>{reviewProduct.size}</p>
-        <p>comment</p>
+        <span>{reviewFile.category}</span>
+        <span>{reviewFile.productName}</span>
+        <span>({reviewFile.color})</span>
+        <span>{reviewFile.size}</span>
+        <span>{reviewFile.comment}</span>
       </div>
+
       <div>
-        <span>{dateStr}</span>
+        {/* 리뷰 등록날짜 정보 */}
+        <span></span>
         <button>수정</button>
         <button onClick={() => dispatch(deleteReview())}>삭제</button>
       </div>

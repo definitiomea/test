@@ -19,8 +19,10 @@ const ProductCard = (props) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    arrows: false,
     customPaging: (i) => (
       <div
+        className="shop-slick-dots"
         style={{
           width: "10px",
           height: "10px",
@@ -37,7 +39,7 @@ const ProductCard = (props) => {
   };
 
   return (
-    <div className="product-card">
+    <div className="shop-product-card">
       <Slider {...settings}>
         {/* thumbNail.thumbnail.map() */}
         <div
@@ -46,21 +48,19 @@ const ProductCard = (props) => {
           }}
         >
           {/* {thumbNail.category == "short" ? "short" : "long"} */}
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div>
             {thumbNail.category == "short" ? (
               <img
                 src={require(`../img/shirts-img/short/${thumbNail.thumbnail[0]}`)}
-                style={{ maxWidth: "80%" }}
+                style={{ maxWidth: "100%" }}
               ></img>
             ) : (
               <img
                 src={require(`../img/shirts-img/long/${thumbNail.thumbnail[0]}`)}
-                style={{ maxWidth: "80%" }}
+                style={{ maxWidth: "100%" }}
               ></img>
             )}
           </div>
-          <p>{thumbNail.productName}</p>
-          <p>{thumbNail.price}</p>
         </div>
         <div
           onClick={() => {
@@ -68,21 +68,19 @@ const ProductCard = (props) => {
           }}
         >
           {/* {thumbNail.category == "short" ? "short" : "long"} */}
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div>
             {thumbNail.category == "short" ? (
               <img
                 src={require(`../img/shirts-img/short/${thumbNail.thumbnail[1]}`)}
-                style={{ maxWidth: "80%" }}
+                style={{ maxWidth: "100%" }}
               ></img>
             ) : (
               <img
                 src={require(`../img/shirts-img/long/${thumbNail.thumbnail[1]}`)}
-                style={{ maxWidth: "80%" }}
+                style={{ maxWidth: "100%" }}
               ></img>
             )}
           </div>
-          <p>{thumbNail.productName}</p>
-          <p>{thumbNail.price}</p>
         </div>
         <div
           onClick={() => {
@@ -90,21 +88,19 @@ const ProductCard = (props) => {
           }}
         >
           {/* {thumbNail.category == "short" ? "short" : "long"} */}
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div>
             {thumbNail.category == "short" ? (
               <img
                 src={require(`../img/shirts-img/short/${thumbNail.thumbnail[2]}`)}
-                style={{ maxWidth: "80%" }}
+                style={{ maxWidth: "100%" }}
               ></img>
             ) : (
               <img
                 src={require(`../img/shirts-img/long/${thumbNail.thumbnail[2]}`)}
-                style={{ maxWidth: "80%" }}
+                style={{ maxWidth: "100%" }}
               ></img>
             )}
           </div>
-          <p>{thumbNail.productName}</p>
-          <p>{thumbNail.price}</p>
         </div>
         <div
           onClick={() => {
@@ -112,23 +108,24 @@ const ProductCard = (props) => {
           }}
         >
           {/* {thumbNail.category == "short" ? "short" : "long"} */}
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div>
             {thumbNail.category == "short" ? (
               <img
                 src={require(`../img/shirts-img/short/${thumbNail.thumbnail[3]}`)}
-                style={{ maxWidth: "80%" }}
+                style={{ maxWidth: "100%" }}
               ></img>
             ) : (
               <img
                 src={require(`../img/shirts-img/long/${thumbNail.thumbnail[3]}`)}
-                style={{ maxWidth: "80%" }}
+                style={{ maxWidth: "100%" }}
               ></img>
             )}
           </div>
-          <p>{thumbNail.productName}</p>
-          <p>{thumbNail.price}</p>
         </div>
       </Slider>
+      <p>
+        {thumbNail.productName} {thumbNail.price}
+      </p>
     </div>
   );
 };

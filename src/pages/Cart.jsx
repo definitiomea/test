@@ -1,12 +1,9 @@
-import styled from "styled-components";
-import { Container } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faTruck } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
-import List from "../style/List";
 import MyButton from "../style/Button";
-// css module
-import styles from "../css/cart.module.css";
+import MyTable from "../style/Table";
+import "../css/cart-style.css";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -16,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/reducers/cart";
 import { inputOrder } from "../redux/reducers/order";
 import AddDeliveryList from "../components/AddDeliveryList";
+import { useRef } from "react";
 
 const Cart = () => {
   const cartlist = useSelector((state) => state.cartlist.cartlist);
@@ -24,6 +22,7 @@ const Cart = () => {
   const [dataloading, setDataloading] = useState(false);
   const [productlist, setProductlist] = useState(null);
   const [deliveryPay, setDeliveryPay] = useState(3000);
+  const [checkAddress, setCheckAddress] = useState("");
   const navigate = useNavigate();
 
   // 배송비 제외 총 금액
@@ -41,11 +40,11 @@ const Cart = () => {
   const copyCartlist = () => {
     const copyCartlist = JSON.parse(JSON.stringify(cartlist));
     for (let i = 0; i < copyCartlist.length; i++) {
-      const product = productlist.find(
+      const fintProduct = productlist.find(
         (product) => product.productID == copyCartlist[i].productID
       );
       let name = "";
-      switch (product.productName) {
+      switch (fintProduct.productName) {
         case "슬림 핏":
           name = "slim";
           break;
@@ -56,34 +55,36 @@ const Cart = () => {
           name = "relax";
           break;
       }
-      copyCartlist[i].category = product.category;
-      copyCartlist[i].productName = product.productName;
+      copyCartlist[i].category = fintProduct.category;
+      copyCartlist[i].productName = fintProduct.productName;
       copyCartlist[
         i
-      ].thumbnail = `${product.category}-${name}-${copyCartlist[i].color}-front.jpg`;
-      delete copyCartlist[i].cartID;
+      ].thumbnail = `${fintProduct.category}-${name}-${copyCartlist[i].color}-front.jpg`;
     }
     return copyCartlist;
   };
 
   // 주문하기
   const order = () => {
-    if (cartlist.length == 0) {
+    if (cartlist.length === 0) {
       alert("장바구니가 비어있습니다.");
       return;
-    }
-    if (JSON.stringify(user) === "{}") {
-      alert("로그인 후 이용해주세요");
+    } else if (JSON.stringify(user) === "{}") {
+      alert("로그인 후 이용해주세요.");
       return;
+    } else if (checkAddress?.trim() == "") {
+      alert("배송지가 입력되었는지 확인해주세요. (상세주소 포함)");
+      return;
+    } else {
+      dispatch(
+        inputOrder({
+          user: user.id,
+          cartlist: copyCartlist(),
+        })
+      );
+      dispatch(clearCart());
+      navigate("/orderconfirm");
     }
-    dispatch(
-      inputOrder({
-        user: user.id,
-        cartlist: copyCartlist(),
-      })
-    );
-    dispatch(clearCart());
-    navigate("/orderconfirm");
   };
 
   // 상품리스트 데이터 들고오기 (db.json)
@@ -109,61 +110,70 @@ const Cart = () => {
   return (
     <>
       {productlist ? (
-        // <StyledContainer maxWidth="lg">
-        <div className={styles.box}>
-          <div className={styles.title}>
+        <div className="cart-box">
+          <div className="cart-title">
             <FontAwesomeIcon icon={faCartShopping} />
             <h2>My Cart</h2>
           </div>
-          <List>
-            <div className="label">
-              <div>Product Name</div>
-              <div>Size</div>
-              <div>Quantity</div>
-              <div>Price</div>
-              <div>
-                <Button
-                  variant="outlined"
-                  color="error"
-                  onClick={() => {
-                    dispatch(clearCart());
-                  }}
-                >
-                  Clear All
-                </Button>
+          <MyTable>
+            <thead>
+              <tr>
+                <th>상품정보</th>
+                <th>사이즈</th>
+                <th>수량</th>
+                <th>금액</th>
+                <th>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => {
+                      dispatch(clearCart());
+                    }}
+                  >
+                    Clear All
+                  </Button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartlist.length == 0 ? (
+                <tr className="item-empty">
+                  <td>Empty</td>
+                </tr>
+              ) : (
+                <>
+                  {cartlist.map((cartItem) => (
+                    <tr key={cartItem.cartID}>
+                      <CartItem
+                        cartItem={cartItem}
+                        productlist={productlist}
+                        dispatch={dispatch}
+                      />
+                    </tr>
+                  ))}
+                </>
+              )}
+            </tbody>
+          </MyTable>
+          <div className="delivery-summary-container">
+            <div className="delivery-info">
+              <div className="cart-title">
+                <FontAwesomeIcon icon={faTruck} />
+                <h2>delivery Info</h2>
               </div>
+              <AddDeliveryList setCheckAddress={setCheckAddress} />
             </div>
-            {cartlist.length == 0 ? (
-              <div className="item-empty">Empty</div>
-            ) : (
-              <div>
-                {cartlist.map((cartItem) => (
-                  <CartItem
-                    key={cartItem.cartID}
-                    cartItem={cartItem}
-                    productlist={productlist}
-                    dispatch={dispatch}
-                  />
-                ))}
-              </div>
-            )}
-          </List>
-          <div className={styles.container}>
-            <div className={styles["delivery-info"]}>
-              <h3>Delivery Information</h3>
-              <AddDeliveryList />
-            </div>
-            <div className={styles["summary"]}>
+            <div className="summary">
               <div>
                 <div>
                   <div>Subtotal</div>
                   <div>Delivery</div>
-                  <div className={styles.total}>Total Price</div>
+                  <div className="total">Total Price</div>
                 </div>
                 <div>
                   <div>{getSubtotal().toLocaleString("ko-KR")}</div>
                   <div>{deliveryPay.toLocaleString("ko-KR")}</div>
-                  <div className={styles.total}>
+                  <div className="total">
                     {(getSubtotal() + deliveryPay).toLocaleString("ko-KR")}
                   </div>
                 </div>
@@ -173,7 +183,6 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        // </StyledContainer>
         <Loading />
       )}
     </>
@@ -181,59 +190,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
-const StyledContainer = styled(Container)`
-  min-height: calc(100vh - 236px);
-  &.MuiContainer-root {
-    padding: 0 48px;
-  }
-`;
-
-const Title = styled.div`
-  padding: 2rem 0;
-  h2 {
-    display: inline-block;
-    margin: 0 0 0 1rem;
-    font-family: "nav";
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  svg {
-    font-size: 1.3rem;
-  }
-`;
-
-const MyContainter = styled.div`
-  display: flex;
-  padding: 3rem 0;
-  ${"div"} {
-    width: 100%;
-  }
-  .delivery-info {
-    flex: 2;
-  }
-  .summary {
-    flex: 1;
-    padding: 2rem;
-    background-color: #e9ecef;
-    > div {
-      display: flex;
-      margin-bottom: 2rem;
-      > div {
-        &:first-child {
-          text-align: left;
-        }
-        &:last-child {
-          text-align: right;
-        }
-      }
-    }
-    .total {
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-    ${"div"} {
-      padding: 0.2rem 0;
-    }
-  }
-`;

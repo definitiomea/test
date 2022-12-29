@@ -1,11 +1,11 @@
-import styled from "styled-components";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import styles from "../css/cart.module.css";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import "../css/cart-style.css";
 
 import {
   quantityIncrease,
@@ -13,9 +13,45 @@ import {
   quantityInput,
   deleteItem,
 } from "../redux/reducers/cart";
-import { useRef } from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useRef, useEffect, useState } from "react";
+
+const boxStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "fit-object",
+  maxWidth: "80%",
+  maxHeight: "80%",
+  bgcolor: "background.paper",
+  border: "1px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+const UserDesignModal = ({ userImg }) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <div className="cart-modal">
+      <Button variant="outlined" color="inherit" onClick={handleOpen}>
+        도안확인
+      </Button>
+      <Modal open={open} onClose={handleClose}>
+        <Box sx={boxStyle} className="cart-modal-box">
+          {userImg.map((item, i) => (
+            <div key={i}>
+              <div>{item.print}</div>
+              <img src={item.imageUrl} alt="No Image" />
+            </div>
+          ))}
+        </Box>
+      </Modal>
+    </div>
+  );
+};
 
 const CartItem = (props) => {
   const { cartItem, productlist, dispatch } = props; // Cart.jsx
@@ -25,6 +61,7 @@ const CartItem = (props) => {
     (productItem) => productItem.productID == cartItem.productID
   );
   const price = parseInt(product.price.replace(",", ""));
+  const [userImg, setUserImg] = useState([]);
   // 구매수량이 바뀔 때마다 반영하기 위한 ref
   const inputRef = useRef();
 
@@ -55,18 +92,35 @@ const CartItem = (props) => {
     );
   };
 
-  // 장바구니 아이템의 ImgArr(사용자 도안 배열)을 print: front - back 순으로 정렬
-  const setNewImgArr = () => {
-    if (cartItem.imgArray.length == 2) {
-      return cartItem.imgArray[0].print == "back"
-        ? cartItem.imgArray.slice(0).reverse()
-        : cartItem.imgArray;
-    } else {
-      return cartItem.imgArray;
+  // 상품 이미지 경로
+  const getImgPath = () => {
+    const findIndex = product.colorName.findIndex(
+      (item) => item === cartItem.color
+    );
+    switch (product.category) {
+      case "short":
+        return require(`../img/shirts-img/short/${product.thumbnail[findIndex]}`);
+      case "long":
+        return require(`../img/shirts-img/long/${product.thumbnail[findIndex]}`);
+      default:
+        return undefined;
     }
   };
 
-  // 구매 수량이 바뀔 때마다 input과 totalPay에 반영하기 위함
+  // 장바구니 아이템의 ImgArr(사용자 도안 배열)을 print: front - back 순으로 정렬
+  useEffect(() => {
+    if (cartItem.imgArray.length === 2) {
+      const newArr =
+        cartItem.imgArray[0].print == "back"
+          ? cartItem.imgArray.slice(0).reverse()
+          : cartItem.imgArray;
+      setUserImg(newArr);
+    } else {
+      setUserImg(cartItem.imgArray);
+    }
+  }, []);
+
+  // 구매 수량이 바뀔 때마다 input과 totalPay에 반영
   useEffect(() => {
     inputRef.current.value = cartItem.quantity;
     setTotalPay(cartItem.totalPay);
@@ -74,35 +128,32 @@ const CartItem = (props) => {
 
   return (
     <>
-      <div className={styles.product}>
-        {setNewImgArr().map((item, i) => (
-          <img src={item.imageUrl} key={i} />
-        ))}
+      <td className="table-product-container">
+        <img src={getImgPath()} alt="No Image" />
         <div>
           <div>
             {product.category} {product.productName}
           </div>
           <div>
-            color :<span>{cartItem.color}</span>
+            color
+            <span>{cartItem.color}</span>
           </div>
           <div>
-            print :
-            {setNewImgArr().length == 2 ? (
+            print
+            {userImg?.length === 2 ? (
               <span>
-                {setNewImgArr()[0].print} / {setNewImgArr()[1].print}
+                {userImg[0]?.print} / {userImg[1]?.print}
               </span>
             ) : (
-              <span>{setNewImgArr()[0].print}</span>
+              <span>{userImg[0]?.print}</span>
             )}
           </div>
+          <UserDesignModal userImg={userImg} />
         </div>
-      </div>
-      <div>{cartItem.size}</div>
-      <div className={styles.quantity}>
-        <IconButton
-          sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
-          onClick={onDecrease}
-        >
+      </td>
+      <td>{cartItem.size}</td>
+      <td className="quantity-container">
+        <IconButton onClick={onDecrease}>
           <RemoveIcon />
         </IconButton>
         <input
@@ -111,84 +162,22 @@ const CartItem = (props) => {
           ref={inputRef}
           onChange={onInput}
         />
-        <IconButton
-          sx={{ borderRadius: 0, "&:hover": { color: "#dc3545" } }}
-          onClick={onIncrease}
-        >
+        <IconButton onClick={onIncrease}>
           <AddIcon />
         </IconButton>
-      </div>
-      <div>{totalPay.toLocaleString("ko-KR")}</div>
-      <IconButton
-        sx={{ "&:hover": { color: "#dc3545" } }}
-        onClick={() => {
-          dispatch(deleteItem(cartItem.cartID));
-        }}
-      >
-        <DeleteIcon />
-      </IconButton>
+      </td>
+      <td>{totalPay.toLocaleString("ko-KR")}</td>
+      <td>
+        <IconButton
+          onClick={() => {
+            dispatch(deleteItem(cartItem.cartID));
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </td>
     </>
   );
 };
 
 export default CartItem;
-
-const ProductWrap = styled.div`
-  display: flex;
-  justify-self: left;
-  align-items: center;
-  > div {
-    margin-left: 1rem;
-    > div {
-      &:first-child {
-        padding-bottom: 1rem;
-      }
-    }
-    span {
-      margin-left: 0.5rem;
-    }
-  }
-  // 미디어쿼리 - 작은 화면에서는 이미지 안 보이게
-  img {
-    width: 120px;
-    min-width: 120px;
-    min-height: 120px;
-    margin-right: 0.5rem;
-    background-color: #dee2e6;
-
-    @media screen and (max-width: 768px) {
-      display: none;
-    }
-  }
-`;
-
-const QuantityWrap = styled.div`
-  display: flex;
-  background-color: #f8f9fa;
-  input {
-    height: auto;
-    max-width: 3.5rem;
-    min-height: 32px;
-    text-align: center;
-    border: none;
-    background-color: #f8f9fa;
-    color: black;
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-    &:active {
-      background-color: #e9ecef;
-    }
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 1px 1px #dee2e6 inset;
-    }
-  }
-  @media screen and (max-width: 768px) {
-    button {
-      display: none;
-    }
-  }
-`;

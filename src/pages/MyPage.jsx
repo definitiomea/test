@@ -1,18 +1,17 @@
-// import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
 import AdditDeliveryList from "../components/AdditDeliveryList";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Modal } from "@mui/material";
+import { Button, Modal } from "@mui/material";
 import { Box } from "@mui/system";
 import Delivery from "../components/Delivery";
 import { useDispatch, useSelector } from "react-redux";
 import { ADDIT_USER } from "../redux/reducers/signup";
 import { loginUser } from "../redux/reducers/user";
 
-import "../style/Mypage.css";
+import "../css/mypage.css";
 import "../style/Button";
-import "../style/List";
 import MyButton from "../style/Button";
+import MyTable from "../style/Table";
 
 const Mypage = () => {
   // 택배사 목록 state
@@ -76,6 +75,7 @@ const Mypage = () => {
   const findUser = signup.userlist.find((userId) => userId.id === user.id);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const style = {
     position: "absolute",
@@ -91,6 +91,33 @@ const Mypage = () => {
 
   // 주문완료 섹션 출력 함수
   const orderDone = useSelector((state) => state.orderlist.orderlist);
+  const PAGE_UNIT = 3;
+  const [viewCount, setViewCount] = useState(PAGE_UNIT);
+
+  const getImgPath = (item) => {
+    switch (item.category) {
+      case "short":
+        return require(`../img/shirts-img/short/${item.thumbnail}`);
+      case "long":
+        return require(`../img/shirts-img/long/${item.thumbnail}`);
+      default:
+        return undefined;
+    }
+  };
+
+  const viewMoreHandle = (list) => {
+    if (list.length < viewCount + PAGE_UNIT) {
+      setViewCount(orderDone.length);
+    } else {
+      setViewCount(viewCount + PAGE_UNIT);
+    }
+  };
+
+  useEffect(() => {
+    if (orderDone.length < PAGE_UNIT) {
+      setViewCount(orderDone.length);
+    }
+  }, []);
 
   return (
     <div className="mypage-container">
@@ -148,250 +175,148 @@ const Mypage = () => {
         <AdditDeliveryList />
       </div>
 
-      {/* 주문/배송조회 form  */}
+      {/* 주문/배송조회 form */}
       <h4 className="section-title">주문/배송 조회</h4>
-
-      <div>
-        <div className="mypage-head">
-          <div>상품정보</div>
-          <div>주문일자</div>
-          <div>주문금액(수량)</div>
-          <div>주문상태</div>
-        </div>
-
-        {/* 장바구니 상품 목록 */}
-        <div className="mypage-body">
-          <div className="mypage-pd">
-            <div>
-              <img
-                className="img"
-                src="https://foremanbrosinc.com/wp-content/uploads/2017/05/1c0d0f0cb8b7f2fb2685da9798efe42b_big-image-png-image-placeholder-clipart_2400-2400-300x300.png"
-                alt=""
-                style={{
-                  width: "200px",
-                  height: "100px",
-                }}
-              />
-            </div>
-            <div className="mypage-info">
-              {/* 상품 정보 */}
-              <div>
-                <span>short sleeve t-shirt</span>
-                <span>standard fit</span>
-                <span> (navy) </span>
-              </div>
-
-              {/* 프린팅 면 정보*/}
-              <div>
-                <span>print : </span>
-                <span>front</span>
-              </div>
-
-              {/* 사이즈 정보 */}
-              <div>
-                <span>size : </span>
-                <span>S</span>
-              </div>
-            </div>
-          </div>
-
-          <div>2022.11.11</div>
-
-          <div className="mypage-column">
-            <div>9,500원</div>
-            <div>1개</div> {/* 연한 회색 처리 */}
-          </div>
-
-          <div className="mypage-column">
-            <div>배송중</div>
-            <button onClick={handleOpen}>배송조회</button>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                {result ? (
-                  <form onSubmit={onSubmit}>
-                    <select onChange={changeCarrierId} value={carrierId}>
-                      <option value="">-택배사를 선택해주세요-</option>
-                      {/* 택배사 목록 map로 option설정 */}
-                      {carriers.map((array) => {
-                        return (
-                          <option value={array.id} key={array.id}>
-                            {array.name}
-                          </option>
-                        );
-                      })}
-                    </select>
-                    <input
-                      type="number"
-                      placeholder="운송장번호"
-                      onChange={changeTrackId}
-                      defaultValue={trackId}
-                    />
-                    <button>조회</button>
-                  </form>
-                ) : !delivery?.message ? (
-                  <Delivery
-                    stateText={delivery?.state.text}
-                    toName={delivery?.to.name}
-                    carrierName={delivery?.carrier.name}
-                    carrierTel={delivery?.carrier.tel}
-                    carrierId={delivery?.carrier.id}
-                    message={delivery?.message}
-                  />
-                ) : (
-                  <div>
-                    <p>{delivery?.message}</p>
-                  </div>
+      <MyTable>
+        <thead>
+          <tr>
+            <th>상품정보</th>
+            <th>사이즈</th>
+            <th>수량/금액</th>
+            <th>주문일자</th>
+            <th>주문 상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orderDone.length === 0 ? (
+            <tr className="item-empty">
+              <td>Empty</td>
+            </tr>
+          ) : (
+            <>
+              {orderDone
+                .slice(0)
+                .reverse()
+                .map(
+                  (order) =>
+                    order.orderID > orderDone.length - viewCount && (
+                      <tr key={order.orderID}>
+                        <td className="table-product-container">
+                          <img src={getImgPath(order)} alt="No Image" />
+                          <div>
+                            <div>
+                              {order.category} {order.productName}
+                            </div>
+                            <div>
+                              color
+                              <span>{order.color}</span>
+                            </div>
+                            <div>
+                              print
+                              {order.imgArray.length === 2 ? (
+                                <span>
+                                  {order.imgArray[0].print} /{" "}
+                                  {order.imgArray[1].print}
+                                </span>
+                              ) : (
+                                <span>{order.imgArray[0].print}</span>
+                              )}
+                            </div>
+                          </div>
+                        </td>
+                        <td>{order.size}</td>
+                        <td>
+                          <div>{order.quantity}</div>
+                          <div>{order.totalPay.toLocaleString("ko-KR")}</div>
+                        </td>
+                        <td>{order.orderDate}</td>
+                        <td>
+                          <div>{order.delivery}</div>
+                          <div className="order-delivery-btn">
+                            {order.delivery === "배송완료" ? (
+                              <MyButton
+                                onClick={() => {
+                                  navigate("/mypage/review", { state: order });
+                                }}
+                              >
+                                후기작성
+                              </MyButton>
+                            ) : (
+                              <MyButton onClick={handleOpen}>배송조회</MyButton>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    )
                 )}
-              </Box>
-            </Modal>
-          </div>
-        </div>
-      </div>
+              <tr className="view-more-container">
+                <td>
+                  1-{viewCount} of {orderDone.length}
+                </td>
+                <td>
+                  <Button
+                    variant="outlined"
+                    color="inherit"
+                    onClick={() => {
+                      viewMoreHandle(orderDone);
+                    }}
+                  >
+                    더보기
+                  </Button>
+                </td>
+              </tr>
+            </>
+          )}
+        </tbody>
+      </MyTable>
 
-      {/* 배송완료 섹션 */}
-      {orderDone.map((re) =>
-        re.orderID == 3 ? (
-          <div className="delivery-finish">
-            <div className="mypage-pd">
-              <div>
-                <img
-                  className="img"
-                  src={require(`.././img/shirts-img/short/short-relax-beige-front.jpg`)}
-                  alt="#"
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                  }}
-                />
-              </div>
-              <div className="mypage-info">
-                {/* 상품 정보 */}
-                <div>
-                  <span>{re.category} </span>
-                  <span>{re.productName} </span>
-                  <span> ({re.color}) </span>
-                </div>
-
-                {/* 사이즈 정보 */}
-                <div>
-                  <span>size : </span>
-                  <span>{re.size}</span>
-                </div>
-              </div>
+      {/** 배송조회 모달 */}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          {result ? (
+            <form onSubmit={onSubmit}>
+              <select onChange={changeCarrierId} value={carrierId}>
+                <option value="">-택배사를 선택해주세요-</option>
+                {/* 택배사 목록 map로 option설정 */}
+                {carriers.map((array) => {
+                  return (
+                    <option value={array.id} key={array.id}>
+                      {array.name}
+                    </option>
+                  );
+                })}
+              </select>
+              <input
+                type="number"
+                placeholder="운송장번호"
+                onChange={changeTrackId}
+                defaultValue={trackId}
+              />
+              <button>조회</button>
+            </form>
+          ) : !delivery?.message ? (
+            <Delivery
+              stateText={delivery?.state.text}
+              toName={delivery?.to.name}
+              carrierName={delivery?.carrier.name}
+              carrierTel={delivery?.carrier.tel}
+              carrierId={delivery?.carrier.id}
+              message={delivery?.message}
+            />
+          ) : (
+            <div>
+              <p>{delivery?.message}</p>
             </div>
-
-            <div></div>
-
-            <div className="mypage-column">
-              <div>{re.price}</div>
-              <div>{re.quantity}개</div> {/* 연한 회색 처리 */}
-            </div>
-
-            <div className="mypage-column">
-              <div>
-                {/* 주문상태 추가 */}
-                <div>배송완료</div>
-                <Link to="/mypage/review" state={{ orderDone: orderDone }}>
-                  후기작성
-                </Link>
-              </div>
-            </div>
-          </div>
-        ) : (
-          ""
-        )
-      )}
+          )}
+        </Box>
+      </Modal>
     </div>
   );
 };
 
 export default Mypage;
-
-// css - section-title
-// const H4 = styled.h4`
-//   border-bottom: 2px solid black;
-//   margin-bottom: 15px;
-//   padding-bottom: 15px;
-//   font-weight: 700;
-// `;
-
-// css - mypage-container
-// const Body = styled.div`
-//   min-height: calc(100vh - 236px);
-//   max-width: 1280px;
-//   margin: auto;
-//   padding: 48px;
-// `;
-
-// css - user-info
-// const UserInfo = styled.div`
-//   display: grid;
-//   grid-template-columns: auto 1fr;
-//   grid-gap: 20px;
-// `;
-
-// css - labels
-// const Labels = styled.div`
-//   display: grid;
-//   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-// `;
-
-// css - inputs
-// const Inputs = styled.form`
-//   display: grid;
-//   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-// `;
-
-// 삭제
-// const MypageOrder = styled.div`
-//   // margin-top: 50px;
-// `;
-
-// css - mypage-head
-// const MypageHead = styled.div`
-//   display: grid;
-//   grid-template-columns: 2fr 1fr 1fr 1fr;
-//   justify-items: center;
-//   align-items: center;
-//   border: solid 1px lightgrey;
-//   padding: 20px;
-// `;
-
-// css - mypage-body
-// const MypageBody = styled.div`
-//   width: 100%;
-//   display: grid;
-//   grid-template-columns: 2fr 1fr 1fr 1fr;
-//   justify-items: center;
-//   align-items: center;
-//   border: solid 1px lightgrey;
-//   border-top: 0;
-//   padding: 20px;
-// `;
-
-// css - mypage-pd
-// const MypagePd = styled.div`
-//   display: flex;
-//   align-items: center;
-// `;
-
-// css - mypage-info
-// const MypageInfo = styled.div`
-//   flex-direction: column;
-//   margin-left: 10px;
-// `;
-
-// css - mypage-column
-// const MypageColum = styled.div`
-//   text-align: center;
-// `;
-
-// 삭제
-// const MypageEvent = styled.div`
-//   margin-top: 50px;
-// `;

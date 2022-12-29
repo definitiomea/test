@@ -8,10 +8,13 @@
   border: 1px solid;
   width: 40%;
 }
+.post-form_label {
+  font-weight: bolder;
+}
 .post-form_input {
   border: none;
   border-bottom: 2px solid black;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 .post-form_input:focus {
   outline: none;
