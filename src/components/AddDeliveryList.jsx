@@ -128,7 +128,7 @@ function DeliveryList({ setCheckAddress }) {
             id="sample6_postcode"
             onChange={changeZoneCode}
             name="zoneCode"
-            value={zoneCode}
+            value={zoneCode || ""}
           />
           <input type="button" defaultValue="우편번호 찾기" onClick={submit} />
         </div>
@@ -139,7 +139,7 @@ function DeliveryList({ setCheckAddress }) {
             id="sample6_address"
             name="address"
             onChange={changeAddress}
-            value={address}
+            value={address || ""}
           />
         </div>
         <div>
@@ -152,7 +152,7 @@ function DeliveryList({ setCheckAddress }) {
               setDetailAddress(e.target.value);
               setCheckAddress(detailAddress);
             }}
-            value={detailAddress}
+            value={detailAddress || ""}
           />
         </div>
         <div>
@@ -164,7 +164,7 @@ function DeliveryList({ setCheckAddress }) {
             onChange={(e) => {
               setReference(e.target.value);
             }}
-            value={reference}
+            value={reference || ""}
           />
         </div>
         <Button variant="text" color="primary" type="submit">

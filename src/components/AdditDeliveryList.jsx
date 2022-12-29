@@ -138,7 +138,7 @@ function AdditDeliveryList() {
             onChange={changeZoneCode}
             name="zoneCode"
             placeholder="우편번호"
-            value={zoneCode}
+            value={zoneCode || ""}
           />
           {/* input type:button -> button tag로 변경 */}
           <button className="post-form_btn" onClick={submit}>
@@ -153,7 +153,7 @@ function AdditDeliveryList() {
           name="address"
           onChange={changeAddress}
           placeholder="주소"
-          value={address}
+          value={address || ""}
         />
 
         <input
@@ -165,7 +165,7 @@ function AdditDeliveryList() {
             setDetailAddress(e.target.value);
           }}
           placeholder="상세주소"
-          value={detailAddress}
+          value={detailAddress || ""}
         />
         <input
           type="text"
@@ -175,7 +175,7 @@ function AdditDeliveryList() {
           onChange={(e) => {
             setReference(e.target.value);
           }}
-          value={reference}
+          value={reference || ""}
         />
         {/* button component적용 */}
         <MyButton type="submit">배송지 변경</MyButton>
