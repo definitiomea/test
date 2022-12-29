@@ -48,18 +48,13 @@
 .order-delivery-btn button {
   line-height: 1;
 }
-.order-delivery-btn a {
-  text-decoration: none;
-  color: #f8f9fa;
-}
 .view-more-container {
   border-top: 1px solid lightgray;
 }
 .view-more-container td:first-child {
   grid-column: 4/5;
-  color: lightgray
+  color: lightgray;
 }
 .view-more-container td:last-child {
   grid-column: 5/6;
 }
-

@@ -72,7 +72,7 @@ const Cart = () => {
     } else if (JSON.stringify(user) === "{}") {
       alert("로그인 후 이용해주세요.");
       return;
-    } else if (checkAddress.trim() == "") {
+    } else if (checkAddress?.trim() == "") {
       alert("배송지가 입력되었는지 확인해주세요. (상세주소 포함)");
       return;
     } else {

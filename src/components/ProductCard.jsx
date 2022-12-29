@@ -59,8 +59,8 @@ const ProductCard = (props) => {
               ></img>
             )}
           </div>
-          <p>{thumbNail.productName}</p>
-          <p>{thumbNail.price}</p>
+          {/* <p>{thumbNail.productName}</p>
+          <p>{thumbNail.price}</p> */}
         </div>
         <div
           onClick={() => {
@@ -81,8 +81,8 @@ const ProductCard = (props) => {
               ></img>
             )}
           </div>
-          <p>{thumbNail.productName}</p>
-          <p>{thumbNail.price}</p>
+          {/* <p>{thumbNail.productName}</p>
+          <p>{thumbNail.price}</p> */}
         </div>
         <div
           onClick={() => {
@@ -103,8 +103,8 @@ const ProductCard = (props) => {
               ></img>
             )}
           </div>
-          <p>{thumbNail.productName}</p>
-          <p>{thumbNail.price}</p>
+          {/* <p>{thumbNail.productName}</p>
+          <p>{thumbNail.price}</p> */}
         </div>
         <div
           onClick={() => {
@@ -125,10 +125,14 @@ const ProductCard = (props) => {
               ></img>
             )}
           </div>
-          <p>{thumbNail.productName}</p>
-          <p>{thumbNail.price}</p>
+          {/* <p>{thumbNail.productName}</p>
+          <p>{thumbNail.price}</p> */}
         </div>
       </Slider>
+      <div>
+        <p>{thumbNail.productName}</p>
+        <p>{thumbNail.price}</p>
+      </div>
     </div>
   );
 };

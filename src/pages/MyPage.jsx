@@ -1,5 +1,5 @@
 // import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AdditDeliveryList from "../components/AdditDeliveryList";
 import { useEffect, useState } from "react";
 import { Button, Modal } from "@mui/material";
@@ -92,6 +92,7 @@ const Mypage = () => {
   const orderDone = useSelector((state) => state.orderlist.orderlist);
   const PAGE_UNIT = 3;
   const [viewCount, setViewCount] = useState(PAGE_UNIT);
+  const navigate = useNavigate();
 
   const getImgPath = (item) => {
     switch (item.category) {
@@ -111,6 +112,12 @@ const Mypage = () => {
       setViewCount(viewCount + PAGE_UNIT);
     }
   };
+
+  useEffect(() => {
+    if (orderDone.length < PAGE_UNIT) {
+      setViewCount(orderDone.length);
+    }
+  }, []);
 
   return (
     <div className="mypage-container">
@@ -205,10 +212,11 @@ const Mypage = () => {
                               <span>{order.color}</span>
                             </div>
                             <div>
-                              print :
+                              print
                               {order.imgArray.length === 2 ? (
                                 <span>
-                                  {order.imgArray[0].print} / {order.imgArray[1].print}
+                                  {order.imgArray[0].print} /{" "}
+                                  {order.imgArray[1].print}
                                 </span>
                               ) : (
                                 <span>{order.imgArray[0].print}</span>
@@ -226,13 +234,14 @@ const Mypage = () => {
                           <div>{order.delivery}</div>
                           <div className="order-delivery-btn">
                             {order.delivery === "배송완료" ? (
-                              <MyButton>
-                                <Link
-                                  to="/mypage/review"
-                                  state={{ orderDone: orderDone }}
-                                >
-                                  후기작성
-                                </Link>
+                              <MyButton
+                                onClick={() => {
+                                  navigate("/mypage/review", {
+                                    state: { order: order },
+                                  });
+                                }}
+                              >
+                                후기작성
                               </MyButton>
                             ) : (
                               <MyButton onClick={handleOpen}>배송조회</MyButton>
