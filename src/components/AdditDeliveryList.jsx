@@ -6,7 +6,7 @@ import { ADDIT_USER } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAddress } from "../redux/reducers/user";
 
-import "../style/deliveryList.css";
+import "../css/deliveryList.css";
 import "../style/Button";
 import MyButton from "../style/Button";
 
@@ -109,8 +109,7 @@ function AdditDeliveryList() {
   };
 
   return (
-    // inline style 추가(배송지form 위치)
-    <div style={{ marginTop: "76px" }}>
+    <div>
       <Modal
         open={open}
         onClose={handleClose}
@@ -130,6 +129,7 @@ function AdditDeliveryList() {
         /> */}
 
         {/*float: left로 위치 조정 */}
+        <label className="post-form_label">우편번호</label>
         <div>
           <input
             type="text"
@@ -138,14 +138,14 @@ function AdditDeliveryList() {
             onChange={changeZoneCode}
             name="zoneCode"
             placeholder="우편번호"
-            value={zoneCode}
+            value={zoneCode || ""}
           />
           {/* input type:button -> button tag로 변경 */}
           <button className="post-form_btn" onClick={submit}>
             우편번호 찾기
           </button>
         </div>
-
+        <label className="post-form_label">주소</label>
         <input
           type="text"
           className="post-form_input"
@@ -153,9 +153,9 @@ function AdditDeliveryList() {
           name="address"
           onChange={changeAddress}
           placeholder="주소"
-          value={address}
+          value={address || ""}
         />
-
+        <label className="post-form_label">상세주소</label>
         <input
           type="text"
           className="post-form_input"
@@ -165,8 +165,9 @@ function AdditDeliveryList() {
             setDetailAddress(e.target.value);
           }}
           placeholder="상세주소"
-          value={detailAddress}
+          value={detailAddress || ""}
         />
+        <label className="post-form_label">기타</label>
         <input
           type="text"
           className="post-form_input"
@@ -175,7 +176,7 @@ function AdditDeliveryList() {
           onChange={(e) => {
             setReference(e.target.value);
           }}
-          value={reference}
+          value={reference || ""}
         />
         {/* button component적용 */}
         <MyButton>배송지 변경</MyButton>

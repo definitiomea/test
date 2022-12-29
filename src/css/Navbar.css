@@ -48,14 +48,16 @@ nav {
 }
 
 /* 네브메뉴 */
-ul {
+/* ul을 .navbar 로 바꿨습니다 */
+.navbar {
   display: flex;
   list-style: none;
   align-items: center;
   padding: 0;
+  margin: 0;
 }
 
-ul * {
+.navbar * {
   padding: 0 5px;
   font-size: 1rem;
   color: black;
@@ -146,16 +148,5 @@ button {
   ul * {
     padding: 0 3px;
     font-size: 0.8rem;
-  }
-}
-
-/* 모바일 버전 아닐 때 햄버거 숨김 */
-@media screen and (min-width: 500px) {
-  .toggle-button {
-    display: none;
-  }
-
-  .mobile-nav {
-    display: none;
   }
 }

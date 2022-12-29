@@ -1,0 +1,60 @@
+.mypage-container {
+  min-height: calc(100vh - 236px);
+  width: 90%;
+  /* max-width: 1280px; */
+  margin: auto;
+  padding: 48px;
+}
+
+.section-title {
+  border-bottom: 2px solid black;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  font-weight: 700;
+}
+
+/* 회원정보 */
+.user-info {
+  /* grid에서 flex로 교체 */
+  display: flex;
+  margin: 30px 0 100px 0;
+  padding: 0 30px;
+}
+
+/* 분리 되어있던 label과 input을 뭉치고 className 새로 부여 */
+.user-info_form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin-right: 50px;
+}
+.user-info_label {
+  font-weight: bolder;
+}
+.user-info_input {
+  border: none;
+  border-bottom: 2px solid black;
+  margin-bottom: 15px;
+}
+
+.user-info_input:focus {
+  outline: none;
+}
+
+/* 주문/배송 조회 - 버튼 */
+.order-delivery-btn {
+  margin-top: 0.5rem;
+}
+.order-delivery-btn button {
+  line-height: 1;
+}
+.view-more-container {
+  border-top: 1px solid lightgray;
+}
+.view-more-container td:first-child {
+  grid-column: 4/5;
+  color: lightgray;
+}
+.view-more-container td:last-child {
+  grid-column: 5/6;
+}

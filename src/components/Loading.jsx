@@ -17,4 +17,3 @@ const Wrap = styled.div`
   justify-content: center;
   align-items: center;
 `;
-

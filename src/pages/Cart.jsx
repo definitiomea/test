@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faTruck } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
-import List from "../style/List";
 import MyButton from "../style/Button";
-import "../css/cart.css";
+import MyTable from "../style/Table";
+import "../css/cart-style.css";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/reducers/cart";
 import { inputOrder } from "../redux/reducers/order";
 import AddDeliveryList from "../components/AddDeliveryList";
+import { useRef } from "react";
 
 const Cart = () => {
   const cartlist = useSelector((state) => state.cartlist.cartlist);
@@ -21,6 +22,7 @@ const Cart = () => {
   const [dataloading, setDataloading] = useState(false);
   const [productlist, setProductlist] = useState(null);
   const [deliveryPay, setDeliveryPay] = useState(3000);
+  const [checkAddress, setCheckAddress] = useState("");
   const navigate = useNavigate();
 
   // 배송비 제외 총 금액
@@ -55,8 +57,9 @@ const Cart = () => {
       }
       copyCartlist[i].category = fintProduct.category;
       copyCartlist[i].productName = fintProduct.productName;
-      copyCartlist[i].thumbnail = 
-        `${fintProduct.category}-${name}-${copyCartlist[i].color}-front.jpg`;
+      copyCartlist[
+        i
+      ].thumbnail = `${fintProduct.category}-${name}-${copyCartlist[i].color}-front.jpg`;
     }
     return copyCartlist;
   };
@@ -66,19 +69,22 @@ const Cart = () => {
     if (cartlist.length === 0) {
       alert("장바구니가 비어있습니다.");
       return;
-    }
-    if (JSON.stringify(user) === "{}") {
-      alert("로그인 후 이용해주세요");
+    } else if (JSON.stringify(user) === "{}") {
+      alert("로그인 후 이용해주세요.");
       return;
+    } else if (checkAddress?.trim() == "") {
+      alert("배송지가 입력되었는지 확인해주세요. (상세주소 포함)");
+      return;
+    } else {
+      dispatch(
+        inputOrder({
+          user: user.id,
+          cartlist: copyCartlist(),
+        })
+      );
+      dispatch(clearCart());
+      navigate("/orderconfirm");
     }
-    dispatch(
-      inputOrder({
-        user: user.id,
-        cartlist: copyCartlist(),
-      })
-    );
-    dispatch(clearCart());
-    navigate("/orderconfirm");
   };
 
   // 상품리스트 데이터 들고오기 (db.json)
@@ -109,43 +115,53 @@ const Cart = () => {
             <FontAwesomeIcon icon={faCartShopping} />
             <h2>My Cart</h2>
           </div>
-          <List>
-            <div className="label">
-              <div>Product Name</div>
-              <div>Size</div>
-              <div>Quantity</div>
-              <div>Price</div>
-              <div>
-                <Button
-                  variant="outlined"
-                  color="error"
-                  onClick={() => {
-                    dispatch(clearCart());
-                  }}
-                >
-                  Clear All
-                </Button>
-              </div>
-            </div>
-            {cartlist.length == 0 ? (
-              <div className="item-empty">Empty</div>
-            ) : (
-              <div>
-                {cartlist.map((cartItem) => (
-                  <CartItem
-                    key={cartItem.cartID}
-                    cartItem={cartItem}
-                    productlist={productlist}
-                    dispatch={dispatch}
-                  />
-                ))}
-              </div>
-            )}
-          </List>
+          <MyTable>
+            <thead>
+              <tr>
+                <th>상품정보</th>
+                <th>사이즈</th>
+                <th>수량</th>
+                <th>금액</th>
+                <th>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => {
+                      dispatch(clearCart());
+                    }}
+                  >
+                    Clear All
+                  </Button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartlist.length == 0 ? (
+                <tr className="item-empty">
+                  <td>Empty</td>
+                </tr>
+              ) : (
+                <>
+                  {cartlist.map((cartItem) => (
+                    <tr key={cartItem.cartID}>
+                      <CartItem
+                        cartItem={cartItem}
+                        productlist={productlist}
+                        dispatch={dispatch}
+                      />
+                    </tr>
+                  ))}
+                </>
+              )}
+            </tbody>
+          </MyTable>
           <div className="delivery-summary-container">
             <div className="delivery-info">
-              <h3>Delivery Information</h3>
-              <AddDeliveryList />
+              <div className="cart-title">
+                <FontAwesomeIcon icon={faTruck} />
+                <h2>delivery Info</h2>
+              </div>
+              <AddDeliveryList setCheckAddress={setCheckAddress} />
             </div>
             <div className="summary">
               <div>
