@@ -5,77 +5,89 @@ import styled from "@emotion/styled";
 
 const ReviewStar = () => {
   // 별점 기본값
-  const [clicked, setClicked] = useState([false, false, false, false, false]);
+  const [clicked, setClicked] = useState(null);
+  const [hovered, setHovered] = useState(null);
 
   // map 돌릴 배열선언
-  const array = [0, 1, 2, 3, 4];
+  const array = [1, 2, 3, 4, 5];
 
-  // <FaStar /> svg가 map함수에 의해 돌아가고 클릭한 별의 인덱스 값이 star에 찍힘
-
-  {
-    /*
-클릭한 star값을 index로 받는 handleStarClick 함수
-별3개를 클릭했을 떄 for문을 돌리면 i<=3 이 될 때까지는 true값을 반환함
-이런 과정으로 별 3점을 클릭하면 [true,true,true,false,false]
-*/
-  }
-  const handleStarClick = (index) => {
-    let clickStates = [...clicked];
-    for (let i = 0; i <= 4; i++) {
-      clickStates[i] = i = index ? true : false;
-    }
-    setClicked(clickStates);
-    console.log(clicked);
+  // onClick시 노란색을 유지하게하고 reviewInputRecuder로 보냄
+  const handleClick = (e) => {
+    // e.target.id 값 잘 받아오는지 확인
+    // 잘 받아올 때도, 못받을 때도 있는 이유?
+    console.log(e.target.id, "점 선택");
+    // onclick시 노란색 유지하게 함
+    setClicked(e.target.id);
+    // reviewInputRecuder로 보냄
   };
 
-  // filter을 이용해 true값만 뽑아서 length를 이용해 개수를 확인 후 별점값을 내보냄
-  const sendStar = () => {
-    let score = clicked.filter(Boolean).length;
-  };
+  // 별점에 따른 출력문구
+  const starTextList = [
+    "별로에요",
+    "그저 그래요",
+    "보통이에요",
+    "좋아요",
+    "최고예요",
+  ];
 
-  // 클릭하면 리뷰 제출
-  useEffect(() => {
-    sendStar();
-  }, [clicked]);
+  return (
+    <div>
+      <RatingBox>
+        {array.map((el) => (
+          <FontAwesomeIcon
+            icon={faStar}
+            key={el} // 1,2,3,4,5
+            id={el}
+            // 클릭하거나 호버했을 때 클래스네임은 yellow -> css로 노란별 출력
+            className={
+              clicked >= el || hovered >= el ? "yellowStar" : undefined
+            }
+            onMouseEnter={() => setHovered(el)}
+            onMouseLeave={() => setHovered(null)}
+            // onClick시 노란색을 유지하게하고 reviewInputRecuder로 보냄
+            onClick={handleClick}
+          />
+        ))}
+      </RatingBox>
 
-  // 별 색깔 스타일
-  const RatingBox = styled.div`
-    margin: 0;
+      {/* 클릭하거나 호버 시 별점에 따른 출력문구  */}
+      {array.map((num) => {
+        return clicked || hovered ? (
+          <HiddenText key={num} show={clicked == num || hovered == num}>
+            {/* array와 map의 index 값이 1차이나므로 */}
+            {starTextList[num - 1]}
+          </HiddenText>
+        ) : (
+          // 한번만 출력하려면?
+          <span>선택하세요.</span>
+        );
+      })}
+    </div>
+  );
+};
+
+export default ReviewStar;
+
+// 별 색깔 스타일
+const RatingBox = styled.div`
+  margin: 0;
+
+  .yellowStar {
+    color: #fcc419;
+    opacity: 1;
 
     &svg {
       color: gray;
       cursor: pointer;
     }
 
-    :hover svg {
-      color: #fcc419;
-    }
-
     /* hover된 별 이외에 나머지 별들(hover~svg)는 회색 */
     & svg:hover ~ svg {
       color: gray;
     }
+  }
+`;
 
-    .yellowStar {
-      color: #fcc419;
-    }
-  `;
-
-  return (
-    <div>
-      <RatingBox>
-        {array.map((star, index) => (
-          <FontAwesomeIcon
-            icon={faStar}
-            key={index}
-            size="lg"
-            onClick={() => handleStarClick(star)}
-            className={clicked[star] ? "yellowStar" : undefined}
-          />
-        ))}
-      </RatingBox>
-    </div>
-  );
-};
-
-export default ReviewStar;
+const HiddenText = styled.span`
+  ${({ show }) => (show ? `display:block` : `display: none`)}
+`;

@@ -14,9 +14,9 @@ import { useRef } from "react";
 const ReviewAdd = () => {
   const [modalOpen, setModalOpen] = useState(false); // 모달창 열기
   const [bringImg, setBringImg] = useState();
-  const [sendImg, setSendImg] = useState(false); // 모달창에서 사진추가후 리뷰페이지로 전달
   const [comment, setComment] = useState();
   const [addImgValue, setAddImgValue] = useState();
+
   const fileInput = useRef();
 
   const location = useLocation();
@@ -118,10 +118,7 @@ const ReviewAdd = () => {
           <span>
             <strong>상품은 만족하셨나요?</strong>
           </span>
-
           <ReviewStar />
-
-          <span>선택하세요.</span>
         </section>
 
         {/* 리뷰 입력란 섹션 */}
@@ -151,11 +148,7 @@ const ReviewAdd = () => {
           <MyButton onClick={handleOpen}>사진 첨부하기</MyButton>
 
           {/* 미리보기 사진 전달공간 */}
-          <div
-          // onChange={(e) => {
-          //   sendImg(e.target.value);
-          // }}
-          >
+          <div>
             <img
               src={addImgValue}
               alt=""

@@ -4,8 +4,7 @@ import ReviewStar from "../components/ReviewStar";
 const ReviewList = (props) => {
   // reviewReducer에서 initialState값 가져옴
   const reviewList = useSelector((state) => state.review.reviewList);
-
-  // console.log(reviewList);
+// console.log(reviewList);
 
   // productDetail에서 props 받음
   const { compare } = props;
@@ -42,17 +41,6 @@ const ReviewList = (props) => {
                   />
                 )}
               </div>
-
-              {/* <div>
-                <img
-                  src={require(`../img/shirts-img/short/${review.image}`)}
-                  alt="short"
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                  }}
-                />
-              </div> */}
 
               <ReviewRow>
                 <div>
