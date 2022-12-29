@@ -6,7 +6,7 @@ import { ADDIT_USER } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAddress } from "../redux/reducers/user";
 
-import "../style/deliveryList.css";
+import "../css/deliveryList.css";
 import "../style/Button";
 import MyButton from "../style/Button";
 
@@ -23,8 +23,10 @@ const Postcode = (props) => {
         extraPostCode += data.bname;
       }
       if (data.buildingName !== "") {
-        extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-        extraPostCode += extraPostCode !== "" ? `, ${data.buildingName}` : data.buildingName;
+        extraAddress +=
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+        extraPostCode +=
+          extraPostCode !== "" ? `, ${data.buildingName}` : data.buildingName;
       }
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
       postCode += extraPostCode !== "" ? ` (${extraPostCode})` : "";
@@ -107,9 +109,13 @@ function AdditDeliveryList() {
   };
 
   return (
-    // inline style 추가(배송지form 위치)
-    <div style={{ marginTop: "76px" }}>
-      <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+    <div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
         <Box sx={style}>
           <Postcode adressValue={adressValue} zoneCodeValue={zoneCodeValue} />
         </Box>
@@ -123,6 +129,7 @@ function AdditDeliveryList() {
         /> */}
 
         {/*float: left로 위치 조정 */}
+        <label className="post-form_label">우편번호</label>
         <div>
           <input
             type="text"
@@ -138,7 +145,7 @@ function AdditDeliveryList() {
             우편번호 찾기
           </button>
         </div>
-
+        <label className="post-form_label">주소</label>
         <input
           type="text"
           className="post-form_input"
@@ -148,7 +155,7 @@ function AdditDeliveryList() {
           placeholder="주소"
           value={address || ""}
         />
-
+        <label className="post-form_label">상세주소</label>
         <input
           type="text"
           className="post-form_input"
@@ -160,6 +167,7 @@ function AdditDeliveryList() {
           placeholder="상세주소"
           value={detailAddress || ""}
         />
+        <label className="post-form_label">기타</label>
         <input
           type="text"
           className="post-form_input"
@@ -171,7 +179,7 @@ function AdditDeliveryList() {
           value={reference || ""}
         />
         {/* button component적용 */}
-        <MyButton type="submit">배송지 변경</MyButton>
+        <MyButton>배송지 변경</MyButton>
       </form>
     </div>
   );

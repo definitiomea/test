@@ -42,6 +42,7 @@
 }
 .login-form_input {
   border: none;
+  width: 100%;
   border-bottom: 2px solid black;
   margin-bottom: 20px;
 }
@@ -50,6 +51,7 @@
 }
 .login-form_btn {
   width: 90%;
+  margin: auto;
 }
 .login-form button {
   margin-bottom: 5px;

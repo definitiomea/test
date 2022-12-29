@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 // import styled from "styled-components";
 import Footer from "../components/Footer";
@@ -16,8 +15,8 @@ const Layout = () => {
       <div className="body-container">
         <Outlet />
         {/* 메인위치에서는 푸터 숨김 */}
-        {location.pathname !== "/" && <Footer />}
       </div>
+      {location.pathname !== "/" && <Footer />}
     </div>
   );
 };

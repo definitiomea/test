@@ -1,4 +1,4 @@
-import "../style/modal.css";
+import "../css/modal.css";
 import useInput from "../hooks/useInput";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

@@ -8,7 +8,7 @@ import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { SIGN_UP } from "../redux/reducers/signup";
 
-import "../style/signup.css";
+import "../css/signup.css";
 import MyButton from "../style/Button";
 
 const SignUpPage = () => {
@@ -81,6 +81,7 @@ const SignUpPage = () => {
         &nbsp;&nbsp;&nbsp;
         <h1 className="signup-title">Sign up</h1>
       </div>
+
       <form className="signup-form" onSubmit={onSubmitForm}>
         <label className="signup-label">Name</label>
 

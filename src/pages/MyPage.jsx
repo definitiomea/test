@@ -9,7 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { ADDIT_USER } from "../redux/reducers/signup";
 import { loginUser } from "../redux/reducers/user";
 
-import "../style/Mypage.css";
+import "../css/mypage.css";
+import "../style/Button";
 import MyButton from "../style/Button";
 import MyTable from "../style/Table";
 
