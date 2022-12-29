@@ -24,6 +24,8 @@ import {
 import Button from "@mui/material/Button";
 
 import { inputCart } from "../redux/reducers/cart";
+import ReviewInput from "../components/ReviewInput";
+import ReviewList from "../components/ReviewList";
 
 const ProductDetail = () => {
   const { id } = useParams(); // id : productList {id}
@@ -294,6 +296,15 @@ const ProductDetail = () => {
               <FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon>
             </Button>
             <Button>구매하기</Button>
+          </div>
+          <div>
+            {/* 더미 리뷰리스트 출력 */}
+            {productList ? <ReviewList compare={productList} /> : ""}
+            {/*
+             * 고객이 작성한 리뷰 출력
+             * - 페이지 ReviewAdd에서 작성되고, 컴포넌트 ReviewInput에 출력 폼 있음
+             */}
+            {/* <ReviewInput productID={id} /> */}
           </div>
         </div>
       </div>

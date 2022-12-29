@@ -18,10 +18,10 @@ const ReviewAdd = () => {
   const [star, setStar] = useState();
   const [bringImg, setBringImg] = useState();
   const [addImgValue, setAddImgValue] = useState();
-  const [comment, setComment] = useState();
+  const [comment, setComment] = useState("");
 
-  const location = useLocation();
-  const [data, setData] = useState(location.state);
+  // const location = useLocation();
+  // const [data, setData] = useState(location.state);
 
   // const data = location.state.order;
 
@@ -110,13 +110,17 @@ const ReviewAdd = () => {
     return `${year}.${month}.${today}`;
   };
 
+  const location = useLocation();
+  const [data, setData] = useState("");
+
   // 서브밋 함수
-  const testSumbit = () => {
-    if (comment.length < 10) {
-      alert("적다!");
+  const testSumbit = (e) => {
+    e.preventDefault();
+    if (comment?.length < 10) {
+      alert("10자 이상 입력하세요.");
       return;
     } else if (!star) {
-      alert("별점!");
+      alert("별점을 체크해주세요.");
       return;
     }
     const newReview = {

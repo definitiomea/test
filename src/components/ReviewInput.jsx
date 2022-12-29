@@ -6,7 +6,7 @@ const ReviewInput = () => {
   // 로그인 유저 아이디정보
   const userName = useSelector((state) => state.user);
   // 구매티셔츠 정보, 리뷰정보
-  const reviewProduct = useSelector((state) => state.reviewlist);
+  const reviewFile = useSelector((state) => state.reviewlist);
   const dispatch = useDispatch();
 
   return (
@@ -21,13 +21,13 @@ const ReviewInput = () => {
         {/* user.js에서 가져옴 */}
         <span>{userName.user}</span>
         {/* reviewInputReducer.js에서 가져옴 */}
-        <span>{reviewProduct.star}</span>
+        <span>{reviewFile.star}</span>
         {/* order.js에서 가져옴 */}
-        <span>{reviewProduct.category}</span>
-        <span>{reviewProduct.productName}</span>
-        <span>({reviewProduct.color})</span>
-        <span>{reviewProduct.size}</span>
-        <span>{reviewProduct.comment}</span>
+        <span>{reviewFile.category}</span>
+        <span>{reviewFile.productName}</span>
+        <span>({reviewFile.color})</span>
+        <span>{reviewFile.size}</span>
+        <span>{reviewFile.comment}</span>
       </div>
 
       <div>
