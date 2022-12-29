@@ -48,7 +48,8 @@ nav {
 }
 
 /* 네브메뉴 */
-ul {
+/* ul을 .navbar 로 바꿨습니다 */
+.navbar {
   display: flex;
   list-style: none;
   align-items: center;
@@ -56,7 +57,7 @@ ul {
   margin: 0;
 }
 
-ul * {
+.navbar * {
   padding: 0 5px;
   font-size: 1rem;
   color: black;

@@ -63,7 +63,7 @@ const Navbar = () => {
           </NavLink>
         </div>
 
-        <ul>
+        <ul className="navbar">
           {/* 네브바 리스트 */}
           <li>
             <NavLink to="shop" className={main ? "white-nav" : "dark-nav"}>
@@ -79,21 +79,13 @@ const Navbar = () => {
 
           {login ? (
             <li className="dropdown">
-              <div className={main ? "white-nav" : "dark-nav"}>
-                {userName.name}님
-              </div>
+              <div className={main ? "white-nav" : "dark-nav"}>{userName.name}님</div>
               <div className="dropdown-menu">
-                <NavLink
-                  to="mypage"
-                  className={main ? "white-dropdown" : "dark-dropdown"}
-                >
+                <NavLink to="mypage" className={main ? "white-dropdown" : "dark-dropdown"}>
                   MYPAGE
                 </NavLink>
                 <br />
-                <button
-                  className={main ? "white-dropdown" : "dark-dropdown"}
-                  onClick={logOut}
-                >
+                <button className={main ? "white-dropdown" : "dark-dropdown"} onClick={logOut}>
                   LOGOUT
                 </button>
               </div>

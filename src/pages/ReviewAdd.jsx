@@ -120,10 +120,10 @@ const ReviewAdd = () => {
   const testSumbit = (e) => {
     e.preventDefault();
     if (comment?.length < 10) {
-      alert("적다!");
+      alert("10자 이상 입력하세요.");
       return;
     } else if (!star) {
-      alert("별점!");
+      alert("별점을 체크해주세요.");
       return;
     }
     const newReview = {

@@ -38,6 +38,7 @@ import Button from "@mui/material/Button";
 import { inputCart } from "../redux/reducers/cart";
 import LongProductInfo from "../components/LongProductInfo";
 import ShortProductInfo from "../components/ShortProductInfo";
+import ReviewList from "../components/ReviewList";
 
 const ProductDetail = () => {
   const { id } = useParams(); // id : productList {id}
@@ -98,12 +99,17 @@ const ProductDetail = () => {
               ></FontAwesomeIcon>
               <label className="handling-explane">앞/뒤 뒤집기</label>
             </div>
-            <label htmlFor="input-file" className="product-handling-button-element">
+            <label
+              htmlFor="input-file"
+              className="product-handling-button-element"
+            >
               <FontAwesomeIcon
                 icon={faCloudArrowUp}
                 style={{}}
               ></FontAwesomeIcon>
-              <span className="handling-explane" style={{ fontSize: "0.75em" }}>업로드</span>
+              <span className="handling-explane" style={{ fontSize: "0.75em" }}>
+                업로드
+              </span>
             </label>
             {/* </div> */}
             <input
@@ -296,6 +302,15 @@ const ProductDetail = () => {
       </div>
       {productList?.id >= 4 ? <LongProductInfo></LongProductInfo> : ""}
       {productList?.id < 4 ? <ShortProductInfo></ShortProductInfo> : ""}
+      <div>
+        {/* 더미 리뷰리스트 출력 */}
+        {productList ? <ReviewList compare={productList} /> : ""}
+        {/*
+         * 고객이 작성한 리뷰 출력
+         * - 페이지 ReviewAdd에서 작성되고, 컴포넌트 ReviewInput에 출력 폼 있음
+         */}
+        {/* <ReviewInput productID={id} /> */}
+      </div>
     </>
   );
 };

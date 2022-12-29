@@ -1,6 +1,5 @@
-// import styled from "@emotion/styled";
-import { Link, useNavigate } from "react-router-dom";
 import AdditDeliveryList from "../components/AdditDeliveryList";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button, Modal } from "@mui/material";
 import { Box } from "@mui/system";
@@ -76,6 +75,7 @@ const Mypage = () => {
   const findUser = signup.userlist.find((userId) => userId.id === user.id);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const style = {
     position: "absolute",
@@ -93,7 +93,6 @@ const Mypage = () => {
   const orderDone = useSelector((state) => state.orderlist.orderlist);
   const PAGE_UNIT = 3;
   const [viewCount, setViewCount] = useState(PAGE_UNIT);
-  const navigate = useNavigate();
 
   const getImgPath = (item) => {
     switch (item.category) {
