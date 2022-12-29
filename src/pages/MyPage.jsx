@@ -236,9 +236,7 @@ const Mypage = () => {
                             {order.delivery === "배송완료" ? (
                               <MyButton
                                 onClick={() => {
-                                  navigate("/mypage/review", {
-                                    state: { order: order },
-                                  });
+                                  navigate("/mypage/review", { state: order });
                                 }}
                               >
                                 후기작성

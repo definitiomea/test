@@ -148,14 +148,3 @@ button {
     font-size: 0.8rem;
   }
 }
-
-/* 모바일 버전 아닐 때 햄버거 숨김 */
-@media screen and (min-width: 500px) {
-  .toggle-button {
-    display: none;
-  }
-
-  .mobile-nav {
-    display: none;
-  }
-}

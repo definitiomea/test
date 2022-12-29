@@ -1,66 +1,56 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [
-  {
-    reviewID: 0,
-    reviewInput: {
-      userID: "",
-      img: [{ imgUrl: "" }],
-      category: "",
-      productName: "",
-      size: "",
-      comment: "",
-      date: "",
-    },
-  },
-];
+// 주문 날짜
+const getDate = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const today = String(date.getDate()).padStart(2, "0");
+  return `${year}.${month}.${today}`;
+};
+
+const initialState = {
+  reviewID: 0,
+  reviewlist: [],
+};
 
 const reviewSlice = createSlice({
-  name: "reviewInput",
+  name: "reviewlist",
   initialState,
   reducers: {
-    addReview: (state, action) => {
+    inputReview: (state, action) => {
       const newReview = {
+        reviewID: 1,
         // 리뷰 첨부 이미지 불러오기
-        imgArray: action.payload.img,
+        img: action.payload.addImgValue,
         // 고객 로그인 아이디 가져오기
-        userID: action.payload.userID,
+        // userID: action.payload.userID,
         // 리뷰 별점 가져오기
-        // star:,
+        star: action.payload.star,
         // 제품 종류 불러오기
         category: action.payload.category,
         // 제품 스타일 불러오기
         productName: action.payload.productName,
         // 사이즈 불러오기
         size: action.payload.size,
+        // 색상 불러오기
+        color: action.payload.color,
         // // 리뷰 작성내용 불러오기
-        // comment:,
+        comment: action.payload.comment,
         // // 작성 날짜 불러오기
-        // date:,
+        date: getDate(),
       };
-      const newReviewlist = state.reviewInput.concat(addReview);
-      state.reviewInput = newReviewlist;
+      const newReviewlist = state.reviewlist.concat(newReview);
+      state.reviewlist = newReviewlist;
     },
+    // 리뷰 삭제하기
     deleteReview: (state, action) => {
       // reviewInput배열에서 reiviewID가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듦
-      const newReviewlist = state.reviewInput.filter(
-        (review) => review.reviewID != action.payload
-      );
+      const newReviewlist = state.reviewInput.filter((review) => review.reviewID != action.payload);
+      state.reviewlist = newReviewlist;
     },
   },
-
-  // reducers: {
-  //   ADD_IMG(state, action) {
-  //     state.reviewImg = action.payload.reviewImg;
-  //   },
-  //   ADD_STAR(state, action) {
-  //     state.reviewStar = action.payload.reviewStar;
-  //   },
-  //   ADD_CONTENT(state, action) {
-  //     state.reviewContent = action.payload.reviewContent;
-  //   },
-  // },
 });
 
-export const { addReview, deleteReview } = reviewSlice.actions;
+export const { inputReview, deleteReview } = reviewSlice.actions;
 export default reviewSlice.reducer;

@@ -24,10 +24,8 @@ const initialState = {
       color: "blue",
       size: "L",
       quantity: 8,
-      imgArray: [
-        { print: "front", imageUrl: "" },
-      ],
-      thumbnail: "short-standard-orange-front.jpg",
+      imgArray: [{ print: "front", imageUrl: "" }],
+      thumbnail: "short-standard-blue-front.jpg",
       totalPay: 76000,
       delivery: "배송완료",
     },

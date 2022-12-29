@@ -51,6 +51,9 @@
 .login-form_btn {
   width: 90%;
 }
+.login-form button {
+  margin-bottom: 5px;
+} /* button style 쪽에 마진을 없애서 추가함 */
 
 .social {
   display: flex;

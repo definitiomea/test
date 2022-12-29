@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import video from "../img/main/main-video.mp4";
-import "../style/Home.css";
+import "../css/Home.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

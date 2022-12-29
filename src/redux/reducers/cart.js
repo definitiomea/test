@@ -32,7 +32,10 @@ const cartSlice = createSlice({
     // 장바구니 상품별 구매수량 -1 (구매수량 최소 1)
     quantityDecrease: (state, action) => {
       const newCartlist = state.cartlist.map((item) => {
-        if (item.cartID == action.payload.cartID && item.quantity > MIN_QUANTITY) {
+        if (
+          item.cartID == action.payload.cartID &&
+          item.quantity > MIN_QUANTITY
+        ) {
           return {
             ...item,
             quantity: item.quantity - 1,
@@ -47,7 +50,10 @@ const cartSlice = createSlice({
     // 장바구니 상품별 구매수량 +1 (구매수량 최대 999)
     quantityIncrease: (state, action) => {
       const newCartlist = state.cartlist.map((item) => {
-        if (item.cartID == action.payload.cartID && item.quantity < MAX_QUANTITY) {
+        if (
+          item.cartID == action.payload.cartID &&
+          item.quantity < MAX_QUANTITY
+        ) {
           return {
             ...item,
             quantity: item.quantity + 1,
