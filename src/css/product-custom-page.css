@@ -169,6 +169,9 @@
   }
 }
 
+.product-info-component {
+  padding: 1vh 1vw;
+}
 .info-section {
   font-size: 1.5em;
 }
@@ -192,5 +195,8 @@
 @media screen and (max-width: 768px) {
   .size-container img {
     max-width: 400px;
+  }
+  .info-section {
+    font-size: 1.2em;
   }
 }
