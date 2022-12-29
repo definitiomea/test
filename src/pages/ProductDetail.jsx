@@ -36,6 +36,8 @@ import {
 import Button from "@mui/material/Button";
 
 import { inputCart } from "../redux/reducers/cart";
+import LongProductInfo from "../components/LongProductInfo";
+import ShortProductInfo from "../components/ShortProductInfo";
 
 const ProductDetail = () => {
   const { id } = useParams(); // id : productList {id}
@@ -292,6 +294,8 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
+      {productList?.id >= 4 ? <LongProductInfo></LongProductInfo> : ""}
+      {productList?.id < 4 ? <ShortProductInfo></ShortProductInfo> : ""}
     </>
   );
 };
