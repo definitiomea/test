@@ -1,0 +1,38 @@
+/* 공통 */
+.yellowStar {
+  color: #fcc419;
+  opacity: 1;
+}
+
+/* reviewList.jsx 과 reviewInput.jsx 공통 */
+.review-container {
+  display: flex;
+}
+.review-context {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.review-context-product {
+  display: flex;
+  flex-direction: row;
+}
+
+.review-context-product > span {
+  margin-right: 5px;
+}
+
+/* reviewAdd.jxs */
+.review-wrap {
+}
+.review-title > h1 {
+  display: inline-block;
+
+  font-weight: bold;
+  font-family: "ongothic";
+}
+
+/* reviewList.jsx */
+
+/* reviewInput.jsx */

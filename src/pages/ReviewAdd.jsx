@@ -5,10 +5,7 @@ import { Box } from "@mui/system";
 import MyButton from "../style/Button";
 
 import ReviewStar from "../components/ReviewStar";
-import {
-  inputReview,
-  deleteReview,
-} from "../redux/reducers/reviewInputReducer";
+import { inputReview } from "../redux/reducers/reviewInputReducer";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -23,14 +20,9 @@ const ReviewAdd = () => {
   const [addImgValue, setAddImgValue] = useState();
   const [comment, setComment] = useState("");
 
-  // const location = useLocation();
-  // const [data, setData] = useState(location.state);
-
-  // const data = location.state.order;
-
   const fileInput = useRef();
   const dispatch = useDispatch();
-  const userID = useSelector((state) => state.user);
+  const userID = useSelector((state) => state.user.id);
 
   // 사진첨부 모달창
   const handleOpen = () => setModalOpen(true);
@@ -96,13 +88,13 @@ const ReviewAdd = () => {
     handleClose();
     setAddImgValue(bringImg);
   };
-  console.log(addImgValue);
+  // console.log(addImgValue);
 
   // 후기 제출
   const commentSubmit = (e) => {
     setComment(e.target.value);
   };
-  console.log(comment);
+  // console.log(comment);
 
   // 리뷰작성 날짜
   const getDate = () => {
@@ -120,13 +112,14 @@ const ReviewAdd = () => {
   const testSumbit = (e) => {
     e.preventDefault();
     if (comment?.length < 10) {
-      alert("10자 이상 입력하세요.");
+      alert("리뷰를 10자 이상 입력하세요.");
       return;
     } else if (!star) {
       alert("별점을 체크해주세요.");
       return;
     }
     const newReview = {
+      productImg: data.img,
       addImgValue,
       userID,
       star,
@@ -152,13 +145,10 @@ const ReviewAdd = () => {
   }, []);
 
   return (
-    <div style={{ marginLeft: "50px" }}>
+    <div className="review-wrap">
       {/* 헤더 */}
-      <div>
-        <h2>
-          <FontAwesomeIcon icon={faPencil} />
-          Review
-        </h2>
+      <div className="review-title">
+        <h1>Review</h1>
       </div>
 
       {/* 구매 상품정보 section */}
@@ -296,11 +286,6 @@ const ReviewAdd = () => {
 };
 
 export default ReviewAdd;
-
-// // 리뷰 내보내기
-// export const exportReview = async ({}) => {
-
-// };
 
 // 사진첨부 모달창 style
 const style = {

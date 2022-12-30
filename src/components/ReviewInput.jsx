@@ -1,38 +1,68 @@
 import { useDispatch, useSelector } from "react-redux";
-import { inputReview, deleteReview } from "../redux/reducers/reviewInputReducer";
-import { loginUser } from "../redux/reducers/user";
+import {
+  inputReview,
+  deleteReview,
+} from "../redux/reducers/reviewInputReducer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import "../css/review.css";
 
 const ReviewInput = () => {
-  // 로그인 유저 아이디정보
-  const userName = useSelector((state) => state.user);
   // 구매티셔츠 정보, 리뷰정보
-  const reviewFile = useSelector((state) => state.reviewlist);
+  const reviewFile = useSelector((state) => state.reviewInput.reviewlist);
+  // console.log(reviewFile);
   const dispatch = useDispatch();
+
+  const array = [1, 2, 3, 4, 5];
 
   return (
     <div>
       <div>
-        {/* reviewInputReducer.js에서 가져옴 */}
-        <img src="" alt="" />
-      </div>
+        {reviewFile.map((review) => (
+          <div className="review-container">
+            <div>
+              {/* 이미지가 첨부되면 첨부파일을 출력, 첨부하지 않으면 상품 썸네일을 출력 */}
+              {review.img ? (
+                <img
+                  src={reviewFile[0].img}
+                  alt=""
+                  style={{ width: "100px", height: "100px" }}
+                />
+              ) : (
+                <img
+                  src={review.productImg}
+                  alt=""
+                  style={{ width: "100px", height: "100px" }}
+                />
+              )}
+            </div>
 
-      <div>
-        <h1>고객</h1>
-        {/* user.js에서 가져옴 */}
-        <span>{userName.user}</span>
-        {/* reviewInputReducer.js에서 가져옴 */}
-        <span>{reviewFile.star}</span>
-        {/* order.js에서 가져옴 */}
-        <span>{reviewFile.category}</span>
-        <span>{reviewFile.productName}</span>
-        <span>({reviewFile.color})</span>
-        <span>{reviewFile.size}</span>
-        <span>{reviewFile.comment}</span>
+            <div className="review-context">
+              <span>{review.userID}</span>
+              <span>
+                {array.map((el, i) => (
+                  <FontAwesomeIcon
+                    icon={faStar}
+                    key={el}
+                    className={review.star >= array[i] ? "yellowStar" : ""}
+                  />
+                ))}
+              </span>
+              <div className="review-context-product">
+                <span>{review.category}</span>
+                <span>{review.productName}</span>
+                <span>({review.color})</span>
+                <span>{review.size}</span>
+              </div>
+              <span>{review.comment}</span>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div>
         {/* 리뷰 등록날짜 정보 */}
-        <span></span>
+        <span>등록날짜</span>
         <button>수정</button>
         <button onClick={() => dispatch(deleteReview())}>삭제</button>
       </div>
