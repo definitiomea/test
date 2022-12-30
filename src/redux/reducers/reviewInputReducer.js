@@ -15,7 +15,7 @@ const reviewSlice = createSlice({
         // 리뷰 첨부 이미지 불러오기
         img: action.payload.addImgValue,
         // 이미지를 첨부하지 않았을 때 상품의 썸네일을 출력하기 위함
-        productImg: action.payload.productImg, // thumnail
+        productImg: action.payload.productImg,
         // 고객 로그인 아이디 가져오기
         userID: action.payload.userID,
         // 리뷰 별점 가져오기

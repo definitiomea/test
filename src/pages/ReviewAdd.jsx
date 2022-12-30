@@ -34,15 +34,18 @@ const ReviewAdd = () => {
   };
 
   const getImgPath = (item) => {
-    switch (item.category) {
-      case "short":
-        return require(`../img/shirts-img/short/${item.thumbnail}`);
-      case "long":
-        return require(`../img/shirts-img/long/${item.thumbnail}`);
-      default:
-        return undefined;
+    if (typeof(item.thumbnail) !== "undefined") {
+      switch (item.category) {
+        case "short":
+          return require(`../img/shirts-img/short/${item.thumbnail}`);
+        case "long":
+          return require(`../img/shirts-img/long/${item.thumbnail}`);
+        default:
+          return undefined;
+      }
     }
   };
+
   // 취소버튼 누르면 이전페이지인 마이페이지로 이동
   const navigate = useNavigate();
   const prePage = () => {
@@ -140,7 +143,6 @@ const ReviewAdd = () => {
     }
   }, []);
 
-  console.log(location);
   return (
     <div className="review-wrap">
       {/* 헤더 */}
@@ -155,7 +157,11 @@ const ReviewAdd = () => {
           <section>
             {/* 상품이미지 box*/}
             <div>
-              <img src={getImgPath(data)} alt="No Image" style={{ width: "100px", height: "100px" }} />
+              <img
+                src={getImgPath(data)}
+                alt="No Image"
+                style={{ width: "100px", height: "100px" }}
+              />
             </div>
 
             {/* 상품옵션 box */}
@@ -212,10 +218,19 @@ const ReviewAdd = () => {
 
           {/* 미리보기 사진 전달공간 */}
           <div>
-            <img src={addImgValue} alt="" style={{ width: "120px", heigth: "120px" }} />
+            <img
+              src={addImgValue}
+              alt=""
+              style={{ width: "120px", heigth: "120px" }}
+            />
           </div>
           {/* 사진첨부 모달창*/}
-          <Modal open={modalOpen} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+          <Modal
+            open={modalOpen}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
             <Box sx={style}>
               <div>
                 <MyButton>
@@ -231,9 +246,15 @@ const ReviewAdd = () => {
                   ref={fileInput}
                   style={{ display: "none" }}
                 />
-                <img src={bringImg} style={{ width: "100px", height: "100px" }} />
+                <img
+                  src={bringImg}
+                  style={{ width: "100px", height: "100px" }}
+                />
                 {/* 사진삭제 버튼 */}
-                <button onClick={deleteImg} style={{ backgroundColor: "gray", color: "white" }}>
+                <button
+                  onClick={deleteImg}
+                  style={{ backgroundColor: "gray", color: "white" }}
+                >
                   x
                 </button>
 
