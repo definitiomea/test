@@ -16,59 +16,57 @@ const ReviewList = (props) => {
   const array = [1, 2, 3, 4, 5];
 
   return (
-    <div>
+    <div className="review-box">
       {/* 상품 category와 productName을 대조하여 댓글 출력함*/}
       {reviewList.map((review) => {
-        return review.category == compare.category &&
-          review.productName == compare.productName ? (
+        return review.category == compare.category && review.productName == compare.productName ? (
           <div key={review.id} className="review-container">
-            {/* 카테고리명 short와 long 구분 */}
+            <div className="review-context-both">
+              {/* 카테고리명 short와 long 구분 */}
 
-            <div>
-              {review.category == "short" ? (
-                <img
-                  src={require(`../img/shirts-img/short/${review.image}`)}
-                  alt="short"
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                  }}
-                />
-              ) : (
-                <img
-                  src={require(`../img/shirts-img/long/${review.image}`)}
-                  alt="short"
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                  }}
-                />
-              )}
-            </div>
-
-            <div className="review-context">
-              <span>{review.userID}</span>
-              <span>
-                <span>
-                  {array.map((el, i) => (
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      key={el}
-                      className={review.star >= array[i] ? "yellowStar" : ""}
-                    />
-                  ))}
-                </span>
-              </span>
-              <div className="review-context-product">
-                <span>{review.category} </span>
-                <span>{review.productName}</span>
-                <span>({review.color})</span>
-                <span>size:{review.size}</span>
+              <div>
+                {review.category == "short" ? (
+                  <img
+                    src={require(`../img/shirts-img/short/${review.image}`)}
+                    alt="short"
+                    style={{
+                      width: "120px",
+                      height: "130px",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={require(`../img/shirts-img/long/${review.image}`)}
+                    alt="short"
+                    style={{
+                      width: "120px",
+                      height: "130px",
+                    }}
+                  />
+                )}
               </div>
-              <span>{review.comment}</span>
+              <div className="review-context">
+                <span>
+                  <b>{review.userID}</b>
+                </span>
+                <span>
+                  <span>
+                    {array.map((el, i) => (
+                      <FontAwesomeIcon icon={faStar} key={el} className={review.star >= array[i] ? "yellowStar" : ""} />
+                    ))}
+                  </span>
+                </span>
+                <div className="review-context-product">
+                  <span>{review.category} </span>
+                  <span>{review.productName}</span>
+                  <span>({review.color})</span>
+                  <span>size:{review.size}</span>
+                </div>
+                <span>{review.comment}</span>
+              </div>
             </div>
 
-            <div>
+            <div div className="review-option">
               <span>{review.date}</span>
             </div>
           </div>

@@ -39,9 +39,7 @@ const reviewSlice = createSlice({
     // 리뷰 삭제하기
     deleteReview: (state, action) => {
       // reviewInput배열에서 reiviewID가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듦
-      const newReviewlist = state.reviewInput.filter(
-        (review) => review.reviewID != action.payload
-      );
+      const newReviewlist = state.reviewInput.filter((review) => review.reviewID != action.payload);
       state.reviewlist = newReviewlist;
     },
     // 리뷰 수정하기
