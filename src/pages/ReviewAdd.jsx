@@ -5,10 +5,7 @@ import { Box } from "@mui/system";
 import MyButton from "../style/Button";
 
 import ReviewStar from "../components/ReviewStar";
-import {
-  inputReview,
-  deleteReview,
-} from "../redux/reducers/reviewInputReducer";
+import { inputReview } from "../redux/reducers/reviewInputReducer";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -91,13 +88,13 @@ const ReviewAdd = () => {
     handleClose();
     setAddImgValue(bringImg);
   };
-  console.log(addImgValue);
+  // console.log(addImgValue);
 
   // 후기 제출
   const commentSubmit = (e) => {
     setComment(e.target.value);
   };
-  console.log(comment);
+  // console.log(comment);
 
   // 리뷰작성 날짜
   const getDate = () => {
@@ -148,13 +145,10 @@ const ReviewAdd = () => {
   }, []);
 
   return (
-    <div style={{ marginLeft: "50px" }}>
+    <div className="review-wrap">
       {/* 헤더 */}
-      <div>
-        <h2>
-          <FontAwesomeIcon icon={faPencil} />
-          Review
-        </h2>
+      <div className="review-title">
+        <h1>Review</h1>
       </div>
 
       {/* 구매 상품정보 section */}
@@ -292,11 +286,6 @@ const ReviewAdd = () => {
 };
 
 export default ReviewAdd;
-
-// // 리뷰 내보내기
-// export const exportReview = async ({}) => {
-
-// };
 
 // 사진첨부 모달창 style
 const style = {

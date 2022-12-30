@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import styled from "@emotion/styled";
+import "../css/review.css";
 
 const ReviewStar = ({ star, setStar }) => {
   // 별점 기본값
@@ -33,24 +34,20 @@ const ReviewStar = ({ star, setStar }) => {
 
   return (
     <div>
-      <RatingBox>
-        {array.map((el) => (
-          <FontAwesomeIcon
-            icon={faStar}
-            key={el} // 1,2,3,4,5
-            // 클릭하거나 호버했을 때 클래스네임은 yellow -> css로 노란별 출력
-            className={
-              clicked >= el || hovered >= el ? "yellowStar" : undefined
-            }
-            onMouseEnter={() => setHovered(el)}
-            onMouseLeave={() => setHovered(null)}
-            // onClick시 노란색을 유지하게하고 reviewInputRecuder로 보냄
-            onClick={() => {
-              handleClick(el);
-            }}
-          />
-        ))}
-      </RatingBox>
+      {array.map((el) => (
+        <FontAwesomeIcon
+          icon={faStar}
+          key={el} // 1,2,3,4,5
+          // 클릭하거나 호버했을 때 클래스네임은 yellow -> css로 노란별 출력
+          className={clicked >= el || hovered >= el ? "yellowStar" : undefined}
+          onMouseEnter={() => setHovered(el)}
+          onMouseLeave={() => setHovered(null)}
+          // onClick시 노란색을 유지하게하고 reviewInputRecuder로 보냄
+          onClick={() => {
+            handleClick(el);
+          }}
+        />
+      ))}
 
       {/* 클릭하거나 호버 시 별점에 따른 출력문구  */}
       {clicked || hovered ? (
@@ -62,33 +59,13 @@ const ReviewStar = ({ star, setStar }) => {
           ))}
         </div>
       ) : (
-        <span>선택하세요.</span>
+        <p>선택하세요.</p>
       )}
     </div>
   );
 };
 
 export default ReviewStar;
-
-// 별 색깔 스타일
-const RatingBox = styled.div`
-  margin: 0;
-
-  .yellowStar {
-    color: #fcc419;
-    opacity: 1;
-
-    &svg {
-      color: gray;
-      cursor: pointer;
-    }
-
-    /* hover된 별 이외에 나머지 별들(hover~svg)는 회색 */
-    & svg:hover ~ svg {
-      color: gray;
-    }
-  }
-`;
 
 const HiddenText = styled.span`
   ${({ show }) => (show ? `display:block` : `display: none`)}

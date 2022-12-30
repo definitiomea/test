@@ -1,6 +1,9 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import ReviewStar from "../components/ReviewStar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import "../css/review.css";
+
 const ReviewList = (props) => {
   // reviewReducer에서 initialState값 가져옴
   const reviewList = useSelector((state) => state.review.reviewList);
@@ -10,56 +13,64 @@ const ReviewList = (props) => {
   const { compare } = props;
   // console.log(compare);
 
+  const array = [1, 2, 3, 4, 5];
+
   return (
     <div>
-      <h1>더미</h1>
       {/* 상품 category와 productName을 대조하여 댓글 출력함*/}
       {reviewList.map((review) => {
         return review.category == compare.category &&
           review.productName == compare.productName ? (
-          <div key={review.id}>
+          <div key={review.id} className="review-container">
             {/* 카테고리명 short와 long 구분 */}
-            <ReviewColumn>
-              <div>
-                {review.category == "short" ? (
-                  <img
-                    src={require(`../img/shirts-img/short/${review.image}`)}
-                    alt="short"
-                    style={{
-                      width: "100px",
-                      height: "100px",
-                    }}
-                  />
-                ) : (
-                  <img
-                    src={require(`../img/shirts-img/long/${review.image}`)}
-                    alt="short"
-                    style={{
-                      width: "100px",
-                      height: "100px",
-                    }}
-                  />
-                )}
-              </div>
 
-              <ReviewRow>
-                <div>
-                  <span>{review.userID}</span>
-                  <span>
-                    <ReviewStar />
-                  </span>
-                  <span>{review.category}</span>
-                  <span>{review.productName}</span>
-                  <span>({review.color})</span>
-                  <span>size:{review.size}</span>
-                  <span>{review.comment}</span>
-                </div>
-              </ReviewRow>
+            <div>
+              {review.category == "short" ? (
+                <img
+                  src={require(`../img/shirts-img/short/${review.image}`)}
+                  alt="short"
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                  }}
+                />
+              ) : (
+                <img
+                  src={require(`../img/shirts-img/long/${review.image}`)}
+                  alt="short"
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                  }}
+                />
+              )}
+            </div>
 
-              <div>
-                <span>{review.date}</span>
+            <div className="review-context">
+              <span>{review.userID}</span>
+              <span>
+                <span>
+                  {array.map((el, i) => (
+                    <FontAwesomeIcon
+                      icon={faStar}
+                      key={el}
+                      className={review.star >= array[i] ? "yellowStar" : ""}
+                    />
+                  ))}
+                </span>
+              </span>
+              <div className="review-context-product">
+                <span>{review.category} </span>
+                <span>{review.productName}</span>
+                <span>({review.color})</span>
+                <span>size:{review.size}</span>
               </div>
-            </ReviewColumn>
+              <span>{review.comment}</span>
+            </div>
+
+            <div>
+              <span>{review.date}</span>
+            </div>
           </div>
         ) : (
           ""
@@ -70,12 +81,3 @@ const ReviewList = (props) => {
 };
 
 export default ReviewList;
-
-const ReviewColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const ReviewRow = styled.div`
-  display: flex;
-  flex-direction: Row;
-`;
