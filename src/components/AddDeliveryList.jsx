@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import "../css/cart-style.css";
 
 import { useState } from "react";
-import { SIGN_UP } from "../redux/reducers/signup";
+import { ADDIT_USER, SIGN_UP } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAddress } from "../redux/reducers/user";
 
@@ -76,7 +76,7 @@ function DeliveryList({ setCheckAddress }) {
     e.preventDefault();
     Postcode();
     dispatch(
-      SIGN_UP({
+      ADDIT_USER({
         ...findUser,
         address,
         zoneCode,
