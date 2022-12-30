@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { inputReview, deleteReview } from "../redux/reducers/reviewInputReducer";
+import { deleteReview } from "../redux/reducers/reviewInputReducer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "../css/review.css";
+import { useNavigate } from "react-router-dom";
 
 const ReviewInput = () => {
   // 구매티셔츠 정보, 리뷰정보
@@ -11,6 +12,8 @@ const ReviewInput = () => {
   const dispatch = useDispatch();
 
   const array = [1, 2, 3, 4, 5];
+
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -49,7 +52,13 @@ const ReviewInput = () => {
               {/* 리뷰 등록날짜 정보 */}
               <span>등록날짜</span>
               <div className="review-button">
-                <button>수정</button>
+                <button
+                  onClick={() => {
+                    navigate("/mypage/review", { state: review });
+                  }}
+                >
+                  수정
+                </button>
                 <button onClick={() => dispatch(deleteReview())}>삭제</button>
               </div>
             </div>

@@ -48,10 +48,6 @@ const ReviewAdd = () => {
   const prePage = () => {
     navigate("/mypage");
   };
-  // 홈으로 이동
-  const gotoHome = () => {
-    navigate("index");
-  };
 
   // 사진 첨부하기
   const addImg = (event) => {
@@ -103,11 +99,12 @@ const ReviewAdd = () => {
     return `${year}.${month}.${today}`;
   };
 
+  // mypage의 배송완료 상품에서 받아온 프롭
   const location = useLocation();
   const [data, setData] = useState("");
 
   // 서브밋 함수
-  const testSumbit = (e) => {
+  const reviewSumbit = (e) => {
     e.preventDefault();
     if (comment?.length < 10) {
       alert("리뷰를 10자 이상 입력하세요.");
@@ -117,7 +114,7 @@ const ReviewAdd = () => {
       return;
     }
     const newReview = {
-      productImg: data.img,
+      productImg: data.thumbnail,
       addImgValue,
       userID,
       star,
@@ -133,6 +130,7 @@ const ReviewAdd = () => {
     navigate("/shop/" + data.productID);
   };
 
+  // 마이페이지에서 값을 잘 받아오고 있으면 (주소창에 mypaye/review 등으로 접근 등과 같이 편법이 아니라면) 에러페이지를 출력함
   useEffect(() => {
     if (!location.state) {
       alert("잘못된 경로로 접근하였습니다.");
@@ -142,6 +140,7 @@ const ReviewAdd = () => {
     }
   }, []);
 
+  console.log(location);
   return (
     <div className="review-wrap">
       {/* 헤더 */}
@@ -151,7 +150,7 @@ const ReviewAdd = () => {
 
       {/* 구매 상품정보 section */}
 
-      <form onSubmit={testSumbit}>
+      <form onSubmit={reviewSumbit}>
         <div>
           <section>
             {/* 상품이미지 box*/}

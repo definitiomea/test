@@ -203,6 +203,8 @@ const Mypage = () => {
                           <div>{order.delivery}</div>
                           <div className="order-delivery-btn">
                             {order.delivery === "배송완료" ? (
+                              <MyButton onClick={handleOpen}>배송조회</MyButton>
+                            ) : (
                               <MyButton
                                 onClick={() => {
                                   navigate("/mypage/review", { state: order });
@@ -210,8 +212,6 @@ const Mypage = () => {
                               >
                                 후기작성
                               </MyButton>
-                            ) : (
-                              <MyButton onClick={handleOpen}>배송조회</MyButton>
                             )}
                           </div>
                         </td>
