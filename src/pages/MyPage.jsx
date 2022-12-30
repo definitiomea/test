@@ -181,8 +181,8 @@ const Mypage = () => {
         <thead>
           <tr>
             <th>상품정보</th>
-            <th>사이즈</th>
-            <th>수량/금액</th>
+            <th>수량</th>
+            <th>금액</th>
             <th>주문일자</th>
             <th>주문 상태</th>
           </tr>
@@ -204,19 +204,22 @@ const Mypage = () => {
                         <td className="table-product-container">
                           <img src={getImgPath(order)} alt="No Image" />
                           <div>
-                            <div>
+                            <div className="table-product-name">
                               {order.category} {order.productName}
                             </div>
                             <div>
-                              color
+                              <span className="table-product-label">color</span>
                               <span>{order.color}</span>
                             </div>
                             <div>
-                              print
+                              <span className="table-product-label">size</span>
+                              <span>{order.size}</span>
+                            </div>
+                            <div>
+                              <span className="table-product-label">print</span>
                               {order.imgArray.length === 2 ? (
                                 <span>
-                                  {order.imgArray[0].print} /{" "}
-                                  {order.imgArray[1].print}
+                                  {order.imgArray[0].print} / {order.imgArray[1].print}
                                 </span>
                               ) : (
                                 <span>{order.imgArray[0].print}</span>
@@ -224,10 +227,14 @@ const Mypage = () => {
                             </div>
                           </div>
                         </td>
-                        <td>{order.size}</td>
                         <td>
-                          <div>{order.quantity}</div>
-                          <div>{order.totalPay.toLocaleString("ko-KR")}</div>
+                          {order.quantity}
+                        </td>
+                        <td>
+                          <div className="table-media-query">
+                            {order.quantity}
+                          </div>
+                          {order.totalPay.toLocaleString("ko-KR")}
                         </td>
                         <td>{order.orderDate}</td>
                         <td>

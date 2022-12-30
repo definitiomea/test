@@ -72,7 +72,8 @@ const Cart = () => {
     } else if (JSON.stringify(user) === "{}") {
       alert("로그인 후 이용해주세요.");
       return;
-    } else if (checkAddress?.trim() == "") {
+    } else if (checkAddress?.trim() == "" && !user.detailAddress) {
+      // 조건 수정
       alert("배송지가 입력되었는지 확인해주세요. (상세주소 포함)");
       return;
     } else {
@@ -112,14 +113,19 @@ const Cart = () => {
       {productlist ? (
         <div className="cart-box">
           <div className="cart-title">
-            <FontAwesomeIcon icon={faCartShopping} />
-            <h2>My Cart</h2>
+            <h1>CartList</h1>
+            <div className="title-line" />
           </div>
-          <MyTable>
+          <div className="cart-subtitle">
+            <FontAwesomeIcon icon={faCartShopping} />
+            <h2>장바구니</h2>
+          </div>
+          {/** 웹 화면 */}
+          <MyTable className="cart-web">
             <thead>
               <tr>
                 <th>상품정보</th>
-                <th>사이즈</th>
+                <th>프린트</th>
                 <th>수량</th>
                 <th>금액</th>
                 <th>
@@ -155,11 +161,30 @@ const Cart = () => {
               )}
             </tbody>
           </MyTable>
+          {/** 모바일 화면 */}
+          <ul className="cart-mobile">
+            {cartlist.length == 0 ? (
+              <li className="item-empty">Empty</li>
+            ) : (
+              <>
+                {cartlist.map((cartItem) => (
+                  <li key={cartItem.cartID}>
+                    <CartItem
+                      cartItem={cartItem}
+                      productlist={productlist}
+                      dispatch={dispatch}
+                    />
+                  </li>
+                ))}
+              </>
+            )}
+          </ul>
+
           <div className="delivery-summary-container">
             <div className="delivery-info">
-              <div className="cart-title">
+              <div className="cart-subtitle">
                 <FontAwesomeIcon icon={faTruck} />
-                <h2>delivery Info</h2>
+                <h2>배송지 정보</h2>
               </div>
               <AddDeliveryList setCheckAddress={setCheckAddress} />
             </div>
