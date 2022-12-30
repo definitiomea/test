@@ -77,6 +77,10 @@ const StyledTable = styled.table`
       display: block;
     }
   }
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 function MyTable({ children, ...rest }) {

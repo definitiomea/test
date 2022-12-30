@@ -161,6 +161,10 @@ const Cart = () => {
               )}
             </tbody>
           </MyTable>
+          {/** 모바일 화면 */}
+          <ul className="cart-mobile">
+
+          </ul>
 
           <div className="delivery-summary-container">
             <div className="delivery-info">
