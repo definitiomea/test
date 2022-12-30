@@ -11,6 +11,7 @@ const reviewSlice = createSlice({
   reducers: {
     inputReview: (state, action) => {
       console.log(action.payload.thumbnail);
+      console.log(action.payload.addImgValue);
       const newReview = {
         reviewID: 1,
         // 리뷰 첨부 이미지 불러오기

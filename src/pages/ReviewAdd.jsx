@@ -114,6 +114,7 @@ const ReviewAdd = () => {
       return;
     }
     console.log(data.thumbnail);
+    console.log(addImgValue);
     const newReview = {
       thumbnail: data.thumbnail,
       addImgValue,
