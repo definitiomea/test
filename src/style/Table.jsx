@@ -60,15 +60,18 @@ const StyledTable = styled.table`
     display: none;
   }
 
-  // 미디어쿼리 추가할 것
+  // 미디어쿼리
   @media screen and (max-width: 960px) {
     tr {
-      grid-template-columns: 5fr repeat(3, 2fr);
+      grid-template-columns: 6fr repeat(3, 2fr);
       padding: 1.2rem 0;
     }
     thead tr th:nth-child(2),
     tbody tr td:nth-child(2) {
       display: none;
+    }
+    .view-more-container td:last-child {
+      display: block;
     }
     .table-media-query {
       display: block;

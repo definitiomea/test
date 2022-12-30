@@ -5,9 +5,6 @@
   padding: 0 48px;
   margin: 3rem auto;
 }
-.cart-web {
-  display: block;
-}
 
 .cart-title {
   position: relative;
@@ -207,10 +204,6 @@
   }
   .summary {
     flex: 1;
-    padding: 2rem;
-    background-color: #e9ecef;
-    display: flex;
-    flex-direction: column;
   }
 }
 
@@ -222,12 +215,4 @@
     margin-bottom: 3rem;
     margin-top: 2rem;
   }
-  .cart-web {
-    display: none;
-  }
-  .cart-mobile {
-    display: block;
-  }
 }
-
-/* 사용자 디자인 모달 - 작은 화면에서 flex-direction을 columns으로 */

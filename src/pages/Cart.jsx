@@ -121,7 +121,7 @@ const Cart = () => {
             <h2>장바구니</h2>
           </div>
           {/** 웹 화면 */}
-          <MyTable className="cart-web">
+          <MyTable>
             <thead>
               <tr>
                 <th>상품정보</th>
@@ -161,24 +161,6 @@ const Cart = () => {
               )}
             </tbody>
           </MyTable>
-          {/** 모바일 화면 */}
-          <ul className="cart-mobile">
-            {cartlist.length == 0 ? (
-              <li className="item-empty">Empty</li>
-            ) : (
-              <>
-                {cartlist.map((cartItem) => (
-                  <li key={cartItem.cartID}>
-                    <CartItem
-                      cartItem={cartItem}
-                      productlist={productlist}
-                      dispatch={dispatch}
-                    />
-                  </li>
-                ))}
-              </>
-            )}
-          </ul>
 
           <div className="delivery-summary-container">
             <div className="delivery-info">

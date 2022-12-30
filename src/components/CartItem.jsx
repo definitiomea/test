@@ -190,9 +190,6 @@ const CartItem = (props) => {
           <DeleteIcon />
         </IconButton>
       </td>
-
-      {/** 모바일 화면 */}
-      
     </>
   );
 };
