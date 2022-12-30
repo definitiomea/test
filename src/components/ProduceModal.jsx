@@ -12,7 +12,7 @@ import {
   faEraser,
   faFloppyDisk,
   faCircleMinus,
-  faCircleQuestion,
+  faXmark,
   faCartPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -42,6 +42,9 @@ const ProduceModal = ({ open, setOpen }) => {
       <Modal open={open} onClose={() => handleClose()}>
         <Box sx={style}>
           <div className="produce-info">
+            <div style={{display: 'flex', justifyContent: 'flex-end', padding: '0.5em'}}>
+              <FontAwesomeIcon icon={faXmark} onClick={() => {handleClose()}}></FontAwesomeIcon>
+            </div>
             <p className="produce-info-section">제작 방법 소개</p>
             <p>
               이미지의 상단은 편집용 버튼이며, 우측은 이미지 저장 및 지우기
@@ -64,6 +67,10 @@ const ProduceModal = ({ open, setOpen }) => {
               <li>
                 <span>■</span> 텍스트를 추가하신 경우, 해당 텍스트를 클릭하여
                 선택하신 뒤 색상을 바꿀 수 있습니다.
+                <p className="produce-important">
+                  추가하신 텍스트에 한해서 색상이 바뀌며, 이미지 등의 색상은
+                  바뀌지 않습니다.
+                </p>
               </li>
               <li>
                 <FontAwesomeIcon icon={faRotateLeft}></FontAwesomeIcon>{" "}
