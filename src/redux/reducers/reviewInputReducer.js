@@ -10,12 +10,14 @@ const reviewSlice = createSlice({
   initialState,
   reducers: {
     inputReview: (state, action) => {
+      console.log(action.payload.thumbnail);
+      console.log(action.payload.addImgValue);
       const newReview = {
         reviewID: 1,
         // 리뷰 첨부 이미지 불러오기
         img: action.payload.addImgValue,
         // 이미지를 첨부하지 않았을 때 상품의 썸네일을 출력하기 위함
-        productImg: action.payload.productImg,
+        thumbnail: action.payload.thumbnail,
         // 고객 로그인 아이디 가져오기
         userID: action.payload.userID,
         // 리뷰 별점 가져오기
