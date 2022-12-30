@@ -121,13 +121,13 @@ const Mypage = () => {
 
   return (
     <div className="mypage-container">
+      <div className="mypage-title-border"></div>
+      <h1 className="mypage-title">MyPage</h1>
       {/* 회원정보 수정 form */}
       <h4 className="section-title">회원정보 수정</h4>
-
       <div className="user-info">
         {/* <div className="labels">
-        </div> */}
-
+          </div> */}
         <form
           className="user-info_form"
           onSubmit={(e) => {
@@ -174,7 +174,6 @@ const Mypage = () => {
         </form>
         <AdditDeliveryList />
       </div>
-
       {/* 주문/배송조회 form */}
       <h4 className="section-title">주문/배송 조회</h4>
       <MyTable>
@@ -236,7 +235,9 @@ const Mypage = () => {
                             {order.delivery === "배송완료" ? (
                               <MyButton
                                 onClick={() => {
-                                  navigate("/mypage/review", { state: order });
+                                  navigate("/mypage/review", {
+                                    state: order,
+                                  });
                                 }}
                               >
                                 후기작성
@@ -269,7 +270,6 @@ const Mypage = () => {
           )}
         </tbody>
       </MyTable>
-
       {/** 배송조회 모달 */}
       <Modal
         open={open}
