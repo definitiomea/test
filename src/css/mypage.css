@@ -81,3 +81,17 @@
 .view-more-container td:last-child {
   grid-column: 5/6;
 }
+
+@media screen and (max-width: 768px) {
+  .user-info {
+    flex-direction: column;
+    margin: 30px 0 50px;
+  }
+  .user-info_form {
+    width: 100%;
+    margin-bottom: 50px;
+  }
+  .additDeliveryList {
+    width: 100%;
+  }
+}
