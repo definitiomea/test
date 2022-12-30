@@ -52,7 +52,7 @@ const ReviewList = (props) => {
                 <span>
                   <span>
                     {array.map((el, i) => (
-                      <FontAwesomeIcon icon={faStar} key={el} className={review.star >= array[i] ? "yellowStar" : ""} />
+                      <FontAwesomeIcon icon={faStar} key={el} className={review.rating >= array[i] ? "yellowStar" : ""} />
                     ))}
                   </span>
                 </span>

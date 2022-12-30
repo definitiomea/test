@@ -1,5 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// 주문 날짜
+const getDate = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const today = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${today}`;
+};
+
 const initialState = {
   reviewID: 0,
   reviewlist: [],
@@ -10,8 +19,7 @@ const reviewSlice = createSlice({
   initialState,
   reducers: {
     inputReview: (state, action) => {
-      console.log(action.payload.thumbnail);
-      console.log(action.payload.addImgValue);
+      // console.log(action.payload.date);
       const newReview = {
         reviewID: 1,
         // 리뷰 첨부 이미지 불러오기
@@ -33,7 +41,7 @@ const reviewSlice = createSlice({
         // // 리뷰 작성내용 불러오기
         comment: action.payload.comment,
         // // 작성 날짜 불러오기
-        date: action.payload.getDate,
+        date: getDate(),
       };
       const newReviewlist = state.reviewlist.concat(newReview);
       state.reviewlist = newReviewlist;

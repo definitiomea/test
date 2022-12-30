@@ -5,21 +5,8 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import FabricSettings from "../modules/FabricSettings";
-import {
-  initCanvas,
-  handleImage,
-  addText,
-  setTextColor,
-  exportImg,
-  customSave,
-  customErase,
-} from "../modules/CanvasHandling";
-import {
-  QuantityOption,
-  SizeOption,
-  flipShirts,
-  changeShirtColor,
-} from "../modules/PageSetting";
+import { initCanvas, handleImage, addText, setTextColor, exportImg, customSave, customErase } from "../modules/CanvasHandling";
+import { QuantityOption, SizeOption, flipShirts, changeShirtColor } from "../modules/PageSetting";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -43,6 +30,7 @@ import { inputCart } from "../redux/reducers/cart";
 import LongProductInfo from "../components/LongProductInfo";
 import ShortProductInfo from "../components/ShortProductInfo";
 import ReviewList from "../components/ReviewList";
+import ReviewInput from "../components/ReviewInput";
 import ProduceModal from "../components/ProduceModal";
 
 const ProductDetail = () => {
@@ -79,7 +67,7 @@ const ProductDetail = () => {
 
   const handleOpen = () => {
     setOpen(true);
-  }
+  };
 
   /* 페이지가 로딩되면 제품 정보를 받고, 캔버스를 정해주면 되므로 */
   useEffect(() => {
@@ -110,14 +98,8 @@ const ProductDetail = () => {
               ></FontAwesomeIcon>
               <label className="handling-explane">앞/뒤 뒤집기</label>
             </div>
-            <label
-              htmlFor="input-file"
-              className="product-handling-button-element"
-            >
-              <FontAwesomeIcon
-                icon={faCloudArrowUp}
-                style={{}}
-              ></FontAwesomeIcon>
+            <label htmlFor="input-file" className="product-handling-button-element">
+              <FontAwesomeIcon icon={faCloudArrowUp} style={{}}></FontAwesomeIcon>
               <span className="handling-explane" style={{ fontSize: "0.75em" }}>
                 업로드
               </span>
@@ -144,11 +126,7 @@ const ProductDetail = () => {
                 <label className="handling-explane">텍스트 추가</label>
               </div>
               <div className="product-handling-button-element">
-                <input
-                  type="color"
-                  title="텍스트 색상 바꾸기"
-                  onChange={(event) => setTextColor({ canvas, event })}
-                ></input>
+                <input type="color" title="텍스트 색상 바꾸기" onChange={(event) => setTextColor({ canvas, event })}></input>
                 <label className="handling-explane">텍스트 색상</label>
               </div>
             </div>
@@ -186,18 +164,12 @@ const ProductDetail = () => {
           <div className="product-create-area">
             <div className="img-box" ref={editZone}>
               {productList?.category == "short" && img != null ? (
-                <img
-                  className="product-img"
-                  src={require(`../img/shirts-img/short/${img}`)}
-                ></img>
+                <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img>
               ) : (
                 ""
               )}
               {productList?.category == "long" && img != null ? (
-                <img
-                  className="product-img"
-                  src={require(`../img/shirts-img/long/${img}`)}
-                ></img>
+                <img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img>
               ) : (
                 ""
               )}
@@ -245,7 +217,7 @@ const ProductDetail = () => {
                     icon={faCircleQuestion}
                     title="이미지 편집 방법"
                     onClick={() => {
-                      handleOpen(true)
+                      handleOpen(true);
                     }}
                   ></FontAwesomeIcon>
                 </div>
@@ -292,12 +264,7 @@ const ProductDetail = () => {
             <select className="product-size-select" ref={sizeSelect}>
               <SizeOption productList={productList}></SizeOption>
             </select>
-            <select
-              className="product-quantity-select"
-              name=""
-              id=""
-              ref={quantitySelect}
-            >
+            <select className="product-quantity-select" name="" id="" ref={quantitySelect}>
               <QuantityOption></QuantityOption>
             </select>
           </div>
@@ -333,7 +300,7 @@ const ProductDetail = () => {
          * 고객이 작성한 리뷰 출력
          * - 페이지 ReviewAdd에서 작성되고, 컴포넌트 ReviewInput에 출력 폼 있음
          */}
-        {/* <ReviewInput productID={id} /> */}
+        <ReviewInput />
       </div>
     </>
   );
