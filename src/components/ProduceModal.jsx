@@ -1,22 +1,39 @@
-import React from 'react'
+import React from "react";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
 
-const ProduceModal = () => {
+const style = {
+  position: "absolute",
+  top: "50vh",
+  left: "50vw",
+  /* 정 가운데로 배치하기 위한 transform */
+  transform: 'translate(-50%, -50%)',
+  /* 아직 높이 등은 설정 X */
+  width: "auto",
+  height: "auto",
+  bgcolor: "background.paper",
+  border: "2px solid dimgray",
+  boxShadow: 24,
+  p: 4,
+};
+
+const ProduceModal = ({ open, setOpen }) => {
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <div className='produce-modal-component'>
-      <div className='produce-modal'>
-        <p><b>제작 안내</b></p>
-        <div className='produce-detail'>
-          <p><b>편집 기능 안내</b></p>
-          <div>앞/뒤 뒤집기</div>
-          <div>업로드</div>
-          <div>텍스트</div>
-          <div>편집 취소, 다시 실행</div>
-          <div>편집 초기화</div>
-        </div>
-      </div>
+    <div className="produce-modal-component">
+      <Modal
+        open={open}
+        onClose={() => handleClose()}
+      >
+        <Box sx={style}>
+          <div><p>Whatever</p></div>
+        </Box>
+      </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default ProduceModal
+export default ProduceModal;
