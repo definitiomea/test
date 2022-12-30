@@ -113,8 +113,9 @@ const ReviewAdd = () => {
       alert("별점을 체크해주세요.");
       return;
     }
+    console.log(data.thumbnail);
     const newReview = {
-      productImg: data.thumbnail,
+      thumbnail: data.thumbnail,
       addImgValue,
       userID,
       star,
