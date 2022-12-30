@@ -1,12 +1,18 @@
 .post-form {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
+.postcode-form {
+  display: flex;
+}
 /* 배송지 변경 input, button */
 .post-form_btn {
   border: 1px solid;
   width: 40%;
+  margin-left: 10px;
+  margin-bottom: 15px;
 }
 .post-form_label {
   font-weight: bolder;

@@ -1,9 +1,25 @@
 .mypage-container {
   min-height: calc(100vh - 236px);
   width: 90%;
-  /* max-width: 1280px; */
   margin: auto;
-  padding: 48px;
+  padding: 88px 48px 48px 48px;
+}
+
+.mypage-title-border {
+  width: 84vw;
+  border-top: 2px solid black;
+}
+.mypage-title {
+  position: relative;
+  background-color: white;
+  bottom: 25px;
+  width: fit-content;
+  text-align: left;
+  font-family: "nav";
+  font-weight: bold;
+  padding: 0 10px;
+  margin-left: 100px;
+  margin-bottom: 50px;
 }
 
 .mypage-title-border {
@@ -24,8 +40,11 @@
 }
 
 .section-title {
+  display: inline-block;
+  border-left: 4px solid black;
+  padding-left: 10px;
+  margin-left: 15px;
   margin-bottom: 15px;
-  padding-bottom: 15px;
   font-weight: 700;
 }
 
@@ -33,6 +52,7 @@
 .user-info {
   /* grid에서 flex로 교체 */
   display: flex;
+  justify-content: space-around;
   margin: 30px 0 100px 0;
   padding: 0 30px;
 }
@@ -41,8 +61,8 @@
 .user-info_form {
   display: flex;
   flex-direction: column;
-  width: 300px;
-  margin-right: 50px;
+  width: 40%;
+  /* margin-right: 50px; */
 }
 .user-info_label {
   font-weight: bolder;
@@ -55,6 +75,10 @@
 
 .user-info_input:focus {
   outline: none;
+}
+/* 주소지 변경 form */
+.additDeliveryList {
+  width: 40%;
 }
 
 /* 주문/배송 조회 - 버튼 */
@@ -75,13 +99,27 @@
   grid-column: 5/6;
 }
 
-/* 미디어쿼리 */
-@media screen and (max-width: 960px) {
-  .view-more-container td:first-child {
-    grid-column: 3/4;
-    color: lightgray;
+@media screen and (max-width: 768px) {
+  .mypage-container {
+    padding: 48px;
   }
-  .view-more-container td:last-child {
-    grid-column: 4/5;
+
+  .mypage-title-border {
+    display: none;
+  }
+  .mypage-title {
+    margin: 0 auto 20px;
+  }
+
+  .user-info {
+    flex-direction: column;
+    margin: 30px 0 50px;
+  }
+  .user-info_form {
+    width: 100%;
+    margin-bottom: 50px;
+  }
+  .additDeliveryList {
+    width: 100%;
   }
 }

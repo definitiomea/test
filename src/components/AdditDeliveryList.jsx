@@ -130,7 +130,7 @@ function AdditDeliveryList() {
 
         {/*float: left로 위치 조정 */}
         <label className="post-form_label">우편번호</label>
-        <div>
+        <div className="postcode-form">
           <input
             type="text"
             className="post-form_input"
