@@ -6,8 +6,24 @@
   padding: 48px;
 }
 
+.mypage-title-border {
+  width: 84vw;
+  border-top: 2px solid black;
+}
+
+.mypage-title {
+  position: relative;
+  background-color: white;
+  bottom: 25px;
+  width: fit-content;
+  text-align: left;
+  font-family: "nav";
+  font-weight: bold;
+  padding: 0 10px;
+  margin-left: 100px;
+}
+
 .section-title {
-  border-bottom: 2px solid black;
   margin-bottom: 15px;
   padding-bottom: 15px;
   font-weight: 700;

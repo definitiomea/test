@@ -1,6 +1,6 @@
 import AdditDeliveryList from "../components/AdditDeliveryList";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Modal } from "@mui/material";
 import { Box } from "@mui/system";
 import Delivery from "../components/Delivery";
@@ -22,6 +22,9 @@ const Mypage = () => {
   const [result, setResult] = useState(true);
   const [trans, setTrans] = useState(null);
   const [open, setOpen] = useState(false);
+  const passwordCheck = useRef(null);
+  const [checkPass, setCheckPass] = useState("");
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -67,6 +70,7 @@ const Mypage = () => {
     setCarriers(json);
   };
   useEffect(() => {
+    setTrans(findUser);
     getCarriers();
   }, []);
 
@@ -121,19 +125,23 @@ const Mypage = () => {
 
   return (
     <div className="mypage-container">
+      {" "}
+      <div className="mypage-title-border"></div>
+      <h1 className="mypage-title">MyPage</h1>
       {/* 회원정보 수정 form */}
       <h4 className="section-title">회원정보 수정</h4>
-
       <div className="user-info">
         {/* <div className="labels">
-        </div> */}
-
+          </div> */}
         <form
           className="user-info_form"
-          onSubmit={(e) => {
-            dispatch(ADDIT_USER(trans));
-            dispatch(loginUser(trans));
-            e.preventDefault();
+          onSubmit={() => {
+            if (checkPass === trans.password) {
+              dispatch(ADDIT_USER(trans));
+              dispatch(loginUser(trans));
+            } else {
+              alert("누구세요");
+            }
           }}
         >
           <label className="user-info_label">ID</label>
@@ -143,6 +151,7 @@ const Mypage = () => {
             name="id"
             defaultValue={user.id}
             onChange={onChange}
+            disabled
           />
           <label className="user-info_label">E-mail</label>
           <input
@@ -157,7 +166,7 @@ const Mypage = () => {
             className="user-info_input"
             type="password"
             name="password"
-            defaultValue={findUser ? findUser.password : ""}
+            defaultValue={findUser ? user.password : ""}
             onChange={onChange}
           />
           <label className="user-info_label">Password check</label>
@@ -166,15 +175,14 @@ const Mypage = () => {
             className="user-info_input"
             type="password"
             name="password-check"
-            placeholder={user.password}
-            onChange={onChange}
+            value={checkPass}
+            onChange={(e) => setCheckPass(e.target.value)}
           />
           {/* button component적용 */}
-          <MyButton>회원정보 수정</MyButton>
+          <MyButton type="submit">회원정보 수정</MyButton>
         </form>
         <AdditDeliveryList />
       </div>
-
       {/* 주문/배송조회 form */}
       <h4 className="section-title">주문/배송 조회</h4>
       <MyTable>
@@ -240,15 +248,17 @@ const Mypage = () => {
                           <div>{order.delivery}</div>
                           <div className="order-delivery-btn">
                             {order.delivery === "배송완료" ? (
-                              <MyButton onClick={handleOpen}>배송조회</MyButton>
-                            ) : (
                               <MyButton
                                 onClick={() => {
-                                  navigate("/mypage/review", { state: order });
+                                  navigate("/mypage/review", {
+                                    state: order,
+                                  });
                                 }}
                               >
                                 후기작성
                               </MyButton>
+                            ) : (
+                              <MyButton onClick={handleOpen}>배송조회</MyButton>
                             )}
                           </div>
                         </td>
@@ -275,7 +285,6 @@ const Mypage = () => {
           )}
         </tbody>
       </MyTable>
-
       {/** 배송조회 모달 */}
       <Modal
         open={open}

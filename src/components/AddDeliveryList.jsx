@@ -5,9 +5,9 @@ import Button from "@mui/material/Button";
 import "../css/cart-style.css";
 
 import { useState } from "react";
-import { ADDIT_USER, SIGN_UP } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAddress } from "../redux/reducers/user";
+import { ADDIT_USER } from "../redux/reducers/signup";
 
 const Postcode = (props) => {
   const handleComplete = (data) => {
