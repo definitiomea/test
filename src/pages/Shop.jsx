@@ -55,16 +55,12 @@ const Shop = () => {
           {category === "short"
             ? thumbNailList
                 ?.filter((thumbNail) => thumbNail.id < 4)
-                .map((thumbNail, index) => (
-                  <ProductCard key={thumbNail.id} thumbNail={thumbNail} />
-                ))
+                .map((thumbNail, index) => <ProductCard key={thumbNail.id} thumbNail={thumbNail} />)
             : ""}
           {category === "long"
             ? thumbNailList
                 ?.filter((thumbNail) => thumbNail.id >= 4)
-                .map((thumbNail, index) => (
-                  <ProductCard key={thumbNail.id} thumbNail={thumbNail} />
-                ))
+                .map((thumbNail, index) => <ProductCard key={thumbNail.id} thumbNail={thumbNail} />)
             : ""}
         </div>
       </div>

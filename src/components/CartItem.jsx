@@ -4,7 +4,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import MyButton from "../style/Button";
 import "../css/cart-style.css";
 
 import {
@@ -36,9 +36,9 @@ const UserDesignModal = ({ userImg }) => {
 
   return (
     <div className="cart-modal">
-      <Button variant="outlined" color="inherit" onClick={handleOpen}>
-        도안확인
-      </Button>
+      <MyButton variant="outlined" color="inherit" onClick={handleOpen}>
+        도안
+      </MyButton>
       <Modal open={open} onClose={handleClose}>
         <Box sx={boxStyle} className="cart-modal-box">
           {userImg.map((item, i) => (
@@ -128,18 +128,23 @@ const CartItem = (props) => {
 
   return (
     <>
+      {/** 웹 화면 */}
       <td className="table-product-container">
         <img src={getImgPath()} alt="No Image" />
         <div>
-          <div>
+          <div className="table-product-name">
             {product.category} {product.productName}
           </div>
           <div>
-            color
+            <span className="table-product-label">color</span>
             <span>{cartItem.color}</span>
           </div>
           <div>
-            print
+            <span className="table-product-label">size</span>
+            <span>{cartItem.size}</span>
+          </div>
+          <div className="table-media-query">
+            <span className="table-product-label">print</span>
             {userImg?.length === 2 ? (
               <span>
                 {userImg[0]?.print} / {userImg[1]?.print}
@@ -147,11 +152,20 @@ const CartItem = (props) => {
             ) : (
               <span>{userImg[0]?.print}</span>
             )}
+            <UserDesignModal userImg={userImg} />
           </div>
-          <UserDesignModal userImg={userImg} />
         </div>
       </td>
-      <td>{cartItem.size}</td>
+      <td>
+        {userImg?.length === 2 ? (
+          <>
+            {userImg[0]?.print} / {userImg[1]?.print}
+          </>
+        ) : (
+          <>{userImg[0]?.print}</>
+        )}
+        <UserDesignModal userImg={userImg} />
+      </td>
       <td className="quantity-container">
         <IconButton onClick={onDecrease}>
           <RemoveIcon />

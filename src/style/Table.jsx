@@ -36,34 +36,50 @@ const StyledTable = styled.table`
     align-items: center;
     text-align: left;
   }
-  .table-product-container > div {
-    margin-left: 1rem;
-  }
-  .table-product-container > div > div:first-child {
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-  }
-  .table-product-container > div > div:nth-child(2),
-  .table-product-container > div > div:nth-child(3) {
-    color: #adb5bd;
-  }
-  .table-product-container span {
-    color: #000000;
-    margin-left: 0.5rem;
-  }
   .table-product-container img {
     width: 120px;
-    min-width: 120px;
-    min-height: 120px;
     margin-right: 0.5rem;
     background-color: #dee2e6;
   }
+  .table-product-container > div {
+    margin-left: 1rem;
+  }
+  .table-product-container .table-product-name {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  .table-product-container .table-product-label {
+    margin-right: 0.5rem;
+    color: #adb5bd;
+  }
+  .table-product-container span:last-child {
+    color: #000000;
+  }
 
-  // 미디어쿼리 추가할 것
-  @media screen and (max-width: 768px) {
-    .table-product-container img {
-      display: none; /* 상품 이미지가 보이지 않게 */
+  .table-media-query {
+    display: none;
+  }
+
+  // 미디어쿼리
+  @media screen and (max-width: 960px) {
+    tr {
+      grid-template-columns: 6fr repeat(3, 2fr);
+      padding: 1.2rem 0;
     }
+    thead tr th:nth-child(2),
+    tbody tr td:nth-child(2) {
+      display: none;
+    }
+    .view-more-container td:last-child {
+      display: block;
+    }
+    .table-media-query {
+      display: block;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 `;
 

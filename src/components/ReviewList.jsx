@@ -1,6 +1,9 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import ReviewStar from "../components/ReviewStar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import "../css/review.css";
+
 const ReviewList = (props) => {
   // reviewReducer에서 initialState값 가져옴
   const reviewList = useSelector((state) => state.review.reviewList);
@@ -10,24 +13,25 @@ const ReviewList = (props) => {
   const { compare } = props;
   // console.log(compare);
 
+  const array = [1, 2, 3, 4, 5];
+
   return (
-    <div>
-      <h1>더미</h1>
+    <div className="review-box">
       {/* 상품 category와 productName을 대조하여 댓글 출력함*/}
       {reviewList.map((review) => {
-        return review.category == compare.category &&
-          review.productName == compare.productName ? (
-          <div key={review.id}>
-            {/* 카테고리명 short와 long 구분 */}
-            <ReviewColumn>
+        return review.category == compare.category && review.productName == compare.productName ? (
+          <div key={review.id} className="review-container">
+            <div className="review-context-both">
+              {/* 카테고리명 short와 long 구분 */}
+
               <div>
                 {review.category == "short" ? (
                   <img
                     src={require(`../img/shirts-img/short/${review.image}`)}
                     alt="short"
                     style={{
-                      width: "100px",
-                      height: "100px",
+                      width: "120px",
+                      height: "130px",
                     }}
                   />
                 ) : (
@@ -35,31 +39,36 @@ const ReviewList = (props) => {
                     src={require(`../img/shirts-img/long/${review.image}`)}
                     alt="short"
                     style={{
-                      width: "100px",
-                      height: "100px",
+                      width: "120px",
+                      height: "130px",
                     }}
                   />
                 )}
               </div>
-
-              <ReviewRow>
-                <div>
-                  <span>{review.userID}</span>
+              <div className="review-context">
+                <span>
+                  <b>{review.userID}</b>
+                </span>
+                <span>
                   <span>
-                    <ReviewStar />
+                    {array.map((el, i) => (
+                      <FontAwesomeIcon icon={faStar} key={el} className={review.star >= array[i] ? "yellowStar" : ""} />
+                    ))}
                   </span>
-                  <span>{review.category}</span>
+                </span>
+                <div className="review-context-product">
+                  <span>{review.category} </span>
                   <span>{review.productName}</span>
                   <span>({review.color})</span>
                   <span>size:{review.size}</span>
-                  <span>{review.comment}</span>
                 </div>
-              </ReviewRow>
-
-              <div>
-                <span>{review.date}</span>
+                <span>{review.comment}</span>
               </div>
-            </ReviewColumn>
+            </div>
+
+            <div div className="review-option">
+              <span>{review.date}</span>
+            </div>
           </div>
         ) : (
           ""
@@ -70,12 +79,3 @@ const ReviewList = (props) => {
 };
 
 export default ReviewList;
-
-const ReviewColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const ReviewRow = styled.div`
-  display: flex;
-  flex-direction: Row;
-`;

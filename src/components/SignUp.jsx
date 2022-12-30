@@ -73,12 +73,8 @@ const SignUpPage = () => {
 
   return (
     <div className="signup-container">
+      <div className="signup-title-border"></div>
       <div className="signup-title-box">
-        <FontAwesomeIcon
-          style={{ fontSize: "30px", paddingLeft: "15px" }}
-          icon={faUserPlus}
-        />
-        &nbsp;&nbsp;&nbsp;
         <h1 className="signup-title">Sign up</h1>
       </div>
 

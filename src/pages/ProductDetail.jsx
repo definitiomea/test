@@ -31,14 +31,19 @@ import {
   faEraser,
   faFloppyDisk,
   faCircleMinus,
+  faCircleQuestion,
   faCartPlus,
 } from "@fortawesome/free-solid-svg-icons";
+/* import Box from "@mui/material/Box"; */
 import Button from "@mui/material/Button";
+/* import Modal from "@mui/material/Modal";
+import Typography from "@mui/material/Typography"; */
 
 import { inputCart } from "../redux/reducers/cart";
 import LongProductInfo from "../components/LongProductInfo";
 import ShortProductInfo from "../components/ShortProductInfo";
 import ReviewList from "../components/ReviewList";
+import ProduceModal from "../components/ProduceModal";
 
 const ProductDetail = () => {
   const { id } = useParams(); // id : productList {id}
@@ -49,6 +54,8 @@ const ProductDetail = () => {
   const [color, setColor] = useState(null);
   const [print, setPrint] = useState("front");
   const [editArray, setEditArray] = useState([]);
+
+  const [open, setOpen] = useState(false);
 
   const editZone = useRef(null);
   const sizeSelect = useRef(null);
@@ -69,6 +76,10 @@ const ProductDetail = () => {
 
   /* 제품의 가격 */
   const productPrice = parseInt(productList?.price.replace(",", ""));
+
+  const handleOpen = () => {
+    setOpen(true);
+  }
 
   /* 페이지가 로딩되면 제품 정보를 받고, 캔버스를 정해주면 되므로 */
   useEffect(() => {
@@ -228,6 +239,18 @@ const ProductDetail = () => {
                 </div>
                 <label className="handling-explane">편집한 이미지 지우기</label>
               </div>
+              <div className="product-handling-button-element">
+                <div style={{ margin: "0em auto" }}>
+                  <FontAwesomeIcon
+                    icon={faCircleQuestion}
+                    title="이미지 편집 방법"
+                    onClick={() => {
+                      handleOpen(true)
+                    }}
+                  ></FontAwesomeIcon>
+                </div>
+                <label className="handling-explane">이미지 편집 방법</label>
+              </div>
             </div>
           </div>
         </div>
@@ -302,6 +325,7 @@ const ProductDetail = () => {
       </div>
       {productList?.id >= 4 ? <LongProductInfo></LongProductInfo> : ""}
       {productList?.id < 4 ? <ShortProductInfo></ShortProductInfo> : ""}
+      <ProduceModal open={open} setOpen={setOpen}></ProduceModal>
       <div>
         {/* 더미 리뷰리스트 출력 */}
         {productList ? <ReviewList compare={productList} /> : ""}
