@@ -17,7 +17,7 @@ const Mypage = () => {
   // 택배사 목록 state
   const [carriers, setCarriers] = useState([]);
   const [delivery, setDelivery] = useState();
-  const [trackId, setTrackId] = useState("");
+  const [trackId, setTrackId] = useState(null);
   const [carrierId, setCarrierId] = useState("");
   const [result, setResult] = useState(true);
   const [trans, setTrans] = useState(null);
@@ -312,7 +312,9 @@ const Mypage = () => {
                 type="number"
                 placeholder="운송장번호"
                 onChange={changeTrackId}
-                defaultValue={trackId}
+                defaultValue={
+                  trackId === null ? setTrackId(1111111111111) : trackId
+                }
               />
               <button>조회</button>
             </form>

@@ -99,4 +99,9 @@
   .shop-thumNail-list {
     flex-direction: column;
   }
+
+  .shop-product-card {
+    position: relative;
+    margin: 0 auto 0 auto;
+  }
 }
