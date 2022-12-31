@@ -8,15 +8,13 @@ import { useNavigate } from "react-router-dom";
 const ReviewInput = () => {
   // 구매티셔츠 정보, 리뷰정보
   const reviewFile = useSelector((state) => state.reviewInput.reviewlist);
-  // console.log(reviewFile);
+  console.log(reviewFile);
 
   const dispatch = useDispatch();
 
   const array = [1, 2, 3, 4, 5];
 
   const navigate = useNavigate();
-
-  // console.log(reviewFile.productImg);
 
   return (
     <div>
@@ -30,7 +28,11 @@ const ReviewInput = () => {
                 {/* {console.log(review.thumbnail)} */}
                 {/* {console.log(review)} */}
                 {review.img ? (
-                  <img src={reviewFile[i].img} alt="" style={{ width: "120px", height: "130px" }} />
+                  <img
+                    src={reviewFile[i].img}
+                    alt=""
+                    style={{ width: "120px", height: "130px" }}
+                  />
                 ) : review && review.category == "short" ? (
                   <img
                     src={require(`../img/shirts-img/short/${review.thumbnail}`)}
@@ -48,16 +50,6 @@ const ReviewInput = () => {
                     }}
                   ></img>
                 )}
-                {/* {review && review.category == "short" ? (
-                  <img src={require(`../img/shirts-img/short/${review.thumbnail}`)}></img>
-                ) : (
-                  <img src={require(`../img/shirts-img/long/${review.thumbnail}`)}></img>
-                )} */}
-                {/* {review.img ? (
-                  <img src={reviewFile[0].img} alt="" style={{ width: "120px", height: "130px" }} />
-                ) : (
-                  <img src={require(`${review.thumbnail}`)} alt="" style={{ width: "120px", height: "130px" }} />
-                )} */}
               </div>
               <div className="review-context">
                 <span>
@@ -65,7 +57,11 @@ const ReviewInput = () => {
                 </span>
                 <span>
                   {array.map((el, i) => (
-                    <FontAwesomeIcon icon={faStar} key={el} className={review.star >= array[i] ? "yellowStar" : ""} />
+                    <FontAwesomeIcon
+                      icon={faStar}
+                      key={el}
+                      className={review.star >= array[i] ? "yellowStar" : ""}
+                    />
                   ))}
                 </span>
                 <div className="review-context-product">
@@ -89,7 +85,9 @@ const ReviewInput = () => {
                 >
                   수정
                 </button>
-                <button onClick={() => dispatch(deleteReview())}>삭제</button>
+                <button onClick={() => dispatch(deleteReview(review))}>
+                  삭제
+                </button>
               </div>
             </div>
           </div>

@@ -19,7 +19,8 @@ const ReviewList = (props) => {
     <div className="review-box">
       {/* 상품 category와 productName을 대조하여 댓글 출력함*/}
       {reviewList.map((review) => {
-        return review.category == compare.category && review.productName == compare.productName ? (
+        return review.category == compare.category &&
+          review.productName == compare.productName ? (
           <div key={review.id} className="review-container">
             <div className="review-context-both">
               {/* 카테고리명 short와 long 구분 */}
@@ -52,7 +53,13 @@ const ReviewList = (props) => {
                 <span>
                   <span>
                     {array.map((el, i) => (
-                      <FontAwesomeIcon icon={faStar} key={el} className={review.rating >= array[i] ? "yellowStar" : ""} />
+                      <FontAwesomeIcon
+                        icon={faStar}
+                        key={el}
+                        className={
+                          review.rating >= array[i] ? "yellowStar" : ""
+                        }
+                      />
                     ))}
                   </span>
                 </span>

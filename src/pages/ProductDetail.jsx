@@ -5,8 +5,21 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import FabricSettings from "../modules/FabricSettings";
-import { initCanvas, handleImage, addText, setTextColor, exportImg, customSave, customErase } from "../modules/CanvasHandling";
-import { QuantityOption, SizeOption, flipShirts, changeShirtColor } from "../modules/PageSetting";
+import {
+  initCanvas,
+  handleImage,
+  addText,
+  setTextColor,
+  exportImg,
+  customSave,
+  customErase,
+} from "../modules/CanvasHandling";
+import {
+  QuantityOption,
+  SizeOption,
+  flipShirts,
+  changeShirtColor,
+} from "../modules/PageSetting";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -98,8 +111,14 @@ const ProductDetail = () => {
               ></FontAwesomeIcon>
               <label className="handling-explane">앞/뒤 뒤집기</label>
             </div>
-            <label htmlFor="input-file" className="product-handling-button-element">
-              <FontAwesomeIcon icon={faCloudArrowUp} style={{}}></FontAwesomeIcon>
+            <label
+              htmlFor="input-file"
+              className="product-handling-button-element"
+            >
+              <FontAwesomeIcon
+                icon={faCloudArrowUp}
+                style={{}}
+              ></FontAwesomeIcon>
               <span className="handling-explane" style={{ fontSize: "0.75em" }}>
                 업로드
               </span>
@@ -126,7 +145,11 @@ const ProductDetail = () => {
                 <label className="handling-explane">텍스트 추가</label>
               </div>
               <div className="product-handling-button-element">
-                <input type="color" title="텍스트 색상 바꾸기" onChange={(event) => setTextColor({ canvas, event })}></input>
+                <input
+                  type="color"
+                  title="텍스트 색상 바꾸기"
+                  onChange={(event) => setTextColor({ canvas, event })}
+                ></input>
                 <label className="handling-explane">텍스트 색상</label>
               </div>
             </div>
@@ -164,12 +187,18 @@ const ProductDetail = () => {
           <div className="product-create-area">
             <div className="img-box" ref={editZone}>
               {productList?.category == "short" && img != null ? (
-                <img className="product-img" src={require(`../img/shirts-img/short/${img}`)}></img>
+                <img
+                  className="product-img"
+                  src={require(`../img/shirts-img/short/${img}`)}
+                ></img>
               ) : (
                 ""
               )}
               {productList?.category == "long" && img != null ? (
-                <img className="product-img" src={require(`../img/shirts-img/long/${img}`)}></img>
+                <img
+                  className="product-img"
+                  src={require(`../img/shirts-img/long/${img}`)}
+                ></img>
               ) : (
                 ""
               )}
@@ -264,7 +293,12 @@ const ProductDetail = () => {
             <select className="product-size-select" ref={sizeSelect}>
               <SizeOption productList={productList}></SizeOption>
             </select>
-            <select className="product-quantity-select" name="" id="" ref={quantitySelect}>
+            <select
+              className="product-quantity-select"
+              name=""
+              id=""
+              ref={quantitySelect}
+            >
               <QuantityOption></QuantityOption>
             </select>
           </div>

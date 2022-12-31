@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import MyButton from "../style/Button";
 
 import ReviewStar from "../components/ReviewStar";
-import { inputReview } from "../redux/reducers/reviewInputReducer";
+import { inputReview, editReview } from "../redux/reducers/reviewInputReducer";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -107,6 +107,8 @@ const ReviewAdd = () => {
   const location = useLocation();
   const [data, setData] = useState("");
 
+  console.log(location);
+
   // 서브밋 함수
   const reviewSumbit = (e) => {
     e.preventDefault();
@@ -117,9 +119,9 @@ const ReviewAdd = () => {
       alert("별점을 체크해주세요.");
       return;
     }
-    console.log(data.thumbnail);
-    console.log(addImgValue);
+
     const newReview = {
+      ...location.state,
       thumbnail: data.thumbnail,
       addImgValue,
       userID,
@@ -129,8 +131,14 @@ const ReviewAdd = () => {
       size: data.size,
       color: data.color,
       comment,
+      productID: data.productID,
     };
-    dispatch(inputReview(newReview));
+
+    if (userID === location.state.user) {
+      dispatch(inputReview(newReview));
+    } else if (location.state.comment !== comment) {
+      dispatch(editReview(newReview));
+    }
     alert("리뷰가 등록되었습니다.");
     navigate("/shop/" + data.productID);
   };
@@ -159,7 +167,11 @@ const ReviewAdd = () => {
           <section>
             {/* 상품이미지 box*/}
             <div>
-              <img src={getImgPath(data)} alt="No Image" style={{ width: "100px", height: "100px" }} />
+              <img
+                src={getImgPath(data)}
+                alt="No Image"
+                style={{ width: "100px", height: "100px" }}
+              />
             </div>
 
             {/* 상품옵션 box */}
@@ -216,10 +228,19 @@ const ReviewAdd = () => {
 
           {/* 미리보기 사진 전달공간 */}
           <div>
-            <img src={addImgValue} alt="" style={{ width: "120px", heigth: "120px" }} />
+            <img
+              src={addImgValue}
+              alt=""
+              style={{ width: "120px", heigth: "120px" }}
+            />
           </div>
           {/* 사진첨부 모달창*/}
-          <Modal open={modalOpen} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+          <Modal
+            open={modalOpen}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
             <Box sx={style}>
               <div>
                 <MyButton>
@@ -235,9 +256,15 @@ const ReviewAdd = () => {
                   ref={fileInput}
                   style={{ display: "none" }}
                 />
-                <img src={bringImg} style={{ width: "100px", height: "100px" }} />
+                <img
+                  src={bringImg}
+                  style={{ width: "100px", height: "100px" }}
+                />
                 {/* 사진삭제 버튼 */}
-                <button onClick={deleteImg} style={{ backgroundColor: "gray", color: "white" }}>
+                <button
+                  onClick={deleteImg}
+                  style={{ backgroundColor: "gray", color: "white" }}
+                >
                   x
                 </button>
 
