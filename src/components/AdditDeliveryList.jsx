@@ -140,9 +140,12 @@ function AdditDeliveryList() {
             value={zoneCode || ""}
           />
           {/* input type:button -> button tag로 변경 */}
-          <button className="post-form_btn" onClick={submit}>
-            우편번호 찾기
-          </button>
+          <input
+            type="button"
+            className="post-form_btn"
+            defaultValue="우편번호 찾기"
+            onClick={submit}
+          />
         </div>
         <label className="post-form_label">주소</label>
         <input
