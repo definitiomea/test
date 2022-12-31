@@ -22,7 +22,6 @@ const Mypage = () => {
   const [result, setResult] = useState(true);
   const [trans, setTrans] = useState(null);
   const [open, setOpen] = useState(false);
-  const passwordCheck = useRef(null);
   const [checkPass, setCheckPass] = useState("");
 
   const handleOpen = () => setOpen(true);

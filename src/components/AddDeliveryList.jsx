@@ -72,8 +72,7 @@ function DeliveryList({ setCheckAddress }) {
   const submit = () => {
     handleOpen();
   };
-  const relay = (e) => {
-    e.preventDefault();
+  const relay = () => {
     Postcode();
     dispatch(
       ADDIT_USER({
