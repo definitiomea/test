@@ -97,6 +97,10 @@ const ProductDetail = () => {
 
   return (
     <>
+      <div className="producing-title-area">
+        <h1 className="producing-title">producing</h1>
+        <div className="producing-title-line"></div>
+      </div>
       <div className="product-shopping-area">
         <div className="product-area">
           <div className="product-handling-buttons">
