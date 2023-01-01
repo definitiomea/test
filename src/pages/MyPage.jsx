@@ -1,6 +1,6 @@
 import AdditDeliveryList from "../components/AdditDeliveryList";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Modal } from "@mui/material";
 import { Box } from "@mui/system";
 import Delivery from "../components/Delivery";
@@ -17,12 +17,11 @@ const Mypage = () => {
   // 택배사 목록 state
   const [carriers, setCarriers] = useState([]);
   const [delivery, setDelivery] = useState();
-  const [trackId, setTrackId] = useState("");
+  const [trackId, setTrackId] = useState(null);
   const [carrierId, setCarrierId] = useState("");
   const [result, setResult] = useState(true);
   const [trans, setTrans] = useState(null);
   const [open, setOpen] = useState(false);
-  const passwordCheck = useRef(null);
   const [checkPass, setCheckPass] = useState("");
 
   const handleOpen = () => setOpen(true);
@@ -165,7 +164,7 @@ const Mypage = () => {
             className="user-info_input"
             type="password"
             name="password"
-            defaultValue={findUser ? user.password : ""}
+            defaultValue={findUser ? findUser.password : ""}
             onChange={onChange}
           />
           <label className="user-info_label">Password check</label>
@@ -440,7 +439,9 @@ const Mypage = () => {
                 type="number"
                 placeholder="운송장번호"
                 onChange={changeTrackId}
-                defaultValue={trackId}
+                defaultValue={
+                  trackId === null ? setTrackId(1111111111111) : trackId
+                }
               />
               <button>조회</button>
             </form>

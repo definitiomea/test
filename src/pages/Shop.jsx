@@ -51,10 +51,10 @@ const Shop = () => {
             </div>
             <div className="shop-thumNail-list">
               {/* {thumbNailList?.map((thumbNail) => (
-          <div key={thumbNail.id}>
-            <ProductCard thumbNail={thumbNail} />
-          </div>
-        ))} */}
+                <div key={thumbNail.id}>
+                  <ProductCard thumbNail={thumbNail} />
+                </div>
+              ))} */}
               {category === "short"
                 ? thumbNailList
                     ?.filter((thumbNail) => thumbNail.id < 4)
