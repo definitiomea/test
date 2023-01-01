@@ -23,7 +23,6 @@ const Cart = () => {
   const [dataloading, setDataloading] = useState(false);
   const [productlist, setProductlist] = useState(null);
   const [deliveryPay, setDeliveryPay] = useState(3000);
-  const [checkAddress, setCheckAddress] = useState("");
   const navigate = useNavigate();
 
   // 배송비 제외 총 금액
@@ -208,7 +207,7 @@ const Cart = () => {
                 <FontAwesomeIcon icon={faTruck} />
                 <h2>배송지 정보</h2>
               </div>
-              <AddDeliveryList setCheckAddress={setCheckAddress} />
+              <AddDeliveryList/>
             </div>
             <div className="summary">
               <div>

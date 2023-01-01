@@ -37,7 +37,7 @@ const Postcode = (props) => {
   return <DaumPostcode onComplete={handleComplete} {...props} />;
 };
 
-function DeliveryList({ setCheckAddress }) {
+function DeliveryList() {
   // user 정보
   const user = useSelector((state) => state.user);
   const signup = useSelector((state) => state.signup);
@@ -151,7 +151,6 @@ function DeliveryList({ setCheckAddress }) {
             name="detailAddress"
             onChange={(e) => {
               setDetailAddress(e.target.value);
-              setCheckAddress(detailAddress);
             }}
             value={detailAddress || ""}
           />
