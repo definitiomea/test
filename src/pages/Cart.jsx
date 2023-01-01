@@ -207,7 +207,7 @@ const Cart = () => {
                 <FontAwesomeIcon icon={faTruck} />
                 <h2>배송지 정보</h2>
               </div>
-              <AddDeliveryList/>
+              <AddDeliveryList />
             </div>
             <div className="summary">
               <div>

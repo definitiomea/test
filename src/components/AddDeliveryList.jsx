@@ -102,7 +102,7 @@ function DeliveryList() {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 500,
-    maxWidth: "80%",
+    maxWidth: "95%",
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
