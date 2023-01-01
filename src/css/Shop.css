@@ -29,7 +29,7 @@
 
 /* 이미지 최소 넓이 추가 */
 .shop-product-card {
-  min-width: 300px; /* 임시 값이니 모바일 크기 고려해서 정하기*/
+  min-width: 100%; /* 임시 값이니 모바일 크기 고려해서 정하기*/
 }
 
 .shop-label {
