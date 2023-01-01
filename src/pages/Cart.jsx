@@ -107,7 +107,9 @@ const Cart = () => {
         <div className="cart-box">
           <div className="cart-title">
             <h1>CartList</h1>
-            <div className="title-line" />
+            <Default>
+              <div className="title-line" />
+            </Default>
           </div>
           <div className="cart-subtitle">
             <FontAwesomeIcon icon={faCartShopping} />
