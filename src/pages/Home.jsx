@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import video from "../img/main/main-video.mp4";
+import square from "../img/main/squarebox.png";
 import "../css/Home.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -49,9 +50,9 @@ const Home = () => {
 
   const submitEmail = (e) => {
     if (!email == "") {
-      alert("구독해주셔서 감사합니다!");
+      alert("구독해주셔서 감사합니다.");
     } else {
-      alert("구독 받을 이메일을 입력해주세요");
+      alert("구독 받을 이메일을 입력해주세요.");
     }
   };
 
@@ -66,10 +67,16 @@ const Home = () => {
               <video src={video} autoPlay muted loop />
             </div>
             <div className="first-content">
-              <p>Create your own t-shirts</p>
+              <div>
+                <span>Create your </span>
+                <span>own </span>
+                <span>t-shirts</span>
+              </div>
               <Link to="shop" className="toGoShop">
-                VIEW
+                <span>VIEW</span>
+                <span>Buy Now</span>
               </Link>
+              <img src={square} alt="" />
             </div>
           </div>
         </section>
@@ -80,8 +87,12 @@ const Home = () => {
             <img src={require("../img/main/main-img.jpg")} alt="main" />
           </div>
           <div className="second-content">
-            <section>사이트 소개/장점</section>
-            <section>제작방식</section>
+            <p>모두가 만들어 가는 나만의 티셔츠</p>
+            <span>
+              다양한 폰트와 이미지를 이용하여 가족, 친구, 나만을 위한 티셔츠를
+              만들어보세요.
+            </span>
+            <span>모티는 고객님들의 색다른 즐거움과 행복을 함께합니다.</span>
           </div>
         </section>
 
@@ -89,10 +100,10 @@ const Home = () => {
         <section className="last-screen">
           <div className="last-content">
             <form onSubmit={submitEmail}>
-              <h3>상품 업데이트 정보를 구독 받으세요</h3>
+              <h3>상품 업데이트 정보를 구독 받으세요.</h3>
               <input
                 type="email"
-                placeholder="이메일을 입력해주세요"
+                placeholder="이메일을 입력해주세요."
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}

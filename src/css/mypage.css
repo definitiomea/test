@@ -23,7 +23,8 @@
 }
 
 .mypage-title-border {
-  width: 84vw;
+  /* width: 84vw; */
+  width: 100%;
   border-top: 2px solid black;
 }
 
@@ -81,27 +82,18 @@
   width: 40%;
 }
 
-/* 주문/배송 조회 - 버튼 */
-.order-delivery-btn {
-  margin-top: 0.5rem;
-}
-.order-delivery-btn button {
-  line-height: 1;
-}
-.view-more-container {
-  border-top: 1px solid lightgray;
-}
-.view-more-container td:first-child {
-  grid-column: 4/5;
-  color: lightgray;
-}
-.view-more-container td:last-child {
-  grid-column: 5/6;
+/* 미디어쿼리 태블릿 추가 */
+@media screen and (max-width: 991px) {
+  .mypage-container {
+    width: 100%;
+  }
 }
 
+/* 모바일 */
 @media screen and (max-width: 768px) {
   .mypage-container {
-    padding: 48px;
+    margin-top: calc(30px + 1rem);
+    padding: 0 1.5rem; /* 패딩값 수정 */
   }
 
   .mypage-title-border {
@@ -111,9 +103,14 @@
     margin: 0 auto 20px;
   }
 
+  .mypage-container .section-title {
+    margin-left: 0.5rem;
+  }
+
   .user-info {
     flex-direction: column;
     margin: 30px 0 50px;
+    padding: 0;
   }
   .user-info_form {
     width: 100%;

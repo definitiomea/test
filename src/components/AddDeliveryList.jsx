@@ -2,7 +2,7 @@ import DaumPostcode from "react-daum-postcode";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-import "../css/cart-style.css";
+import "../css/cart.css";
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,7 +37,7 @@ const Postcode = (props) => {
   return <DaumPostcode onComplete={handleComplete} {...props} />;
 };
 
-function DeliveryList({ setCheckAddress }) {
+function DeliveryList() {
   // user 정보
   const user = useSelector((state) => state.user);
   const signup = useSelector((state) => state.signup);
@@ -72,8 +72,7 @@ function DeliveryList({ setCheckAddress }) {
   const submit = () => {
     handleOpen();
   };
-  const relay = (e) => {
-    e.preventDefault();
+  const relay = () => {
     Postcode();
     dispatch(
       ADDIT_USER({
@@ -102,7 +101,7 @@ function DeliveryList({ setCheckAddress }) {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 500,
-    maxWidth: "80%",
+    maxWidth: "95%",
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -151,7 +150,6 @@ function DeliveryList({ setCheckAddress }) {
             name="detailAddress"
             onChange={(e) => {
               setDetailAddress(e.target.value);
-              setCheckAddress(detailAddress);
             }}
             value={detailAddress || ""}
           />

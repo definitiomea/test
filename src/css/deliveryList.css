@@ -9,10 +9,11 @@
 }
 /* 배송지 변경 input, button */
 .post-form_btn {
-  border: 1px solid;
-  width: 40%;
-  margin-left: 10px;
+  width: 50%;
   margin-bottom: 15px;
+  margin-left: 0.5rem;
+  border: 1px solid black;
+  background-color: transparent;
 }
 .post-form_label {
   font-weight: bolder;
