@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import video from "../img/main/main-video.mp4";
+import square from "../img/main/squarebox.png";
 import "../css/Home.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -66,10 +67,16 @@ const Home = () => {
               <video src={video} autoPlay muted loop />
             </div>
             <div className="first-content">
-              <p>Create your own t-shirts</p>
+              <div>
+                <span>Create your </span>
+                <span>own </span>
+                <span>t-shirts</span>
+              </div>
               <Link to="shop" className="toGoShop">
-                VIEW
+                <span>VIEW</span>
+                <span>Buy Now</span>
               </Link>
+              <img src={square} alt="" />
             </div>
           </div>
         </section>

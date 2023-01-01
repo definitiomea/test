@@ -251,7 +251,7 @@ const ProductDetail = () => {
                   ></FontAwesomeIcon>
                 </div>
                 <label className="handling-explane">이미지 편집 방법</label>
-              </div>
+              </div>편
             </div>
           </div>
         </div>

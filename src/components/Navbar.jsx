@@ -12,9 +12,6 @@ const Navbar = () => {
   // 리덕스 user 가져옴
   const userName = useSelector((state) => state.user);
 
-  // 모바일 버전 시 네브 토글바
-  const [toggleOpen, setToggleOpen] = useState(true);
-
   // modal login form
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
@@ -79,13 +76,21 @@ const Navbar = () => {
 
           {login ? (
             <li className="dropdown">
-              <div className={main ? "white-nav" : "dark-nav"}>{userName.name}님</div>
+              <div className={main ? "white-nav" : "dark-nav"}>
+                {userName.name}님
+              </div>
               <div className="dropdown-menu">
-                <NavLink to="mypage" className={main ? "white-dropdown" : "dark-dropdown"}>
+                <NavLink
+                  to="mypage"
+                  className={main ? "white-dropdown" : "dark-dropdown"}
+                >
                   MYPAGE
                 </NavLink>
-                <br />
-                <button className={main ? "white-dropdown" : "dark-dropdown"} onClick={logOut}>
+
+                <button
+                  className={main ? "white-dropdown" : "dark-dropdown"}
+                  onClick={logOut}
+                >
                   LOGOUT
                 </button>
               </div>

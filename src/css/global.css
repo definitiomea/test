@@ -15,11 +15,48 @@ body {
 .footer {
   position: relative;
   height: 100px;
-  width: 100%;
+  width: 100vw;
+  font-size: 12px;
   background-color: #000000;
-  color: #f8f9fa;
+  color: #f8f9fa9d;
   top: 136px;
+  padding: 20px 10px;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: space-between;
 }
+
+.footer-info > div:first-child {
+  display: grid;
+  grid-template-columns: 28% 31% 37% 31%;
+  width: 100%;
+}
+
+.footer-info > div:first-child > * {
+  text-decoration: none;
+  color: #f8f9faca;
+  border-right: 1px solid #f8f9fa61;
+  padding-left: 18px;
+}
+.footer-info > div:last-child {
+  padding: 10px 0 0 18px;
+}
+
+.footer > section:last-child {
+  padding-right: 18px;
+  font-size: 10px;
+}
+
+.footer > section:last-child > * {
+  font-size: 25px;
+  font-weight: bold;
+  color: #f8f9faca;
+  padding-left: 15px;
+}
+
 .hidden {
   display: none;
 }
