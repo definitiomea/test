@@ -164,7 +164,7 @@ const Mypage = () => {
             className="user-info_input"
             type="password"
             name="password"
-            defaultValue={findUser ? user.password : ""}
+            defaultValue={findUser ? findUser.password : ""}
             onChange={onChange}
           />
           <label className="user-info_label">Password check</label>

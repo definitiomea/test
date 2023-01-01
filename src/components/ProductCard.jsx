@@ -24,8 +24,8 @@ const ProductCard = (props) => {
       <div
         className="shop-slick-dots"
         style={{
-          width: "10px",
-          height: "10px",
+          width: "13px",
+          height: "13px",
           color: color[i],
           border: `1px solid transparent`,
           borderRadius: "50%",
@@ -50,9 +50,15 @@ const ProductCard = (props) => {
           {/* {thumbNail.category == "short" ? "short" : "long"} */}
           <div>
             {thumbNail.category == "short" ? (
-              <img src={require(`../img/shirts-img/short/${thumbNail.thumbnail[0]}`)} style={{ maxWidth: "100%" }}></img>
+              <img
+                src={require(`../img/shirts-img/short/${thumbNail.thumbnail[0]}`)}
+                style={{ maxWidth: "100%" }}
+              ></img>
             ) : (
-              <img src={require(`../img/shirts-img/long/${thumbNail.thumbnail[0]}`)} style={{ maxWidth: "100%" }}></img>
+              <img
+                src={require(`../img/shirts-img/long/${thumbNail.thumbnail[0]}`)}
+                style={{ maxWidth: "100%" }}
+              ></img>
             )}
           </div>
         </div>
@@ -64,9 +70,15 @@ const ProductCard = (props) => {
           {/* {thumbNail.category == "short" ? "short" : "long"} */}
           <div>
             {thumbNail.category == "short" ? (
-              <img src={require(`../img/shirts-img/short/${thumbNail.thumbnail[1]}`)} style={{ maxWidth: "100%" }}></img>
+              <img
+                src={require(`../img/shirts-img/short/${thumbNail.thumbnail[1]}`)}
+                style={{ maxWidth: "100%" }}
+              ></img>
             ) : (
-              <img src={require(`../img/shirts-img/long/${thumbNail.thumbnail[1]}`)} style={{ maxWidth: "100%" }}></img>
+              <img
+                src={require(`../img/shirts-img/long/${thumbNail.thumbnail[1]}`)}
+                style={{ maxWidth: "100%" }}
+              ></img>
             )}
           </div>
         </div>
@@ -78,9 +90,15 @@ const ProductCard = (props) => {
           {/* {thumbNail.category == "short" ? "short" : "long"} */}
           <div>
             {thumbNail.category == "short" ? (
-              <img src={require(`../img/shirts-img/short/${thumbNail.thumbnail[2]}`)} style={{ maxWidth: "100%" }}></img>
+              <img
+                src={require(`../img/shirts-img/short/${thumbNail.thumbnail[2]}`)}
+                style={{ maxWidth: "100%" }}
+              ></img>
             ) : (
-              <img src={require(`../img/shirts-img/long/${thumbNail.thumbnail[2]}`)} style={{ maxWidth: "100%" }}></img>
+              <img
+                src={require(`../img/shirts-img/long/${thumbNail.thumbnail[2]}`)}
+                style={{ maxWidth: "100%" }}
+              ></img>
             )}
           </div>
         </div>
@@ -92,9 +110,15 @@ const ProductCard = (props) => {
           {/* {thumbNail.category == "short" ? "short" : "long"} */}
           <div>
             {thumbNail.category == "short" ? (
-              <img src={require(`../img/shirts-img/short/${thumbNail.thumbnail[3]}`)} style={{ maxWidth: "100%" }}></img>
+              <img
+                src={require(`../img/shirts-img/short/${thumbNail.thumbnail[3]}`)}
+                style={{ maxWidth: "100%" }}
+              ></img>
             ) : (
-              <img src={require(`../img/shirts-img/long/${thumbNail.thumbnail[3]}`)} style={{ maxWidth: "100%" }}></img>
+              <img
+                src={require(`../img/shirts-img/long/${thumbNail.thumbnail[3]}`)}
+                style={{ maxWidth: "100%" }}
+              ></img>
             )}
           </div>
         </div>

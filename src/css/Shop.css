@@ -42,7 +42,7 @@
 
 /* slick dots */
 .shop-product-card .slick-dots {
-  bottom: -35px;
+  bottom: -33px;
   text-align: right;
 }
 /* .shop-slick-dots {
@@ -102,6 +102,6 @@
 
   .shop-product-card {
     position: relative;
-    margin: 0 auto 0 auto;
+    right: 30px;
   }
 }
