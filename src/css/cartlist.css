@@ -135,9 +135,7 @@
   .cart-list thead tr {
     display: flex;
     padding: 1rem 0;
-  }
-  .cart-list thead tr th:last-child {
-    margin-left: auto;
+    justify-content: space-between;
   }
   .cart-list tbody tr {
     grid-template-columns: repeat(2, auto) 2fr;

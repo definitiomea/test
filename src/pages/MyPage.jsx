@@ -344,7 +344,6 @@ const Mypage = () => {
                             </div>
                           </td>
                           <td>
-                            <div>{order.delivery}</div>
                             <div className="delivery-check-btn">
                               {order.delivery === "배송완료" ? (
                                 <MyButton
@@ -362,6 +361,8 @@ const Mypage = () => {
                                 </MyButton>
                               )}
                             </div>
+                            <div>{order.delivery}</div>
+
                           </td>
                           <td className="table-product-info">
                             <div>

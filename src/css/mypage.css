@@ -91,12 +91,7 @@
 /* 모바일 */
 @media screen and (max-width: 768px) {
   .mypage-container {
-    /* padding: 48px; */
-    /* 
-      작업 기준은 768px이나 실제 모바일 화면은 320~428px 정도
-      패딩값이 커 주문/배송 조회 공간이 좁아 수정
-    */
-    padding: 0 1.5rem; 
+    padding: 0 1.5rem; /* 패딩값 수정 */
   }
 
   .mypage-title-border {
@@ -106,9 +101,14 @@
     margin: 0 auto 20px;
   }
 
+  .mypage-container .section-title {
+    margin-left: 0.5rem;
+  }
+
   .user-info {
     flex-direction: column;
     margin: 30px 0 50px;
+    padding: 0;
   }
   .user-info_form {
     width: 100%;

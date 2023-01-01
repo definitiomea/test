@@ -109,21 +109,28 @@
   .order-list thead tr {
     display: flex;
     padding: 1rem 0;
+    justify-content: space-between;
   }
   .order-list thead tr th:last-child {
-    margin-left: auto;
     padding-right: 0.4rem;
   }
   .order-list tbody tr {
     grid-template-columns: repeat(2, auto) 2fr;
     gap: 0.8rem;
     border-bottom: 1px solid lightgray;
+    align-items: flex-start;
   }
   .order-list tbody tr:last-child {
     border: none;
   }
   .order-list tbody tr td:nth-child(3) {
     justify-self: end;
+    font-size: 0.9rem;
+    padding: 0;
+  }
+  .order-list .delivery-check-btn {
+    scale: 0.85;
+    margin: 0;
   }
   .order-list .table-product-info {
     grid-column: 1/4;
@@ -150,9 +157,15 @@
     margin: 0;
   }
   .order-list .view-more-container {
-    padding: 1rem 0;
+    padding: 0.8rem 0 0 0;
     grid-column: 1/4;
     display: flex;
+    align-items: center;
+  }
+  .order-list .view-more-container button {
+    font-family: "ongothic";
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
   }
   .order-list .view-more-container td:last-child {
     margin-left: auto;
