@@ -257,9 +257,9 @@ const ProductDetail = () => {
         <div className="product-info-area">
           <div className="product-info">
             <div className="product-introduce">
-              {productList ? <p>{productList.id}</p> : ""}
+              {/* {productList ? <p>{productList.id}</p> : ""} */}
               {productList ? <p>{productList.productName}</p> : ""}
-              {productList ? <p>{productList.price}</p> : ""}
+              {productList ? <p><b>{productList.price}</b> 원</p> : ""}
             </div>
             <div className="product-color-setter-area">
               {productList
