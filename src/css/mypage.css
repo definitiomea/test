@@ -81,27 +81,22 @@
   width: 40%;
 }
 
-/* 주문/배송 조회 - 버튼 */
-.order-delivery-btn {
-  margin-top: 0.5rem;
-}
-.order-delivery-btn button {
-  line-height: 1;
-}
-.view-more-container {
-  border-top: 1px solid lightgray;
-}
-.view-more-container td:first-child {
-  grid-column: 4/5;
-  color: lightgray;
-}
-.view-more-container td:last-child {
-  grid-column: 5/6;
+/* 미디어쿼리 태블릿 추가 */
+@media screen and (max-width: 991px) {
+  .mypage-container {
+    width: 100%;
+  }
 }
 
+/* 모바일 */
 @media screen and (max-width: 768px) {
   .mypage-container {
-    padding: 48px;
+    /* padding: 48px; */
+    /* 
+      작업 기준은 768px이나 실제 모바일 화면은 320~428px 정도
+      패딩값이 커 주문/배송 조회 공간이 좁아 수정
+    */
+    padding: 0 1.5rem; 
   }
 
   .mypage-title-border {

@@ -2,8 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faTruck } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
 import MyButton from "../style/Button";
-import MyTable from "../style/Table";
-import "../css/cart-style.css";
+import "../css/cartlist.css";
+import "../css/cart.css";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -13,8 +13,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../redux/reducers/cart";
 import { inputOrder } from "../redux/reducers/order";
 import AddDeliveryList from "../components/AddDeliveryList";
-import { useRef } from "react";
+import { Desktop, Mobile, Default } from "../hooks/MediaQuery";
 
+// 장바구니 컴포넌트
 const Cart = () => {
   const cartlist = useSelector((state) => state.cartlist.cartlist);
   const user = useSelector((state) => state.user);
@@ -27,9 +28,6 @@ const Cart = () => {
 
   // 배송비 제외 총 금액
   const getSubtotal = () => {
-    // prev: 이전값 > 현재까지 누적된 값
-    // cur : 현재값
-    // 0 : 초기값, 안쓰면 배열의 첫번째 요소가 들어감
     const subtotal = cartlist.reduce((prev, cur) => {
       return (prev += cur.totalPay);
     }, 0);
@@ -71,10 +69,6 @@ const Cart = () => {
       return;
     } else if (JSON.stringify(user) === "{}") {
       alert("로그인 후 이용해주세요.");
-      return;
-    } else if (checkAddress?.trim() == "" && !user.detailAddress) {
-      // 조건 수정
-      alert("배송지가 입력되었는지 확인해주세요. (상세주소 포함)");
       return;
     } else {
       dispatch(
@@ -120,51 +114,93 @@ const Cart = () => {
             <FontAwesomeIcon icon={faCartShopping} />
             <h2>장바구니</h2>
           </div>
-          {/** 웹 화면 */}
-          <MyTable>
-            <thead>
-              <tr>
-                <th>상품정보</th>
-                <th>프린트</th>
-                <th>수량</th>
-                <th>금액</th>
-                <th>
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    onClick={() => {
-                      dispatch(clearCart());
-                    }}
-                  >
-                    Clear All
-                  </Button>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {cartlist.length == 0 ? (
-                <tr className="item-empty">
-                  <td>Empty</td>
-                </tr>
-              ) : (
-                <>
-                  {cartlist.map((cartItem) => (
-                    <tr key={cartItem.cartID}>
-                      <CartItem
-                        cartItem={cartItem}
-                        productlist={productlist}
-                        dispatch={dispatch}
-                      />
-                    </tr>
-                  ))}
-                </>
-              )}
-            </tbody>
-          </MyTable>
-          {/** 모바일 화면 */}
-          <ul className="cart-mobile">
 
-          </ul>
+          {/** 웹, 태블릿 화면 */}
+          <Default>
+            <table className="cart-list">
+              <thead>
+                <tr>
+                  <th>상품정보</th>
+                  <Desktop>
+                    <th>프린트</th>
+                  </Desktop>
+                  <th>수량</th>
+                  <th>금액</th>
+                  <th>
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={() => {
+                        dispatch(clearCart());
+                      }}
+                    >
+                      전체 삭제
+                    </Button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {cartlist.length == 0 ? (
+                  <tr className="item-empty">
+                    <td>Empty</td>
+                  </tr>
+                ) : (
+                  <>
+                    {cartlist.map((cartItem) => (
+                      <tr key={cartItem.cartID}>
+                        <CartItem
+                          cartItem={cartItem}
+                          productlist={productlist}
+                          dispatch={dispatch}
+                        />
+                      </tr>
+                    ))}
+                  </>
+                )}
+              </tbody>
+            </table>
+          </Default>
+
+          {/** 모바일 화면 */}
+          <Mobile>
+            <table className="cart-list">
+              <thead>
+                <tr>
+                  <th>상품정보</th>
+                  <th>
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={() => {
+                        dispatch(clearCart());
+                      }}
+                    >
+                      전체 삭제
+                    </Button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {cartlist.length == 0 ? (
+                  <tr className="item-empty">
+                    <td>Empty</td>
+                  </tr>
+                ) : (
+                  <>
+                    {cartlist.map((cartItem) => (
+                      <tr key={cartItem.cartID}>
+                        <CartItem
+                          cartItem={cartItem}
+                          productlist={productlist}
+                          dispatch={dispatch}
+                        />
+                      </tr>
+                    ))}
+                  </>
+                )}
+              </tbody>
+            </table>
+          </Mobile>
 
           <div className="delivery-summary-container">
             <div className="delivery-info">
@@ -176,12 +212,12 @@ const Cart = () => {
             </div>
             <div className="summary">
               <div>
-                <div>
+                <div className="summary-label">
                   <div>Subtotal</div>
                   <div>Delivery</div>
-                  <div className="total">Total Price</div>
+                  <div className="total">Total Pay</div>
                 </div>
-                <div>
+                <div className="summary-price">
                   <div>{getSubtotal().toLocaleString("ko-KR")}</div>
                   <div>{deliveryPay.toLocaleString("ko-KR")}</div>
                   <div className="total">
@@ -189,7 +225,10 @@ const Cart = () => {
                   </div>
                 </div>
               </div>
-              <MyButton onClick={order}>주문하기</MyButton>
+              <div>
+                <div>※ 주문하기 전 도안을 확인해주세요.</div>
+                <MyButton onClick={order}>주문하기</MyButton>
+              </div>
             </div>
           </div>
         </div>
