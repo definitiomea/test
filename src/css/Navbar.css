@@ -172,7 +172,7 @@ button {
   }
 
   .dropdown-menu {
-    left: -5px;
+    left: -7px;
   }
 }
 
@@ -181,7 +181,12 @@ button {
   .navbar-logo {
     margin: 15px 0 0 30px;
   }
+
   .navbar-menu {
     padding: 38px 30px 0 0;
+  }
+
+  .dropdown-menu {
+    left: -11px;
   }
 }
