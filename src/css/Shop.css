@@ -102,6 +102,7 @@
 
   .shop-product-card {
     margin: 0 auto;
+    padding: 1vw 1vh;
     /* position: relative;
     right: 30px; */
   }
