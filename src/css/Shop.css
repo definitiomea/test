@@ -101,7 +101,8 @@
   }
 
   .shop-product-card {
-    position: relative;
-    right: 30px;
+    margin: 0 auto;
+    /* position: relative;
+    right: 30px; */
   }
 }
