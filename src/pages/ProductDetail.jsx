@@ -43,6 +43,7 @@ import { inputCart } from "../redux/reducers/cart";
 import LongProductInfo from "../components/LongProductInfo";
 import ShortProductInfo from "../components/ShortProductInfo";
 import ReviewList from "../components/ReviewList";
+import ReviewInput from "../components/ReviewInput";
 import ProduceModal from "../components/ProduceModal";
 
 const ProductDetail = () => {
@@ -79,7 +80,7 @@ const ProductDetail = () => {
 
   const handleOpen = () => {
     setOpen(true);
-  }
+  };
 
   /* 페이지가 로딩되면 제품 정보를 받고, 캔버스를 정해주면 되므로 */
   useEffect(() => {
@@ -249,7 +250,7 @@ const ProductDetail = () => {
                     icon={faCircleQuestion}
                     title="이미지 편집 방법"
                     onClick={() => {
-                      handleOpen(true)
+                      handleOpen(true);
                     }}
                   ></FontAwesomeIcon>
                 </div>
@@ -337,7 +338,7 @@ const ProductDetail = () => {
          * 고객이 작성한 리뷰 출력
          * - 페이지 ReviewAdd에서 작성되고, 컴포넌트 ReviewInput에 출력 폼 있음
          */}
-        {/* <ReviewInput productID={id} /> */}
+        <ReviewInput />
       </div>
     </>
   );
