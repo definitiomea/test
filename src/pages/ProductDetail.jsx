@@ -99,6 +99,10 @@ const ProductDetail = () => {
     <>
       <div className="product-shopping-area">
         <div className="product-area">
+          <div className="producing-title">
+            <h1>producing</h1>
+            <div className="producing-title-line"></div>
+          </div>
           <div className="product-handling-buttons">
             <div className="product-handling-button-element">
               <FontAwesomeIcon
