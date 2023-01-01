@@ -44,79 +44,77 @@ const Navbar = () => {
   const main = location.pathname === "/";
 
   return (
-    <header>
-      <nav className={main ? "main-nav" : "page-nav"}>
-        <div>
-          <NavLink
-            to="/"
-            // 메인이 아닐 때 nav의 폰트색상 black
-            className={main ? "white-logo" : "dark-logo"}
-            // 로고 클릭시 상단으로 부드럽게 이동
-            onClick={() => {
-              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-            }}
-          >
-            MOTI
+    <nav className={main ? "main-nav" : "page-nav"}>
+      <div className="navbar-logo">
+        <NavLink
+          to="/"
+          // 메인이 아닐 때 nav의 폰트색상 black
+          className={main ? "white-logo" : "dark-logo"}
+          // 로고 클릭시 상단으로 부드럽게 이동
+          onClick={() => {
+            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+          }}
+        >
+          MOTI
+        </NavLink>
+      </div>
+
+      <ul className="navbar-menu">
+        {/* 네브바 리스트 */}
+        <li>
+          <NavLink to="shop" className={main ? "white-nav" : "dark-nav"}>
+            SHOP
           </NavLink>
-        </div>
+        </li>
 
-        <ul className="navbar">
-          {/* 네브바 리스트 */}
-          <li>
-            <NavLink to="shop" className={main ? "white-nav" : "dark-nav"}>
-              SHOP
-            </NavLink>
-          </li>
+        <li>
+          <NavLink to="cart" className={main ? "white-nav" : "dark-nav"}>
+            CART
+          </NavLink>
+        </li>
 
-          <li>
-            <NavLink to="cart" className={main ? "white-nav" : "dark-nav"}>
-              CART
-            </NavLink>
-          </li>
-
-          {login ? (
-            <li className="dropdown">
-              <div
-                className={main ? "white-nav" : "dark-nav"}
-                style={{ fontWeight: "bold" }}
-              >
-                {userName.name}님
-              </div>
-              <div className="dropdown-menu">
-                <NavLink
-                  to="mypage"
-                  className={main ? "white-dropdown" : "dark-dropdown"}
-                >
-                  MYPAGE
-                </NavLink>
-
-                <button
-                  className={main ? "white-dropdown" : "dark-dropdown"}
-                  onClick={logOut}
-                >
-                  LOGOUT
-                </button>
-              </div>
-            </li>
-          ) : (
-            <div>
-              <button
-                className={main ? "white-nav" : "dark-nav"}
-                onClick={
-                  openModal
-                  //   () => {
-                  //   navigate("/login");
-                  // }
-                }
-              >
-                LOGIN
-              </button>
-              <Modal open={modalOpen} close={closeModal} />
+        {login ? (
+          <li className="dropdown">
+            <div
+              className={main ? "white-nav" : "dark-nav"}
+              style={{ fontWeight: "bold" }}
+            >
+              {userName.name}님
             </div>
-          )}
-        </ul>
-      </nav>
-    </header>
+            <div className="dropdown-menu">
+              <NavLink
+                to="mypage"
+                className={main ? "white-dropdown" : "dark-dropdown"}
+              >
+                MYPAGE
+              </NavLink>
+
+              <button
+                className={main ? "white-dropdown" : "dark-dropdown"}
+                onClick={logOut}
+              >
+                LOGOUT
+              </button>
+            </div>
+          </li>
+        ) : (
+          <div>
+            <button
+              className={main ? "white-nav" : "dark-nav"}
+              onClick={
+                openModal
+                //   () => {
+                //   navigate("/login");
+                // }
+              }
+            >
+              LOGIN
+            </button>
+            <Modal open={modalOpen} close={closeModal} />
+          </div>
+        )}
+      </ul>
+    </nav>
   );
 };
 

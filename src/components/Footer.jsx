@@ -14,38 +14,42 @@ const Footer = () => {
     setOpen(true);
   };
   return (
-    <footer className="footer">
-      <section className="footer-info">
-        <div>
-          <Link>회사소개</Link>
-          <Link
-            onClick={() => {
-              handleOpen(true);
-            }}
-          >
-            <ProduceModal open={open} setOpen={setOpen}></ProduceModal>
-            작업가이드
-          </Link>
-          <Link to="/mypage">주문/배송조회</Link>
-          <Link style={{ border: "none" }}>이용약관</Link>
-        </div>
+    <footer>
+      <div className="footer">
+        <section className="footer-info">
+          <div>
+            <Link to="/">홈 이동</Link>
+            <Link
+              onClick={() => {
+                handleOpen(true);
+              }}
+            >
+              작업가이드
+            </Link>
+            <Link to="/mypage">주문/배송조회</Link>
+            <Link style={{ border: "none" }}>이용약관</Link>
+          </div>
 
-        <div>
-          부산 부산진구 중앙대로 749 <br /> Copyright © 2022 Team MOTI <br />
-        </div>
-      </section>
+          <div>
+            부산 부산진구 중앙대로 749 <br /> Copyright © 2022 Team MOTI <br />
+          </div>
+        </section>
 
-      <section>
-        <a href="https://www.facebook.com/">
-          <FontAwesomeIcon icon={faFacebook} />
-        </a>
-        <a href="https://www.instagram.com/">
-          <FontAwesomeIcon icon={faInstagram} />
-        </a>
-        <a href="">
-          <FontAwesomeIcon icon={faGithub} />
-        </a>
-      </section>
+        <section className="footer-follow">
+          <a href="https://www.facebook.com/">
+            <FontAwesomeIcon icon={faFacebook} />
+          </a>
+          <a href="https://www.instagram.com/">
+            <FontAwesomeIcon icon={faInstagram} />
+          </a>
+          <a href="">
+            <FontAwesomeIcon icon={faGithub} />
+          </a>
+        </section>
+      </div>
+
+      {/* 작업가이드 누르면 모달 열림 */}
+      <ProduceModal open={open} setOpen={setOpen}></ProduceModal>
     </footer>
   );
 };

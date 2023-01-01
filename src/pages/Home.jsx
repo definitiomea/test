@@ -87,8 +87,12 @@ const Home = () => {
             <img src={require("../img/main/main-img.jpg")} alt="main" />
           </div>
           <div className="second-content">
-            <section>사이트 소개/장점</section>
-            <section>제작방식</section>
+            <p>모두가 만들어 가는 나만의 티셔츠</p>
+            <span>
+              다양한 폰트와 이미지를 이용하여 가족, 친구, 나만을 위한 티셔츠를
+              만들어보세요.
+            </span>
+            <span>모티는 고객님들의 색다른 즐거움과 행복을 함께합니다.</span>
           </div>
         </section>
 

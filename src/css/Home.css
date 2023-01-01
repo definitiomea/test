@@ -184,21 +184,25 @@
 
 .second-content {
   position: absolute;
-  display: grid;
-  grid-column-gap: 30px;
-  top: 23%;
-  left: 7%;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  top: 30%;
+  left: 5%;
 }
 
-.second-content section {
-  block-size: fit-content;
-background-color: rgba(255, 255, 255, 0.365);
-color: black;
-width: 40rem;
-height: 560px;
+.second-content > * {
+  color: rgba(255, 255, 255, 0.916);
+  width: 100%;
+}
+.second-content > p {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
 
+.second-content > span {
+  font-size: 18px;
+  margin-bottom: 5px;
 }
 
 /* <세번째 스크린> */
