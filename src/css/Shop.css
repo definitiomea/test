@@ -19,7 +19,6 @@
   bottom: 15px;
   display: flex;
   justify-content: center;
-  /* justify-content: center; */
 }
 
 .shop-product-card {
@@ -101,7 +100,7 @@
   }
 
   .shop-product-card {
-    position: relative;
-    right: 30px;
+    min-width: 100%;
+    margin: auto;
   }
 }
