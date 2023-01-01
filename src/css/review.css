@@ -1,0 +1,108 @@
+/* 공통 */
+
+.yellowStar {
+  color: #fcc419;
+  opacity: 1;
+}
+
+/* reviewList.jsx 과 reviewInput.jsx 공통 */
+.review-box {
+  width: 100%;
+}
+
+.review-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgray;
+  padding: 40px 30px;
+}
+
+.review-context-both {
+  display: flex;
+  flex-direction: row;
+}
+
+.review-container > div > div > img {
+  margin-right: 10px;
+}
+
+.review-context {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+}
+
+.review-context > span {
+  margin-bottom: 3px;
+}
+
+.review-context-product {
+  display: flex;
+  flex-direction: row;
+  /* width: 700px; */
+}
+
+.review-context-product > span {
+  margin-right: 5px;
+}
+
+.review-option {
+  display: flex;
+  flex-direction: column;
+  width: 5rem;
+  align-items: center;
+}
+
+.review-option * {
+  font-size: 12px;
+}
+.review-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.review-button * {
+  font-size: 8px;
+  background-color: black;
+  color: white;
+  padding: 5px 1px;
+  margin-bottom: 3px;
+  width: 50px;
+}
+/* reviewAdd.jxs */
+.review-title > h1 {
+  display: inline-block;
+
+  font-weight: bold;
+  font-family: "ongothic";
+}
+
+/* reviewList.jsx */
+
+/* reviewInput.jsx */
+
+@media screen and (max-width: 768px) {
+  .review-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .review-option {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+
+    align-items: flex-start;
+  }
+
+  .review-option * {
+    margin: 1px;
+    margin-right: 5px;
+  }
+  .review-button {
+    display: flex;
+    flex-direction: row;
+  }
+}

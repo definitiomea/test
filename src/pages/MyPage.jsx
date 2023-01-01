@@ -1,6 +1,6 @@
 import AdditDeliveryList from "../components/AdditDeliveryList";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Modal } from "@mui/material";
 import { Box } from "@mui/system";
 import Delivery from "../components/Delivery";
@@ -22,6 +22,9 @@ const Mypage = () => {
   const [result, setResult] = useState(true);
   const [trans, setTrans] = useState(null);
   const [open, setOpen] = useState(false);
+  const passwordCheck = useRef(null);
+  const [checkPass, setCheckPass] = useState("");
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -67,6 +70,7 @@ const Mypage = () => {
     setCarriers(json);
   };
   useEffect(() => {
+    setTrans(findUser);
     getCarriers();
   }, []);
 
@@ -121,19 +125,22 @@ const Mypage = () => {
 
   return (
     <div className="mypage-container">
+      <div className="mypage-title-border"></div>
+      <h1 className="mypage-title">MyPage</h1>
       {/* 회원정보 수정 form */}
       <h4 className="section-title">회원정보 수정</h4>
-
       <div className="user-info">
         {/* <div className="labels">
-        </div> */}
-
+          </div> */}
         <form
           className="user-info_form"
-          onSubmit={(e) => {
-            dispatch(ADDIT_USER(trans));
-            dispatch(loginUser(trans));
-            e.preventDefault();
+          onSubmit={() => {
+            if (checkPass === trans.password) {
+              dispatch(ADDIT_USER(trans));
+              dispatch(loginUser(trans));
+            } else {
+              alert("누구세요");
+            }
           }}
         >
           <label className="user-info_label">ID</label>
@@ -143,6 +150,7 @@ const Mypage = () => {
             name="id"
             defaultValue={user.id}
             onChange={onChange}
+            disabled
           />
           <label className="user-info_label">E-mail</label>
           <input
@@ -157,7 +165,7 @@ const Mypage = () => {
             className="user-info_input"
             type="password"
             name="password"
-            defaultValue={findUser ? findUser.password : ""}
+            defaultValue={findUser ? user.password : ""}
             onChange={onChange}
           />
           <label className="user-info_label">Password check</label>
@@ -166,13 +174,15 @@ const Mypage = () => {
             className="user-info_input"
             type="password"
             name="password-check"
-            placeholder={user.password}
-            onChange={onChange}
+            value={checkPass}
+            onChange={(e) => setCheckPass(e.target.value)}
           />
           {/* button component적용 */}
-          <MyButton>회원정보 수정</MyButton>
+          <MyButton type="submit">회원정보 수정</MyButton>
         </form>
-        <AdditDeliveryList />
+        <div className="additDeliveryList">
+          <AdditDeliveryList />
+        </div>
       </div>
 
       {/* 주문/배송조회 form */}
@@ -181,8 +191,8 @@ const Mypage = () => {
         <thead>
           <tr>
             <th>상품정보</th>
-            <th>사이즈</th>
-            <th>수량/금액</th>
+            <th>수량</th>
+            <th>금액</th>
             <th>주문일자</th>
             <th>주문 상태</th>
           </tr>
@@ -204,15 +214,19 @@ const Mypage = () => {
                         <td className="table-product-container">
                           <img src={getImgPath(order)} alt="No Image" />
                           <div>
-                            <div>
+                            <div className="table-product-name">
                               {order.category} {order.productName}
                             </div>
                             <div>
-                              color
+                              <span className="table-product-label">color</span>
                               <span>{order.color}</span>
                             </div>
                             <div>
-                              print
+                              <span className="table-product-label">size</span>
+                              <span>{order.size}</span>
+                            </div>
+                            <div>
+                              <span className="table-product-label">print</span>
                               {order.imgArray.length === 2 ? (
                                 <span>
                                   {order.imgArray[0].print} /{" "}
@@ -224,10 +238,12 @@ const Mypage = () => {
                             </div>
                           </div>
                         </td>
-                        <td>{order.size}</td>
+                        <td>{order.quantity}</td>
                         <td>
-                          <div>{order.quantity}</div>
-                          <div>{order.totalPay.toLocaleString("ko-KR")}</div>
+                          <div className="table-media-query">
+                            {order.quantity}
+                          </div>
+                          {order.totalPay.toLocaleString("ko-KR")}
                         </td>
                         <td>{order.orderDate}</td>
                         <td>
@@ -236,7 +252,9 @@ const Mypage = () => {
                             {order.delivery === "배송완료" ? (
                               <MyButton
                                 onClick={() => {
-                                  navigate("/mypage/review", { state: order });
+                                  navigate("/mypage/review", {
+                                    state: order,
+                                  });
                                 }}
                               >
                                 후기작성
@@ -269,7 +287,6 @@ const Mypage = () => {
           )}
         </tbody>
       </MyTable>
-
       {/** 배송조회 모달 */}
       <Modal
         open={open}

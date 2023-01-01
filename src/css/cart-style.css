@@ -3,20 +3,47 @@
   min-height: calc(100vh - 236px);
   max-width: 1280px; /* 마이페이지와 통일할 것 */
   padding: 0 48px;
-  margin: 0 auto;
+  margin: 3rem auto;
 }
 
 .cart-title {
+  position: relative;
+  width: 100%;
+  margin-bottom: 3rem;
+  height: 2.5rem;
+}
+.cart-title h1 {
+  display: inline-block;
+  background-color: white;
+  margin: 0;
+  padding: 0 10px;
+  position: absolute;
+  top: 0;
+  left: 10%;
+  font-size: 2.5rem;
+  font-family: "nav";
+  font-weight: bold;
+}
+.cart-title .title-line {
+  width: 100%;
+  border-bottom: 2px solid black;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-2px);
+  z-index: -1;
+}
+
+.cart-subtitle {
   padding: 2rem 0;
 }
-.cart-title > h2 {
+.cart-subtitle > h2 {
   display: inline-block;
   margin: 0 0 0 1rem;
-  font-family: "nav";
+  font-family: "ongothic";
   font-size: 1.5rem;
   font-weight: bold;
 }
-.cart-title > svg {
+.cart-subtitle > svg {
   font-size: 1.3rem;
 }
 
@@ -34,7 +61,7 @@
   flex: 2;
   margin-right: 4rem;
 }
-.delivery-info .cart-title {
+.delivery-info .cart-subtitle {
   padding-top: 0;
 }
 /* 배송지 AddDeliveryList.jsx */
@@ -107,7 +134,7 @@
 }
 .quantity-container input {
   height: auto;
-  max-width: 3.5rem;
+  max-width: 3rem;
   min-height: 32px;
   text-align: center;
   border: none;
@@ -148,17 +175,44 @@
   margin-bottom: 1rem;
 }
 .cart-modal button {
-  margin-top: 1rem;
-  padding: 0 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0;
+}
+
+/* 장바구니 리스트 - 모바일 */
+.cart-mobile {
+  display: none;
+  width: 100%;
+  padding-left: 0;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  word-break: keep-all;
+}
+.cart-mobile li {
+  list-style-type: none;
+  padding: 1rem 0;
+}
+.cart-mobile img {
+  width: 120px;
 }
 
 /* 미디어쿼리 */
+@media screen and (max-width: 960px) {
+  .delivery-info {
+    flex: 1.5;
+    margin-right: 4rem;
+  }
+  .summary {
+    flex: 1;
+  }
+}
+
 @media screen and (max-width: 768px) {
-  .product-container img {
-    display: none; /* 상품 이미지가 보이지 않게 */
+  .delivery-summary-container {
+    flex-direction: column;
   }
-  .quantity-container button {
-    display: none; /* 구매수량의 버튼이 보이지 않게 */
+  .delivery-info {
+    margin-bottom: 3rem;
+    margin-top: 2rem;
   }
-  /* 사용자 디자인 모달 - 작은 화면에서 flex-direction을 columns으로 */
 }

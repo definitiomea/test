@@ -5,9 +5,9 @@ import Button from "@mui/material/Button";
 import "../css/cart-style.css";
 
 import { useState } from "react";
-import { SIGN_UP } from "../redux/reducers/signup";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAddress } from "../redux/reducers/user";
+import { ADDIT_USER } from "../redux/reducers/signup";
 
 const Postcode = (props) => {
   const handleComplete = (data) => {
@@ -76,7 +76,7 @@ function DeliveryList({ setCheckAddress }) {
     e.preventDefault();
     Postcode();
     dispatch(
-      SIGN_UP({
+      ADDIT_USER({
         ...findUser,
         address,
         zoneCode,
@@ -93,6 +93,7 @@ function DeliveryList({ setCheckAddress }) {
         reference,
       })
     );
+    alert("배송지가 저장되었습니다.");
   };
 
   const style = {

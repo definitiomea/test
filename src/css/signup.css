@@ -1,12 +1,25 @@
-.signup-title-box {
-  width: 80%;
-  border-bottom: 3px solid black;
+.signup-title-border {
+  border-bottom: 2px solid black;
+  width: 65vw;
   margin: auto;
   padding: 20px;
+  margin-top: 10px;
 }
+
+.signup-title-box {
+  position: relative;
+  bottom: 25px;
+  left: 450px;
+  background-color: white;
+  width: fit-content;
+}
+
 .signup-title {
+  top: 50px;
+  font-family: "nav";
   display: inline-block;
   font-weight: bolder;
+  padding: 0 10px;
 }
 
 .signup-form {
@@ -15,6 +28,7 @@
   width: 30%;
   margin: 50px auto;
   padding: 15px;
+  margin-top: 20px;
 }
 
 .signup-label {

@@ -130,7 +130,7 @@ function AdditDeliveryList() {
 
         {/*float: left로 위치 조정 */}
         <label className="post-form_label">우편번호</label>
-        <div>
+        <div className="postcode-form">
           <input
             type="text"
             className="post-form_input"
@@ -179,7 +179,7 @@ function AdditDeliveryList() {
           value={reference || ""}
         />
         {/* button component적용 */}
-        <MyButton>배송지 변경</MyButton>
+        <MyButton type="submit">배송지 변경</MyButton>
       </form>
     </div>
   );
