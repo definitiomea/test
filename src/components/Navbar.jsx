@@ -76,7 +76,10 @@ const Navbar = () => {
 
           {login ? (
             <li className="dropdown">
-              <div className={main ? "white-nav" : "dark-nav"}>
+              <div
+                className={main ? "white-nav" : "dark-nav"}
+                style={{ fontWeight: "bold" }}
+              >
                 {userName.name}님
               </div>
               <div className="dropdown-menu">

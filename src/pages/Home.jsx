@@ -50,9 +50,9 @@ const Home = () => {
 
   const submitEmail = (e) => {
     if (!email == "") {
-      alert("구독해주셔서 감사합니다!");
+      alert("구독해주셔서 감사합니다.");
     } else {
-      alert("구독 받을 이메일을 입력해주세요");
+      alert("구독 받을 이메일을 입력해주세요.");
     }
   };
 
@@ -96,10 +96,10 @@ const Home = () => {
         <section className="last-screen">
           <div className="last-content">
             <form onSubmit={submitEmail}>
-              <h3>상품 업데이트 정보를 구독 받으세요</h3>
+              <h3>상품 업데이트 정보를 구독 받으세요.</h3>
               <input
                 type="email"
-                placeholder="이메일을 입력해주세요"
+                placeholder="이메일을 입력해주세요."
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}

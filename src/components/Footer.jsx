@@ -5,26 +5,27 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+import ProduceModal from "../components/ProduceModal";
+
 const Footer = () => {
-  const [toGoMain, setToGoMain] = useState();
-  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
-  const MainSecond = () => {
-    navigate("/");
+  const handleOpen = () => {
+    setOpen(true);
   };
-
   return (
     <footer className="footer">
       <section className="footer-info">
         <div>
+          <Link>회사소개</Link>
           <Link
             onClick={() => {
-              MainSecond();
+              handleOpen(true);
             }}
           >
-            회사소개
+            <ProduceModal open={open} setOpen={setOpen}></ProduceModal>
+            작업가이드
           </Link>
-          <Link>작업가이드</Link>
           <Link to="/mypage">주문/배송조회</Link>
           <Link style={{ border: "none" }}>이용약관</Link>
         </div>
@@ -35,15 +36,15 @@ const Footer = () => {
       </section>
 
       <section>
-          <a href="https://www.facebook.com/">
-            <FontAwesomeIcon icon={faFacebook} />
-          </a>
-          <a href="https://www.instagram.com/">
-            <FontAwesomeIcon icon={faInstagram} />
-          </a>
-          <a href="">
-            <FontAwesomeIcon icon={faGithub} />
-          </a>
+        <a href="https://www.facebook.com/">
+          <FontAwesomeIcon icon={faFacebook} />
+        </a>
+        <a href="https://www.instagram.com/">
+          <FontAwesomeIcon icon={faInstagram} />
+        </a>
+        <a href="">
+          <FontAwesomeIcon icon={faGithub} />
+        </a>
       </section>
     </footer>
   );
