@@ -362,7 +362,6 @@ const Mypage = () => {
                               )}
                             </div>
                             <div>{order.delivery}</div>
-
                           </td>
                           <td className="table-product-info">
                             <div>
