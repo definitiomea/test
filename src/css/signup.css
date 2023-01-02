@@ -25,6 +25,10 @@
   border: none;
   border-bottom: 2px solid black;
 }
+.signup-input:focus {
+  outline: none;
+  background-color: white;
+}
 
 .signup-btn {
   width: 100%;

@@ -42,8 +42,6 @@ const SignUpPage = () => {
     id,
     password,
     email,
-    // 주소지 등록 / 수정 component를 따로 분리하여 삭제
-    // address,
   };
 
   const findUser = signup.userlist.find(
@@ -58,12 +56,11 @@ const SignUpPage = () => {
       navigate("/");
     }
     // 이미 가입된 id / email이 있다면 회원가입 실패
-    // if (id === findUser.id) {
-    //   alert("사용중인 아이디");
-    // }
-    // if (email === findUser.email) {
-    //   alert("사용중인 email");
-    // }
+    else if (id === findUser.id) {
+      alert("이미 사용중인 아이디입니다.");
+    } else if (email === findUser.email) {
+      alert("이미 사용중인 email입니다.");
+    }
 
     if (password !== passwordCheck) {
       alert("비밀번호 불일치");
