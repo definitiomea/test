@@ -73,7 +73,8 @@ function AdditDeliveryList() {
   const submit = () => {
     handleOpen();
   };
-  const relay = () => {
+  const relay = (e) => {
+    e.preventDefault(); // 임시
     Postcode();
     dispatch(
       ADDIT_USER({
@@ -93,6 +94,7 @@ function AdditDeliveryList() {
         reference,
       })
     );
+    alert("변경이 완료되었습니다."); // 임시
   };
 
   const style = {
