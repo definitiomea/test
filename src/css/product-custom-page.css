@@ -201,6 +201,9 @@
 
 .product-info-component {
   padding: 1vh 1vw;
+  width: 90%; /* 미디어쿼리에서 조절하기 */
+  max-width: 1080px;
+  margin: auto;
 }
 .info-section {
   font-size: 1.5em;
@@ -232,5 +235,5 @@
 }
 
 /* 리뷰 공간 */
-.review-area {
-}
+/* .review-area {
+} */
