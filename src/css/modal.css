@@ -12,7 +12,7 @@
 .content-box {
   position: relative;
   /* width: 40%; */
-  max-width: 450px;
+  width: 450px;
   /* max-height: 700px; */
   margin: 0 auto;
   border-radius: 0.3rem;
@@ -38,19 +38,31 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 2rem;
+  align-items: stretch;
+}
+.login-form > div {
   padding: 0;
 }
+.login-form-title {
+  font-size: 2.5rem;
+  font-weight: bolder;
+  margin-bottom: 25px;
+  text-align: center;
+}
 .login-form_input {
+  font-family: "ongothic";
   border: none;
   width: 100%;
   border-bottom: 2px solid black;
   margin-bottom: 20px;
 }
+
 .login-form_input:focus {
   outline: none;
 }
 .login-form_btn {
-  width: 90%;
+  width: 100%;
   margin: auto;
 }
 .login-form button {
