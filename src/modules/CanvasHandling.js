@@ -112,7 +112,7 @@ export const customSave = async ({
     const base64Data = reader.result;
     if (editArray.length >= 2) {
       alert(
-        "같은 티셔츠에 대해 앞, 뒷면 사진이 모두 있습니다. 이 이상 저장할 수 없습니다."
+        "더 이상 저장할 수 없습니다.\n이미 같은 제품의 앞, 뒷면 모두를 편집하셨습니다."
       );
       return;
     } else {
