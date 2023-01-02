@@ -100,9 +100,6 @@
 }
 
 @media screen and (max-width: 767px) {
-  .order-list {
-    border-bottom: 0;
-  }
   .order-list img {
     width: 70px;
   }
@@ -157,7 +154,7 @@
     margin: 0;
   }
   .order-list .view-more-container {
-    padding: 0.8rem 0 0 0;
+    padding: 0.8rem 0 ;
     grid-column: 1/4;
     display: flex;
     align-items: center;
