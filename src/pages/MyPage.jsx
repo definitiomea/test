@@ -124,8 +124,6 @@ const Mypage = () => {
 
   return (
     <div className="mypage-container">
-      <div className="mypage-title-border"></div>
-      <h1 className="mypage-title">MyPage</h1>
       {/* 회원정보 수정 form */}
       <h4 className="section-title">회원정보 수정</h4>
       <div className="user-info">
