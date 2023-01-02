@@ -100,7 +100,7 @@ const orderSlice = createSlice({
         delivery: "배송완료",
       };
       state.orderlist = state.orderlist.concat({
-        userId: action.payload.user,
+        userId: action.payload,
         itemlist: [data],
       });
     },
