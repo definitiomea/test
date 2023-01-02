@@ -73,7 +73,6 @@ function DeliveryList() {
     handleOpen();
   };
   const relay = (e) => {
-    e.preventDefault(); // 임시
     Postcode();
     dispatch(
       ADDIT_USER({
