@@ -50,6 +50,10 @@ const SignUpPage = () => {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
+    if (password !== passwordCheck) {
+      alert("비밀번호 불일치");
+      return setPasswordError(true);
+    }
 
     if (!findUser) {
       dispatch(SIGN_UP(user));
@@ -60,11 +64,6 @@ const SignUpPage = () => {
       alert("이미 사용중인 아이디입니다.");
     } else if (email === findUser.email) {
       alert("이미 사용중인 email입니다.");
-    }
-
-    if (password !== passwordCheck) {
-      alert("비밀번호 불일치");
-      return setPasswordError(true);
     }
   };
 

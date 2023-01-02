@@ -8,7 +8,7 @@ import "../style/Button";
 import MyButton from "../style/Button";
 
 const Modal = (props) => {
-  const { open, close } = props;
+  const { open, close, setModalOpen } = props;
   const signup = useSelector((state) => state.signup);
 
   const dispatch = useDispatch();
