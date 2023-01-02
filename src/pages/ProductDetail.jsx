@@ -98,6 +98,10 @@ const ProductDetail = () => {
 
   return (
     <>
+      <div className="producing-title-area">
+        <h1 className="producing-title">producing</h1>
+        <div className="producing-title-line"></div>
+      </div>
       <div className="product-shopping-area">
         <div className="product-area">
           <div className="product-handling-buttons">
@@ -258,9 +262,9 @@ const ProductDetail = () => {
         <div className="product-info-area">
           <div className="product-info">
             <div className="product-introduce">
-              {productList ? <p>{productList.id}</p> : ""}
+              {/* {productList ? <p>{productList.id}</p> : ""} */}
               {productList ? <p>{productList.productName}</p> : ""}
-              {productList ? <p>{productList.price}</p> : ""}
+              {productList ? <p><b>{productList.price}</b> 원</p> : ""}
             </div>
             <div className="product-color-setter-area">
               {productList

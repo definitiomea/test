@@ -158,7 +158,7 @@ button {
     font-size: 2.5rem;
   }
 
-  ul * {
+  .navbar * { /* ul > 클래스명으로 변경 */
     padding: 0 3px;
     font-size: 0.8rem;
   }

@@ -45,7 +45,7 @@ const initialState = {
       ],
       thumbnail: "long-standard-cream-front.jpg",
       totalPay: 38000,
-      delivery: "상품준비중",
+      delivery: "상품준비",
     },
   ],
 };

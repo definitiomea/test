@@ -54,4 +54,29 @@ const Wrap = styled.div`
     margin: 2rem 1rem 1rem 0;
     font-weight: bold;
   }
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+    text-align: center;
+    transform: translateY(-20px);
+    svg {
+      margin: 0 0 1rem 0;
+      width: 5rem;
+      height: 5rem;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+      &:first-child {
+        font-size: 1.2rem;
+      }
+    }
+    > div > div:nth-child(2) {
+      margin-bottom: 1.5rem
+    }
+    button {
+      margin: 0.2rem auto;
+      width: 10rem;
+    }
+  }
 `;
