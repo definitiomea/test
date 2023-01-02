@@ -15,12 +15,12 @@ const initialState = {
   orderID: 2,
   orderlist: [
     {
-      user: "abc123",
+      user: "abc123", // 현재로그인한 아이디가 들어가도록 만들고, 테스트용이라 명시하기
       orderID: 1,
       orderDate: "2022.12.24",
       productID: 2,
       category: "short",
-      productName: "릴렉스 핏",
+      productName: "스탠다드 핏",
       color: "blue",
       size: "L",
       quantity: 8,
@@ -29,11 +29,11 @@ const initialState = {
       totalPay: 76000,
       delivery: "배송완료",
     },
-    {
+    { 
       user: "abc123",
       orderID: 2,
       orderDate: "2022.12.28",
-      productID: 2,
+      productID: 5,
       category: "long",
       productName: "스탠다드 핏",
       color: "cream",
@@ -47,6 +47,9 @@ const initialState = {
       totalPay: 38000,
       delivery: "상품준비",
     },
+    { 
+      // 다른아이디 더미 1개 - 구매내역 필터 적용
+    }
   ],
 };
 
@@ -67,6 +70,10 @@ const orderSlice = createSlice({
       const newOrderlist = state.orderlist.concat(cartlist);
       state.orderlist = newOrderlist;
     },
+    // 회원가입을 할 때, 후기작성 기능을 확인하기 위한 더미데이터 추가
+    AddDummyData: (state, action) => {
+
+    }
   },
 });
 
