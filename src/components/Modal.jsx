@@ -80,6 +80,7 @@ const Modal = (props) => {
           </button>
 
           <form className="login-form" onSubmit={onSubmitForm}>
+            <h1 className="login-form-title">MOTI</h1>
             <div>
               <label>ID</label>
               <input
@@ -109,12 +110,12 @@ const Modal = (props) => {
               Sign up
             </MyButton>
           </form>
-          <div className="social">
+          {/* <div className="social">
             <button type="button">kakao</button>
             <button type="button">naver</button>
             <button type="button">google</button>
             <button type="button">instar</button>
-          </div>
+          </div> */}
         </div>
       ) : null}
     </div>

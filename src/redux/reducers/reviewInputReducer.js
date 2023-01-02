@@ -1,5 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// 주문 날짜
+const getDate = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const today = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${today}`;
+};
+
 const initialState = {
   reviewID: 0,
   reviewlist: [],
@@ -10,12 +19,13 @@ const reviewSlice = createSlice({
   initialState,
   reducers: {
     inputReview: (state, action) => {
-      console.log(action.payload.thumbnail);
-      console.log(action.payload.addImgValue);
+      // console.log(action.payload.date);
       const newReview = {
         reviewID: 1,
+        // 상품ID 불러오기
+        productID: action.payload.productID,
         // 리뷰 첨부 이미지 불러오기
-        img: action.payload.addImgValue,
+        img: action.payload.img,
         // 이미지를 첨부하지 않았을 때 상품의 썸네일을 출력하기 위함
         thumbnail: action.payload.thumbnail,
         // 고객 로그인 아이디 가져오기
@@ -33,7 +43,7 @@ const reviewSlice = createSlice({
         // // 리뷰 작성내용 불러오기
         comment: action.payload.comment,
         // // 작성 날짜 불러오기
-        date: action.payload.getDate,
+        date: getDate(),
       };
       const newReviewlist = state.reviewlist.concat(newReview);
       state.reviewlist = newReviewlist;
@@ -41,13 +51,21 @@ const reviewSlice = createSlice({
     // 리뷰 삭제하기
     deleteReview: (state, action) => {
       // reviewInput배열에서 reiviewID가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듦
-      const newReviewlist = state.reviewInput.filter((review) => review.reviewID != action.payload);
+      const newReviewlist = state.reviewlist.filter(
+        (review) => review.userID == action.payload
+      );
       state.reviewlist = newReviewlist;
     },
     // 리뷰 수정하기
-    modifyReview: (state, action) => {},
+    editReview: (state, action) => {
+      state.reviewlist = state.reviewlist.map((review) => {
+        return action.payload.userID === review.userID
+          ? action.payload
+          : review;
+      });
+    },
   },
 });
 
-export const { inputReview, deleteReview, modifyReview } = reviewSlice.actions;
+export const { inputReview, deleteReview, editReview } = reviewSlice.actions;
 export default reviewSlice.reducer;

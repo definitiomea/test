@@ -42,7 +42,7 @@
 
 /* slick dots */
 .shop-product-card .slick-dots {
-  bottom: -35px;
+  bottom: -33px;
   text-align: right;
 }
 /* .shop-slick-dots {
@@ -98,5 +98,13 @@
 
   .shop-thumNail-list {
     flex-direction: column;
+  }
+
+  .shop-product-card {
+    min-width: 100%;
+    margin: 0 auto;
+    padding: 1vw 1vh;
+    /* position: relative;
+    right: 30px; */
   }
 }

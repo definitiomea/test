@@ -5,7 +5,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import MyButton from "../style/Button";
-import "../css/cart-style.css";
+import "../css/cartlist.css";
+import "../css/cart.css";
+import { Desktop, Tablet, Mobile, Default } from "../hooks/MediaQuery";
 
 import {
   quantityIncrease,
@@ -15,13 +17,13 @@ import {
 } from "../redux/reducers/cart";
 import { useRef, useEffect, useState } from "react";
 
+// 사용자 도안 모달
 const boxStyle = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "fit-object",
-  maxWidth: "80%",
   maxHeight: "80%",
   bgcolor: "background.paper",
   border: "1px solid #000",
@@ -53,6 +55,7 @@ const UserDesignModal = ({ userImg }) => {
   );
 };
 
+// 장바구니 아이템
 const CartItem = (props) => {
   const { cartItem, productlist, dispatch } = props; // Cart.jsx
   const [totalPay, setTotalPay] = useState(cartItem.totalPay);
@@ -129,9 +132,79 @@ const CartItem = (props) => {
   return (
     <>
       {/** 웹 화면 */}
-      <td className="table-product-container">
-        <img src={getImgPath()} alt="No Image" />
-        <div>
+      <Default>
+        <td className="table-product-container">
+          <img src={getImgPath()} alt="No Image" />
+          <div>
+            <div className="table-product-name">
+              {product.category} {product.productName}
+            </div>
+            <div>
+              <span className="table-product-label">color</span>
+              <span>{cartItem.color}</span>
+            </div>
+            <div>
+              <span className="table-product-label">size</span>
+              <span>{cartItem.size}</span>
+            </div>
+            <Tablet>
+              <span className="table-product-label">print</span>
+              {userImg?.length === 2 ? (
+                <span>
+                  {userImg[0]?.print} / {userImg[1]?.print}
+                </span>
+              ) : (
+                <span>{userImg[0]?.print}</span>
+              )}
+              <UserDesignModal userImg={userImg} />
+            </Tablet>
+          </div>
+        </td>
+        <Desktop>
+          <td>
+            {userImg?.length === 2 ? (
+              <>
+                {userImg[0]?.print} / {userImg[1]?.print}
+              </>
+            ) : (
+              <>{userImg[0]?.print}</>
+            )}
+            <UserDesignModal userImg={userImg} />
+          </td>
+        </Desktop>
+        <td className="quantity-container">
+          <IconButton onClick={onDecrease}>
+            <RemoveIcon />
+          </IconButton>
+          <input
+            type="number"
+            defaultValue={cartItem.quantity}
+            ref={inputRef}
+            onChange={onInput}
+          />
+          <IconButton onClick={onIncrease}>
+            <AddIcon />
+          </IconButton>
+        </td>
+        <td>{totalPay.toLocaleString("ko-KR")}</td>
+        <td>
+          <IconButton
+            onClick={() => {
+              dispatch(deleteItem(cartItem.cartID));
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </td>
+      </Default>
+
+      {/** 모바일 화면 */}
+      <Mobile>
+        <td>
+          <img src={getImgPath()} alt="No Image" />
+          <UserDesignModal userImg={userImg} />
+        </td>
+        <td className="table-product-container">
           <div className="table-product-name">
             {product.category} {product.productName}
           </div>
@@ -143,7 +216,7 @@ const CartItem = (props) => {
             <span className="table-product-label">size</span>
             <span>{cartItem.size}</span>
           </div>
-          <div className="table-media-query">
+          <div>
             <span className="table-product-label">print</span>
             {userImg?.length === 2 ? (
               <span>
@@ -152,44 +225,35 @@ const CartItem = (props) => {
             ) : (
               <span>{userImg[0]?.print}</span>
             )}
-            <UserDesignModal userImg={userImg} />
           </div>
-        </div>
-      </td>
-      <td>
-        {userImg?.length === 2 ? (
-          <>
-            {userImg[0]?.print} / {userImg[1]?.print}
-          </>
-        ) : (
-          <>{userImg[0]?.print}</>
-        )}
-        <UserDesignModal userImg={userImg} />
-      </td>
-      <td className="quantity-container">
-        <IconButton onClick={onDecrease}>
-          <RemoveIcon />
-        </IconButton>
-        <input
-          type="number"
-          defaultValue={cartItem.quantity}
-          ref={inputRef}
-          onChange={onInput}
-        />
-        <IconButton onClick={onIncrease}>
-          <AddIcon />
-        </IconButton>
-      </td>
-      <td>{totalPay.toLocaleString("ko-KR")}</td>
-      <td>
-        <IconButton
-          onClick={() => {
-            dispatch(deleteItem(cartItem.cartID));
-          }}
-        >
-          <DeleteIcon />
-        </IconButton>
-      </td>
+        </td>
+        <td>
+          <IconButton
+            onClick={() => {
+              dispatch(deleteItem(cartItem.cartID));
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </td>
+        <td>
+          <div className="quantity-container">
+            <IconButton onClick={onDecrease}>
+              <RemoveIcon />
+            </IconButton>
+            <input
+              type="number"
+              defaultValue={cartItem.quantity}
+              ref={inputRef}
+              onChange={onInput}
+            />
+            <IconButton onClick={onIncrease}>
+              <AddIcon />
+            </IconButton>
+          </div>
+          <div>₩ {totalPay.toLocaleString("ko-KR")}</div>
+        </td>
+      </Mobile>
     </>
   );
 };

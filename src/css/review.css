@@ -11,11 +11,16 @@
 }
 
 .review-container {
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid lightgray;
-  padding: 40px 30px;
+  padding: 40px 50px;
+
+  /* 임시추가 */
+  width: 90%;
+  max-width: 1080px;
+  margin: 2rem auto;
 }
 
 .review-context-both {
@@ -72,13 +77,179 @@
   width: 50px;
 }
 /* reviewAdd.jxs */
-.review-title > h1 {
-  display: inline-block;
-
-  font-weight: bold;
-  font-family: "ongothic";
+.review-add-box {
+  min-height: calc(100vh - 236px);
+  max-width: 1280px; /* 마이페이지와 통일할 것 */
+  padding: 0 48px;
+  margin: 3rem auto;
+}
+.review-title {
+  position: relative;
+  width: 100%;
+  margin-bottom: 3rem;
+  height: 2.5rem;
 }
 
+.review-title h1 {
+  display: inline-block;
+  background-color: white;
+  margin: 0;
+  padding: 0 10px;
+  position: absolute;
+  top: 0;
+  left: 10%;
+  font-size: 2.5rem;
+  font-family: "nav";
+}
+
+.review-line {
+  width: 100%;
+  border-bottom: 2px solid black;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-2px);
+  z-index: -1;
+}
+
+.review-submit-form {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.review-submit-form > * {
+  width: 80%;
+  border: lightgray solid 1px;
+}
+
+.review-form-product {
+  display: flex;
+  padding: 40px 20%;
+  margin-bottom: 20px;
+}
+
+.review-form-product img {
+  margin-right: 20px;
+}
+
+.review-form-product > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-form-product > div > * {
+  margin-bottom: 5px;
+}
+
+.review-submit-form > div {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 30rem;
+  border: lightgray solid 1px;
+  padding: 40px 20%;
+}
+
+.review-submit-form > div > section {
+  display: grid;
+  margin-bottom: 20px;
+}
+.review-submit-form > div > section > * {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.review-submit-form > div > section > span {
+  font-size: 20px;
+  font-weight: bold;
+}
+/* reviewStar.jsx */
+.review-star-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.review-star {
+  display: flex;
+  flex-direction: row;
+  font-size: 35px;
+  margin-bottom: 10px;
+}
+
+.review-comment {
+  position: relative;
+}
+.review-comment > textarea {
+  width: 100%;
+  height: 200px;
+  resize: none;
+  border: none;
+  padding: 20px 20px;
+  background-color: rgba(232, 232, 232, 0.409);
+  color: gray;
+}
+
+.review-comment > textarea::placeholder {
+  opacity: 50%;
+}
+
+.review-comment > em {
+  position: absolute;
+  top: 200px;
+  right: 20px;
+
+  /* bottom: 0; */
+}
+.review-comment > em > span {
+  opacity: 50%;
+}
+
+.review-add-button {
+  display: grid;
+  grid-template-columns: 49% 49%;
+  grid-column-gap: 10px;
+}
+
+/* 모달창 */
+.review-modal {
+  display: grid;
+  justify-content: center;
+  grid-template-rows: 10% 62% 10% 10%;
+  grid-template-columns: 100%;
+  grid-row-gap: 3%;
+  align-items: center;
+}
+.review-modal > header {
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+}
+.review-modal > header > p {
+  font-size: 20px;
+  font-weight: bold;
+}
+.review-modal > .review-add-button {
+  display: grid;
+  grid-template-columns: 49% 48%;
+  grid-column-gap: 10px;
+}
+
+.review-modal > div > img {
+margin-top: 5px;
+margin-left: 70px;
+}
+.review-modal > div {
+  position: relative;
+}
+.review-xbutton {
+  position: absolute;
+  top: 6px;
+  right: 82px;
+  background-color: black;
+  color: white;
+  opacity: 50%;
+  font-size: 20px;
+  padding: 3px 11px;
+}
 /* reviewList.jsx */
 
 /* reviewInput.jsx */
@@ -98,11 +269,25 @@
   }
 
   .review-option * {
-    margin: 1px;
+    margin-right: 1px;
     margin-right: 5px;
   }
   .review-button {
     display: flex;
     flex-direction: row;
+  }
+
+  /* reviewAdd.jsx */
+  .review-form-product {
+    padding: 40px 5%;
+  }
+
+  .review-submit-form > div {
+    padding: 40px 5%;
+    justify-content: space-evenly;
+    justify-items: center;
+  }
+  .review-submit-form > div > section {
+    width: 70%;
   }
 }

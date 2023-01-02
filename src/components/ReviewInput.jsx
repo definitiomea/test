@@ -8,45 +8,48 @@ import { useNavigate } from "react-router-dom";
 const ReviewInput = () => {
   // 구매티셔츠 정보, 리뷰정보
   const reviewFile = useSelector((state) => state.reviewInput.reviewlist);
-  // console.log(reviewFile);
+  console.log(reviewFile);
+
   const dispatch = useDispatch();
 
   const array = [1, 2, 3, 4, 5];
 
   const navigate = useNavigate();
 
-  // console.log(reviewFile.productImg);
-
   return (
     <div>
       <div className="review-box">
         {reviewFile.map((review, i) => (
-          <div className="review-container">
+          <div className="review-container" key={i}>
             <div className="review-context-both">
               <div>
                 {/* 이미지가 첨부되면 첨부파일을 출력, 첨부하지 않으면 상품 썸네일을 출력 */}
                 {/* {console.log(review.category)} */}
                 {/* {console.log(review.thumbnail)} */}
                 {/* {console.log(review)} */}
-                {console.log(reviewFile[1].img)}
-                {console.log(reviewFile[1])}
                 {review.img ? (
-                  <img src={reviewFile[i].img} alt="" style={{ width: "120px", height: "130px" }} />
+                  <img
+                    src={reviewFile[i].img}
+                    alt=""
+                    style={{ width: "120px", height: "130px" }}
+                  />
                 ) : review && review.category == "short" ? (
-                  <img src={require(`../img/shirts-img/short/${review.thumbnail}`)}></img>
+                  <img
+                    src={require(`../img/shirts-img/short/${review.thumbnail}`)}
+                    style={{
+                      width: "120px",
+                      height: "130px",
+                    }}
+                  ></img>
                 ) : (
-                  <img src={require(`../img/shirts-img/long/${review.thumbnail}`)}></img>
+                  <img
+                    src={require(`../img/shirts-img/long/${review.thumbnail}`)}
+                    style={{
+                      width: "120px",
+                      height: "130px",
+                    }}
+                  ></img>
                 )}
-                {/* {review && review.category == "short" ? (
-                  <img src={require(`../img/shirts-img/short/${review.thumbnail}`)}></img>
-                ) : (
-                  <img src={require(`../img/shirts-img/long/${review.thumbnail}`)}></img>
-                )} */}
-                {/* {review.img ? (
-                  <img src={reviewFile[0].img} alt="" style={{ width: "120px", height: "130px" }} />
-                ) : (
-                  <img src={require(`${review.thumbnail}`)} alt="" style={{ width: "120px", height: "130px" }} />
-                )} */}
               </div>
               <div className="review-context">
                 <span>
@@ -54,7 +57,11 @@ const ReviewInput = () => {
                 </span>
                 <span>
                   {array.map((el, i) => (
-                    <FontAwesomeIcon icon={faStar} key={el} className={review.star >= array[i] ? "yellowStar" : ""} />
+                    <FontAwesomeIcon
+                      icon={faStar}
+                      key={el}
+                      className={review.star >= array[i] ? "yellowStar" : ""}
+                    />
                   ))}
                 </span>
                 <div className="review-context-product">
@@ -69,7 +76,7 @@ const ReviewInput = () => {
 
             <div className="review-option">
               {/* 리뷰 등록날짜 정보 */}
-              <span>등록날짜</span>
+              <span>{review.date}</span>
               <div className="review-button">
                 <button
                   onClick={() => {
@@ -78,7 +85,9 @@ const ReviewInput = () => {
                 >
                   수정
                 </button>
-                <button onClick={() => dispatch(deleteReview())}>삭제</button>
+                <button onClick={() => dispatch(deleteReview(review))}>
+                  삭제
+                </button>
               </div>
             </div>
           </div>

@@ -74,7 +74,7 @@ function AdditDeliveryList() {
     handleOpen();
   };
   const relay = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // 임시
     Postcode();
     dispatch(
       ADDIT_USER({
@@ -94,6 +94,7 @@ function AdditDeliveryList() {
         reference,
       })
     );
+    alert("변경이 완료되었습니다."); // 임시
   };
 
   const style = {
@@ -141,9 +142,12 @@ function AdditDeliveryList() {
             value={zoneCode || ""}
           />
           {/* input type:button -> button tag로 변경 */}
-          <button className="post-form_btn" onClick={submit}>
-            우편번호 찾기
-          </button>
+          <input
+            type="button"
+            className="post-form_btn"
+            defaultValue="우편번호 찾기"
+            onClick={submit}
+          />
         </div>
         <label className="post-form_label">주소</label>
         <input
