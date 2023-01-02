@@ -49,6 +49,7 @@ const Home = () => {
   const [email, setEmail] = useState("");
 
   const submitEmail = (e) => {
+    e.preventDefault();
     if (!email == "") {
       alert("구독해주셔서 감사합니다.");
     } else {
