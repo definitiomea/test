@@ -25,13 +25,12 @@ nav {
 .navbar-logo {
   float: left;
   clear: left;
-  margin: 12px 0 0 38px;
+  margin: 11px 0 0 38px;
 }
 
 .navbar-logo > * {
   text-decoration: none;
   font-size: 45px;
-
   font-family: "logo";
 }
 
@@ -55,7 +54,7 @@ nav {
 .navbar-menu {
   float: right;
   clear: right;
-  padding: 38px 50px 0 0;
+  padding: 38px 38px 0 0;
 }
 
 .navbar-menu * {
@@ -147,6 +146,10 @@ button {
 
 /* 타블렛 버전 */
 @media screen and (max-width: 768px) {
+  .navbar-logo {
+    margin: 16px 0 0 38px;
+  }
+
   .white-logo {
     font-size: 2.5rem;
   }
@@ -169,6 +172,21 @@ button {
   }
 
   .dropdown-menu {
-    left: -5px;
+    left: -7px;
+  }
+}
+
+/* 모바일 버전 */
+@media screen and (max-width: 576px) {
+  .navbar-logo {
+    margin: 15px 0 0 30px;
+  }
+
+  .navbar-menu {
+    padding: 38px 30px 0 0;
+  }
+
+  .dropdown-menu {
+    left: -11px;
   }
 }
