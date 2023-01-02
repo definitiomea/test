@@ -131,10 +131,12 @@ const Mypage = () => {
           </div> */}
         <form
           className="user-info_form"
-          onSubmit={() => {
+          onSubmit={(e) => {
+            e.preventDefault(); // 임시
             if (checkPass === trans.password) {
               dispatch(ADDIT_USER(trans));
               dispatch(loginUser(trans));
+              alert("변경이 완료되었습니다."); // 임시
             } else {
               alert("누구세요");
             }
