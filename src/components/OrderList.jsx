@@ -8,9 +8,14 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const OrderList = ({setTrans, findUser}) => {
-  // 주문완료 섹션 출력 함수
+const OrderList = ({ setTrans, findUser }) => {
+  const user = useSelector((state) => state.user);
   const orderDone = useSelector((state) => state.orderlist.orderlist);
+  const findUserData =
+    JSON.stringify(user) === "{}"
+      ? undefined
+      : orderDone.find((item) => item.userId === user.id);
+
   const PAGE_UNIT = 3;
   const [viewCount, setViewCount] = useState(PAGE_UNIT);
   const navigate = useNavigate();
@@ -28,15 +33,17 @@ const OrderList = ({setTrans, findUser}) => {
 
   const viewMoreHandle = (list) => {
     if (list.length < viewCount + PAGE_UNIT) {
-      setViewCount(orderDone.length);
+      setViewCount(list.length);
     } else {
       setViewCount(viewCount + PAGE_UNIT);
     }
   };
 
   useEffect(() => {
-    if (orderDone.length < PAGE_UNIT) {
-      setViewCount(orderDone.length);
+    if (findUserData) {
+      findUserData.itemlist.length < PAGE_UNIT
+        ? setViewCount(findUserData.itemlist.length)
+        : setViewCount(PAGE_UNIT);
     }
   }, []);
 
@@ -61,18 +68,22 @@ const OrderList = ({setTrans, findUser}) => {
             </tr>
           </thead>
           <tbody>
-            {orderDone.length === 0 ? (
+            {JSON.stringify(user) === "{}" ? (
               <tr className="item-empty">
-                <td>Empty</td>
+                <td>로그인 후 이용해주세요</td>
               </tr>
             ) : (
               <>
-                {orderDone
-                  .slice(0)
-                  .reverse()
-                  .map(
-                    (order) =>
-                      order.orderID > orderDone.length - viewCount && (
+                {!findUserData ? (
+                  <tr className="item-empty">
+                    <td>구매내역이 없습니다</td>
+                  </tr>
+                ) : (
+                  <>
+                    {findUserData.itemlist
+                      .slice(-viewCount)
+                      .reverse()
+                      .map((order) => (
                         <tr key={order.orderID}>
                           <td className="table-product-container">
                             <img src={getImgPath(order)} alt="No Image" />
@@ -139,24 +150,25 @@ const OrderList = ({setTrans, findUser}) => {
                             </div>
                           </td>
                         </tr>
-                      )
-                  )}
-                <tr className="view-more-container">
-                  <td>
-                    1-{viewCount} of {orderDone.length}
-                  </td>
-                  <td>
-                    <Button
-                      variant="outlined"
-                      color="inherit"
-                      onClick={() => {
-                        viewMoreHandle(orderDone);
-                      }}
-                    >
-                      더보기
-                    </Button>
-                  </td>
-                </tr>
+                      ))}
+                    <tr className="view-more-container">
+                      <td>
+                        1-{viewCount} of {findUserData.itemlist.length}
+                      </td>
+                      <td>
+                        <Button
+                          variant="outlined"
+                          color="inherit"
+                          onClick={() => {
+                            viewMoreHandle(findUserData.itemlist);
+                          }}
+                        >
+                          더보기
+                        </Button>
+                      </td>
+                    </tr>
+                  </>
+                )}
               </>
             )}
           </tbody>
@@ -173,18 +185,22 @@ const OrderList = ({setTrans, findUser}) => {
             </tr>
           </thead>
           <tbody>
-            {orderDone.length === 0 ? (
+            {JSON.stringify(user) === "{}" ? (
               <tr className="item-empty">
-                <td>Empty</td>
+                <td>로그인 후 이용해주세요</td>
               </tr>
             ) : (
               <>
-                {orderDone
-                  .slice(0)
-                  .reverse()
-                  .map(
-                    (order) =>
-                      order.orderID > orderDone.length - viewCount && (
+                {!findUserData ? (
+                  <tr className="item-empty">
+                    <td>Empty</td>
+                  </tr>
+                ) : (
+                  <>
+                    {findUserData.itemlist
+                      .slice(-viewCount)
+                      .reverse()
+                      .map((order) => (
                         <tr key={order.orderID}>
                           <td>
                             <img src={getImgPath(order)} alt="No Image" />
@@ -249,24 +265,25 @@ const OrderList = ({setTrans, findUser}) => {
                             </div>
                           </td>
                         </tr>
-                      )
-                  )}
-                <tr className="view-more-container">
-                  <td>
-                    1-{viewCount} of {orderDone.length}
-                  </td>
-                  <td>
-                    <Button
-                      variant="outlined"
-                      color="inherit"
-                      onClick={() => {
-                        viewMoreHandle(orderDone);
-                      }}
-                    >
-                      더보기
-                    </Button>
-                  </td>
-                </tr>
+                      ))}
+                    <tr className="view-more-container">
+                      <td>
+                        1-{viewCount} of {findUserData.itemlist.length}
+                      </td>
+                      <td>
+                        <Button
+                          variant="outlined"
+                          color="inherit"
+                          onClick={() => {
+                            viewMoreHandle(findUserData.itemlist);
+                          }}
+                        >
+                          더보기
+                        </Button>
+                      </td>
+                    </tr>
+                  </>
+                )}
               </>
             )}
           </tbody>
