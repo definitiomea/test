@@ -264,7 +264,13 @@ const ProductDetail = () => {
             <div className="product-introduce">
               {/* {productList ? <p>{productList.id}</p> : ""} */}
               {productList ? <p>{productList.productName}</p> : ""}
-              {productList ? <p><b>{productList.price}</b> 원</p> : ""}
+              {productList ? (
+                <p>
+                  <b>{productList.price}</b> 원
+                </p>
+              ) : (
+                ""
+              )}
             </div>
             <div className="product-color-setter-area">
               {productList
@@ -338,7 +344,7 @@ const ProductDetail = () => {
          * 고객이 작성한 리뷰 출력
          * - 페이지 ReviewAdd에서 작성되고, 컴포넌트 ReviewInput에 출력 폼 있음
          */}
-        <ReviewInput />
+        {productList ? <ReviewInput id={id} /> : ""}
       </div>
     </>
   );

@@ -47,7 +47,7 @@ const cartSlice = createSlice({
       });
       state.cartlist = newCartlist;
     },
-    // 장바구니 상품별 구매수량 +1 (구매수량 최대 999)
+    // 장바구니 상품별구매수량 +1 (구매수량 최대 999)
     quantityIncrease: (state, action) => {
       const newCartlist = state.cartlist.map((item) => {
         if (
