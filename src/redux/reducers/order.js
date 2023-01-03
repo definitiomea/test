@@ -104,9 +104,21 @@ const orderSlice = createSlice({
         itemlist: [data],
       });
     },
+    // 해당 구매내역의 리뷰를 작성하면 구매내역에 리뷰 정보(리뷰아이디)가 추가됨
+    AddReviewInOrder: (state, action) => {
+      const index = state.orderlist.findIndex(
+        (el) => el.userId === action.payload.userId
+      );
+      const newItemlist = state.orderlist[index].itemlist.map((item) =>
+        item.orderID === action.payload.orderId
+          ? { ...item, rieview: action.payload.reviewId }
+          : item
+      );
+    },
   },
 });
 
-export const { inputOrder, AddDummyData } = orderSlice.actions;
+export const { inputOrder, AddDummyData, AddReviewInOrder } =
+  orderSlice.actions;
 
 export default orderSlice.reducer;
