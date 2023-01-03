@@ -10,6 +10,7 @@ import { SIGN_UP } from "../redux/reducers/signup";
 
 import "../css/signup.css";
 import MyButton from "../style/Button";
+import { AddDummyData } from "../redux/reducers/order";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -44,9 +45,7 @@ const SignUpPage = () => {
     email,
   };
 
-  const findUser = signup.userlist.find(
-    (signup) => signup.id === id || signup.email === email
-  );
+  const findUser = signup.userlist.find((signup) => signup.id === id || signup.email === email);
 
   const onSubmitForm = (e) => {
     e.preventDefault();
@@ -66,6 +65,8 @@ const SignUpPage = () => {
       alert("비밀번호 불일치");
       return setPasswordError(true);
     }
+    // 후기작성 기능 확인을 위해 가입된 유저의 구매내역에 배송완료 더미데이터 추가
+    dispatch(AddDummyData(user.id));
   };
 
   return (
@@ -78,61 +79,26 @@ const SignUpPage = () => {
       <form className="signup-form" onSubmit={onSubmitForm}>
         <label className="signup-label">Name</label>
 
-        <input
-          className="signup-input"
-          type="text"
-          name="user-name"
-          value={name}
-          required
-          onChange={onChangeName}
-        />
+        <input className="signup-input" type="text" name="user-name" value={name} required onChange={onChangeName} />
 
         <label className="signup-label">ID</label>
 
-        <input
-          className="signup-input"
-          type="text"
-          name="user-id"
-          value={id}
-          required
-          onChange={onChangeId}
-        />
+        <input className="signup-input" type="text" name="user-id" value={id} required onChange={onChangeId} />
 
         <label className="signup-label">Password</label>
 
-        <input
-          className="signup-input"
-          type="password"
-          name="user-password"
-          value={password}
-          required
-          onChange={onChangePassword}
-        />
+        <input className="signup-input" type="password" name="user-password" value={password} required onChange={onChangePassword} />
 
         <label className="signup-label" htmlFor="user-password-check">
           Password check
         </label>
 
-        <input
-          className="signup-input"
-          name="user-password-check"
-          type="password"
-          value={passwordCheck}
-          required
-          onChange={onChangePasswordCheck}
-        />
+        <input className="signup-input" name="user-password-check" type="password" value={passwordCheck} required onChange={onChangePasswordCheck} />
         {passwordError && <p>Password가 일치하지 않습니다.</p>}
 
         <label className="signup-label">E-mail</label>
 
-        <input
-          className="signup-input"
-          type="email"
-          name="user-email"
-          value={email}
-          required
-          onChange={onChangeEmail}
-        />
+        <input className="signup-input" type="email" name="user-email" value={email} required onChange={onChangeEmail} />
 
         {/* 주소지 등록 / 수정 component를 따로 분리하여 삭제 */}
         {/* <div>
