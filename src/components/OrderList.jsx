@@ -124,7 +124,7 @@ const OrderList = ({ setTrans, findUser }) => {
                                   onClick={() => {
                                     navigate("/mypage/review", {
                                       state: {
-                                        order: order,
+                                        data: order,
                                         userId: user.id,
                                       },
                                     });
@@ -207,7 +207,7 @@ const OrderList = ({ setTrans, findUser }) => {
                                   onClick={() => {
                                     navigate("/mypage/review", {
                                       state: {
-                                        order: order,
+                                        data: order,
                                         userId: user.id,
                                       },
                                     });

@@ -24,6 +24,7 @@ const ReviewAdd = () => {
   const fileInput = useRef();
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.user.id);
+  // const reviewID = useSelector((state) => state.reviewInput.reviewlist.reviewID); // 리뷰의 고유값 부여
 
   // 사진첨부 모달창
   const handleOpen = () => setModalOpen(true);
@@ -105,7 +106,7 @@ const ReviewAdd = () => {
   const location = useLocation();
   const [data, setData] = useState("");
   const [checkId, setCheckId] = useState("");
-  console.log(data);
+  // console.log(data);
 
   // 글자수와 별점을 선택하게 하는 함수
   const reviewSumbit = (e) => {
@@ -120,8 +121,10 @@ const ReviewAdd = () => {
 
     const newReview = {
       // ...data,
-      thumbnail: data.thumbnail,
+      // reviewID,
+      productID: data.productID,
       img,
+      thumbnail: data.thumbnail,
       userID,
       star,
       category: data.category,
@@ -129,8 +132,8 @@ const ReviewAdd = () => {
       size: data.size,
       color: data.color,
       comment,
-      productID: data.productID,
     };
+    // console.log(newReview);
 
     // 로그인유저가 작성한 유저가 같다면 작성내용을 input리듀서로 디스패치함
     // 코멘트 내용이 다르다면 edit리듀서로 디스패치함
@@ -146,11 +149,11 @@ const ReviewAdd = () => {
 
   // 마이페이지에서 값을 잘 받아오고 있으면 (주소창에 mypaye/review로 접근하는 등 편법 방지) 에러페이지를 출력함
   useEffect(() => {
-    if (!location.state.order) {
+    if (!location.state.data) {
       alert("잘못된 경로로 접근하였습니다.");
       navigate("/notfound");
     } else {
-      setData(location.state.order);
+      setData(location.state.data);
       setCheckId(location.state.userId);
     }
   }, []);

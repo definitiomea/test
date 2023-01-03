@@ -7,15 +7,15 @@ import { useNavigate } from "react-router-dom";
 
 const ReviewInput = (props) => {
   const { id } = props;
-  console.log(id);
+  // console.log(id);
 
   // 구매티셔츠 정보, 리뷰정보
   const reviewFile = useSelector((state) => state.reviewInput.reviewlist);
-
   console.log(reviewFile);
 
   const dispatch = useDispatch();
 
+  // 별점 어레이
   const array = [1, 2, 3, 4, 5];
 
   const navigate = useNavigate();
@@ -24,8 +24,9 @@ const ReviewInput = (props) => {
     <div>
       <div className="review-box">
         <div>
-          {/* {id == reviewFile.prodcutId ? ():("")} */}
           {reviewFile.map((review, i) => (
+            // {id == review.prodcutId ? ():("")}
+
             <div className="review-container" key={i}>
               <div className="review-context-both">
                 <div>
@@ -77,7 +78,12 @@ const ReviewInput = (props) => {
                 <div className="review-button">
                   <button
                     onClick={() => {
-                      navigate("/mypage/review", { state: review });
+                      navigate("/mypage/review", {
+                        state: {
+                          data: review,
+                          userId: review.userID,
+                        },
+                      });
                     }}
                   >
                     수정
