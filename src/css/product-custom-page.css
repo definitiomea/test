@@ -47,6 +47,11 @@
 .handling-explane {
   font-size: 0.75em;
   color: dimgray;
+  /* 텍스트 선택을 막아주기 */
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none
 }
 .product-handling-buttons svg {
   width: 2em;
@@ -123,6 +128,12 @@
 .product-important-handling-button .product-handling-button-element svg:hover {
   color: black;
 }
+.add-to-cart {
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none
+}
 
 .product-info-area {
   padding: 2vw 2vh;
@@ -132,6 +143,10 @@
 }
 .product-introduce {
   margin: 0px auto;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none
 }
 .product-color-setter-area {
   padding: 1vw;
@@ -201,6 +216,13 @@
 
 .product-info-component {
   padding: 1vh 1vw;
+  width: 90%; /* 미디어쿼리에서 조절하기 */
+  max-width: 1080px;
+  margin: auto;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none
 }
 .info-section {
   font-size: 1.5em;
@@ -232,5 +254,12 @@
 }
 
 /* 리뷰 공간 */
-.review-area {
+/* .review-area {
+} */
+
+.produce-info {
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none
 }

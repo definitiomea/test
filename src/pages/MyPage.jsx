@@ -124,8 +124,6 @@ const Mypage = () => {
 
   return (
     <div className="mypage-container">
-      <div className="mypage-title-border"></div>
-      <h1 className="mypage-title">MyPage</h1>
       {/* 회원정보 수정 form */}
       <h4 className="section-title">회원정보 수정</h4>
       <div className="user-info">
@@ -133,10 +131,12 @@ const Mypage = () => {
           </div> */}
         <form
           className="user-info_form"
-          onSubmit={() => {
+          onSubmit={(e) => {
+            e.preventDefault(); // 임시
             if (checkPass === trans.password) {
               dispatch(ADDIT_USER(trans));
               dispatch(loginUser(trans));
+              alert("변경이 완료되었습니다."); // 임시
             } else {
               alert("누구세요");
             }
