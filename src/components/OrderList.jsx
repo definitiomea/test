@@ -18,7 +18,6 @@ const OrderList = ({ setTrans, findUser }) => {
 
   const PAGE_UNIT = 3;
   const [viewCount, setViewCount] = useState(PAGE_UNIT);
-  const navigate = useNavigate();
 
   const getImgPath = (item) => {
     switch (item.category) {
@@ -132,18 +131,7 @@ const OrderList = ({ setTrans, findUser }) => {
                             <div>{order.delivery}</div>
                             <div className="delivery-check-btn">
                               {order.delivery === "배송완료" ? (
-                                <MyButton
-                                  onClick={() => {
-                                    navigate("/mypage/review", {
-                                      state: {
-                                        order: order,
-                                        userId: user.id,
-                                      },
-                                    });
-                                  }}
-                                >
-                                  후기작성
-                                </MyButton>
+                                <ReviewButton order={order} userId={user.id} />
                               ) : (
                                 <DeliveryTracker
                                   setTrans={setTrans}
@@ -222,18 +210,7 @@ const OrderList = ({ setTrans, findUser }) => {
                           <td>
                             <div className="delivery-check-btn">
                               {order.delivery === "배송완료" ? (
-                                <MyButton
-                                  onClick={() => {
-                                    navigate("/mypage/review", {
-                                      state: {
-                                        order: order,
-                                        userId: user.id,
-                                      },
-                                    });
-                                  }}
-                                >
-                                  후기작성
-                                </MyButton>
+                                <ReviewButton order={order} userId={user.id} />
                               ) : (
                                 <DeliveryTracker
                                   setTrans={setTrans}
@@ -300,3 +277,28 @@ const OrderList = ({ setTrans, findUser }) => {
 };
 
 export default OrderList;
+
+const ReviewButton = ({ order, userId }) => {
+  const navigate = useNavigate();
+
+  return (
+    <>
+      {Object.keys(order).includes("reviewID") ? (
+        <MyButton disabled>
+          리뷰작성 <br />
+          완료
+        </MyButton>
+      ) : (
+        <MyButton
+          onClick={() => {
+            navigate("/mypage/review", {
+              state: { order, userId },
+            });
+          }}
+        >
+          리뷰작성
+        </MyButton>
+      )}
+    </>
+  );
+};

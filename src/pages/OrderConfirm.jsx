@@ -2,9 +2,13 @@ import styled from "styled-components";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import MyButton from "../style/Button";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const OrderConfirm = () => {
   const navigate = useNavigate();
+
+  const data = useSelector((state) => state.orderlist.orderlist);
+  console.log(data);
 
   return (
     <Wrap>

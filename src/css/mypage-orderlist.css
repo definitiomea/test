@@ -33,6 +33,9 @@
 .order-list .delivery-check-btn button {
   line-height: 1;
 }
+.order-list .delivery-check-btn button:disabled {
+  color: #f8f9fa;
+}
 
 /* 구매내역 페이지네이션 */
 .order-list .view-more-container {
