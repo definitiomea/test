@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import video from "../img/main/main-video.mp4";
-import square from "../img/main/squarebox.png";
 import "../css/Home.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -62,10 +61,18 @@ const Home = () => {
       <Slider {...settings} ref={slider}>
         <section className="first-screen">
           <div>
+            <button
+              onClick={() => {
+                slider.current.slickGoTo(0);
+              }}
+            >
+              테스트
+            </button>
             <div className="section-video">
               {/* 자동재생 무음 반복 */}
               <video src={video} autoPlay muted loop />
             </div>
+
             <div className="first-content">
               <div>
                 <span>Create your </span>
@@ -76,7 +83,6 @@ const Home = () => {
                 <span>VIEW</span>
                 <span>Buy Now</span>
               </Link>
-              <img src={square} alt="" />
             </div>
           </div>
         </section>
@@ -137,5 +143,3 @@ const Home = () => {
 };
 
 export default Home;
-
-// <button onClick={() => {slider.current.slickGoTo(0)}}>테스트</button>
