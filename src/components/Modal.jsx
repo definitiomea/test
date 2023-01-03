@@ -6,31 +6,29 @@ import { loginUser } from "../redux/reducers/user";
 
 import "../style/Button";
 import MyButton from "../style/Button";
+import { useState } from "react";
 
 const Modal = (props) => {
-  const { open, close, setModalOpen } = props;
+  const { open, setModalOpen } = props;
   const signup = useSelector((state) => state.signup);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const [id, setId] = useState("");
-  // const [password, setPassword] = useState("");
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
 
-  // const onChangeId = (e) => {
-  //   setId(e.target.value);
-  //   console.log(e.target.value);
-  // };
-
-  // const onChangePassword = (e) => {
-  //   setPassword(e.target.value);
-  //   console.log(e.target.value);
-  // };
-
-  // custom hook 사용
-
-  const [id, onChangeId] = useInput("");
-  const [password, onChangePassword] = useInput("");
+  const onChangeId = (e) => {
+    setId(e.target.value);
+  };
+  const onChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
+  const modalClose = () => {
+    setModalOpen(false);
+    setId("");
+    setPassword("");
+  };
 
   const onSubmitForm = (e) => {
     e.preventDefault();
@@ -68,14 +66,14 @@ const Modal = (props) => {
 
   const onClickSignup = () => {
     navigate("signup");
-    close();
+    modalClose();
   };
 
   return (
     <div className={open ? "openModal modal" : "modal"}>
       {open ? (
         <div className="content-box">
-          <button className="close" onClick={close}>
+          <button className="close" onClick={modalClose}>
             X
           </button>
 

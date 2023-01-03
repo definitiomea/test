@@ -110,7 +110,7 @@ const Navbar = () => {
             >
               LOGIN
             </button>
-            <Modal open={modalOpen} close={closeModal} />
+            <Modal setModalOpen={setModalOpen} open={modalOpen} />
           </div>
         )}
       </ul>
