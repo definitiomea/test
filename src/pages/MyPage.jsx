@@ -1,13 +1,12 @@
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ADDIT_USER } from "../redux/reducers/signup";
 import { loginUser } from "../redux/reducers/user";
 import AdditDeliveryList from "../components/AdditDeliveryList";
+import OrderList from "../components/OrderList";
 
 import MyButton from "../style/Button";
 import "../css/mypage.css";
-import OrderList from "../components/OrderList";
 
 const Mypage = () => {
   const [trans, setTrans] = useState(null);
@@ -29,6 +28,8 @@ const Mypage = () => {
 
   return (
     <div className="mypage-container">
+      <div className="mypage-title-border"></div>
+      <h1 className="mypage-title">MyPage</h1>
       {/* 회원정보 수정 form */}
       <h4 className="section-title">회원정보 수정</h4>
       <div className="user-info">
