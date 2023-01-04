@@ -76,22 +76,26 @@ const ReviewInput = (props) => {
                     </div>
                   </div>
 
-                  <div className="review-option">
-                    {/* 리뷰 등록날짜 정보 */}
-                    <span>{review.date}</span>
-                    <div className="review-button">
-                      <button
-                        onClick={() => {
-                          navigate("/mypage/review", {
-                            state: { data: review, userId: user.id },
-                          });
-                        }}
-                      >
-                        수정
-                      </button>
-                      <button onClick={() => dispatch(deleteReview(review))}>삭제</button>
+                  {userID == review.userID ? (
+                    <div className="review-option">
+                      {/* 리뷰 등록날짜 정보 */}
+                      <span>{review.date}</span>
+                      <div className="review-button">
+                        <button
+                          onClick={() => {
+                            navigate("/mypage/review", {
+                              state: { data: review, userId: user.id },
+                            });
+                          }}
+                        >
+                          수정
+                        </button>
+                        <button onClick={() => dispatch(deleteReview(review))}>삭제</button>
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               ) : (
                 ""
