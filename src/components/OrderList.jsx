@@ -292,7 +292,7 @@ const ReviewButton = ({ order, userId }) => {
         <MyButton
           onClick={() => {
             navigate("/mypage/review", {
-              state: { order, userId },
+              state: { data: order, userId },
             });
           }}
         >

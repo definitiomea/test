@@ -156,11 +156,11 @@ const ReviewAdd = () => {
   // 마이페이지-구매내역에서 값을 잘 받아오고 있으면 리뷰작성페이지가 정상적으로 출력
   // 주소창에 직접적으로 /mypage/review를 입력해 리뷰작성페이지에 접근할 경우 404페이지로 이동
   useEffect(() => {
-    if (!location.state.order) {
+    if (!location.state.data) {
       alert("잘못된 경로로 접근하였습니다.");
       navigate("/notfound");
     } else {
-      setData(location.state.order);
+      setData(location.state.data);
       setCheckId(location.state.userId);
     }
   }, []);

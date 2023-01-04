@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "../css/review.css";
 import { useNavigate } from "react-router-dom";
+import user from "../redux/reducers/user";
 
 const ReviewInput = (props) => {
   const { id } = props;
@@ -33,7 +34,11 @@ const ReviewInput = (props) => {
                   {/* {console.log(review.category)} */}
 
                   {review.img ? (
-                    <img src={reviewFile[i].img} alt="" style={{ width: "120px", height: "130px" }} />
+                    <img
+                      src={reviewFile[i].img}
+                      alt=""
+                      style={{ width: "120px", height: "130px" }}
+                    />
                   ) : review && review.category == "short" ? (
                     <img
                       src={require(`../img/shirts-img/short/${review.thumbnail}`)}
@@ -58,7 +63,11 @@ const ReviewInput = (props) => {
                   </span>
                   <span>
                     {array.map((el, i) => (
-                      <FontAwesomeIcon icon={faStar} key={el} className={review.star >= array[i] ? "yellowStar" : ""} />
+                      <FontAwesomeIcon
+                        icon={faStar}
+                        key={el}
+                        className={review.star >= array[i] ? "yellowStar" : ""}
+                      />
                     ))}
                   </span>
                   <div className="review-context-product">
@@ -77,12 +86,16 @@ const ReviewInput = (props) => {
                 <div className="review-button">
                   <button
                     onClick={() => {
-                      navigate("/mypage/review", { state: review });
+                      navigate("/mypage/review", {
+                        state: { data: review, userId: user.id },
+                      });
                     }}
                   >
                     수정
                   </button>
-                  <button onClick={() => dispatch(deleteReview(review))}>삭제</button>
+                  <button onClick={() => dispatch(deleteReview(review))}>
+                    삭제
+                  </button>
                 </div>
               </div>
             </div>
