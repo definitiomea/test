@@ -78,6 +78,16 @@ const Home = () => {
               </Link>
             </div>
           </div>
+          <div className="scroll-container">
+            <button
+              className="scroll"
+              onClick={() => {
+                slider.current.slickGoTo(1);
+              }}
+            >
+              Scroll
+            </button>
+          </div>
         </section>
 
         {/* 두번째 스크린 */}
@@ -128,9 +138,9 @@ const Home = () => {
                 </a>
               </div>
 
-              <div className="scroll-container">
+              <div className="top-container">
                 <button
-                   className="top"
+                  className="top"
                   onClick={() => {
                     slider.current.slickGoTo(0);
                   }}
@@ -138,7 +148,6 @@ const Home = () => {
                   Top
                 </button>
               </div>
-              
             </div>
           </div>
         </section>

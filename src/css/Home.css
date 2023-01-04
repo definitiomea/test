@@ -47,7 +47,6 @@
 }
 
 /* 첫번째스크린 view 버튼 */
-
 .toGoShop {
   position: relative;
   top: 10px;
@@ -124,6 +123,32 @@
 .toGoShop:hover:after {
   transform-origin: bottom center;
   transform: skewY(9.3deg) scaleY(2);
+}
+
+/* scroll버튼 */
+.scroll-container {
+  position: fixed;
+  right: 3vw;
+  bottom: 81%;
+  z-index: 1;
+}
+
+.scroll {
+  font-weight: bold;
+  font-size: 13px;
+  padding: 15px 10px;
+  background-color: none;
+  color: rgba(255, 255, 255, 0.552);
+  border: 3px solid rgba(255, 255, 255, 0.552);
+  border-radius: 50%;
+  padding: 20px 15px;
+  outline: none;
+  cursor: pointer;
+}
+
+.scroll:hover {
+  color: rgba(255, 255, 255, 0.901);
+  border: 3px solid rgba(255, 255, 255, 0.901);
 }
 
 /* <두번째 스크린> */
@@ -240,29 +265,29 @@
 }
 
 /* Top버튼 */
-
-.scroll-container {
+.top-container {
   position: fixed;
-  right: 3%;
+  right: 3vw;
   bottom: 41%;
   z-index: 1;
 }
 
 .top {
   font-weight: bold;
-  font-size: 15px;
+  font-size: 13px;
   padding: 15px 10px;
   background-color: #000;
   color: rgba(255, 255, 255, 0.552);
-  border: 2px solid rgba(255, 255, 255, 0.552);
+  border: 3px solid rgba(255, 255, 255, 0.552);
   border-radius: 50%;
+  padding: 15px;
   outline: none;
   cursor: pointer;
 }
 
 .top:hover {
   color: rgba(255, 255, 255, 0.901);
-  border: 2px solid rgba(255, 255, 255, 0.901);
+  border: 3px solid rgba(255, 255, 255, 0.901);
 }
 
 @media screen and (max-width: 960px) {
