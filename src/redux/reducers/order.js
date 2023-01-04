@@ -67,9 +67,7 @@ const orderSlice = createSlice({
         delete cartlist[i].cartID;
       }
 
-      const index = state.orderlist.findIndex(
-        (el) => el.userId === action.payload.user
-      );
+      const index = state.orderlist.findIndex((el) => el.userId === action.payload.user);
       if (index === -1) {
         state.orderlist = state.orderlist.concat({
           userId: action.payload.user,
@@ -106,20 +104,15 @@ const orderSlice = createSlice({
     },
     // 해당 구매내역의 리뷰를 작성하면 구매내역에 리뷰 정보(리뷰아이디)가 추가됨
     AddReviewInOrder: (state, action) => {
-      const index = state.orderlist.findIndex(
-        (el) => el.userId === action.payload.userID
-      );
+      const index = state.orderlist.findIndex((el) => el.userId === action.payload.userID);
       const newItemlist = state.orderlist[index].itemlist.map((item) =>
-        item.orderID === action.payload.orderID
-          ? { ...item, reviewID: action.payload.reviewID }
-          : item
+        item.orderID === action.payload.orderID ? { ...item, reviewID: action.payload.reviewID } : item
       );
       state.orderlist[index].itemlist = newItemlist;
     },
   },
 });
 
-export const { inputOrder, AddDummyData, AddReviewInOrder } =
-  orderSlice.actions;
+export const { inputOrder, AddDummyData, AddReviewInOrder } = orderSlice.actions;
 
 export default orderSlice.reducer;

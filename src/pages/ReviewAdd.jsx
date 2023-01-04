@@ -156,11 +156,11 @@ const ReviewAdd = () => {
   // 마이페이지-구매내역에서 값을 잘 받아오고 있으면 리뷰작성페이지가 정상적으로 출력
   // 주소창에 직접적으로 /mypage/review를 입력해 리뷰작성페이지에 접근할 경우 404페이지로 이동
   useEffect(() => {
-    if (!location.state.order) {
+    if (!location.state.data) {
       alert("잘못된 경로로 접근하였습니다.");
       navigate("/notfound");
     } else {
-      setData(location.state.order);
+      setData(location.state.data);
       setCheckId(location.state.userId);
     }
   }, []);
@@ -181,11 +181,7 @@ const ReviewAdd = () => {
       <form onSubmit={reviewSumbit} className="review-submit-form">
         <section className="review-form-product">
           {/* 상품이미지 box*/}
-          <img
-            src={getImgPath(data)}
-            alt="No Image"
-            style={{ width: "120px", height: "120px" }}
-          />
+          <img src={getImgPath(data)} alt="No Image" style={{ width: "120px", height: "120px" }} />
 
           {/* 상품옵션 box */}
           <div>
@@ -255,22 +251,13 @@ const ReviewAdd = () => {
             {/* 전달받은 이미지가 있으면 영역출력, 없으면 빈 div */}
             {img ? (
               <div>
-                <img
-                  src={img}
-                  alt=""
-                  style={{ width: "180px", height: "240px", marginTop: "10px" }}
-                />
+                <img src={img} alt="" style={{ width: "180px", height: "240px", marginTop: "10px" }} />
               </div>
             ) : (
               <div></div>
             )}
             {/* 사진첨부 모달창*/}
-            <Modal
-              open={modalOpen}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
+            <Modal open={modalOpen} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
               <Box sx={style} className="review-modal">
                 <header>
                   <p>사진 첨부</p>
@@ -318,10 +305,7 @@ const ReviewAdd = () => {
                     border: "solid 1px gray",
                   }}
                 >
-                  <FontAwesomeIcon
-                    icon={faCamera}
-                    style={{ margin: "0 5px" }}
-                  />
+                  <FontAwesomeIcon icon={faCamera} style={{ margin: "0 5px" }} />
                   <label htmlFor="imageInput">사진추가</label>
                 </MyButton>
 

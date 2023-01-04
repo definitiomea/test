@@ -141,7 +141,7 @@
   color: rgba(255, 255, 255, 0.552);
   border: 3px solid rgba(255, 255, 255, 0.552);
   border-radius: 50%;
-  padding: 20px 15px;
+  padding: 20px 18px 15px 18px;
   outline: none;
   cursor: pointer;
 }
@@ -149,6 +149,7 @@
 .scroll:hover {
   color: rgba(255, 255, 255, 0.901);
   border: 3px solid rgba(255, 255, 255, 0.901);
+  transform: translateY(4px);
 }
 
 /* <두번째 스크린> */
