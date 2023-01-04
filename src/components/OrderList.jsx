@@ -11,11 +11,13 @@ import { useNavigate } from "react-router-dom";
 const OrderList = ({ setTrans, findUser }) => {
   const user = useSelector((state) => state.user);
   const orderDone = useSelector((state) => state.orderlist.orderlist);
-  const findUserData = JSON.stringify(user) === "{}" ? undefined : orderDone.find((item) => item.userId === user.id);
+  const findUserData =
+    JSON.stringify(user) === "{}"
+      ? undefined
+      : orderDone.find((item) => item.userId === user.id);
 
   const PAGE_UNIT = 3;
   const [viewCount, setViewCount] = useState(PAGE_UNIT);
-  const navigate = useNavigate();
 
   const getImgPath = (item) => {
     switch (item.category) {
@@ -38,7 +40,9 @@ const OrderList = ({ setTrans, findUser }) => {
 
   useEffect(() => {
     if (findUserData) {
-      findUserData.itemlist.length < PAGE_UNIT ? setViewCount(findUserData.itemlist.length) : setViewCount(PAGE_UNIT);
+      findUserData.itemlist.length < PAGE_UNIT
+        ? setViewCount(findUserData.itemlist.length)
+        : setViewCount(PAGE_UNIT);
     }
   }, []);
 
@@ -87,18 +91,25 @@ const OrderList = ({ setTrans, findUser }) => {
                                 {order.category} {order.productName}
                               </div>
                               <div>
-                                <span className="table-product-label">color</span>
+                                <span className="table-product-label">
+                                  color
+                                </span>
                                 <span>{order.color}</span>
                               </div>
                               <div>
-                                <span className="table-product-label">size</span>
+                                <span className="table-product-label">
+                                  size
+                                </span>
                                 <span>{order.size}</span>
                               </div>
                               <div>
-                                <span className="table-product-label">print</span>
+                                <span className="table-product-label">
+                                  print
+                                </span>
                                 {order.imgArray.length === 2 ? (
                                   <span>
-                                    {order.imgArray[0].print} / {order.imgArray[1].print}
+                                    {order.imgArray[0].print} /{" "}
+                                    {order.imgArray[1].print}
                                   </span>
                                 ) : (
                                   <span>{order.imgArray[0].print}</span>
@@ -120,20 +131,12 @@ const OrderList = ({ setTrans, findUser }) => {
                             <div>{order.delivery}</div>
                             <div className="delivery-check-btn">
                               {order.delivery === "배송완료" ? (
-                                <MyButton
-                                  onClick={() => {
-                                    navigate("/mypage/review", {
-                                      state: {
-                                        data: order,
-                                        userId: user.id,
-                                      },
-                                    });
-                                  }}
-                                >
-                                  후기작성
-                                </MyButton>
+                                <ReviewButton order={order} userId={user.id} />
                               ) : (
-                                <DeliveryTracker setTrans={setTrans} findUser={findUser} />
+                                <DeliveryTracker
+                                  setTrans={setTrans}
+                                  findUser={findUser}
+                                />
                               )}
                             </div>
                           </td>
@@ -194,29 +197,25 @@ const OrderList = ({ setTrans, findUser }) => {
                             <img src={getImgPath(order)} alt="No Image" />
                           </td>
                           <td className="table-product-container">
-                            <div className="table-order-date">{order.orderDate}</div>
+                            <div className="table-order-date">
+                              {order.orderDate}
+                            </div>
                             <div className="table-product-name">
                               {order.category} {order.productName}
                             </div>
-                            <div>₩ {order.totalPay.toLocaleString("ko-KR")}</div>
+                            <div>
+                              ₩ {order.totalPay.toLocaleString("ko-KR")}
+                            </div>
                           </td>
                           <td>
                             <div className="delivery-check-btn">
                               {order.delivery === "배송완료" ? (
-                                <MyButton
-                                  onClick={() => {
-                                    navigate("/mypage/review", {
-                                      state: {
-                                        data: order,
-                                        userId: user.id,
-                                      },
-                                    });
-                                  }}
-                                >
-                                  후기작성
-                                </MyButton>
+                                <ReviewButton order={order} userId={user.id} />
                               ) : (
-                                <DeliveryTracker setTrans={setTrans} findUser={findUser} />
+                                <DeliveryTracker
+                                  setTrans={setTrans}
+                                  findUser={findUser}
+                                />
                               )}
                             </div>
                             <div>{order.delivery}</div>
@@ -234,14 +233,17 @@ const OrderList = ({ setTrans, findUser }) => {
                               <div className="table-product-label">print</div>
                               {order.imgArray.length === 2 ? (
                                 <div>
-                                  {order.imgArray[0].print} / {order.imgArray[1].print}
+                                  {order.imgArray[0].print} /{" "}
+                                  {order.imgArray[1].print}
                                 </div>
                               ) : (
                                 <div>{order.imgArray[0].print}</div>
                               )}
                             </div>
                             <div>
-                              <div className="table-product-label">quantity</div>
+                              <div className="table-product-label">
+                                quantity
+                              </div>
                               <div>{order.quantity}</div>
                             </div>
                           </td>
@@ -275,3 +277,28 @@ const OrderList = ({ setTrans, findUser }) => {
 };
 
 export default OrderList;
+
+const ReviewButton = ({ order, userId }) => {
+  const navigate = useNavigate();
+
+  return (
+    <>
+      {Object.keys(order).includes("reviewID") ? (
+        <MyButton disabled>
+          리뷰작성 <br />
+          완료
+        </MyButton>
+      ) : (
+        <MyButton
+          onClick={() => {
+            navigate("/mypage/review", {
+              state: { order, userId },
+            });
+          }}
+        >
+          리뷰작성
+        </MyButton>
+      )}
+    </>
+  );
+};

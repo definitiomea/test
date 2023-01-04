@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { AddReviewInOrder } from "../redux/reducers/order";
 
 const ReviewAdd = () => {
   const [modalOpen, setModalOpen] = useState(false); // 모달창 열기
@@ -24,7 +25,6 @@ const ReviewAdd = () => {
   const fileInput = useRef();
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.user.id);
-  // const reviewID = useSelector((state) => state.reviewInput.reviewlist.reviewID); // 리뷰의 고유값 부여
 
   // 사진첨부 모달창
   const handleOpen = () => setModalOpen(true);
@@ -106,7 +106,7 @@ const ReviewAdd = () => {
   const location = useLocation();
   const [data, setData] = useState("");
   const [checkId, setCheckId] = useState("");
-  // console.log(data);
+  const reviewID = useSelector((state) => state.reviewInput.reviewID);
 
   // 글자수와 별점을 선택하게 하는 함수
   const reviewSumbit = (e) => {
@@ -121,10 +121,8 @@ const ReviewAdd = () => {
 
     const newReview = {
       // ...data,
-      // reviewID,
-      productID: data.productID,
-      img,
       thumbnail: data.thumbnail,
+      img,
       userID,
       star,
       category: data.category,
@@ -132,8 +130,8 @@ const ReviewAdd = () => {
       size: data.size,
       color: data.color,
       comment,
+      productID: data.productID,
     };
-    // console.log(newReview);
 
     // 로그인유저가 작성한 유저가 같다면 작성내용을 input리듀서로 디스패치함
     // 코멘트 내용이 다르다면 edit리듀서로 디스패치함
@@ -144,16 +142,25 @@ const ReviewAdd = () => {
       dispatch(editReview(newReview));
     }
     alert("리뷰가 등록되었습니다.");
+    dispatch(
+      AddReviewInOrder({
+        userID,
+        orderID: data.orderID,
+        reviewID,
+      })
+    );
     navigate("/shop/" + data.productID);
   };
 
   // 마이페이지에서 값을 잘 받아오고 있으면 (주소창에 mypaye/review로 접근하는 등 편법 방지) 에러페이지를 출력함
+  // 마이페이지-구매내역에서 값을 잘 받아오고 있으면 리뷰작성페이지가 정상적으로 출력
+  // 주소창에 직접적으로 /mypage/review를 입력해 리뷰작성페이지에 접근할 경우 404페이지로 이동
   useEffect(() => {
-    if (!location.state.data) {
+    if (!location.state.order) {
       alert("잘못된 경로로 접근하였습니다.");
       navigate("/notfound");
     } else {
-      setData(location.state.data);
+      setData(location.state.order);
       setCheckId(location.state.userId);
     }
   }, []);
@@ -174,7 +181,11 @@ const ReviewAdd = () => {
       <form onSubmit={reviewSumbit} className="review-submit-form">
         <section className="review-form-product">
           {/* 상품이미지 box*/}
-          <img src={getImgPath(data)} alt="No Image" style={{ width: "120px", height: "120px" }} />
+          <img
+            src={getImgPath(data)}
+            alt="No Image"
+            style={{ width: "120px", height: "120px" }}
+          />
 
           {/* 상품옵션 box */}
           <div>
@@ -244,13 +255,22 @@ const ReviewAdd = () => {
             {/* 전달받은 이미지가 있으면 영역출력, 없으면 빈 div */}
             {img ? (
               <div>
-                <img src={img} alt="" style={{ width: "180px", height: "240px", marginTop: "10px" }} />
+                <img
+                  src={img}
+                  alt=""
+                  style={{ width: "180px", height: "240px", marginTop: "10px" }}
+                />
               </div>
             ) : (
               <div></div>
             )}
             {/* 사진첨부 모달창*/}
-            <Modal open={modalOpen} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+            <Modal
+              open={modalOpen}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
               <Box sx={style} className="review-modal">
                 <header>
                   <p>사진 첨부</p>
@@ -298,7 +318,10 @@ const ReviewAdd = () => {
                     border: "solid 1px gray",
                   }}
                 >
-                  <FontAwesomeIcon icon={faCamera} style={{ margin: "0 5px" }} />
+                  <FontAwesomeIcon
+                    icon={faCamera}
+                    style={{ margin: "0 5px" }}
+                  />
                   <label htmlFor="imageInput">사진추가</label>
                 </MyButton>
 

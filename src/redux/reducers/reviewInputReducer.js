@@ -53,14 +53,21 @@ const reviewSlice = createSlice({
     deleteReview: (state, action) => {
       // reviewInput배열에서 reiviewID가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듦
       const newReviewlist = state.reviewlist.filter(
-        (review) => !(review.userID == action.payload.userID && review.reviewID == action.payload.reviewID)
+        (review) =>
+          !(
+            review.userID == action.payload.userID &&
+            review.reviewID == action.payload.reviewID
+          )
       );
       state.reviewlist = newReviewlist;
     },
     // 리뷰 수정하기
     editReview: (state, action) => {
       state.reviewlist = state.reviewlist.map((review) => {
-        return action.payload.userID == review.userID && action.payload.reviewID == review.reviewID ? action.payload : review;
+        return action.payload.userID == review.userID &&
+          action.payload.reviewID == review.reviewID
+          ? action.payload
+          : review;
       });
     },
   },
