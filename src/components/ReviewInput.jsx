@@ -76,6 +76,7 @@ const ReviewInput = (props) => {
                     </div>
                   </div>
 
+                  {/* 로그인 유저와 리뷰를 작성한 유저가 같을 때만 수정과 삭제 가능 */}
                   {userID == review.userID ? (
                     <div className="review-option">
                       {/* 리뷰 등록날짜 정보 */}

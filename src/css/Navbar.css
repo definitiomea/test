@@ -158,7 +158,8 @@ button {
     font-size: 2.5rem;
   }
 
-  .navbar * { /* ul > 클래스명으로 변경 */
+  .navbar * {
+    /* ul > 클래스명으로 변경 */
     padding: 0 3px;
     font-size: 0.8rem;
   }
@@ -177,13 +178,37 @@ button {
 }
 
 /* 모바일 버전 */
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 430px) {
   .navbar-logo {
     margin: 15px 0 0 30px;
   }
 
   .navbar-menu {
-    padding: 38px 30px 0 0;
+    display: none;
+  }
+
+  .toggle-button {
+    color: white;
+    float: right;
+    clear: right;
+    padding: 32px 30px 0 0;
+    font-size: 30px;
+  }
+
+  .toggle-button > div {
+  }
+
+  .toggle-button > div {
+    width: 25px;
+    height: 4px;
+    margin-bottom: 6px;
+    padding-right: 0;
+    padding-bottom: 0;
+    background-color: #f1f1f1;
+  }
+
+  .mobile-nav {
+    display: none;
   }
 
   .dropdown-menu {

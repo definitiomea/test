@@ -100,7 +100,7 @@ const ReviewAdd = () => {
   const commentSubmit = (e) => {
     setComment(e.target.value);
   };
-  // console.log(comment);
+  // console.log(comment.length);
 
   // mypage의 배송완료 상품에서 받아온 프롭
   const location = useLocation();
@@ -165,9 +165,6 @@ const ReviewAdd = () => {
     }
   }, []);
 
-  // textarea의 글자수를 input에 표시해주는 함수
-  const commentClac = (e) => setCommentLength(e.target.value.length);
-
   return (
     <div className="review-add-box">
       {/* 헤더 */}
@@ -226,7 +223,8 @@ const ReviewAdd = () => {
               placeholder="최소 10자 이상 작성해주세요."
             ></textarea>
             <em>
-              <span>{commentLength} / 5,000</span>
+              <span>{comment.length}</span>
+              <span>/5,000</span>
             </em>
           </section>
 

@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShop, faShoppingCart, faUser, faBars } from "@fortawesome/free-solid-svg-icons";
+
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 // import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/reducers/user";
 
 import Modal from "../components/Modal";
-import Slider from "react-slick";
 
 const Navbar = () => {
   // 리덕스 user 가져옴
@@ -58,7 +60,6 @@ const Navbar = () => {
         >
           MOTI
         </NavLink>
-       
       </div>
 
       <ul className="navbar-menu">
@@ -77,24 +78,15 @@ const Navbar = () => {
 
         {login ? (
           <li className="dropdown">
-            <div
-              className={main ? "white-nav" : "dark-nav"}
-              style={{ fontWeight: "bold" }}
-            >
+            <div className={main ? "white-nav" : "dark-nav"} style={{ fontWeight: "bold" }}>
               {userName.name}님
             </div>
             <div className="dropdown-menu">
-              <NavLink
-                to="mypage"
-                className={main ? "white-dropdown" : "dark-dropdown"}
-              >
+              <NavLink to="mypage" className={main ? "white-dropdown" : "dark-dropdown"}>
                 MYPAGE
               </NavLink>
 
-              <button
-                className={main ? "white-dropdown" : "dark-dropdown"}
-                onClick={logOut}
-              >
+              <button className={main ? "white-dropdown" : "dark-dropdown"} onClick={logOut}>
                 LOGOUT
               </button>
             </div>
@@ -115,6 +107,24 @@ const Navbar = () => {
             <Modal open={modalOpen} close={closeModal} />
           </div>
         )}
+      </ul>
+
+      <div className="toggle-button">
+        <div></div>
+        <div></div>
+        <div></div>
+        {/* <FontAwesomeIcon icon={faBars} /> */}
+      </div>
+      <ul className="mobile-nav">
+        <li>
+          <FontAwesomeIcon icon={faShop} />
+        </li>
+        <li>
+          <FontAwesomeIcon icon={faShoppingCart} />
+        </li>
+        <li>
+          <FontAwesomeIcon icon={faUser} />
+        </li>
       </ul>
     </nav>
   );
