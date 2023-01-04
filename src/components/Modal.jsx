@@ -1,6 +1,5 @@
 import "../css/modal.css";
-import useInput from "../hooks/useInput";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/reducers/user";
 
@@ -15,6 +14,8 @@ const Modal = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //--------------------------------------------
+  // modal을 껏을 때 input이 초기화되도록 수정
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,15 +30,10 @@ const Modal = (props) => {
     setId("");
     setPassword("");
   };
+  // --------------------------------------------
 
   const onSubmitForm = (e) => {
     e.preventDefault();
-
-    // const isUser = (element) => {
-    //   if (element.id === id || element.password === password) {
-    //     return true;
-    //   }
-    // };
 
     const findUser = signup.userlist.find(
       (user) => user.id === id && user.password === password
