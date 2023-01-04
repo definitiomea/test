@@ -6,12 +6,13 @@ import "../css/review.css";
 import { useNavigate } from "react-router-dom";
 
 const ReviewInput = (props) => {
+  // productDetail에서 받은 상품ID값
   const { id } = props;
-  // console.log(id);
+  console.log(id);
 
   // 구매티셔츠 정보, 리뷰정보
   const reviewFile = useSelector((state) => state.reviewInput.reviewlist);
-  console.log(reviewFile);
+  console.log(reviewFile[0].productID);
 
   const dispatch = useDispatch();
 
@@ -25,7 +26,7 @@ const ReviewInput = (props) => {
       <div className="review-box">
         <div>
           {reviewFile.map((review, i) => (
-            // {id == review.prodcutId ? ():("")}
+          // {id == review.prodcutID ? ():("")}
 
             <div className="review-container" key={i}>
               <div className="review-context-both">
@@ -78,6 +79,7 @@ const ReviewInput = (props) => {
                 <div className="review-button">
                   <button
                     onClick={() => {
+                      // 수정을 위해서 다시 reviewAdd로 프롭보냄
                       navigate("/mypage/review", {
                         state: {
                           data: review,

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/reducers/user";
 
 import Modal from "../components/Modal";
+import Slider from "react-slick";
 
 const Navbar = () => {
   // 리덕스 user 가져옴
@@ -57,6 +58,7 @@ const Navbar = () => {
         >
           MOTI
         </NavLink>
+       
       </div>
 
       <ul className="navbar-menu">

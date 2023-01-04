@@ -23,14 +23,6 @@
   filter: brightness(80%);
 }
 
-/* 로고에 곂치게 만들어진 up버튼 */
-first-screen > div > buttton {
-  position: absolute;
-  z-index: 10;
-  position: sticky;
-  top: 0;
-}
-
 /* 첫번째스크린 문구 */
 .first-content {
   position: absolute;
@@ -245,6 +237,32 @@ first-screen > div > buttton {
   text-decoration: none;
   width: 100vw;
   margin: 0 20px;
+}
+
+/* Top버튼 */
+
+.scroll-container {
+  position: fixed;
+  right: 3%;
+  bottom: 41%;
+  z-index: 1;
+}
+
+.top {
+  font-weight: bold;
+  font-size: 15px;
+  padding: 15px 10px;
+  background-color: #000;
+  color: rgba(255, 255, 255, 0.552);
+  border: 2px solid rgba(255, 255, 255, 0.552);
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+}
+
+.top:hover {
+  color: rgba(255, 255, 255, 0.901);
+  border: 2px solid rgba(255, 255, 255, 0.901);
 }
 
 @media screen and (max-width: 960px) {

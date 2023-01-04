@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import video from "../img/main/main-video.mp4";
 import "../css/Home.css";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faInstagram,
@@ -62,13 +61,6 @@ const Home = () => {
       <Slider {...settings} ref={slider}>
         <section className="first-screen">
           <div>
-            <button
-              onClick={() => {
-                slider.current.slickGoTo(0);
-              }}
-            >
-              테스트
-            </button>
             <div className="section-video">
               {/* 자동재생 무음 반복 */}
               <video src={video} autoPlay muted loop />
@@ -135,6 +127,18 @@ const Home = () => {
                   <FontAwesomeIcon icon={faGithub} />
                 </a>
               </div>
+
+              <div className="scroll-container">
+                <button
+                   className="top"
+                  onClick={() => {
+                    slider.current.slickGoTo(0);
+                  }}
+                >
+                  Top
+                </button>
+              </div>
+              
             </div>
           </div>
         </section>
