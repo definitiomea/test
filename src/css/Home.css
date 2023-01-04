@@ -247,6 +247,35 @@ first-screen > div > buttton {
   margin: 0 20px;
 }
 
+/* 슬릭 첫페이지로 */
+.scroll-btn {
+  z-index: 100;
+  color: white;
+  position: fixed;
+  bottom: 5%;
+  left: 0;
+  margin-left: 38px;
+  text-align: center;
+}
+.scroll-btn button {
+  color: white;
+}
+.go-to-top {
+  scale: 2;
+  animation: jump 1.5s infinite;
+}
+@keyframes jump {
+  0% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 10px;
+  }
+  100% {
+    bottom: 0;
+  }
+}
+
 @media screen and (max-width: 960px) {
   .first-content {
     top: 9%;

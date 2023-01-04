@@ -84,7 +84,7 @@ const orderSlice = createSlice({
       }
     },
     // 회원가입을 할 때, 후기작성 기능을 확인하기 위해 배송이 완료된 더미데이터 추가
-    AddDummyData: (state, action) => {
+    addDummyData: (state, action) => {
       const data = {
         orderID: state.orderID++,
         orderDate: getDate(),
@@ -105,7 +105,7 @@ const orderSlice = createSlice({
       });
     },
     // 해당 구매내역의 리뷰를 작성하면 구매내역에 리뷰 정보(리뷰아이디)가 추가됨
-    AddReviewInOrder: (state, action) => {
+    addReviewInOrder: (state, action) => {
       const index = state.orderlist.findIndex(
         (el) => el.userId === action.payload.userID
       );
@@ -119,7 +119,10 @@ const orderSlice = createSlice({
   },
 });
 
-export const { inputOrder, AddDummyData, AddReviewInOrder } =
-  orderSlice.actions;
+export const {
+  inputOrder,
+  addDummyData,
+  addReviewInOrder,
+} = orderSlice.actions;
 
 export default orderSlice.reducer;

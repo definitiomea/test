@@ -10,6 +10,8 @@ import {
   faFacebook,
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
+import IconButton from "@mui/material/IconButton";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 const Home = () => {
   // 메인 슬라이더 세팅
@@ -62,13 +64,6 @@ const Home = () => {
       <Slider {...settings} ref={slider}>
         <section className="first-screen">
           <div>
-            <button
-              onClick={() => {
-                slider.current.slickGoTo(0);
-              }}
-            >
-              테스트
-            </button>
             <div className="section-video">
               {/* 자동재생 무음 반복 */}
               <video src={video} autoPlay muted loop />
@@ -139,6 +134,17 @@ const Home = () => {
           </div>
         </section>
       </Slider>
+      <div className="scroll-btn">
+        <IconButton
+          className="go-to-top"
+          onClick={() => {
+            slider.current.slickGoTo(0);
+          }}
+        >
+          <ExpandLessIcon />
+        </IconButton>
+        <div>Top</div>
+      </div>
     </div>
   );
 };

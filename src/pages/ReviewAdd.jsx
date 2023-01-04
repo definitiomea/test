@@ -13,7 +13,7 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { AddReviewInOrder } from "../redux/reducers/order";
+import { addReviewInOrder } from "../redux/reducers/order";
 
 const ReviewAdd = () => {
   const [modalOpen, setModalOpen] = useState(false); // 모달창 열기
@@ -143,7 +143,7 @@ const ReviewAdd = () => {
     }
     alert("리뷰가 등록되었습니다.");
     dispatch(
-      AddReviewInOrder({
+      addReviewInOrder({
         userID,
         orderID: data.orderID,
         reviewID,
