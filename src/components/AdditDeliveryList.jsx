@@ -74,6 +74,7 @@ function AdditDeliveryList() {
   const submit = () => {
     handleOpen();
   };
+
   const relay = () => {
     Postcode();
     dispatch(
@@ -82,7 +83,7 @@ function AdditDeliveryList() {
         address,
         zoneCode,
         detailAddress,
-        reference,
+        reference: reference === "직접입력" ? direct : reference,
       })
     );
     dispatch(
@@ -91,7 +92,7 @@ function AdditDeliveryList() {
         address,
         zoneCode,
         detailAddress,
-        reference,
+        reference: reference === "직접입력" ? direct : reference,
       })
     );
   };
@@ -190,16 +191,19 @@ function AdditDeliveryList() {
           <option value="직접입력">직접입력</option>
         </select>
 
-        <input
-          type="text"
-          className="post-form_input"
-          id="sample6_extraAddress"
-          onChange={(e) => {
-            setDirect(e.target.value);
-          }}
-          value={direct || ""}
-        />
-
+        {reference === "직접입력" ? (
+          <input
+            type="text"
+            className="post-form_input"
+            id="sample6_extraAddress"
+            onChange={(e) => {
+              setDirect(e.target.value);
+            }}
+            value={direct || ""}
+          />
+        ) : (
+          ""
+        )}
         {/* button component적용 */}
         <MyButton type="submit">배송지 변경</MyButton>
       </form>
