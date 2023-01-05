@@ -248,21 +248,24 @@ first-screen > div > buttton {
 }
 
 /* 슬릭 첫페이지로 */
-.scroll-btn {
+.button-wrap {
   z-index: 100;
   color: white;
   position: fixed;
   bottom: 5%;
   left: 0;
-  margin-left: 38px;
+  margin-left: 30px;
   text-align: center;
 }
-.scroll-btn button {
+.button-wrap svg {
   color: white;
+  font-size: 2.5rem;
 }
-.go-to-top {
-  scale: 2;
+.button-animation {
   animation: jump 1.5s infinite;
+}
+.button-hidden {
+  display: none;
 }
 @keyframes jump {
   0% {
@@ -321,6 +324,10 @@ first-screen > div > buttton {
 
   .toGoShop {
     width: 120px;
+  }
+  
+  .button-wrap {
+    margin-left: 20px;
   }
 }
 

@@ -12,8 +12,12 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import IconButton from "@mui/material/IconButton";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const Home = () => {
+  const [scrollButton, setScrollButton] = useState(true);
+  const [topButton, setTopButton] = useState(false);
+
   // 메인 슬라이더 세팅
   const settings = {
     infinite: false,
@@ -24,6 +28,15 @@ const Home = () => {
     vertical: true, // 상하 슬라이드로 변경
     draggable: false,
     initialSlide: 0,
+    afterChange: (currentSlide) => {
+      if (currentSlide === 2) {
+        setScrollButton(false);
+        setTopButton(true);
+      } else {
+        setScrollButton(true);
+        setTopButton(false);
+      }
+    },
   };
 
   // 휠 스크롤로 변경
@@ -134,9 +147,9 @@ const Home = () => {
           </div>
         </section>
       </Slider>
-      <div className="scroll-btn">
+      <div className={topButton ? "button-wrap" : "button-wrap button-hidden"}>
         <IconButton
-          className="go-to-top"
+          className="button-animation"
           onClick={() => {
             slider.current.slickGoTo(0);
           }}
@@ -144,6 +157,19 @@ const Home = () => {
           <ExpandLessIcon />
         </IconButton>
         <div>Top</div>
+      </div>
+      <div
+        className={scrollButton ? "button-wrap" : "button-wrap button-hidden"}
+      >
+        <IconButton
+          className="button-animation"
+          onClick={() => {
+            slider.current.slickNext();
+          }}
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+        <div>Scroll</div>
       </div>
     </div>
   );
