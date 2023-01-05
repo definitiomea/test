@@ -85,6 +85,19 @@
   color: #adb5bd;
 }
 
+/* 리뷰 모달 */
+.modal-review .review-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+.modal-review .review-context {
+  max-width: 350px;
+  margin-right: 1rem;
+  word-wrap: break-word;
+}
+
 /* 미디어쿼리 */
 @media screen and (max-width: 991px) {
   .order-list {
@@ -169,5 +182,21 @@
   }
   .order-list .view-more-container td:last-child {
     margin-left: auto;
+  }
+  .modal-review .review-context-both {
+    display: block;
+  }
+  .modal-review .review-context {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 1rem;
+  }
+  .modal-review .review-context > span:last-child {
+    margin-top: 1rem;
+  }
+  .modal-review .review-option {
+    width: 100%;
+    border-top: 1px solid lightgray;
+    padding-top: 0.5rem;
   }
 }
