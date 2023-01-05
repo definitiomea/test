@@ -144,6 +144,14 @@ button {
   background-color: transparent;
 }
 
+/* 모바일 네브창 숨기기 */
+.mobile-nav,
+.hidden-mobile-nav,
+.toggle-button,
+.dark-toggle-button {
+  display: none;
+}
+
 /* 타블렛 버전 */
 @media screen and (max-width: 768px) {
   .navbar-logo {
@@ -187,30 +195,99 @@ button {
     display: none;
   }
 
+  nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
   .toggle-button {
-    color: white;
-    float: right;
-    clear: right;
-    padding: 32px 30px 0 0;
+    display: block;
+    margin: 33px 30px 0 0;
+    z-index: 1000;
+  }
+
+  /* 햄버거 메뉴 */
+  .toggle-button > div {
+    width: 28px;
+    height: 3.5px;
+    margin-bottom: 6px;
+  }
+
+  /* 모바일 메뉴창 */
+  .mobile-nav {
+    display: block;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    right: 0;
+    width: 60vw;
+    height: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    background-color: black;
+    opacity: 90%;
+  }
+
+  .mobile-nav-wrap {
+    width: 100%;
+    height: 100%;
+    padding: 60px 0;
+  }
+
+  .mobile-nav-wrap > ul {
+    display: grid;
+    grid-template-columns: auto;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mobile-nav-wrap > ul > li {
+    width: 100%;
+    padding: 10px 0 10px 30px;
+  }
+
+  .mobile-nav-wrap > ul > li > a {
+    width: 100%;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.836);
     font-size: 30px;
   }
 
-  .toggle-button > div {
+  .mobile-nav-wrap > ul > li > a:hover {
+    color: white;
   }
 
-  .toggle-button > div {
-    width: 25px;
-    height: 4px;
-    margin-bottom: 6px;
-    padding-right: 0;
-    padding-bottom: 0;
-    background-color: #f1f1f1;
+  /* 모바일 로그인 버튼 */
+  .mobile-nav-wrap > div > button {
+    font-size: 17px;
+    position: fixed;
+    bottom: 14px;
+    right: 3%;
+    text-decoration: underline;
+    color: rgba(255, 255, 255, 0.836);
   }
 
-  .mobile-nav {
+  .mobile-nav-wrap > div > button:hover {
+    color: white;
+  }
+
+  /* 토글 off 됐을 때  */
+  .hidden-mobile-nav {
     display: none;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    right: 0;
+    width: 60vw;
+    height: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    background-color: black;
+    opacity: 90%;
   }
-
   .dropdown-menu {
     left: -11px;
   }

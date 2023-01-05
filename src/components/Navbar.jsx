@@ -1,6 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShop, faShoppingCart, faUser, faBars } from "@fortawesome/free-solid-svg-icons";
-
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 // import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -10,8 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/reducers/user";
 
 import Modal from "../components/Modal";
+import { Squash as Hamburger } from "hamburger-react";
 
 const Navbar = () => {
+  const [toggle, setToggle] = useState(false);
+
   // 리덕스 user 가져옴
   const userName = useSelector((state) => state.user);
 
@@ -53,10 +53,6 @@ const Navbar = () => {
           to="/"
           // 메인이 아닐 때 nav의 폰트색상 black
           className={main ? "white-logo" : "dark-logo"}
-          // 로고 클릭시 상단으로 부드럽게 이동
-          onClick={() => {
-            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-          }}
         >
           MOTI
         </NavLink>
@@ -109,23 +105,35 @@ const Navbar = () => {
         )}
       </ul>
 
-      <div className="toggle-button">
-        <div></div>
-        <div></div>
-        <div></div>
-        {/* <FontAwesomeIcon icon={faBars} /> */}
+      {/* 모바일 화면 메뉴창 */}
+
+      <Hamburger className="toggle-button" toggled={toggle} toggle={setToggle} />
+
+      <div className={toggle ? "mobile-nav" : "hidden-mobile-nav"}>
+        <div className="mobile-nav-wrap">
+          <ul>
+            <li>
+              <NavLink to="shop">SHOP</NavLink>
+            </li>
+            <li>
+              <NavLink to="cart">CART</NavLink>
+            </li>
+            <li>
+              <NavLink to="mypage">MYPAGE</NavLink>
+            </li>
+          </ul>
+          {login ? (
+            <div>
+              <button onClick={logOut}>LOGOUT</button>
+            </div>
+          ) : (
+            <div>
+              <button onClick={openModal}>LOGIN</button>
+              <Modal open={modalOpen} close={closeModal} />
+            </div>
+          )}
+        </div>
       </div>
-      <ul className="mobile-nav">
-        <li>
-          <FontAwesomeIcon icon={faShop} />
-        </li>
-        <li>
-          <FontAwesomeIcon icon={faShoppingCart} />
-        </li>
-        <li>
-          <FontAwesomeIcon icon={faUser} />
-        </li>
-      </ul>
     </nav>
   );
 };
