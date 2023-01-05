@@ -116,6 +116,23 @@ const orderSlice = createSlice({
       );
       state.orderlist[index].itemlist = newItemlist;
     },
+    // 해당 구매내역의 리뷰를 삭제하면 구매내역에서 리뷰정보(리뷰아이디)가 삭제됨
+    deleteReviewInOrder: (state, action) => {
+      const index = state.orderlist.findIndex(
+        (el) => el.userId === action.payload.userID
+      );
+      const newItemlist = state.orderlist[index].itemlist.map(
+        (item) => {
+          if (Object.keys(item).includes("reviewID")) {
+            item.reviewID === action.payload.reviewID && delete item.reviewID;
+            return { ...item };
+          } else {
+            return item;
+          }
+        }
+      );
+      state.orderlist[index].itemlist = newItemlist;
+    },
   },
 });
 
@@ -123,6 +140,7 @@ export const {
   inputOrder,
   addDummyData,
   addReviewInOrder,
+  deleteReviewInOrder,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;
