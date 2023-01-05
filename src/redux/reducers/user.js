@@ -34,6 +34,7 @@ export const userSlice = createSlice({
       state.zoneCode = action.payload.zoneCode;
       state.detailAddress = action.payload.detailAddress;
       state.reference = action.payload.reference;
+      state.direct = action.payload.direct;
     },
   },
 });

@@ -48,7 +48,7 @@ function AdditDeliveryList() {
   const [zoneCode, setZoneCode] = useState(user.zoneCode);
   const [detailAddress, setDetailAddress] = useState(user.detailAddress);
   const [reference, setReference] = useState(user.reference);
-  const [direct, setDirect] = useState(null);
+  const [direct, setDirect] = useState(user.direct);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -83,7 +83,8 @@ function AdditDeliveryList() {
         address,
         zoneCode,
         detailAddress,
-        reference: reference === "직접입력" ? direct : reference,
+        reference,
+        direct: reference === "직접입력" ? direct : "",
       })
     );
     dispatch(
@@ -92,7 +93,8 @@ function AdditDeliveryList() {
         address,
         zoneCode,
         detailAddress,
-        reference: reference === "직접입력" ? direct : reference,
+        reference,
+        direct: reference === "직접입력" ? direct : "",
       })
     );
   };
@@ -171,7 +173,7 @@ function AdditDeliveryList() {
           placeholder="상세주소"
           value={detailAddress || ""}
         />
-        <label className="post-form_label">기타</label>
+        <label className="post-form_label">배송메모</label>
 
         <select
           className="post-form_input"
