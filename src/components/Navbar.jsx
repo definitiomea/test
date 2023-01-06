@@ -48,20 +48,6 @@ const Navbar = () => {
   const location = useLocation();
   const main = location.pathname === "/";
 
-  const outside = useRef();
-  useEffect(() => {
-    document.addEventListener("mousedown", handlerOutside);
-    return () => {
-      document.removeEventListener("mousedown", handlerOutside);
-    };
-  });
-
-  const handlerOutside = (e) => {
-    if (!outside.current.contains(e.target)) {
-      setOpen();
-    }
-  };
-
   return (
     <nav className={main ? "main-nav" : "page-nav"}>
       <div className="navbar-logo">
@@ -136,7 +122,7 @@ const Navbar = () => {
         // }}
       />
       <MobileNav>
-        <div ref={outside} className={isOpen ? "mobile-nav-open" : ""}>
+        <div className={isOpen ? "mobile-nav" : "hidden-mobile-nav"}>
           <div className="mobile-nav-wrap">
             <ul>
               <li>

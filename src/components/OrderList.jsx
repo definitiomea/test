@@ -1,5 +1,5 @@
 import DeliveryTracker from "../components/DeliveryTracker";
-import { Button } from "@mui/material";
+import { Box, Button, Modal } from "@mui/material";
 import MyButton from "../style/Button";
 import "../css/mypage-orderlist.css";
 import { Desktop, Tablet, Mobile, Default } from "../hooks/MediaQuery";
@@ -7,6 +7,7 @@ import { Desktop, Tablet, Mobile, Default } from "../hooks/MediaQuery";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ReviewInput from "./ReviewInput";
 
 const OrderList = ({ setTrans, findUser }) => {
   const user = useSelector((state) => state.user);
@@ -253,16 +254,25 @@ const OrderList = ({ setTrans, findUser }) => {
 
 export default OrderList;
 
+// 리뷰확인 모달
 const ReviewButton = ({ order, userId }) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const navigate = useNavigate();
 
   return (
     <>
       {Object.keys(order).includes("reviewID") ? (
-        <MyButton disabled>
-          리뷰작성 <br />
-          완료
-        </MyButton>
+        <>
+          <MyButton onClick={handleOpen}>리뷰확인</MyButton>
+          <Modal open={open} onClose={handleClose}>
+            <Box sx={style} className="modal-review">
+              <ReviewInput />
+            </Box>
+          </Modal>
+        </>
       ) : (
         <MyButton
           onClick={() => {
@@ -276,4 +286,17 @@ const ReviewButton = ({ order, userId }) => {
       )}
     </>
   );
+};
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "fit-object",
+  maxWidth: "80%",
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
 };

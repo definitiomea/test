@@ -13,7 +13,7 @@ const ReviewInput = (props) => {
 
   // 구매티셔츠 정보, 리뷰정보
   const reviewFile = useSelector((state) => state.reviewInput.reviewlist);
-  // console.log(reviewFile[0].productID);
+  // console.log(reviewFile[0]);
 
   const userID = useSelector((state) => state.user.id);
   // console.log(userID);
@@ -99,7 +99,9 @@ const ReviewInput = (props) => {
                   )}
                 </div>
               ) : (
-                ""
+                <div className="review-option">
+                  <span>{review.date}</span>
+                </div>
               )}
             </div>
           ))}

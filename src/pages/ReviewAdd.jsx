@@ -13,7 +13,7 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { AddReviewInOrder } from "../redux/reducers/order";
+import { addReviewInOrder } from "../redux/reducers/order";
 
 const ReviewAdd = () => {
   const [modalOpen, setModalOpen] = useState(false); // 모달창 열기
@@ -100,7 +100,7 @@ const ReviewAdd = () => {
   const commentSubmit = (e) => {
     setComment(e.target.value);
   };
-  // console.log(comment.length);
+  // console.log(comment);
 
   // mypage의 배송완료 상품에서 받아온 프롭
   const location = useLocation();
@@ -121,8 +121,9 @@ const ReviewAdd = () => {
 
     const newReview = {
       // ...data,
-      thumbnail: data.thumbnail,
+      productID: data.productID,
       img,
+      thumbnail: data.thumbnail,
       userID,
       star,
       category: data.category,
@@ -130,7 +131,6 @@ const ReviewAdd = () => {
       size: data.size,
       color: data.color,
       comment,
-      productID: data.productID,
     };
 
     // 로그인유저가 작성한 유저가 같다면 작성내용을 input리듀서로 디스패치함
@@ -143,7 +143,7 @@ const ReviewAdd = () => {
     }
     alert("리뷰가 등록되었습니다.");
     dispatch(
-      AddReviewInOrder({
+      addReviewInOrder({
         userID,
         orderID: data.orderID,
         reviewID,
@@ -164,6 +164,9 @@ const ReviewAdd = () => {
       setCheckId(location.state.userId);
     }
   }, []);
+
+  // textarea의 글자수를 input에 표시해주는 함수
+  const commentClac = (e) => setCommentLength(e.target.value.length);
 
   return (
     <div className="review-add-box">
@@ -189,7 +192,6 @@ const ReviewAdd = () => {
               <span>{data?.category}</span>
               <span> {data?.productName}</span>
             </div>
-
             <div>
               <span>
                 <b>[색상] </b>
@@ -224,8 +226,7 @@ const ReviewAdd = () => {
               placeholder="최소 10자 이상 작성해주세요."
             ></textarea>
             <em>
-              <span>{comment.length}</span>
-              <span>/5,000</span>
+              <span>{commentLength} / 5,000</span>
             </em>
           </section>
 

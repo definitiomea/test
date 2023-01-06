@@ -205,7 +205,7 @@ button {
   }
 
   /* 모바일 메뉴창 */
-  /* .mobile-nav {
+  .mobile-nav {
     display: block;
     position: fixed;
     z-index: 999;
@@ -217,7 +217,8 @@ button {
     -webkit-box-direction: normal;
     background-color: black;
     opacity: 90%;
-  } */
+  }
+
   .mobile-nav-open {
   }
 

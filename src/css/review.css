@@ -257,7 +257,6 @@
 /* reviewList.jsx */
 
 /* reviewInput.jsx */
-
 @media screen and (max-width: 768px) {
   .review-container {
     display: flex;
@@ -281,6 +280,9 @@
     flex-direction: row;
   }
 
+  .review-context-both {
+    margin-bottom: 5px;
+  }
   /* reviewAdd.jsx */
   .review-add-box {
     padding: 0 13px;

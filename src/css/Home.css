@@ -247,35 +247,9 @@
   margin: 0 20px;
 }
 
-/* Top버튼 */
-/* .top-container {
-  position: fixed;
-  right: 3vw;
-  bottom: 41%;
-  z-index: 1;
-}
-
-.top {
-  font-weight: bold;
-  font-size: 13px;
-  padding: 15px 10px;
-  background-color: #000;
-  color: rgba(255, 255, 255, 0.552);
-  border: 3px solid rgba(255, 255, 255, 0.552);
-  border-radius: 50%;
-  padding: 15px;
-  outline: none;
-  cursor: pointer;
-}
-
-.top:hover {
-  color: rgba(255, 255, 255, 0.901);
-  border: 3px solid rgba(255, 255, 255, 0.901);
-} */
-
 /* 슬릭 첫페이지로 */
 .button-wrap {
-  z-index: 100;
+  z-index: 10;
   color: var(--text-color);
   position: fixed;
   bottom: 5%;
