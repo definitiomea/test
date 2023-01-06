@@ -3,11 +3,17 @@ import { Link } from "react-router-dom";
 import video from "../img/main/main-video.mp4";
 import "../css/Home.css";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faFacebook, faGithub } from "@fortawesome/free-brands-svg-icons";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import IconButton from "@mui/material/IconButton";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const Home = () => {
+  const [scrollButton, setScrollButton] = useState(true);
+  const [topButton, setTopButton] = useState(false);
+
   // 메인 슬라이더 세팅
   const settings = {
     infinite: false,
@@ -18,6 +24,15 @@ const Home = () => {
     vertical: true, // 상하 슬라이드로 변경
     draggable: false,
     initialSlide: 0,
+    afterChange: (currentSlide) => {
+      if (currentSlide === 2) {
+        setScrollButton(false);
+        setTopButton(true);
+      } else {
+        setScrollButton(true);
+        setTopButton(false);
+      }
+    },
   };
 
   // 휠 스크롤로 변경
@@ -75,21 +90,6 @@ const Home = () => {
               </Link>
             </div>
           </div>
-
-          <div className="scroll-container">
-            <button
-              className="scroll"
-              onClick={() => {
-                slider.current.slickGoTo(1);
-              }}
-            >
-              Scroll
-              <br />
-              <span>
-                <FontAwesomeIcon icon={faChevronDown} />
-              </span>
-            </button>
-          </div>
         </section>
 
         {/* 두번째 스크린 */}
@@ -99,7 +99,7 @@ const Home = () => {
           </div>
           <div className="second-content">
             <p>모두가 만들어 가는 나만의 티셔츠</p>
-            <span>다양한 폰트와 이미지를 이용하여 가족, 친구, 나만을 위한 티셔츠를 만들어보세요.</span>
+            <span>다양한 폰트와 이미지를 이용하여 나, 친구, 가족만을 위한 티셔츠를 만들어보세요.</span>
             <span>모티는 고객님들의 색다른 즐거움과 행복을 함께합니다.</span>
           </div>
         </section>
@@ -136,21 +136,32 @@ const Home = () => {
                   <FontAwesomeIcon icon={faGithub} />
                 </a>
               </div>
-
-              <div className="top-container">
-                <button
-                  className="top"
-                  onClick={() => {
-                    slider.current.slickGoTo(0);
-                  }}
-                >
-                  Top
-                </button>
-              </div>
             </div>
           </div>
         </section>
       </Slider>
+      <div className={topButton ? "button-wrap" : "button-wrap button-hidden"}>
+        <span>Top</span>
+        <IconButton
+          className="button-animation"
+          onClick={() => {
+            slider.current.slickGoTo(0);
+          }}
+        >
+          <ExpandLessIcon />
+        </IconButton>
+      </div>
+      <div className={scrollButton ? "button-wrap" : "button-wrap button-hidden"}>
+        <span>Scroll</span>
+        <IconButton
+          className="button-animation"
+          onClick={() => {
+            slider.current.slickNext();
+          }}
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </div>
     </div>
   );
 };
