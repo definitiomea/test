@@ -10,7 +10,7 @@ import Modal from "../components/Modal";
 import { Squash as Hamburger } from "hamburger-react";
 
 const Navbar = () => {
-  const [toggle, setToggle] = useState(false);
+  const [isOpen, setOpen] = useState(false);
 
   // 리덕스 user 가져옴
   const userName = useSelector((state) => state.user);
@@ -57,7 +57,6 @@ const Navbar = () => {
           MOTI
         </NavLink>
       </div>
-
       <ul className="navbar-menu">
         {/* 네브바 리스트 */}
         <li>
@@ -74,15 +73,24 @@ const Navbar = () => {
 
         {login ? (
           <li className="dropdown">
-            <div className={main ? "white-nav" : "dark-nav"} style={{ fontWeight: "bold" }}>
+            <div
+              className={main ? "white-nav" : "dark-nav"}
+              style={{ fontWeight: "bold" }}
+            >
               {userName.name}님
             </div>
             <div className="dropdown-menu">
-              <NavLink to="mypage" className={main ? "white-dropdown" : "dark-dropdown"}>
+              <NavLink
+                to="mypage"
+                className={main ? "white-dropdown" : "dark-dropdown"}
+              >
                 MYPAGE
               </NavLink>
 
-              <button className={main ? "white-dropdown" : "dark-dropdown"} onClick={logOut}>
+              <button
+                className={main ? "white-dropdown" : "dark-dropdown"}
+                onClick={logOut}
+              >
                 LOGOUT
               </button>
             </div>
@@ -104,12 +112,24 @@ const Navbar = () => {
           </div>
         )}
       </ul>
-
       {/* 모바일 화면 메뉴창 */}
-
-      <Hamburger className="toggle-button" toggled={toggle} toggle={setToggle} />
-
-      <div className={toggle ? "mobile-nav" : "hidden-mobile-nav"}>
+      <Hamburger
+        className="toggle-button"
+        toggled={isOpen}
+        toggle={setOpen}
+        color={main || isOpen ? "white" : "black"}
+        size={28}
+        label="Show menu"
+        // onToggle={(toggled) => {
+        //   if (toggled) {
+        //     console.log("toggle On");
+        //   } else {
+        //     console.log("toggle off");
+        //     //close a menu
+        //   }
+        // }}
+      />
+      <div className={isOpen ? "mobile-nav" : "hidden-mobile-nav"}>
         <div className="mobile-nav-wrap">
           <ul>
             <li>

@@ -145,12 +145,12 @@ button {
 }
 
 /* 모바일 네브창 숨기기 */
-.mobile-nav,
+/* .mobile-nav,
 .hidden-mobile-nav,
 .toggle-button,
 .dark-toggle-button {
   display: none;
-}
+} */
 
 /* 타블렛 버전 */
 @media screen and (max-width: 768px) {
@@ -201,17 +201,10 @@ button {
     justify-content: space-between;
   }
 
-  .toggle-button {
+  .hamburger-react {
     display: block;
-    margin: 33px 30px 0 0;
+    margin: 23px 20px 0 0;
     z-index: 1000;
-  }
-
-  /* 햄버거 메뉴 */
-  .toggle-button > div {
-    width: 28px;
-    height: 3.5px;
-    margin-bottom: 6px;
   }
 
   /* 모바일 메뉴창 */
@@ -221,7 +214,7 @@ button {
     z-index: 999;
     top: 0;
     right: 0;
-    width: 60vw;
+    width: 60%;
     height: 100%;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
