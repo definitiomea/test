@@ -141,6 +141,10 @@
   margin-bottom: 5px;
 }
 
+.review-submit-form {
+  width: 100%;
+}
+
 .review-submit-form > div {
   display: grid;
   justify-content: center;
@@ -278,16 +282,34 @@
   }
 
   /* reviewAdd.jsx */
+  .review-add-box {
+    padding: 0 13px;
+    margin: 1rem auto;
+  }
+
+  .review-submit-form > * {
+    width: 100%;
+  }
   .review-form-product {
     padding: 40px 5%;
   }
 
   .review-submit-form > div {
     padding: 40px 5%;
-    justify-content: space-evenly;
     justify-items: center;
   }
+
+  .review-submit-form > * {
+    width: 100%;
+  }
+
   .review-submit-form > div > section {
     width: 70%;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .review-submit-form > * {
+    width: 100%;
   }
 }

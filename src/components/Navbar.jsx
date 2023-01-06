@@ -8,6 +8,8 @@ import { logout } from "../redux/reducers/user";
 
 import Modal from "../components/Modal";
 import { Squash as Hamburger } from "hamburger-react";
+import styled from "styled-components";
+import { useRef } from "react";
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
@@ -46,6 +48,20 @@ const Navbar = () => {
   const location = useLocation();
   const main = location.pathname === "/";
 
+  const outside = useRef();
+  useEffect(() => {
+    document.addEventListener("mousedown", handlerOutside);
+    return () => {
+      document.removeEventListener("mousedown", handlerOutside);
+    };
+  });
+
+  const handlerOutside = (e) => {
+    if (!outside.current.contains(e.target)) {
+      setOpen();
+    }
+  };
+
   return (
     <nav className={main ? "main-nav" : "page-nav"}>
       <div className="navbar-logo">
@@ -73,24 +89,15 @@ const Navbar = () => {
 
         {login ? (
           <li className="dropdown">
-            <div
-              className={main ? "white-nav" : "dark-nav"}
-              style={{ fontWeight: "bold" }}
-            >
+            <div className={main ? "white-nav" : "dark-nav"} style={{ fontWeight: "bold" }}>
               {userName.name}님
             </div>
             <div className="dropdown-menu">
-              <NavLink
-                to="mypage"
-                className={main ? "white-dropdown" : "dark-dropdown"}
-              >
+              <NavLink to="mypage" className={main ? "white-dropdown" : "dark-dropdown"}>
                 MYPAGE
               </NavLink>
 
-              <button
-                className={main ? "white-dropdown" : "dark-dropdown"}
-                onClick={logOut}
-              >
+              <button className={main ? "white-dropdown" : "dark-dropdown"} onClick={logOut}>
                 LOGOUT
               </button>
             </div>
@@ -119,7 +126,6 @@ const Navbar = () => {
         toggle={setOpen}
         color={main || isOpen ? "white" : "black"}
         size={28}
-        label="Show menu"
         // onToggle={(toggled) => {
         //   if (toggled) {
         //     console.log("toggle On");
@@ -129,33 +135,53 @@ const Navbar = () => {
         //   }
         // }}
       />
-      <div className={isOpen ? "mobile-nav" : "hidden-mobile-nav"}>
-        <div className="mobile-nav-wrap">
-          <ul>
-            <li>
-              <NavLink to="shop">SHOP</NavLink>
-            </li>
-            <li>
-              <NavLink to="cart">CART</NavLink>
-            </li>
-            <li>
-              <NavLink to="mypage">MYPAGE</NavLink>
-            </li>
-          </ul>
-          {login ? (
-            <div>
-              <button onClick={logOut}>LOGOUT</button>
-            </div>
-          ) : (
-            <div>
-              <button onClick={openModal}>LOGIN</button>
-              <Modal open={modalOpen} close={closeModal} />
-            </div>
-          )}
+      <MobileNav>
+        <div ref={outside} className={isOpen ? "mobile-nav-open" : ""}>
+          <div className="mobile-nav-wrap">
+            <ul>
+              <li>
+                <NavLink to="shop">SHOP</NavLink>
+              </li>
+              <li>
+                <NavLink to="cart">CART</NavLink>
+              </li>
+              <li>
+                <NavLink to="mypage">MYPAGE</NavLink>
+              </li>
+            </ul>
+            {login ? (
+              <div>
+                <button onClick={logOut}>LOGOUT</button>
+              </div>
+            ) : (
+              <div>
+                <button onClick={openModal}>LOGIN</button>
+                <Modal open={modalOpen} close={closeModal} />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      </MobileNav>
     </nav>
   );
 };
 
 export default Navbar;
+
+const MobileNav = styled.div`
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  right: -60%;
+  width: 60%;
+  height: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  background-color: black;
+  opacity: 90%;
+  transition: 0.5s ease;
+  &.open {
+    right: 0;
+    transition: 0.5s ease;
+  }
+`;

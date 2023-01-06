@@ -189,6 +189,7 @@ const ReviewAdd = () => {
               <span>{data?.category}</span>
               <span> {data?.productName}</span>
             </div>
+
             <div>
               <span>
                 <b>[색상] </b>
