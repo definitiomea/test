@@ -1,6 +1,11 @@
+.signup-container {
+  max-width: 1280px;
+  margin: auto;
+}
 .signup-title-border {
   border-bottom: 2px solid black;
-  width: 65vw;
+  /* width: 65vw; */
+  width: 100%;
   margin: auto;
   padding: 20px;
   margin-top: 10px;
@@ -9,7 +14,7 @@
 .signup-title-box {
   position: relative;
   bottom: 25px;
-  left: 450px;
+  left: 100px;
   background-color: white;
   width: fit-content;
 }
@@ -25,7 +30,7 @@
 .signup-form {
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 45%;
   margin: 50px auto;
   padding: 15px;
   margin-top: 20px;
