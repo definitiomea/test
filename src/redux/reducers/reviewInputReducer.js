@@ -19,9 +19,9 @@ const reviewSlice = createSlice({
   initialState,
   reducers: {
     inputReview: (state, action) => {
-      // console.log(action.payload.date);
+      console.log(action.payload.date);
       const newReview = {
-        reviewID: 1,
+        reviewID: state.reviewID,
         // 상품ID 불러오기
         productID: action.payload.productID,
         // 리뷰 첨부 이미지 불러오기
@@ -45,6 +45,7 @@ const reviewSlice = createSlice({
         // // 작성 날짜 불러오기
         date: getDate(),
       };
+      state.reviewID++;
       const newReviewlist = state.reviewlist.concat(newReview);
       state.reviewlist = newReviewlist;
     },

@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { SIGN_UP } from "../redux/reducers/signup";
+import { addDummyData } from "../redux/reducers/order";
 
 import "../css/signup.css";
 import MyButton from "../style/Button";
@@ -50,6 +51,10 @@ const SignUpPage = () => {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
+    if (password !== passwordCheck) {
+      alert("비밀번호 불일치");
+      return setPasswordError(true);
+    }
 
     if (!findUser) {
       dispatch(SIGN_UP(user));
@@ -61,11 +66,8 @@ const SignUpPage = () => {
     } else if (email === findUser.email) {
       alert("이미 사용중인 email입니다.");
     }
-
-    if (password !== passwordCheck) {
-      alert("비밀번호 불일치");
-      return setPasswordError(true);
-    }
+    // 후기작성 기능 확인을 위해 가입된 유저의 구매내역에 배송완료 더미데이터 추가
+    dispatch(addDummyData(user.id));
   };
 
   return (

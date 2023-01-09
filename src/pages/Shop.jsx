@@ -1,3 +1,4 @@
+import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import ProductCard from "../components/ProductCard";
@@ -25,56 +26,58 @@ const Shop = () => {
 
   return (
     <>
-      {thumbNailList ? (
-        <div className="shop-wrap">
-          <div className="shop-border-area">
-            <div className="shop-label">
-              <h1 className="shop-title">Product List</h1>
-              <div className="shop-select-category">
-                <div
-                  className="shop-category"
-                  onClick={() => {
-                    setCategory("short");
-                  }}
-                >
-                  Short
-                </div>
-                <div
-                  className="shop-category"
-                  onClick={() => {
-                    setCategory("long");
-                  }}
-                >
-                  Long
+      <div>
+        {thumbNailList ? (
+          <div className="shop-wrap">
+            <div className="shop-border-area">
+              <div className="shop-label">
+                <h1 className="shop-title">Product List</h1>
+                <div className="shop-select-category">
+                  <div
+                    className="shop-category"
+                    onClick={() => {
+                      setCategory("short");
+                    }}
+                  >
+                    Short
+                  </div>
+                  <div
+                    className="shop-category"
+                    onClick={() => {
+                      setCategory("long");
+                    }}
+                  >
+                    Long
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="shop-thumNail-list">
-              {/* {thumbNailList?.map((thumbNail) => (
-                <div key={thumbNail.id}>
-                  <ProductCard thumbNail={thumbNail} />
-                </div>
-              ))} */}
-              {category === "short"
-                ? thumbNailList
-                    ?.filter((thumbNail) => thumbNail.id < 4)
-                    .map((thumbNail, index) => (
-                      <ProductCard key={thumbNail.id} thumbNail={thumbNail} />
-                    ))
-                : ""}
-              {category === "long"
-                ? thumbNailList
-                    ?.filter((thumbNail) => thumbNail.id >= 4)
-                    .map((thumbNail, index) => (
-                      <ProductCard key={thumbNail.id} thumbNail={thumbNail} />
-                    ))
-                : ""}
+              <div className="shop-thumNail-list">
+                {/* {thumbNailList?.map((thumbNail) => (
+                    <div key={thumbNail.id}>
+                      <ProductCard thumbNail={thumbNail} />
+                    </div>
+                  ))} */}
+                {category === "short"
+                  ? thumbNailList
+                      ?.filter((thumbNail) => thumbNail.id < 4)
+                      .map((thumbNail, index) => (
+                        <ProductCard key={thumbNail.id} thumbNail={thumbNail} />
+                      ))
+                  : ""}
+                {category === "long"
+                  ? thumbNailList
+                      ?.filter((thumbNail) => thumbNail.id >= 4)
+                      .map((thumbNail, index) => (
+                        <ProductCard key={thumbNail.id} thumbNail={thumbNail} />
+                      ))
+                  : ""}
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <Loading />
-      )}
+        ) : (
+          <Loading />
+        )}
+      </div>
     </>
   );
 };

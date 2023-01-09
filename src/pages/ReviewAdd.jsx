@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { addReviewInOrder } from "../redux/reducers/order";
 
 const ReviewAdd = () => {
   const [modalOpen, setModalOpen] = useState(false); // 모달창 열기
@@ -104,10 +105,10 @@ const ReviewAdd = () => {
   // mypage의 배송완료 상품에서 받아온 프롭
   const location = useLocation();
   const [data, setData] = useState("");
+  const [checkId, setCheckId] = useState("");
+  const reviewID = useSelector((state) => state.reviewInput.reviewID);
 
-  // console.log(location);
-
-  // 서브밋 함수
+  // 글자수와 별점을 선택하게 하는 함수
   const reviewSumbit = (e) => {
     e.preventDefault();
     if (comment?.length < 10) {
@@ -119,9 +120,10 @@ const ReviewAdd = () => {
     }
 
     const newReview = {
-      ...data,
-      thumbnail: data.thumbnail,
+      // ...data,
+      productID: data.productID,
       img,
+      thumbnail: data.thumbnail,
       userID,
       star,
       category: data.category,
@@ -129,25 +131,37 @@ const ReviewAdd = () => {
       size: data.size,
       color: data.color,
       comment,
-      productID: data.productID,
     };
 
-    if (userID === location.state.user) {
+    // 로그인유저가 작성한 유저가 같다면 작성내용을 input리듀서로 디스패치함
+    // 코멘트 내용이 다르다면 edit리듀서로 디스패치함
+    // 리뷰등록한 뒤 맞는 productID로 navigate됨
+    if (userID === checkId) {
       dispatch(inputReview(newReview));
     } else if (location.state.comment !== comment) {
       dispatch(editReview(newReview));
     }
     alert("리뷰가 등록되었습니다.");
+    dispatch(
+      addReviewInOrder({
+        userID,
+        orderID: data.orderID,
+        reviewID,
+      })
+    );
     navigate("/shop/" + data.productID);
   };
 
   // 마이페이지에서 값을 잘 받아오고 있으면 (주소창에 mypaye/review로 접근하는 등 편법 방지) 에러페이지를 출력함
+  // 마이페이지-구매내역에서 값을 잘 받아오고 있으면 리뷰작성페이지가 정상적으로 출력
+  // 주소창에 직접적으로 /mypage/review를 입력해 리뷰작성페이지에 접근할 경우 404페이지로 이동
   useEffect(() => {
-    if (!location.state) {
+    if (!location.state.data) {
       alert("잘못된 경로로 접근하였습니다.");
       navigate("/notfound");
     } else {
-      setData(location.state);
+      setData(location.state.data);
+      setCheckId(location.state.userId);
     }
   }, []);
 
@@ -236,7 +250,7 @@ const ReviewAdd = () => {
                 <strong>사진 첨부하기</strong>
               </span>
             </MyButton>
-            
+
             {/* 미리보기 사진 전달공간 */}
             {/* 전달받은 이미지가 있으면 영역출력, 없으면 빈 div */}
             {img ? (
