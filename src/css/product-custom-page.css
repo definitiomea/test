@@ -191,26 +191,37 @@
     text-align: center;
   }
   .product-handling-buttons svg {
-    width: 1.5em;
-    height: 1.5em;
+    width: 1.1em;
+    height: 1.1em;
   }
   .product-handling-buttons input {
-    width: 1.5em;
+    width: 1.1em;
   }
   .product-handling-buttons div input {
-    width: 1.5em;
-    height: 1.5em;
+    width: 1.1em;
+    height: 1.1em;
+  }
+  .product-important-handling-button {
+    padding: 0px 0px;
   }
   .product-important-handling-button .product-handling-button-element div svg {
-    width: 1.5em;
-    height: 1.5em;
+    width: 1.1em;
+    height: 1.1em;
   }
   .product-handling-buttons .product-text-handling input {
-    width: 1.5em;
-    height: 1.5em;
+    width: 1.1em;
+    height: 1.1em;
   }
   .handling-explane {
     display: none;
+  }
+  .img-box {
+    width: 295px;
+    height: auto;
+  }
+  .drawing-area {
+    width: 147.5px;
+    height: 213px;
   }
 }
 
