@@ -48,6 +48,7 @@ function AdditDeliveryList() {
   const [zoneCode, setZoneCode] = useState(user.zoneCode);
   const [detailAddress, setDetailAddress] = useState(user.detailAddress);
   const [reference, setReference] = useState(user.reference);
+  const [direct, setDirect] = useState(user.direct);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -73,7 +74,8 @@ function AdditDeliveryList() {
   const submit = () => {
     handleOpen();
   };
-  const relay = (e) => {
+
+  const relay = () => {
     Postcode();
     dispatch(
       ADDIT_USER({
@@ -82,6 +84,7 @@ function AdditDeliveryList() {
         zoneCode,
         detailAddress,
         reference,
+        direct: reference === "직접입력" ? direct : "",
       })
     );
     dispatch(
@@ -91,6 +94,7 @@ function AdditDeliveryList() {
         zoneCode,
         detailAddress,
         reference,
+        direct: reference === "직접입력" ? direct : "",
       })
     );
   };
@@ -169,17 +173,39 @@ function AdditDeliveryList() {
           placeholder="상세주소"
           value={detailAddress || ""}
         />
-        <label className="post-form_label">기타</label>
-        <input
-          type="text"
+        <label className="post-form_label">배송메모</label>
+
+        <select
           className="post-form_input"
-          id="sample6_extraAddress"
-          name="reference"
+          value={reference || ""}
           onChange={(e) => {
             setReference(e.target.value);
           }}
-          value={reference || ""}
-        />
+        >
+          <option value="배송전 연락해주세요">배송전 연락해주세요</option>
+          <option value="문 앞에 두고 벨 눌러주세요">
+            문 앞에 두고 벨 눌러주세요
+          </option>
+          <option value="벨 누르지 말고 노크해주세요">
+            벨 누르지 말고 노크해주세요
+          </option>
+          <option value="요청사항 없음">요청사항 없음</option>
+          <option value="직접입력">직접입력</option>
+        </select>
+
+        {reference === "직접입력" ? (
+          <input
+            type="text"
+            className="post-form_input"
+            id="sample6_extraAddress"
+            onChange={(e) => {
+              setDirect(e.target.value);
+            }}
+            value={direct || ""}
+          />
+        ) : (
+          ""
+        )}
         {/* button component적용 */}
         <MyButton type="submit">배송지 변경</MyButton>
       </form>

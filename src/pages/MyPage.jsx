@@ -31,6 +31,8 @@ const Mypage = () => {
       <div className="mypage-title-border"></div>
       <h1 className="mypage-title">MyPage</h1>
       {/* 회원정보 수정 form */}
+      <div className="mypage-title-border"></div>
+      <h1 className="mypage-title">MyPage</h1>
       <h4 className="section-title">회원정보 수정</h4>
       <div className="user-info">
         {/* <div className="labels">

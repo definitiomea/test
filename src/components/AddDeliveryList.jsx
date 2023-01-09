@@ -47,6 +47,7 @@ function DeliveryList() {
   const [zoneCode, setZoneCode] = useState(user.zoneCode);
   const [detailAddress, setDetailAddress] = useState(user.detailAddress);
   const [reference, setReference] = useState(user.reference);
+  const [direct, setDirect] = useState(user.direct);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -81,6 +82,7 @@ function DeliveryList() {
         zoneCode,
         detailAddress,
         reference,
+        direct,
       })
     );
     dispatch(
@@ -90,6 +92,7 @@ function DeliveryList() {
         zoneCode,
         detailAddress,
         reference,
+        direct,
       })
     );
     alert("배송지가 저장되었습니다.");
@@ -156,15 +159,37 @@ function DeliveryList() {
         </div>
         <div>
           <label>배송 메모</label>
-          <input
-            type="text"
-            id="sample6_extraAddress"
-            name="reference"
+          <select
+            className="post-form_input"
+            value={reference || ""}
             onChange={(e) => {
               setReference(e.target.value);
             }}
-            value={reference || ""}
-          />
+          >
+            <option value="배송전 연락해주세요">배송전 연락해주세요</option>
+            <option value="문 앞에 두고 벨 눌러주세요">
+              문 앞에 두고 벨 눌러주세요
+            </option>
+            <option value="벨 누르지 말고 노크해주세요">
+              벨 누르지 말고 노크해주세요
+            </option>
+            <option value="요청사항 없음">요청사항 없음</option>
+            <option value="직접입력">직접입력</option>
+          </select>
+
+          {reference === "직접입력" ? (
+            <input
+              type="text"
+              className="post-form_input"
+              id="sample6_extraAddress"
+              onChange={(e) => {
+                setDirect(e.target.value);
+              }}
+              value={direct || ""}
+            />
+          ) : (
+            ""
+          )}
         </div>
         <Button variant="text" color="primary" type="submit">
           배송지 저장
