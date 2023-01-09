@@ -18,9 +18,9 @@
   padding: 40px 50px;
 
   /* 임시추가 */
-  width: 90%;
+  /* width: 90%;
   max-width: 1080px;
-  margin: 2rem auto;
+  margin: 2rem auto; */
 }
 
 .review-context-both {
@@ -141,6 +141,10 @@
   margin-bottom: 5px;
 }
 
+.review-submit-form {
+  width: 100%;
+}
+
 .review-submit-form > div {
   display: grid;
   justify-content: center;
@@ -234,8 +238,8 @@
 }
 
 .review-modal > div > img {
-margin-top: 5px;
-margin-left: 70px;
+  margin-top: 5px;
+  margin-left: 70px;
 }
 .review-modal > div {
   position: relative;
@@ -253,7 +257,6 @@ margin-left: 70px;
 /* reviewList.jsx */
 
 /* reviewInput.jsx */
-
 @media screen and (max-width: 768px) {
   .review-container {
     display: flex;
@@ -277,17 +280,38 @@ margin-left: 70px;
     flex-direction: row;
   }
 
+  .review-context-both {
+    margin-bottom: 5px;
+  }
   /* reviewAdd.jsx */
+  .review-add-box {
+    padding: 0 13px;
+    margin: 1rem auto;
+  }
+
+  .review-submit-form > * {
+    width: 100%;
+  }
   .review-form-product {
     padding: 40px 5%;
   }
 
   .review-submit-form > div {
     padding: 40px 5%;
-    justify-content: space-evenly;
     justify-items: center;
   }
+
+  .review-submit-form > * {
+    width: 100%;
+  }
+
   .review-submit-form > div > section {
     width: 70%;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .review-submit-form > * {
+    width: 100%;
   }
 }

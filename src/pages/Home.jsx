@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import video from "../img/main/main-video.mp4";
-import square from "../img/main/squarebox.png";
 import "../css/Home.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -11,8 +10,14 @@ import {
   faFacebook,
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
+import IconButton from "@mui/material/IconButton";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const Home = () => {
+  const [scrollButton, setScrollButton] = useState(true);
+  const [topButton, setTopButton] = useState(false);
+
   // 메인 슬라이더 세팅
   const settings = {
     infinite: false,
@@ -23,6 +28,15 @@ const Home = () => {
     vertical: true, // 상하 슬라이드로 변경
     draggable: false,
     initialSlide: 0,
+    afterChange: (currentSlide) => {
+      if (currentSlide === 2) {
+        setScrollButton(false);
+        setTopButton(true);
+      } else {
+        setScrollButton(true);
+        setTopButton(false);
+      }
+    },
   };
 
   // 휠 스크롤로 변경
@@ -67,6 +81,7 @@ const Home = () => {
               {/* 자동재생 무음 반복 */}
               <video src={video} autoPlay muted loop />
             </div>
+
             <div className="first-content">
               <div>
                 <span>Create your </span>
@@ -77,7 +92,6 @@ const Home = () => {
                 <span>VIEW</span>
                 <span>Buy Now</span>
               </Link>
-              <img src={square} alt="" />
             </div>
           </div>
         </section>
@@ -90,7 +104,7 @@ const Home = () => {
           <div className="second-content">
             <p>모두가 만들어 가는 나만의 티셔츠</p>
             <span>
-              다양한 폰트와 이미지를 이용하여 가족, 친구, 나만을 위한 티셔츠를
+              다양한 폰트와 이미지를 이용하여 나, 친구, 가족만을 위한 티셔츠를
               만들어보세요.
             </span>
             <span>모티는 고객님들의 색다른 즐거움과 행복을 함께합니다.</span>
@@ -133,10 +147,32 @@ const Home = () => {
           </div>
         </section>
       </Slider>
+      <div className={topButton ? "button-wrap" : "button-wrap button-hidden"}>
+        <span>Top</span>
+        <IconButton
+          className="button-animation"
+          onClick={() => {
+            slider.current.slickGoTo(0);
+          }}
+        >
+          <ExpandLessIcon />
+        </IconButton>
+      </div>
+      <div
+        className={scrollButton ? "button-wrap" : "button-wrap button-hidden"}
+      >
+        <span>Scroll</span>
+        <IconButton
+          className="button-animation"
+          onClick={() => {
+            slider.current.slickNext();
+          }}
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </div>
     </div>
   );
 };
 
 export default Home;
-
-// <button onClick={() => {slider.current.slickGoTo(0)}}>테스트</button>

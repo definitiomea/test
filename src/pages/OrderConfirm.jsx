@@ -2,9 +2,13 @@ import styled from "styled-components";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import MyButton from "../style/Button";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const OrderConfirm = () => {
   const navigate = useNavigate();
+
+  const data = useSelector((state) => state.orderlist.orderlist);
+  console.log(data);
 
   return (
     <Wrap>
@@ -72,7 +76,7 @@ const Wrap = styled.div`
       }
     }
     > div > div:nth-child(2) {
-      margin-bottom: 1.5rem
+      margin-bottom: 1.5rem;
     }
     button {
       margin: 0.2rem auto;

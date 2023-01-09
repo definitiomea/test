@@ -25,7 +25,7 @@
 .close {
   position: absolute;
   top: 15px;
-  right: 15px;
+  right: 30px;
   width: 30px;
   font-size: 21px;
 }
@@ -44,11 +44,15 @@
 .login-form > div {
   padding: 0;
 }
+.login-form label {
+  padding: 0;
+}
 .login-form-title {
   font-size: 2.5rem;
   font-weight: bolder;
   margin-bottom: 25px;
   text-align: center;
+  padding: 0;
 }
 .login-form_input {
   font-family: "ongothic";
@@ -56,6 +60,7 @@
   width: 100%;
   border-bottom: 2px solid black;
   margin-bottom: 20px;
+  padding: 0;
 }
 
 .login-form_input:focus {
@@ -69,11 +74,11 @@
   margin-bottom: 5px;
 } /* button style 쪽에 마진을 없애서 추가함 */
 
-.social {
+/* .social {
   display: flex;
   justify-content: space-around;
   margin-top: 10px;
-}
+} */
 
 .modal.openModal {
   display: flex;
