@@ -46,7 +46,7 @@ const ReviewStar = ({ star, setStar }) => {
       </div>
 
       {/* 클릭하거나 호버 시 별점에 따른 출력문구  */}
-      {clicked || hovered ? (
+      {clicked ? (
         <div>
           {array.map((num) => (
             <HiddenText key={num} show={clicked == num}>

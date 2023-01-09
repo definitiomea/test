@@ -76,7 +76,7 @@ const Wrap = styled.div`
       }
     }
     > div > div:nth-child(2) {
-      margin-bottom: 1.5rem
+      margin-bottom: 1.5rem;
     }
     button {
       margin: 0.2rem auto;

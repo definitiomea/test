@@ -121,16 +121,14 @@ const orderSlice = createSlice({
       const index = state.orderlist.findIndex(
         (el) => el.userId === action.payload.userID
       );
-      const newItemlist = state.orderlist[index].itemlist.map(
-        (item) => {
-          if (Object.keys(item).includes("reviewID")) {
-            item.reviewID === action.payload.reviewID && delete item.reviewID;
-            return { ...item };
-          } else {
-            return item;
-          }
+      const newItemlist = state.orderlist[index].itemlist.map((item) => {
+        if (Object.keys(item).includes("reviewID")) {
+          item.reviewID === action.payload.reviewID && delete item.reviewID;
+          return { ...item };
+        } else {
+          return item;
         }
-      );
+      });
       state.orderlist[index].itemlist = newItemlist;
     },
   },

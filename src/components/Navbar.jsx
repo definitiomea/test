@@ -7,8 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/reducers/user";
 
 import Modal from "../components/Modal";
+import { Squash as Hamburger } from "hamburger-react";
+import styled from "styled-components";
+import { useRef } from "react";
 
 const Navbar = () => {
+  const [isOpen, setOpen] = useState(false);
+
   // 리덕스 user 가져옴
   const userName = useSelector((state) => state.user);
 
@@ -50,15 +55,10 @@ const Navbar = () => {
           to="/"
           // 메인이 아닐 때 nav의 폰트색상 black
           className={main ? "white-logo" : "dark-logo"}
-          // 로고 클릭시 상단으로 부드럽게 이동
-          onClick={() => {
-            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-          }}
         >
           MOTI
         </NavLink>
       </div>
-
       <ul className="navbar-menu">
         {/* 네브바 리스트 */}
         <li>
@@ -114,8 +114,69 @@ const Navbar = () => {
           </div>
         )}
       </ul>
+      {/* 모바일 화면 메뉴창 */}
+      <Hamburger
+        className="toggle-button"
+        toggled={isOpen}
+        toggle={setOpen}
+        color={main || isOpen ? "white" : "black"}
+        size={28}
+        // onToggle={(toggled) => {
+        //   if (toggled) {
+        //     console.log("toggle On");
+        //   } else {
+        //     console.log("toggle off");
+        //     //close a menu
+        //   }
+        // }}
+      />
+      <MobileNav>
+        <div className={isOpen ? "mobile-nav" : "hidden-mobile-nav"}>
+          <div className="mobile-nav-wrap">
+            <ul>
+              <li>
+                <NavLink to="shop">SHOP</NavLink>
+              </li>
+              <li>
+                <NavLink to="cart">CART</NavLink>
+              </li>
+              <li>
+                <NavLink to="mypage">MYPAGE</NavLink>
+              </li>
+            </ul>
+            {login ? (
+              <div>
+                <button onClick={logOut}>LOGOUT</button>
+              </div>
+            ) : (
+              <div>
+                <button onClick={openModal}>LOGIN</button>
+                {/* <Modal setModalOpen={setModalOpen} open={modalOpen} /> */}
+              </div>
+            )}
+          </div>
+        </div>
+      </MobileNav>
     </nav>
   );
 };
 
 export default Navbar;
+
+const MobileNav = styled.div`
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  right: -60%;
+  width: 60%;
+  height: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  background-color: black;
+  opacity: 90%;
+  transition: 0.5s ease;
+  &.open {
+    right: 0;
+    transition: 0.5s ease;
+  }
+`;

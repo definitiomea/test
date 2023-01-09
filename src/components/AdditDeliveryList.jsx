@@ -23,10 +23,8 @@ const Postcode = (props) => {
         extraPostCode += data.bname;
       }
       if (data.buildingName !== "") {
-        extraAddress +=
-          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-        extraPostCode +=
-          extraPostCode !== "" ? `, ${data.buildingName}` : data.buildingName;
+        extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+        extraPostCode += extraPostCode !== "" ? `, ${data.buildingName}` : data.buildingName;
       }
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
       postCode += extraPostCode !== "" ? ` (${extraPostCode})` : "";
@@ -113,12 +111,7 @@ function AdditDeliveryList() {
 
   return (
     <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={style}>
           <Postcode adressValue={adressValue} zoneCodeValue={zoneCodeValue} />
         </Box>
@@ -144,12 +137,7 @@ function AdditDeliveryList() {
             value={zoneCode || ""}
           />
           {/* input type:button -> button tag로 변경 */}
-          <input
-            type="button"
-            className="post-form_btn"
-            defaultValue="우편번호 찾기"
-            onClick={submit}
-          />
+          <input type="button" className="post-form_btn" defaultValue="우편번호 찾기" onClick={submit} />
         </div>
         <label className="post-form_label">주소</label>
         <input

@@ -121,8 +121,9 @@ const ReviewAdd = () => {
 
     const newReview = {
       // ...data,
-      thumbnail: data.thumbnail,
+      productID: data.productID,
       img,
+      thumbnail: data.thumbnail,
       userID,
       star,
       category: data.category,
@@ -130,7 +131,6 @@ const ReviewAdd = () => {
       size: data.size,
       color: data.color,
       comment,
-      productID: data.productID,
     };
 
     // 로그인유저가 작성한 유저가 같다면 작성내용을 input리듀서로 디스패치함

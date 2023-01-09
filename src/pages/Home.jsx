@@ -104,7 +104,7 @@ const Home = () => {
           <div className="second-content">
             <p>모두가 만들어 가는 나만의 티셔츠</p>
             <span>
-              다양한 폰트와 이미지를 이용하여 가족, 친구, 나만을 위한 티셔츠를
+              다양한 폰트와 이미지를 이용하여 나, 친구, 가족만을 위한 티셔츠를
               만들어보세요.
             </span>
             <span>모티는 고객님들의 색다른 즐거움과 행복을 함께합니다.</span>
@@ -148,6 +148,7 @@ const Home = () => {
         </section>
       </Slider>
       <div className={topButton ? "button-wrap" : "button-wrap button-hidden"}>
+        <span>Top</span>
         <IconButton
           className="button-animation"
           onClick={() => {
@@ -156,11 +157,11 @@ const Home = () => {
         >
           <ExpandLessIcon />
         </IconButton>
-        <div>Top</div>
       </div>
       <div
         className={scrollButton ? "button-wrap" : "button-wrap button-hidden"}
       >
+        <span>Scroll</span>
         <IconButton
           className="button-animation"
           onClick={() => {
@@ -169,7 +170,6 @@ const Home = () => {
         >
           <ExpandMoreIcon />
         </IconButton>
-        <div>Scroll</div>
       </div>
     </div>
   );
