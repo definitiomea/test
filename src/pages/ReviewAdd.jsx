@@ -21,7 +21,7 @@ const ReviewAdd = () => {
   const [bringImg, setBringImg] = useState();
   const [img, setImg] = useState();
   const [comment, setComment] = useState("");
-  const [commentLength, setCommentLength] = useState(0);
+  // const [commentLength, setCommentLength] = useState(0);
   const fileInput = useRef();
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.user.id);
@@ -166,7 +166,7 @@ const ReviewAdd = () => {
   }, []);
 
   // textarea의 글자수를 input에 표시해주는 함수
-  const commentClac = (e) => setCommentLength(e.target.value.length);
+  // const commentClac = (e) => setCommentLength(e.target.value.length);
 
   return (
     <div className="review-add-box">
@@ -230,7 +230,7 @@ const ReviewAdd = () => {
               placeholder="최소 10자 이상 작성해주세요."
             ></textarea>
             <em>
-              <span>{commentLength} / 5,000</span>
+              <span>{comment.length} / 5,000</span>
             </em>
           </section>
 
