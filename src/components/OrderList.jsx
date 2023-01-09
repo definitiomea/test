@@ -279,25 +279,20 @@ const OrderList = ({ setTrans, findUser }) => {
 
 export default OrderList;
 
-// 리뷰확인 모달
+// 리뷰 버튼
 const ReviewButton = ({ order, userId }) => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   const navigate = useNavigate();
 
   return (
     <>
       {Object.keys(order).includes("reviewID") ? (
-        <>
-          <MyButton onClick={handleOpen}>리뷰확인</MyButton>
-          <Modal open={open} onClose={handleClose}>
-            <Box sx={style} className="modal-review">
-              <ReviewInput />
-            </Box>
-          </Modal>
-        </>
+        <MyButton
+          onClick={() => {
+            navigate("/shop/" + order.productID);
+          }}
+        >
+          리뷰확인
+        </MyButton>
       ) : (
         <MyButton
           onClick={() => {
@@ -311,17 +306,4 @@ const ReviewButton = ({ order, userId }) => {
       )}
     </>
   );
-};
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "fit-object",
-  maxWidth: "80%",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
 };

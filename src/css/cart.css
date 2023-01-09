@@ -67,7 +67,7 @@
 /* 배송지 AddDeliveryList.jsx */
 .cart-post-form > div {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   padding: 0.5rem 0;
 }
 .cart-post-form label {
@@ -93,6 +93,14 @@
   margin-top: 1rem;
   float: right;
   font-family: "ongothic";
+}
+.cart-post-form select {
+  margin: 0;
+  width: 100%;
+  padding: 0.5rem;
+}
+.cart-post-form > div:nth-child(4) input {
+  margin: 0.5rem 0 0 0;
 }
 
 /* 예상금액 Cart.jsx */

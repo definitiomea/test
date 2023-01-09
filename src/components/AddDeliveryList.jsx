@@ -159,37 +159,39 @@ function DeliveryList() {
         </div>
         <div>
           <label>배송 메모</label>
-          <select
-            className="post-form_input"
-            value={reference || ""}
-            onChange={(e) => {
-              setReference(e.target.value);
-            }}
-          >
-            <option value="배송전 연락해주세요">배송전 연락해주세요</option>
-            <option value="문 앞에 두고 벨 눌러주세요">
-              문 앞에 두고 벨 눌러주세요
-            </option>
-            <option value="벨 누르지 말고 노크해주세요">
-              벨 누르지 말고 노크해주세요
-            </option>
-            <option value="요청사항 없음">요청사항 없음</option>
-            <option value="직접입력">직접입력</option>
-          </select>
-
-          {reference === "직접입력" ? (
-            <input
-              type="text"
+          <div>
+            <select
               className="post-form_input"
-              id="sample6_extraAddress"
+              value={reference || ""}
               onChange={(e) => {
-                setDirect(e.target.value);
+                setReference(e.target.value);
               }}
-              value={direct || ""}
-            />
-          ) : (
-            ""
-          )}
+            >
+              <option value="배송전 연락해주세요">배송전 연락해주세요</option>
+              <option value="문 앞에 두고 벨 눌러주세요">
+                문 앞에 두고 벨 눌러주세요
+              </option>
+              <option value="벨 누르지 말고 노크해주세요">
+                벨 누르지 말고 노크해주세요
+              </option>
+              <option value="요청사항 없음">요청사항 없음</option>
+              <option value="직접입력">직접입력</option>
+            </select>
+
+            {reference === "직접입력" ? (
+              <input
+                type="text"
+                className="post-form_input"
+                id="sample6_extraAddress"
+                onChange={(e) => {
+                  setDirect(e.target.value);
+                }}
+                value={direct || ""}
+              />
+            ) : (
+              ""
+            )}
+          </div>
         </div>
         <Button variant="text" color="primary" type="submit">
           배송지 저장
