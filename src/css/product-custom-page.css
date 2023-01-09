@@ -36,7 +36,7 @@
 }
 
 .product-handling-buttons {
-  padding: 1vw 1vh;
+  padding: 1vh 1vw;
   display: flex;
 }
 .product-handling-button-element {
@@ -86,7 +86,7 @@
 
 .product-create-area {
   display: flex;
-  padding: 2vw 2vh;
+  padding: 2vh 2vw;
   justify-content: center;
 }
 .img-box {
@@ -114,7 +114,7 @@
 .product-important-handling-button {
   display: flex;
   flex-direction: column;
-  padding: 2vw 2vh;
+  padding: 2vh 2vw;
 }
 .product-important-handling-button .product-handling-button-element svg {
   width: 2em;
@@ -136,10 +136,10 @@
 }
 
 .product-info-area {
-  padding: 2vw 2vh;
+  padding: 2vh 2vw;
 }
 .product-info {
-  padding: 1vw 1vh;
+  padding: 1vh 1vw;
 }
 .product-introduce {
   margin: 0px auto;
@@ -189,6 +189,12 @@
   }
   .product-info-area {
     text-align: center;
+  }
+  .product-create-area {
+    padding: 1vh 0vw;
+  }
+  .product-handling-buttons {
+    padding: 1vh 0vw;
   }
   .product-handling-buttons svg {
     width: 1.1em;
@@ -240,6 +246,7 @@
 }
 .info-detail {
   padding: 2vh 2vw;
+  font-size: 0.8em;
 }
 .info-detail td {
   width: 5em;
@@ -257,7 +264,7 @@
 
 @media screen and (max-width: 768px) {
   .size-container img {
-    max-width: 400px;
+    max-width: 300px;
   }
   .info-section {
     font-size: 1.2em;
