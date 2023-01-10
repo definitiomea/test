@@ -10,6 +10,7 @@
 
 .main-container .slick-slide {
   height: 100vh;
+  word-break: keep-all;
 }
 
 /* <첫번째 스크린> */
@@ -281,7 +282,7 @@
 
 /* 슬릭 첫페이지로 */
 .button-wrap {
-  z-index: 10;
+  z-index: 0;
   color: var(--text-color);
   position: fixed;
   bottom: 5%;

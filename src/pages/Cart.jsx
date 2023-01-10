@@ -37,9 +37,7 @@ const Cart = () => {
   const copyCartlist = () => {
     const copyCartlist = JSON.parse(JSON.stringify(cartlist));
     for (let i = 0; i < copyCartlist.length; i++) {
-      const fintProduct = productlist.find(
-        (product) => product.productID == copyCartlist[i].productID
-      );
+      const fintProduct = productlist.find((product) => product.productID == copyCartlist[i].productID);
       let name = "";
       switch (fintProduct.productName) {
         case "슬림 핏":
@@ -54,8 +52,7 @@ const Cart = () => {
       }
       copyCartlist[i].category = fintProduct.category;
       copyCartlist[i].productName = fintProduct.productName;
-      copyCartlist[i].thumbnail = 
-          `${fintProduct.category}-${name}-${copyCartlist[i].color}-front.jpg`;
+      copyCartlist[i].thumbnail = `${fintProduct.category}-${name}-${copyCartlist[i].color}-front.jpg`;
     }
     return copyCartlist;
   };
@@ -83,9 +80,7 @@ const Cart = () => {
   // 상품리스트 데이터 들고오기 (db.json)
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch(
-        "https://my-json-server.typicode.com/hans-4303/test/productList"
-      );
+      const response = await fetch("https://my-json-server.typicode.com/hans-4303/test/productList");
       const data = await response.json();
       setProductlist(data);
       if (!productlist) {
@@ -148,11 +143,7 @@ const Cart = () => {
                   <>
                     {cartlist.map((cartItem) => (
                       <tr key={cartItem.cartID}>
-                        <CartItem
-                          cartItem={cartItem}
-                          productlist={productlist}
-                          dispatch={dispatch}
-                        />
+                        <CartItem cartItem={cartItem} productlist={productlist} dispatch={dispatch} />
                       </tr>
                     ))}
                   </>
@@ -189,11 +180,7 @@ const Cart = () => {
                   <>
                     {cartlist.map((cartItem) => (
                       <tr key={cartItem.cartID}>
-                        <CartItem
-                          cartItem={cartItem}
-                          productlist={productlist}
-                          dispatch={dispatch}
-                        />
+                        <CartItem cartItem={cartItem} productlist={productlist} dispatch={dispatch} />
                       </tr>
                     ))}
                   </>
@@ -220,9 +207,7 @@ const Cart = () => {
                 <div className="summary-price">
                   <div>{getSubtotal().toLocaleString("ko-KR")}</div>
                   <div>{deliveryPay.toLocaleString("ko-KR")}</div>
-                  <div className="total">
-                    {(getSubtotal() + deliveryPay).toLocaleString("ko-KR")}
-                  </div>
+                  <div className="total">{(getSubtotal() + deliveryPay).toLocaleString("ko-KR")}</div>
                 </div>
               </div>
               <div>

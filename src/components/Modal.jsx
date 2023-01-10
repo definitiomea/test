@@ -9,7 +9,7 @@ import MyButton from "../style/Button";
 import { useState } from "react";
 
 const Modal = (props) => {
-  const { open, setModalOpen } = props;
+  const { open, setModalOpen, setNavOpen } = props;
   const signup = useSelector((state) => state.signup);
 
   const dispatch = useDispatch();
@@ -39,9 +39,7 @@ const Modal = (props) => {
     //   }
     // };
 
-    const findUser = signup.userlist.find(
-      (user) => user.id === id && user.password === password
-    );
+    const findUser = signup.userlist.find((user) => user.id === id && user.password === password);
 
     if (!findUser) {
       alert("로그인 실패");
@@ -60,13 +58,18 @@ const Modal = (props) => {
       );
       navigate("/");
     }
-
     // console.log(id, password);
+    navClose();
   };
 
   const onClickSignup = () => {
     navigate("signup");
     modalClose();
+    navClose();
+  };
+
+  const navClose = () => {
+    setNavOpen(false);
   };
 
   return (
@@ -81,25 +84,11 @@ const Modal = (props) => {
             <h1 className="login-form-title">MOTI</h1>
             <div>
               <label>ID</label>
-              <input
-                className="login-form_input"
-                type="text"
-                name="user-id"
-                value={id}
-                onChange={onChangeId}
-                required
-              />
+              <input className="login-form_input" type="text" name="user-id" value={id} onChange={onChangeId} required />
             </div>
             <div>
               <label>Password</label>
-              <input
-                className="login-form_input"
-                type="password"
-                name="user-password"
-                value={password}
-                onChange={onChangePassword}
-                required
-              />
+              <input className="login-form_input" type="password" name="user-password" value={password} onChange={onChangePassword} required />
             </div>
             <MyButton className="login-form_btn" type="submit">
               Log in

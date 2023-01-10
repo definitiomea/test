@@ -36,7 +36,7 @@
 }
 
 .product-handling-buttons {
-  padding: 1vw 1vh;
+  padding: 1vh 1vw;
   display: flex;
 }
 .product-handling-button-element {
@@ -86,7 +86,7 @@
 
 .product-create-area {
   display: flex;
-  padding: 2vw 2vh;
+  padding: 2vh 2vw;
   justify-content: center;
 }
 .img-box {
@@ -114,7 +114,7 @@
 .product-important-handling-button {
   display: flex;
   flex-direction: column;
-  padding: 2vw 2vh;
+  padding: 2vh 2vw;
 }
 .product-important-handling-button .product-handling-button-element svg {
   width: 2em;
@@ -136,10 +136,10 @@
 }
 
 .product-info-area {
-  padding: 2vw 2vh;
+  padding: 2vh 2vw;
 }
 .product-info {
-  padding: 1vw 1vh;
+  padding: 1vh 1vw;
 }
 .product-introduce {
   margin: 0px auto;
@@ -181,6 +181,14 @@
     display: flex;
     flex-direction: column;
   }
+  .producing-title {
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .producing-title-area {
+    margin-top: 1.5em;
+    margin-bottom: 0em;
+  }
   .producing-title-line {
     display: none;
   }
@@ -190,27 +198,44 @@
   .product-info-area {
     text-align: center;
   }
+  .product-create-area {
+    padding: 1vh 0vw;
+  }
+  .product-handling-buttons {
+    padding: 1vh 0vw;
+  }
   .product-handling-buttons svg {
-    width: 1.5em;
-    height: 1.5em;
+    width: 1.1em;
+    height: 1.1em;
   }
   .product-handling-buttons input {
-    width: 1.5em;
+    width: 1.1em;
   }
   .product-handling-buttons div input {
-    width: 1.5em;
-    height: 1.5em;
+    width: 1.1em;
+    height: 1.1em;
+  }
+  .product-important-handling-button {
+    padding: 0px 0px;
   }
   .product-important-handling-button .product-handling-button-element div svg {
-    width: 1.5em;
-    height: 1.5em;
+    width: 1.1em;
+    height: 1.1em;
   }
   .product-handling-buttons .product-text-handling input {
-    width: 1.5em;
-    height: 1.5em;
+    width: 1.1em;
+    height: 1.1em;
   }
   .handling-explane {
     display: none;
+  }
+  .img-box {
+    width: 295px;
+    height: auto;
+  }
+  .drawing-area {
+    width: 147.5px;
+    height: 213px;
   }
 }
 
@@ -229,6 +254,7 @@
 }
 .info-detail {
   padding: 2vh 2vw;
+  font-size: 0.8em;
 }
 .info-detail td {
   width: 5em;
@@ -246,7 +272,7 @@
 
 @media screen and (max-width: 768px) {
   .size-container img {
-    max-width: 400px;
+    max-width: 300px;
   }
   .info-section {
     font-size: 1.2em;
