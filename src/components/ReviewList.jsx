@@ -64,11 +64,11 @@ const ReviewList = (props) => {
                       ))}
                     </span>
                   </span>
-                  <div className="review-context-product">
-                    <span>{review.category} </span>
-                    <span>{review.productName}</span>
-                    <span>({review.color})</span>
-                    <span>size:{review.size}</span>
+                  <div>
+                    <span>
+                      {review.category} {review.productName} ({review.color})
+                      size:{review.size}
+                    </span>
                   </div>
                   <span>{review.comment}</span>
                 </div>

@@ -38,7 +38,11 @@ const ReviewInput = (props) => {
                       {/* {console.log(review.category)} */}
 
                       {review.img ? (
-                        <img src={reviewFile[i].img} alt="" style={{ width: "120px", height: "130px" }} />
+                        <img
+                          src={reviewFile[i].img}
+                          alt=""
+                          style={{ width: "120px", height: "130px" }}
+                        />
                       ) : review && review.category === "short" ? (
                         <img
                           src={require(`../img/shirts-img/short/${review.thumbnail}`)}
@@ -63,14 +67,20 @@ const ReviewInput = (props) => {
                       </span>
                       <span>
                         {array.map((el, i) => (
-                          <FontAwesomeIcon icon={faStar} key={el} className={review.star >= array[i] ? "yellowStar" : ""} />
+                          <FontAwesomeIcon
+                            icon={faStar}
+                            key={el}
+                            className={
+                              review.star >= array[i] ? "yellowStar" : ""
+                            }
+                          />
                         ))}
                       </span>
-                      <div className="review-context-product">
-                        <span>{review.category}</span>
-                        <span>{review.productName}</span>
-                        <span>({review.color})</span>
-                        <span>{review.size}</span>
+                      <div>
+                        <span>
+                          {review.category} {review.productName} ({review.color}
+                          ) {review.size}
+                        </span>
                       </div>
                       <span>{review.comment}</span>
                     </div>
@@ -91,7 +101,9 @@ const ReviewInput = (props) => {
                         >
                           수정
                         </button>
-                        <button onClick={() => dispatch(deleteReview(review))}>삭제</button>
+                        <button onClick={() => dispatch(deleteReview(review))}>
+                          삭제
+                        </button>
                       </div>
                     </div>
                   ) : (

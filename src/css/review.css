@@ -35,16 +35,6 @@
   margin-bottom: 3px;
 }
 
-.review-context-product {
-  display: flex;
-  flex-direction: row;
-  /* width: 700px; */
-}
-
-.review-context-product > span {
-  margin-right: 5px;
-}
-
 .review-option {
   display: flex;
   flex-direction: column;
