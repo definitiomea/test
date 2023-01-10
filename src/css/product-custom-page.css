@@ -181,6 +181,14 @@
     display: flex;
     flex-direction: column;
   }
+  .producing-title {
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .producing-title-area {
+    margin-top: 1.5em;
+    margin-bottom: 0em;
+  }
   .producing-title-line {
     display: none;
   }
