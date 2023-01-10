@@ -13,29 +13,24 @@ import { useRef } from "react";
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [login, setLogin] = useState(false);
 
   // 리덕스 user 가져옴
   const userName = useSelector((state) => state.user);
-
-  // modal login form
-  const [modalOpen, setModalOpen] = useState(false);
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
   // 로그인
-  const [login, setLogin] = useState(false);
   const user = useSelector((state) => state.user);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setLogin(user.isLoggedIn ? true : false);
-  }, [user]);
+  // 메인페이지와 다른 페이지의 css 차별을 위해 메인위치 지정해줌
+  const location = useLocation();
+  const main = location.pathname === "/";
+
+  // modal login form
+  const openModal = () => {
+    setModalOpen(true);
+  };
 
   const logOut = () => {
     setLogin(false);
@@ -44,9 +39,14 @@ const Navbar = () => {
     navigate("");
   };
 
-  // 메인페이지와 다른 페이지의 css 차별을 위해 메인위치 지정해줌
-  const location = useLocation();
-  const main = location.pathname === "/";
+  // 모바일메뉴 이외의 공간 클릭하면 메뉴 사라짐
+  const navExtra = () => {
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    setLogin(user.isLoggedIn ? true : false);
+  }, [user]);
 
   return (
     <nav className={main ? "main-nav" : "page-nav"}>
@@ -105,6 +105,7 @@ const Navbar = () => {
           </div>
         )}
       </ul>
+
       {/* 모바일 화면 메뉴창 */}
       <Hamburger
         className="toggle-button"
@@ -122,6 +123,8 @@ const Navbar = () => {
         // }}
       />
       <MobileNav>
+        {isOpen ? <div className="mobile-nav-extra" onClick={navExtra}></div> : ""}
+
         <div className={isOpen ? "mobile-nav" : "hidden-mobile-nav"}>
           <div className="mobile-nav-wrap">
             <ul>

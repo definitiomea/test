@@ -281,4 +281,11 @@ button {
   .dropdown-menu {
     left: -11px;
   }
+
+  .mobile-nav-extra {
+    left: 0;
+    position: fixed;
+    width: 40%;
+    height: 100%;
+  }
 }
