@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-// import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../css/Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/reducers/user";
@@ -9,7 +7,6 @@ import { logout } from "../redux/reducers/user";
 import Modal from "../components/Modal";
 import { Squash as Hamburger } from "hamburger-react";
 import styled from "styled-components";
-import { useRef } from "react";
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
@@ -27,6 +24,11 @@ const Navbar = () => {
   const location = useLocation();
   const main = location.pathname === "/";
 
+  // 모바일메뉴 이외의 공간 클릭하면 메뉴 사라짐
+  const navClose = () => {
+    setOpen(false);
+  };
+
   // modal login form
   const openModal = () => {
     setModalOpen(true);
@@ -37,11 +39,7 @@ const Navbar = () => {
     // dispatch(setUser(null));
     dispatch(logout());
     navigate("");
-  };
-
-  // 모바일메뉴 이외의 공간 클릭하면 메뉴 사라짐
-  const navExtra = () => {
-    setOpen(false);
+    navClose();
   };
 
   useEffect(() => {
@@ -90,15 +88,7 @@ const Navbar = () => {
           </li>
         ) : (
           <div>
-            <button
-              className={main ? "white-nav" : "dark-nav"}
-              onClick={
-                openModal
-                //   () => {
-                //   navigate("/login");
-                // }
-              }
-            >
+            <button className={main ? "white-nav" : "dark-nav"} onClick={openModal}>
               LOGIN
             </button>
             <Modal setModalOpen={setModalOpen} open={modalOpen} />
@@ -123,26 +113,32 @@ const Navbar = () => {
         // }}
       />
       <MobileNav>
-        {isOpen ? <div className="mobile-nav-extra" onClick={navExtra}></div> : ""}
+        {isOpen ? <div className="mobile-nav-extra" onClick={navClose}></div> : ""}
 
         <div className={isOpen ? "mobile-nav" : "hidden-mobile-nav"}>
           <div className="mobile-nav-wrap">
             <ul>
               <li>
-                <NavLink to="shop">SHOP</NavLink>
+                <NavLink to="shop" onClick={navClose}>
+                  SHOP
+                </NavLink>
               </li>
               <li>
-                <NavLink to="cart">CART</NavLink>
+                <NavLink to="cart" onClick={navClose}>
+                  CART
+                </NavLink>
               </li>
               <li>
-                <NavLink to="mypage">MYPAGE</NavLink>
+                <NavLink to="mypage" onClick={navClose}>
+                  MYPAGE
+                </NavLink>
               </li>
             </ul>
             {/* isOpen ? 조건으로 웹버전시 모달 두개 겹침현상 방지 */}
             {!login && isOpen ? (
               <div>
                 <button onClick={openModal}>LOGIN</button>
-                <Modal setModalOpen={setModalOpen} open={modalOpen} />
+                <Modal setModalOpen={setModalOpen} open={modalOpen} setNavOpen={setOpen} />
               </div>
             ) : (
               <div>

@@ -9,7 +9,7 @@ import MyButton from "../style/Button";
 import { useState } from "react";
 
 const Modal = (props) => {
-  const { open, setModalOpen } = props;
+  const { open, setModalOpen, setNavOpen } = props;
   const signup = useSelector((state) => state.signup);
 
   const dispatch = useDispatch();
@@ -65,6 +65,11 @@ const Modal = (props) => {
   const onClickSignup = () => {
     navigate("signup");
     modalClose();
+    setNavOpen();
+  };
+
+  const navClose = () => {
+    setNavOpen(false);
   };
 
   return (
@@ -85,7 +90,7 @@ const Modal = (props) => {
               <label>Password</label>
               <input className="login-form_input" type="password" name="user-password" value={password} onChange={onChangePassword} required />
             </div>
-            <MyButton className="login-form_btn" type="submit">
+            <MyButton className="login-form_btn" type="submit" onClick={navClose}>
               Log in
             </MyButton>
             <MyButton className="login-form_btn" onClick={onClickSignup}>
