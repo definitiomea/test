@@ -266,6 +266,7 @@
   .review-context-both {
     margin-bottom: 5px;
   }
+
   /* reviewAdd.jsx */
   .review-add-box {
     padding: 0 13px;
@@ -298,6 +299,4 @@
   .review-submit-form > * {
     width: 100%;
   }
-
-  /* reviewInput.jsx, reviewList.jsx 공통 */
 }

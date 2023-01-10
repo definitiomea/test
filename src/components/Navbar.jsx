@@ -121,54 +121,53 @@ const Navbar = () => {
         //   }
         // }}
       />
-      {/* <MobileNav> */}
-      <div className={isOpen ? "mobile-nav" : "hidden-mobile-nav"}>
-        <div className="mobile-nav-wrap">
-          <ul>
-            <li>
-              <NavLink to="shop">SHOP</NavLink>
-            </li>
-            <li>
-              <NavLink to="cart">CART</NavLink>
-            </li>
-            <li>
-              <NavLink to="mypage">MYPAGE</NavLink>
-            </li>
-          </ul>
-          {/* isOpen ? 조건으로 웹버전시 모달 두개 겹침현상 방지 */}
-          {!login && isOpen ? (
-            <div>
-              <button onClick={openModal}>LOGIN</button>
-              <Modal setModalOpen={setModalOpen} open={modalOpen} />
-            </div>
-          ) : (
-            <div>
-              <button onClick={logOut}>LOGOUT</button>
-            </div>
-          )}
+      <MobileNav>
+        <div className={isOpen ? "mobile-nav" : "hidden-mobile-nav"}>
+          <div className="mobile-nav-wrap">
+            <ul>
+              <li>
+                <NavLink to="shop">SHOP</NavLink>
+              </li>
+              <li>
+                <NavLink to="cart">CART</NavLink>
+              </li>
+              <li>
+                <NavLink to="mypage">MYPAGE</NavLink>
+              </li>
+            </ul>
+            {/* isOpen ? 조건으로 웹버전시 모달 두개 겹침현상 방지 */}
+            {!login && isOpen ? (
+              <div>
+                <button onClick={openModal}>LOGIN</button>
+                <Modal setModalOpen={setModalOpen} open={modalOpen} />
+              </div>
+            ) : (
+              <div>
+                <button onClick={logOut}>LOGOUT</button>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-      {/* </MobileNav> */}
+      </MobileNav>
     </nav>
   );
 };
 
 export default Navbar;
 
-// const MobileNav = styled.div`
-//   z-index: 999;
-//   position: fixed;
-//   top: 0;
-//   right: -60%;
-//   width: 60%;
-//   height: 100%;
-//   -webkit-box-orient: vertical;
-//   -webkit-box-direction: normal;
-//   background-color: black;
-//   opacity: 90%;
-//   transition: 0.5s ease;
-//   &.open {
-//     right: 0;
-//     transition: 0.5s ease;
-//   }
-// `;
+const MobileNav = styled.div`
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  right: -60%;
+  width: 60%;
+  height: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  background-color: black;
+  transition: 0.5s ease;
+  &.open {
+    right: 0;
+    transition: 0.5s ease;
+  }
+`;
