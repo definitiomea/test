@@ -215,11 +215,7 @@ button {
     height: 100%;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-    background-color: black;
-    opacity: 90%;
-  }
-
-  .mobile-nav-open {
+    background-color: rgba(0, 0, 0, 0.9);
   }
 
   .mobile-nav-wrap {
@@ -281,6 +277,7 @@ button {
     background-color: black;
     opacity: 90%;
   }
+
   .dropdown-menu {
     left: -11px;
   }

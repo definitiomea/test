@@ -53,7 +53,9 @@
   margin-bottom: 25px;
   text-align: center;
   padding: 0;
+  font-family: "logo";
 }
+
 .login-form_input {
   font-family: "ongothic";
   border: none;
@@ -102,5 +104,17 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  /* 모바일 로그인 모달 */
+  .content-box {
+    width: 300px;
+    padding: 40px 0;
+  }
+
+  .close {
+    right: 15px;
   }
 }
