@@ -58,8 +58,8 @@ const Modal = (props) => {
       );
       navigate("/");
     }
-
     // console.log(id, password);
+    navClose();
   };
 
   const onClickSignup = () => {
@@ -90,7 +90,7 @@ const Modal = (props) => {
               <label>Password</label>
               <input className="login-form_input" type="password" name="user-password" value={password} onChange={onChangePassword} required />
             </div>
-            <MyButton className="login-form_btn" type="submit" onClick={navClose}>
+            <MyButton className="login-form_btn" type="submit">
               Log in
             </MyButton>
             <MyButton className="login-form_btn" onClick={onClickSignup}>
