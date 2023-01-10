@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
+import { Desktop, Tablet, Mobile, Default } from "../hooks/MediaQuery";
 
 /* 여기서는 상위 페이지를 통해 props로 thumbNail 객체를 받아왔기 때문에
 객체 로딩을 기다릴 필요가 없었던 것 같다.
@@ -22,7 +23,6 @@ const ProductCard = (props) => {
     arrows: false,
     customPaging: (i) => (
       <div
-        className="shop-slick-dots"
         style={{
           width: "13px",
           height: "13px",
