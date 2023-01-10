@@ -65,7 +65,7 @@ const Modal = (props) => {
   const onClickSignup = () => {
     navigate("signup");
     modalClose();
-    setNavOpen();
+    navClose();
   };
 
   const navClose = () => {
