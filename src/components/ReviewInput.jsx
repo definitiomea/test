@@ -5,7 +5,6 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "../css/review.css";
 import { useNavigate } from "react-router-dom";
 import user from "../redux/reducers/user";
-import { deleteReviewInOrder } from "../redux/reducers/order";
 
 const ReviewInput = (props) => {
   // 상품의 ID이자 productID
@@ -25,7 +24,7 @@ const ReviewInput = (props) => {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="product-info-component">
       <div className="review-box">
         <div>
           {reviewFile.map((review, i) => (
@@ -77,11 +76,11 @@ const ReviewInput = (props) => {
                           />
                         ))}
                       </span>
-                      <div className="review-context-product">
-                        <span>{review.category}</span>
-                        <span>{review.productName}</span>
-                        <span>({review.color})</span>
-                        <span>{review.size}</span>
+                      <div>
+                        <span>
+                          {review.category} {review.productName} ({review.color}
+                          ) {review.size}
+                        </span>
                       </div>
                       <span>{review.comment}</span>
                     </div>
@@ -102,17 +101,7 @@ const ReviewInput = (props) => {
                         >
                           수정
                         </button>
-                        <button
-                          onClick={() => {
-                            dispatch(deleteReview(review));
-                            dispatch(
-                              deleteReviewInOrder({
-                                userID: review.userID,
-                                reviewID: review.reviewID,
-                              })
-                            );
-                          }}
-                        >
+                        <button onClick={() => dispatch(deleteReview(review))}>
                           삭제
                         </button>
                       </div>
