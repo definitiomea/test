@@ -5,7 +5,6 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "../css/review.css";
 import { useNavigate } from "react-router-dom";
 import user from "../redux/reducers/user";
-import { deleteReviewInOrder } from "../redux/reducers/order";
 
 const ReviewInput = (props) => {
   // 상품의 ID이자 productID
@@ -25,7 +24,7 @@ const ReviewInput = (props) => {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="product-info-component">
       <div className="review-box">
         <div>
           {reviewFile.map((review, i) => (
@@ -39,11 +38,7 @@ const ReviewInput = (props) => {
                       {/* {console.log(review.category)} */}
 
                       {review.img ? (
-                        <img
-                          src={reviewFile[i].img}
-                          alt=""
-                          style={{ width: "120px", height: "130px" }}
-                        />
+                        <img src={reviewFile[i].img} alt="" style={{ width: "120px", height: "130px" }} />
                       ) : review && review.category === "short" ? (
                         <img
                           src={require(`../img/shirts-img/short/${review.thumbnail}`)}
@@ -68,13 +63,7 @@ const ReviewInput = (props) => {
                       </span>
                       <span>
                         {array.map((el, i) => (
-                          <FontAwesomeIcon
-                            icon={faStar}
-                            key={el}
-                            className={
-                              review.star >= array[i] ? "yellowStar" : ""
-                            }
-                          />
+                          <FontAwesomeIcon icon={faStar} key={el} className={review.star >= array[i] ? "yellowStar" : ""} />
                         ))}
                       </span>
                       <div className="review-context-product">
@@ -102,19 +91,7 @@ const ReviewInput = (props) => {
                         >
                           수정
                         </button>
-                        <button
-                          onClick={() => {
-                            dispatch(deleteReview(review));
-                            dispatch(
-                              deleteReviewInOrder({
-                                userID: review.userID,
-                                reviewID: review.reviewID,
-                              })
-                            );
-                          }}
-                        >
-                          삭제
-                        </button>
+                        <button onClick={() => dispatch(deleteReview(review))}>삭제</button>
                       </div>
                     </div>
                   ) : (
