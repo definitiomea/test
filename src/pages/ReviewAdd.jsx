@@ -21,7 +21,6 @@ const ReviewAdd = () => {
   const [bringImg, setBringImg] = useState();
   const [img, setImg] = useState();
   const [comment, setComment] = useState("");
-  const [commentLength, setCommentLength] = useState(0);
   const fileInput = useRef();
   const dispatch = useDispatch();
   const userID = useSelector((state) => state.user.id);
@@ -165,9 +164,6 @@ const ReviewAdd = () => {
     }
   }, []);
 
-  // textarea의 글자수를 input에 표시해주는 함수
-  const commentClac = (e) => setCommentLength(e.target.value.length);
-
   return (
     <div className="review-add-box">
       {/* 헤더 */}
@@ -181,11 +177,7 @@ const ReviewAdd = () => {
       <form onSubmit={reviewSumbit} className="review-submit-form">
         <section className="review-form-product">
           {/* 상품이미지 box*/}
-          <img
-            src={getImgPath(data)}
-            alt="No Image"
-            style={{ width: "120px", height: "120px" }}
-          />
+          <img src={getImgPath(data)} alt="No Image" style={{ width: "120px", height: "120px" }} />
 
           {/* 상품옵션 box */}
           <div>
@@ -230,7 +222,7 @@ const ReviewAdd = () => {
               placeholder="최소 10자 이상 작성해주세요."
             ></textarea>
             <em>
-              <span>{commentLength} / 5,000</span>
+              <span>{comment.length} / 5,000</span>
             </em>
           </section>
 
@@ -255,22 +247,13 @@ const ReviewAdd = () => {
             {/* 전달받은 이미지가 있으면 영역출력, 없으면 빈 div */}
             {img ? (
               <div>
-                <img
-                  src={img}
-                  alt=""
-                  style={{ width: "180px", height: "240px", marginTop: "10px" }}
-                />
+                <img src={img} alt="" style={{ width: "180px", height: "240px", marginTop: "10px" }} />
               </div>
             ) : (
               <div></div>
             )}
             {/* 사진첨부 모달창*/}
-            <Modal
-              open={modalOpen}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
+            <Modal open={modalOpen} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
               <Box sx={style} className="review-modal">
                 <header>
                   <p>사진 첨부</p>
@@ -318,10 +301,7 @@ const ReviewAdd = () => {
                     border: "solid 1px gray",
                   }}
                 >
-                  <FontAwesomeIcon
-                    icon={faCamera}
-                    style={{ margin: "0 5px" }}
-                  />
+                  <FontAwesomeIcon icon={faCamera} style={{ margin: "0 5px" }} />
                   <label htmlFor="imageInput">사진추가</label>
                 </MyButton>
 
@@ -374,7 +354,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 370,
   height: 500,
   bgcolor: "white",
   border: "2px solid #000",
