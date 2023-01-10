@@ -5,7 +5,7 @@
 .signup-title-border {
   border-bottom: 2px solid black;
   /* width: 65vw; */
-  width: 100%;
+  width: 90%;
   margin: auto;
   padding: 20px;
   margin-top: 10px;
@@ -14,7 +14,7 @@
 .signup-title-box {
   position: relative;
   bottom: 25px;
-  left: 100px;
+  left: 190px;
   background-color: white;
   width: fit-content;
 }
@@ -51,4 +51,20 @@
 
 .signup-btn {
   width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .signup-title-border {
+    border: none;
+  }
+
+  .signup-title-box {
+    display: block;
+    margin: auto;
+    bottom: 0;
+    left: 0;
+  }
+  .signup-form {
+    width: 80%;
+  }
 }
