@@ -7,9 +7,7 @@
 .slick-slide {
   border: none !important;
 }
-.main-container {
-  min-width: 360px;
-}
+
 .main-container .slick-slide {
   height: 100vh;
   /* 어절을 한덩어리로 인식하여 띄어쓰기 됨 */

@@ -27,7 +27,6 @@ const Footer = () => {
               작업가이드
             </Link>
             <Link to="/mypage">주문/배송조회</Link>
-            <Link style={{ border: "none" }}>이용약관</Link>
           </div>
 
           <div>

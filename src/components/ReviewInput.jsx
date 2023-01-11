@@ -182,13 +182,13 @@ const ReviewInput = (props) => {
                         </div>
                       </div>
                     ) : (
-                      ""
+                      <div className="review-option">
+                        <span>{review.date}</span>
+                      </div>
                     )}
                   </div>
                 ) : (
-                  <div className="review-option">
-                    <span>{review.date}</span>
-                  </div>
+                  ""
                 )}
               </div>
             ))}
