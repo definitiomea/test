@@ -294,7 +294,7 @@
   }
 }
 
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 360px) {
   /* reviewAdd.jsx */
   .review-submit-form > * {
     width: 100%;
