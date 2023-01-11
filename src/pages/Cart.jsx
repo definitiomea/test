@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faTruck } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
 import MyButton from "../style/Button";
-import "../css/cart.css";
+import "../css/cartlist.css";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
