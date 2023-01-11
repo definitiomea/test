@@ -5,11 +5,7 @@ import "../css/Home.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faInstagram,
-  faFacebook,
-  faGithub,
-} from "@fortawesome/free-brands-svg-icons";
+import { faInstagram, faFacebook, faGithub } from "@fortawesome/free-brands-svg-icons";
 import IconButton from "@mui/material/IconButton";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -103,10 +99,7 @@ const Home = () => {
           </div>
           <div className="second-content">
             <p>모두가 만들어 가는 나만의 티셔츠</p>
-            <span>
-              다양한 폰트와 이미지를 이용하여 나, 친구, 가족만을 위한 티셔츠를
-              만들어보세요.
-            </span>
+            <span>다양한 폰트와 이미지를 이용하여 나, 친구, 가족만을 위한 티셔츠를 만들어보세요.</span>
             <span>모티는 고객님들의 색다른 즐거움과 행복을 함께합니다.</span>
           </div>
         </section>
@@ -115,7 +108,7 @@ const Home = () => {
         <section className="last-screen">
           <div className="last-content">
             <form onSubmit={submitEmail}>
-              <h3>상품 업데이트 정보를 구독 받으세요.</h3>
+              <span>상품 업데이트 정보를 구독 받으세요.</span>
               <input
                 type="email"
                 placeholder="이메일을 입력해주세요."
@@ -158,9 +151,7 @@ const Home = () => {
           <ExpandLessIcon />
         </IconButton>
       </div>
-      <div
-        className={scrollButton ? "button-wrap" : "button-wrap button-hidden"}
-      >
+      <div className={scrollButton ? "button-wrap" : "button-wrap button-hidden"}>
         <span>Scroll</span>
         <IconButton
           className="button-animation"
