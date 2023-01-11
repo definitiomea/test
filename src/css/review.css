@@ -274,6 +274,21 @@
     margin: 1rem auto;
   }
 
+  .review-title {
+    height: 1.8rem;
+  }
+
+  .review-title h1 {
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+
+  .review-line {
+    display: none;
+  }
+
   .review-submit-form > * {
     width: 100%;
   }
