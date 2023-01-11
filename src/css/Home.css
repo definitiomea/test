@@ -7,9 +7,12 @@
 .slick-slide {
   border: none !important;
 }
-
+.main-container {
+  min-width: 360px;
+}
 .main-container .slick-slide {
   height: 100vh;
+  /* 어절을 한덩어리로 인식하여 띄어쓰기 됨 */
   word-break: keep-all;
 }
 
@@ -203,8 +206,8 @@
 }
 
 /* '상품 업데이트 정보를 구독 받으세요' 문구 */
-.last-content form h3 {
-  margin-bottom: 30px;
+.last-content form span {
+  font-size: 1.5rem;
 }
 
 /* '이메일을 입력해주세요' 인풋 */
@@ -400,8 +403,8 @@
     top: 28%;
   }
 
-  .last-content form h3 {
-    margin-bottom: 20px;
+  .last-content form span {
+    font-size: 1.4rem;
   }
 
   .last-content form {
