@@ -42,8 +42,19 @@ const ProduceModal = ({ open, setOpen }) => {
       <Modal open={open} onClose={() => handleClose()}>
         <Box sx={style}>
           <div className="produce-info">
-            <div style={{display: 'flex', justifyContent: 'flex-end', padding: '0.5em'}}>
-              <FontAwesomeIcon icon={faXmark} onClick={() => {handleClose()}}></FontAwesomeIcon>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                padding: "0.5em",
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faXmark}
+                onClick={() => {
+                  handleClose();
+                }}
+              ></FontAwesomeIcon>
             </div>
             <p className="produce-info-section">제작 방법 소개</p>
             <p>
@@ -52,73 +63,190 @@ const ProduceModal = ({ open, setOpen }) => {
             </p>
             <p className="produce-info-section">편집용 버튼</p>
             <ul>
-              <li>
+              <li style={{ padding: "2vh 2vw" }}>
                 <FontAwesomeIcon icon={faRepeat}></FontAwesomeIcon> 티셔츠의 앞,
                 뒤를 뒤집는 버튼입니다.
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    padding: "2vh 2vw",
+                  }}
+                >
+                  <img
+                    src={require(`../img/produce/example_front.png`)}
+                    alt=""
+                    className="require2img"
+                  />
+                  <img
+                    src={require(`../img/produce/example_back.png`)}
+                    alt=""
+                    className="require2img"
+                  />
+                </div>
               </li>
-              <li>
+              <li style={{ padding: "2vh 2vw" }}>
                 <FontAwesomeIcon icon={faCloudArrowUp}></FontAwesomeIcon>{" "}
                 이미지를 티셔츠에 넣기 원하는 경우, 업로드 하실 수 있습니다.
+                <div style={{display: 'flex', justifyContent: 'center', padding: '2vh 2vw'}}>
+                  <img
+                    src={require(`../img/produce/example_upload.png`)}
+                    alt=""
+                    className="require1img"
+                  />
+                </div>
               </li>
-              <li>
+              <li style={{ padding: "2vh 2vw" }}>
                 <FontAwesomeIcon icon={faFont}></FontAwesomeIcon> 티셔츠에
                 텍스트를 추가할 수 있는 버튼입니다.
               </li>
-              <li>
+              <div style={{display: 'flex', justifyContent: 'center', padding: '2vh 2vw'}}>
+                <img
+                  src={require(`../img/produce/example_addtext.png`)}
+                  alt=""
+                  className="require1img"
+                />
+              </div>
+              <li style={{ padding: "2vh 2vw" }}>
                 <span>■</span> 텍스트를 추가하신 경우, 해당 텍스트를 클릭하여
                 선택하신 뒤 색상을 바꿀 수 있습니다.
                 <p className="produce-important">
                   추가하신 텍스트에 한해서 색상이 바뀌며, 이미지 등의 색상은
                   바뀌지 않습니다.
                 </p>
+                <div style={{display: 'flex', justifyContent: 'center', padding: '2vh 2vw'}}>
+                  <img
+                    src={require(`../img/produce/example_adjusttextcolor.png`)}
+                    alt=""
+                    className="require1img"
+                  />
+                </div>
               </li>
-              <li>
+              <li style={{ padding: "2vh 2vw" }}>
                 <FontAwesomeIcon icon={faRotateLeft}></FontAwesomeIcon>{" "}
                 <FontAwesomeIcon icon={faRotateRight}></FontAwesomeIcon>{" "}
                 편집하신 내용을 되돌리고 싶거나, 다시 실행하실 때 사용하실 수
                 있습니다.
+                <div style={{display: 'flex', justifyContent: 'center', padding: '2vh 2vw'}}>
+                  <img
+                    src={require(`../img/produce/example_undo.png`)}
+                    alt=""
+                    className="require2img"
+                  />
+                  <img
+                    src={require(`../img/produce/example_redo.png`)}
+                    alt=""
+                    className="require2img"
+                  />
+                </div>
               </li>
-              <li>
+              <li style={{ padding: "2vh 2vw" }}>
                 <FontAwesomeIcon icon={faEraser}></FontAwesomeIcon> 티셔츠 위에
                 올려져있던 모든 요소를 지웁니다.
                 <p className="produce-important">
                   단, 아래 기능을 통해 저장된 도안 이미지를 지우는 것은
                   아닙니다.
                 </p>
+                <div style={{display: 'flex', justifyContent: 'center', padding: '2vh 2vw'}}>
+                  <img
+                    src={require(`../img/produce/example_clear.png`)}
+                    alt=""
+                    className="require1img"
+                  />
+                </div>
               </li>
             </ul>
             <p className="produce-info-section">저장 및 초기화 버튼</p>
             <ul>
-              <li>
+              <li style={{ padding: "2vh 2vw" }}>
                 <FontAwesomeIcon icon={faFloppyDisk}></FontAwesomeIcon> 이미지
                 편집이 끝나셨다면 이 버튼을 통해 저장하실 수 있습니다. 앞, 뒤
                 어느 면에서도 저장할 수 있고 편집하지 않은 반대 면을
                 보여드립니다.
+                <div style={{display: 'flex', justifyContent: 'center', padding: '2vh 2vw'}}>
+                  <img
+                    src={require(`../img/produce/example_save_1.png`)}
+                    alt=""
+                    className="require2img"
+                  />
+                  <img
+                    src={require(`../img/produce/example_save_2.png`)}
+                    alt=""
+                    className="require2img"
+                  />
+                </div>
                 <p className="produce-important">
                   단, 앞 뒷면 모두를 편집하신 경우에는 추가로 저장하실 수
                   없습니다.
                 </p>
+                <div style={{display: 'flex', justifyContent: 'center', padding: '2vh 2vw'}}>
+                  <img
+                    src={require(`../img/produce/example_save_err.png`)}
+                    alt=""
+                    className="require1img"
+                  />
+                </div>
               </li>
-              <li>
+              <li style={{ padding: "2vh 2vw" }}>
                 <FontAwesomeIcon icon={faCircleMinus}></FontAwesomeIcon> 편집한
                 이미지를 저장했지만 마음에 들지 않아 다시 편집하고 싶으시다면 이
                 버튼을 통해 간단한 확인 후 저장한 이미지를 초기화할 수 있습니다.
+                <div style={{display: 'flex', justifyContent: 'center', padding: '2vh 2vw'}}>
+                  <img
+                    src={require(`../img/produce/example_delimg_1.png`)}
+                    alt=""
+                    className="require1img"
+                  />
+                </div>
+                <div style={{display: 'flex', justifyContent: 'center', padding: '2vh 2vw'}}>
+                  <img
+                    src={require(`../img/produce/example_delimg_2.png`)}
+                    alt=""
+                    className="require2img"
+                  />
+                  <img
+                    src={require(`../img/produce/example_delimg_3.png`)}
+                    alt=""
+                    className="require2img"
+                  />
+                </div>
                 <p className="produce-important">
                   저장한 모든 이미지가 초기화되는 점을 유의해주세요.
                 </p>
+                <div style={{display: 'flex', justifyContent: 'center', padding: '2vh 2vw'}}>
+                  <img
+                    src={require(`../img/produce/example_delimg_4.png`)}
+                    alt=""
+                    className="require1img"
+                  />
+                </div>
               </li>
             </ul>
             <p className="produce-info-section">편집 후 장바구니 담기</p>
             <ul>
-              <li>
+              <li style={{ padding: "2vh 2vw" }}>
                 <FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon> 티셔츠
                 꾸미기를 마치시고, 편집한 이미지를 저장하셨다면 이 버튼을 통해
                 장바구니에 담으실 수 있습니다. 저장하신 도안은 장바구니
                 페이지에서 확인하실 수 있습니다.
+                <div style={{display: 'flex', justifyContent: 'center', padding: '2vh 2vw'}}>
+                  <img
+                    src={require(`../img/produce/example_addcart_1.png`)}
+                    alt=""
+                    className="require1img"
+                  />
+                </div>
                 <p className="produce-important">
                   저장하신 이미지가 있을 경우에만 장바구니에 담으실 수 있는 점을
                   유의해주세요.
                 </p>
+                <div style={{display: 'flex', justifyContent: 'center', padding: '2vh 2vw'}}>
+                  <img
+                    src={require(`../img/produce/example_addcart_2.png`)}
+                    alt=""
+                    className="require1img"
+                  />
+                </div>
               </li>
             </ul>
             <p className="produce-info-section">주의사항</p>
