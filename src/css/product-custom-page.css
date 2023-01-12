@@ -200,6 +200,8 @@
   }
   .product-create-area {
     padding: 1vh 0vw;
+    flex-direction: column-reverse;
+    align-items: center;
   }
   .product-handling-buttons {
     padding: 1vh 0vw;
@@ -217,6 +219,8 @@
   }
   .product-important-handling-button {
     padding: 0px 0px;
+    margin-bottom: 2vh;
+    flex-direction: row;
   }
   .product-important-handling-button .product-handling-button-element div svg {
     width: 1.1em;
