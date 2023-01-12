@@ -38,6 +38,7 @@
 .product-handling-buttons {
   padding: 1vh 1vw;
   display: flex;
+  justify-content: space-around;
 }
 .product-handling-button-element {
   text-align: center;
@@ -292,4 +293,31 @@
   -moz-user-select:none;
   -ms-user-select:none;
   user-select:none
+}
+.produce-info .require1img {
+  max-width: 694px;
+  border: 3px solid black;
+  border-radius: 3px;
+}
+.produce-info .require2img {
+  max-width: 347px;
+  border: 3px solid black;
+  border-radius: 3px;
+}
+.produce-important {
+  font-weight: bolder;
+  color: darkred;
+}
+@media screen and (max-width: 768px) {
+  .produce-info .require1img {
+    max-width: 225px;
+  }
+  .produce-info .require2img {
+    max-width: 112.5px;
+  }
+}
+
+.produce-info-section {
+  font-size: 1.7em;
+  font-weight: bolder;
 }
