@@ -75,7 +75,7 @@ const ProductDetail = () => {
   useEffect(() => {
     getProduct();
     console.log(window.outerWidth)
-    if(window.outerWidth >= 768) {
+    if(window.outerWidth > 768) {
       setCanvas(initCanvas());
     }
     else {
