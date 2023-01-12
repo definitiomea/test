@@ -310,14 +310,14 @@
   }
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 410px) {
   /* reviewAdd.jsx */
   .review-submit-form > * {
     width: 100%;
   }
 
   .review-submit-form > div {
-    grid-template-columns: 26rem;
+    grid-template-columns: 23rem;
   }
 
   /* reviewList.jsx, reviewInput.jsx 공통 */
