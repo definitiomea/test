@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import FabricSettings from "../modules/FabricSettings";
-import { initCanvas, handleImage, addText, setTextColor, exportImg, customSave, customErase } from "../modules/CanvasHandling";
+import { initCanvas, initSmallCanvas, handleImage, addText, setTextColor, exportImg, customSave, customErase } from "../modules/CanvasHandling";
 import { QuantityOption, SizeOption, flipShirts, changeShirtColor } from "../modules/PageSetting";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -42,6 +42,8 @@ const ProductDetail = () => {
   const [color, setColor] = useState(null);
   const [print, setPrint] = useState("front");
   const [editArray, setEditArray] = useState([]);
+  
+  const [currentWidth, setCurrentWidth] = useState(window.currentWidth)
 
   const [open, setOpen] = useState(false);
 
@@ -72,7 +74,13 @@ const ProductDetail = () => {
   /* 페이지가 로딩되면 제품 정보를 받고, 캔버스를 정해주면 되므로 */
   useEffect(() => {
     getProduct();
-    setCanvas(initCanvas());
+    console.log(window.outerWidth)
+    if(window.outerWidth >= 768) {
+      setCanvas(initCanvas());
+    }
+    else {
+      setCanvas(initSmallCanvas());
+    }
   }, [id]);
 
   /* 제품 정보가 로딩되면 기본 이미지와 기본 색상 정보가 있어야 하므로 */

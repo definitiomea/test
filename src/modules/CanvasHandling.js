@@ -10,6 +10,14 @@ export function initCanvas() {
   });
 }
 
+export function initSmallCanvas() {
+  return new fabric.Canvas("canvas", {
+    width: 147.5,
+    height: 213,
+    backgroundColor: "transparent"
+  })
+}
+
 /* 이미지 업로드 */
 export const handleImage = ({ canvas, event }) => {
   if (!event) {
