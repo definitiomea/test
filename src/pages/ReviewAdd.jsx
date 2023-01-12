@@ -177,7 +177,7 @@ const ReviewAdd = () => {
       <form onSubmit={reviewSumbit} className="review-submit-form">
         <section className="review-form-product">
           {/* 상품이미지 box*/}
-          <img src={getImgPath(data)} alt="No Image" style={{ width: "120px", height: "120px" }} />
+          <img src={getImgPath(data)} alt="No Image" style={{ width: "100px", height: "120px" }} />
 
           {/* 상품옵션 box */}
           <div>
