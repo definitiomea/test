@@ -126,7 +126,7 @@ const CartItem = (props) => {
   useEffect(() => {
     inputRef.current.value = cartItem.quantity;
     setTotalPay(cartItem.totalPay);
-  }, [cartItem.quantity]);
+  }, [inputRef.current.value]);
 
   return (
     <>
