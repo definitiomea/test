@@ -8,7 +8,7 @@
       "price": "9,500",
       "colorName": ["black", "blue", "red", "white"],
       "color": ["#25262a", "#1253bb", "#b43546", "#f6f7fb"],
-      "size": ["S", "M", "L", "XL(LL)", "2XL(3L)", "3XL(4L)"],
+      "size": ["XS", "S", "M", "L", "XL(LL)", "2XL(3L)", "3XL(4L)"],
       "productImg": [
         "short-slim-black-front.jpg",
         "short-slim-black-back.jpg",
@@ -35,7 +35,7 @@
       "price": "9,500",
       "colorName": ["blue", "gray", "orange", "white"],
       "color": ["#3e5284", "#c5c9cc", "#d7a58a", "#e4e7ec"],
-      "size": ["S", "M", "L", "XL(LL)", "2XL(3L)", "3XL(4L)"],
+      "size": ["XS", "S", "M", "L", "XL(LL)", "2XL(3L)", "3XL(4L)"],
       "productImg": [
         "short-standard-blue-front.jpg",
         "short-standard-blue-back.jpg",
@@ -62,7 +62,7 @@
       "price": "9,500",
       "colorName": ["beige", "black", "blue", "gray"],
       "color": ["#beb9b3", "#2d2d35", "#324e73", "#9ca5ae"],
-      "size": ["S", "M", "L", "XL(LL)", "2XL(3L)", "3XL(4L)"],
+      "size": ["XS", "S", "M", "L", "XL(LL)", "2XL(3L)", "3XL(4L)"],
       "productImg": [
         "short-relax-beige-front.jpg",
         "short-relax-beige-back.jpg",
@@ -89,7 +89,7 @@
       "price": "9,500",
       "colorName": ["black", "green", "red", "yellow"],
       "color": ["#1d1e22", "#0e875a", "#d6595d", "#f4d278"],
-      "size": ["S", "M", "L", "XL(LL)", "2XL(3L)", "3XL(4L)"],
+      "size": ["XS", "S", "M", "L", "XL(LL)", "2XL(3L)", "3XL(4L)"],
       "productImg": [
         "long-slim-black-front.jpg",
         "long-slim-black-back.jpg",
@@ -116,7 +116,7 @@
       "price": "9,500",
       "colorName": ["black", "cream", "gray", "white"],
       "color": ["#1d1c22", "#e5e3e8", "#acadb2", "#f6f6f6"],
-      "size": ["S", "M", "L", "XL(LL)", "2XL(3L)", "3XL(4L)"],
+      "size": ["XS", "S", "M", "L", "XL(LL)", "2XL(3L)", "3XL(4L)"],
       "productImg": [
         "long-standard-black-front.jpg",
         "long-standard-black-back.jpg",
@@ -143,7 +143,7 @@
       "price": "9,500",
       "colorName": ["beige", "black", "blue", "khaki"],
       "color": ["#d7d2cc", "#1c1b20", "#435a79", "#807d74"],
-      "size": ["S", "M", "L", "XL(LL)", "2XL(3L)", "3XL(4L)"],
+      "size": ["XS", "S", "M", "L", "XL(LL)", "2XL(3L)", "3XL(4L)"],
       "productImg": [
         "long-relax-beige-front.jpg",
         "long-relax-beige-back.jpg",
