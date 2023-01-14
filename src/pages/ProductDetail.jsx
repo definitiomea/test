@@ -74,8 +74,8 @@ const ProductDetail = () => {
   /* 페이지가 로딩되면 제품 정보를 받고, 캔버스를 정해주면 되므로 */
   useEffect(() => {
     getProduct();
-    console.log(window.outerWidth)
-    if(window.outerWidth > 768) {
+    console.log(window.innerWidth)
+    if(window.innerWidth > 768) {
       setCanvas(initCanvas());
     }
     else {
