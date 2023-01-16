@@ -177,7 +177,11 @@ const ReviewAdd = () => {
       <form onSubmit={reviewSumbit} className="review-submit-form">
         <section className="review-form-product">
           {/* 상품이미지 box*/}
-          <img src={getImgPath(data)} alt="No Image" style={{ width: "100px", height: "120px" }} />
+          <img
+            src={getImgPath(data)}
+            alt="No Image"
+            style={{ width: "100px", height: "120px" }}
+          />
 
           {/* 상품옵션 box */}
           <div>
@@ -247,13 +251,22 @@ const ReviewAdd = () => {
             {/* 전달받은 이미지가 있으면 영역출력, 없으면 빈 div */}
             {img ? (
               <div>
-                <img src={img} alt="" style={{ width: "180px", height: "240px", marginTop: "10px" }} />
+                <img
+                  src={img}
+                  alt=""
+                  style={{ width: "180px", height: "240px", marginTop: "10px" }}
+                />
               </div>
             ) : (
               <div></div>
             )}
             {/* 사진첨부 모달창*/}
-            <Modal open={modalOpen} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+            <Modal
+              open={modalOpen}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
               <Box sx={style} className="review-modal">
                 <header>
                   <p>사진 첨부</p>
@@ -301,7 +314,10 @@ const ReviewAdd = () => {
                     border: "solid 1px gray",
                   }}
                 >
-                  <FontAwesomeIcon icon={faCamera} style={{ margin: "0 5px" }} />
+                  <FontAwesomeIcon
+                    icon={faCamera}
+                    style={{ margin: "0 5px" }}
+                  />
                   <label htmlFor="imageInput">사진추가</label>
                 </MyButton>
 
