@@ -6,6 +6,7 @@ import "../css/review.css";
 import { useNavigate } from "react-router-dom";
 import user from "../redux/reducers/user";
 import { Mobile, Default } from "../hooks/MediaQuery";
+import { deleteReviewInOrder } from "../redux/reducers/order";
 
 const ReviewInput = (props) => {
   // 상품의 ID이자 productID
@@ -106,7 +107,15 @@ const ReviewInput = (props) => {
                             수정
                           </button>
                           <button
-                            onClick={() => dispatch(deleteReview(review))}
+                            onClick={() => {
+                              dispatch(deleteReview(review));
+                              dispatch(
+                                deleteReviewInOrder({
+                                  userID: review.userID,
+                                  reviewID: review.reviewID,
+                                })
+                              );
+                            }}
                           >
                             삭제
                           </button>
@@ -205,7 +214,15 @@ const ReviewInput = (props) => {
                             수정
                           </button>
                           <button
-                            onClick={() => dispatch(deleteReview(review))}
+                            onClick={() => {
+                              dispatch(deleteReview(review));
+                              dispatch(
+                                deleteReviewInOrder({
+                                  userID: review.userID,
+                                  reviewID: review.reviewID,
+                                })
+                              );
+                            }}
                           >
                             삭제
                           </button>
