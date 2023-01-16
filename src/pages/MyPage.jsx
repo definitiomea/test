@@ -47,39 +47,14 @@ const Mypage = () => {
           }}
         >
           <label className="user-info_label">ID</label>
-          <input
-            className="user-info_input"
-            type="text"
-            name="id"
-            defaultValue={user.id}
-            onChange={onChange}
-            disabled
-          />
+          <input className="user-info_input" type="text" name="id" defaultValue={user.id} onChange={onChange} disabled />
           <label className="user-info_label">E-mail</label>
-          <input
-            className="user-info_input"
-            type="text"
-            name="email"
-            defaultValue={user.email}
-            onChange={onChange}
-          />
+          <input className="user-info_input" type="text" name="email" defaultValue={user.email} onChange={onChange} />
           <label className="user-info_label">Password</label>
-          <input
-            className="user-info_input"
-            type="password"
-            name="password"
-            defaultValue={findUser ? findUser.password : ""}
-            onChange={onChange}
-          />
+          <input className="user-info_input" type="password" name="password" defaultValue={findUser ? findUser.password : ""} onChange={onChange} />
           <label className="user-info_label">Password check</label>
           {/* <label>비밀번호 확인</label> */}
-          <input
-            className="user-info_input"
-            type="password"
-            name="password-check"
-            value={checkPass}
-            onChange={(e) => setCheckPass(e.target.value)}
-          />
+          <input className="user-info_input" type="password" name="password-check" value={checkPass} onChange={(e) => setCheckPass(e.target.value)} />
           {/* button component적용 */}
           <MyButton type="submit">회원정보 수정</MyButton>
         </form>
