@@ -3,6 +3,7 @@ import { faCartShopping, faTruck } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
 import MyButton from "../style/Button";
 import "../css/cartlist.css";
+import "../css/cart.css";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";

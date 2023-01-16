@@ -5,6 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import MyButton from "../style/Button";
+import "../css/cartlist.css";
 import "../css/cart.css";
 import { Desktop, Tablet, Mobile, Default } from "../hooks/MediaQuery";
 
