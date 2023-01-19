@@ -42,7 +42,9 @@ const Mypage = () => {
               dispatch(ADDIT_USER(trans));
               dispatch(loginUser(trans));
             } else {
-              alert("현재 입력된 비밀번호와\n비밀번호 확인란이\n맞지 않습니다.");
+              alert(
+                "현재 입력된 비밀번호와\n비밀번호 확인란이\n맞지 않습니다."
+              );
             }
           }}
         >
