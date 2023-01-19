@@ -33,7 +33,7 @@ body {
 
 .footer-info > div:first-child {
   display: grid;
-  grid-template-columns: 28% 31% 37% 31%;
+  grid-template-columns: 34% 42% 50%;
   width: 100%;
 }
 
